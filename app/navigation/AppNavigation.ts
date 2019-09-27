@@ -12,10 +12,12 @@ import { createAppContainer } from "react-navigation"
 
 import { createStackNavigator } from "react-navigation-stack"
 import Splash from "../screens/splash"
+import Register from "../screens/register"
 
 const stackNav = createStackNavigator(
   {
     Splash: { screen: Splash },
+    Register: { screen: Register }
   },
   {
     initialRouteName: "Splash",
