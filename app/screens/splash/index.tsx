@@ -1,7 +1,11 @@
 import React, { Component } from "react"
-import { View, Text, ScrollView } from "react-native"
+import { View, Image } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 import styles from "./styles"
+
+import { Wallpaper } from "../../components/wallpaper"
+import { Text } from "../../components/text"
+import { createRequireFromPath } from 'module';
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
@@ -12,11 +16,8 @@ class Splash extends Component<Props, {}> {
     const { navigation } = this.props
     return (
       <View style={styles.container}>
-        <ScrollView contentContainerStyle={styles.contentStyle}>
-          <Text style={styles.textStyle}>
-            STAY<Text style={styles.subTextStyle}>TUNE</Text>
-          </Text>
-        </ScrollView>
+        <Wallpaper style={{ flex: 1 }} />
+        <Image style={{ height: 300, width: 300 }} source={require('./logo.png')} />
       </View>
     )
   }
