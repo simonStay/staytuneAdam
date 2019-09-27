@@ -4,8 +4,6 @@ import { NavigationScreenProp, NavigationState } from "react-navigation"
 import styles from "./styles"
 
 import { Wallpaper } from "../../components/wallpaper"
-import { Text } from "../../components/text"
-import { createRequireFromPath } from 'module';
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
