@@ -18,19 +18,19 @@ class Register extends Component<Props, {}> {
         const { navigation } = this.props
         return (
             <View style={styles.container}>
-                <Wallpaper style={{ flex: 1 }} />
-                <ScrollView style={{ flex: 1 }}>
-                    <Image style={{ height: 100, width: 100, marginTop: 100, alignSelf: 'center', marginVertical: 10 }} source={require('../splash/logo.png')} />
-                    <Text style={{ fontSize: 21, color: 'black', textAlign: 'center' }}>Hello! I'm StayTune, your personal travel assistant, may i have your details?</Text>
+                <Wallpaper style={styles.wallpaper} />
+                <ScrollView style={styles.scrollContainer}>
+                    <Image style={styles.logo} source={require('../splash/logo.png')} />
+                    <Text style={styles.welcomeText}>Hello! I'm StayTune, your personal travel assistant, may i have your details?</Text>
                     <TextField placeholder="Enter your full name" inputStyle={styles.textField} />
                     <TextField placeholder="Enter your email" inputStyle={styles.textField} />
                     <TextField placeholder="Enter your password" inputStyle={styles.textField} />
-                    <Button style={{ backgroundColor: 'orange', marginHorizontal: 20, height: 60, marginTop: 30 }} >
-                        <Text style={{ fontSize: 21, textAlign: 'center', fontWeight: 'bold' }}>SUBMIT</Text>
+                    <Button style={styles.button} >
+                        <Text style={styles.buttonText}>SUBMIT</Text>
                     </Button>
-                    <Text style={{ fontSize: 19, color: 'black', textAlign: 'center', }}>Already have an account? <Text style={{ fontSize: 19, color: 'blue' }}>Login now</Text></Text>
+                    <Text style={styles.bottomText}>Already have an account? <Text onPress={() => { navigation.navigate('Login') }} style={[styles.bottomText, { color: 'blue' }]}>Login now</Text></Text>
                 </ScrollView>
-            </View>
+            </View >
         )
     }
 }
