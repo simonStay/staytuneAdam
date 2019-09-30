@@ -14,12 +14,16 @@ import { createStackNavigator } from "react-navigation-stack"
 import Splash from "../screens/splash"
 import Register from "../screens/register"
 import Login from "../screens/login"
+import ProfileInfo from "../screens/profile-info"
+import SelectAvatar from "../screens/select-avatar"
 
 const stackNav = createStackNavigator(
   {
     Splash: { screen: Splash },
     Register: { screen: Register },
     Login: { screen: Login },
+    ProfileInfo: { screen: ProfileInfo },
+    SelectAvatar: { screen: SelectAvatar }
   },
   {
     initialRouteName: "Splash",
