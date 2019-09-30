@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
-        justifyContent: "center",
+        // justifyContent: "center",
         // alignItems: "center",
         backgroundColor: "white",
     },
@@ -15,21 +15,20 @@ const styles = StyleSheet.create({
         borderColor: "#969696",
         borderWidth: 1,
         textAlign: "center",
-        color: 'black'
+        color: 'black',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
     },
     wallpaper: { flex: 1 },
-    scrollContainer: { flex: 1, justifyContent: "center", },
-    logo: {
-        height: 100,
-        width: 100,
-        alignSelf: 'center',
-        marginVertical: 10
-    },
-    welcomeText: {
-        fontSize: 21,
-        color: 'black',
-        textAlign: 'center'
-    },
+    header: { backgroundColor: 'black', height: 88 },
+    headerTitle: { fontSize: 26, color: 'white', alignSelf: 'center', marginTop: 15, fontWeight: '600' },
+    scrollContainer: { flex: 1 },
     button: {
         backgroundColor: 'orange',
         marginHorizontal: 20,
@@ -41,12 +40,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold'
     },
-    bottomText: {
-        fontSize: 19,
-        color: 'black',
-        textAlign: 'center',
-        marginTop: 10
-    }
 })
 
 export default styles

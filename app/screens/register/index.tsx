@@ -14,18 +14,22 @@ interface Props {
 
 class Register extends Component<Props, {}> {
 
+    onSubmit() {
+        this.props.navigation.navigate('ProfileInfo')
+    }
+
     render() {
         const { navigation } = this.props
         return (
             <View style={styles.container}>
                 <Wallpaper style={styles.wallpaper} />
-                <ScrollView style={styles.scrollContainer}>
+                <ScrollView contentContainerStyle={styles.scrollContainer}>
                     <Image style={styles.logo} source={require('../splash/logo.png')} />
                     <Text style={styles.welcomeText}>Hello! I'm StayTune, your personal travel assistant, may i have your details?</Text>
                     <TextField placeholder="Enter your full name" inputStyle={styles.textField} />
                     <TextField placeholder="Enter your email" inputStyle={styles.textField} />
                     <TextField placeholder="Enter your password" inputStyle={styles.textField} />
-                    <Button style={styles.button} >
+                    <Button style={styles.button} onPress={this.onSubmit.bind(this)}>
                         <Text style={styles.buttonText}>SUBMIT</Text>
                     </Button>
                     <Text style={styles.bottomText}>Already have an account? <Text onPress={() => { navigation.navigate('Login') }} style={[styles.bottomText, { color: 'blue' }]}>Login now</Text></Text>
