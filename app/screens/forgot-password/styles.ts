@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: "600",
   },
+  header: { backgroundColor: "transparent", height: 88 },
   backArrow: {
     height: 40,
     width: 40,

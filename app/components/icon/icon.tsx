@@ -5,6 +5,9 @@ import { icons } from "./icons"
 
 const ROOT: ImageStyle = {
   resizeMode: "contain",
+  height: 40,
+  width: 40,
+  marginTop: 40,
 }
 
 export function Icon(props: IconProps) {
