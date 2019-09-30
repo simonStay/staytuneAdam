@@ -49,6 +49,13 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: "600",
   },
+  backArrow: {
+    height: 40,
+    width: 40,
+    marginTop: 84,
+    paddingLeft: 40,
+    marginVertical: 10,
+  },
 })
 
 export default styles

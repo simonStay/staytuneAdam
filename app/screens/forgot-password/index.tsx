@@ -11,35 +11,28 @@ interface Props {
   navigation: NavigationScreenProp<NavigationState>
 }
 
-class Login extends Component<Props, {}> {
-  onSignUp() {
-    this.props.navigation.navigate("Register")
-  }
+class ForgotPassword extends Component<Props, {}> {
   render() {
     const { navigation } = this.props
     return (
       <View style={styles.container}>
         <Wallpaper style={styles.wallpaper} />
         <ScrollView contentContainerStyle={styles.contentStyle}>
+          <Image style={styles.backArrow} source={require("../../assests/left-arrow.png")} />
           <Image style={styles.logo} source={require("../splash/logo.png")} />
           <Text style={styles.textStyle}>
-            Hello! I'm StayTune, your personal travel assistant, may i have your email & password
+            Hello! I'm StayTune, your personal travel assistant, may i have your email.
           </Text>
           <TextField inputStyle={styles.inputStyle} placeholder="Enter your email" />
-          <TextField inputStyle={styles.inputStyle} placeholder="Enter your password" />
-          <Text
-            style={styles.forgotPasswordText}
-            onPress={() => {
-              navigation.navigate("ForgotPassword")
-            }}
-          >
-            forgot password?
-          </Text>
           <Button style={styles.button}>
-            <Text style={styles.buttonText}>LOGIN</Text>
-          </Button>
-          <Button style={styles.button} onPress={this.onSignUp.bind(this)}>
-            <Text style={styles.buttonText}>SIGNUP</Text>
+            <Text
+              style={styles.buttonText}
+              onPress={() => {
+                navigation.navigate("Login")
+              }}
+            >
+              SUBMIT
+            </Text>
           </Button>
         </ScrollView>
       </View>
@@ -47,4 +40,4 @@ class Login extends Component<Props, {}> {
   }
 }
 
-export default Login
+export default ForgotPassword

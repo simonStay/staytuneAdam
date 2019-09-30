@@ -81,7 +81,7 @@ PODS:
     - React-Core (= 0.60.5)
   - React-RCTWebSocket (0.60.5):
     - React-Core (= 0.60.5)
-  - RNCAsyncStorage (1.6.1):
+  - RNCAsyncStorage (1.6.2):
     - React
   - RNGestureHandler (1.4.1):
     - React
@@ -205,7 +205,7 @@ SPEC CHECKSUMS:
   React-RCTText: b074d89033583d4f2eb5faf7ea2db3a13c7553a2
   React-RCTVibration: 2105b2e0e2b66a6408fc69a46c8a7fb5b2fdade0
   React-RCTWebSocket: cd932a16b7214898b6b7f788c8bddb3637246ac4
-  RNCAsyncStorage: 621bad7a889b5bf1583a52547f2dcd3a4d1ff15e
+  RNCAsyncStorage: 5ae4d57458804e99f73d427214442a6b10a53856
   RNGestureHandler: 4cb47a93019c1a201df2644413a0a1569a51c8aa
   RNKeychain: c658833a9cb2cbcba6423bdd6e16cce59e27da0e
   RNLocalize: 7206d44eb341d6e2a61a8184b831c64a5539fcdf
@@ -214,4 +214,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 2a3fad3db64c5146fe616d008158e7717fc8a24e
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.7.2
