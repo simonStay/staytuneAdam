@@ -10,6 +10,13 @@ interface Props {
 }
 
 class Splash extends Component<Props, {}> {
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.props.navigation.navigate('Register')
+    }, 3000)
+  }
+
   render() {
     const { navigation } = this.props
     return (
