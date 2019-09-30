@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   logo: {
     height: 100,
     width: 100,
-    marginTop: 100,
+    marginTop: 10,
     alignSelf: "center",
     marginVertical: 10,
   },
@@ -49,11 +49,12 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: "600",
   },
+  header: { backgroundColor: "transparent", height: 88 },
   backArrow: {
     height: 40,
     width: 40,
     marginTop: 84,
-    paddingLeft: 40,
+    marginLeft: 20,
     marginVertical: 10,
   },
 })

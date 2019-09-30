@@ -44,8 +44,8 @@ export const Header: React.FunctionComponent<HeaderProps> = props => {
           <Icon icon={leftIcon} />
         </Button>
       ) : (
-          <View style={LEFT} />
-        )}
+        <View style={LEFT} />
+      )}
       <View style={TITLE_MIDDLE}>
         <Text style={{ ...TITLE, ...titleStyle }} text={header} />
       </View>
@@ -54,8 +54,8 @@ export const Header: React.FunctionComponent<HeaderProps> = props => {
           <Icon icon={rightIcon} />
         </Button>
       ) : (
-          <View style={RIGHT} />
-        )}
+        <View style={RIGHT} />
+      )}
     </View>
   )
 }

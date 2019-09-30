@@ -1,10 +1,11 @@
 import React, { Component } from "react"
-import { View, ScrollView, Image } from "react-native"
+import { View, ScrollView, Image, TouchableOpacity } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 import { Wallpaper } from "../../components/wallpaper"
 import { TextField } from "../../components/text-field"
 import { Button } from "../../components/button"
 import { Text } from "../../components/text"
+import { Header } from "../../components/header"
 import styles from "./styles"
 
 interface Props {
@@ -18,7 +19,7 @@ class ForgotPassword extends Component<Props, {}> {
       <View style={styles.container}>
         <Wallpaper style={styles.wallpaper} />
         <ScrollView contentContainerStyle={styles.contentStyle}>
-          <Image style={styles.backArrow} source={require("../../assests/left-arrow.png")} />
+          <Header style={styles.header} leftIcon={"back"} onLeftPress={() => navigation.goBack()} />
           <Image style={styles.logo} source={require("../splash/logo.png")} />
           <Text style={styles.textStyle}>
             Hello! I'm StayTune, your personal travel assistant, may i have your email.
