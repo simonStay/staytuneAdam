@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, ScrollView, Image } from "react-native"
+import { View, ScrollView, Image, TouchableOpacity } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 import { Wallpaper } from "../../components/wallpaper"
 import { TextField } from "../../components/text-field"
