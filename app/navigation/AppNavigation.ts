@@ -30,7 +30,7 @@ const stackNav = createStackNavigator(
     MapScreen: { screen: MapScreen }
   },
   {
-    initialRouteName: "MapScreen",
+    initialRouteName: "Splash",
     headerMode: "none",
     navigationOptions: {
       gesturesEnabled: false,
