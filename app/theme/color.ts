@@ -19,6 +19,18 @@ export const color = {
    * can cause older Android devices to slow down due to the excessive compositing required
    * by their under-powered GPUs.
    */
+  primaryColor: palette.lighterBlack, // Primary color for stayTune App
+
+  goldBar: palette.goldGradient, // Gold Gradient color for barView
+
+  ImageBackgroundColor: palette.fullBlack,
+
+  textColor: palette.black,
+
+  buttonColor: palette.orangeDark,
+
+  placeholderText: palette.greyLighter,
+
   transparent: "rgba(0, 0, 0, 0)",
   /**
    * The screen background.

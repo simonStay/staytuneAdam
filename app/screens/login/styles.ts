@@ -1,34 +1,43 @@
 import { StyleSheet } from "react-native"
+import { color } from "../../theme"
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    //justifyContent: "center",
-    // alignItems: "center",
-    backgroundColor: "#e9be5f",
+    backgroundColor: color.ImageBackgroundColor,
   },
   contentStyle: {
     flex: 1,
-    //  justifyContent: "center",
-    // alignItems: "center",
   },
-  subTextStyle: { color: "white", fontSize: 41, fontWeight: "600", textAlign: "center" },
   textStyle: {
-    color: "white",
-    fontSize: 25,
+    color: color.text,
+    fontSize: 24,
     textAlign: "center",
     marginHorizontal: 10,
+    fontFamily: "OpenSans-Semibold"
   },
-  forgotPasswordText: { color: "white", fontSize: 25, textAlign: "right", marginRight: 20 },
+  forgotPasswordText: {
+    color: color.text,
+    fontSize: 20,
+    textAlign: "right",
+    marginRight: 20,
+    fontFamily: "OpenSans-Semibold"
+  },
   inputStyle: {
     marginHorizontal: 20,
     height: 60,
     borderRadius: 10,
     borderColor: "#969696",
-    borderWidth: 1,
+    borderWidth: 0,
     textAlign: "center",
-    //paddingLeft: 10,
+    color: color.textColor,
+    fontSize: 19,
+    fontFamily: "OpenSans",
+    // shadowOpacity: 0.75,
+    // shadowRadius: 5,
+    // shadowColor: '#969696',
+    // shadowOffset: { height: 0, width: 0 },
   },
   wallpaper: { flex: 1 },
   logo: {
@@ -43,11 +52,13 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 10,
     marginTop: 20,
+    color: color.buttonColor,
   },
   buttonText: {
-    color: "white",
+    color: color.text,
     fontSize: 26,
     fontWeight: "600",
+    fontFamily: "OpenSans-Semibold"
   },
 })
 

@@ -7,4 +7,16 @@ export const palette = {
   lightGrey: "#939AA4",
   lighterGrey: "#CDD4DA",
   angry: "#dd3333",
+  orangeDark: '#F99405',
+  fullBlack: '#000000',
+  lighterBlack: '#1F2022',
+  greyLighter: '#969696',
+  goldGradient: ['#BB8B31', '#E8B741', '#E0B34A', '#FEF5B9', '#D5B261', '#BE9241']
 }
+
+
+
+
+
+
+

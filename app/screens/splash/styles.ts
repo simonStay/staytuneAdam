@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native"
+import { color } from "../../theme"
 
 const styles = StyleSheet.create({
   container: {
@@ -6,7 +7,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: color.ImageBackgroundColor,
   },
   contentStyle: {
     flex: 1,

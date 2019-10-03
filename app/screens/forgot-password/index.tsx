@@ -7,6 +7,7 @@ import { Button } from "../../components/button"
 import { Text } from "../../components/text"
 import { Header } from "../../components/header"
 import styles from "./styles"
+import { color } from "../../theme"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
@@ -24,7 +25,7 @@ class ForgotPassword extends Component<Props, {}> {
           <Text style={styles.textStyle}>
             Hello! I'm StayTune, your personal travel assistant, may i have your email.
           </Text>
-          <TextField inputStyle={styles.inputStyle} placeholder="Enter your email" />
+          <TextField inputStyle={styles.inputStyle} placeholder="Enter your email" placeholderTextColor={color.placeholderText} />
           <Button style={styles.button}>
             <Text
               style={styles.buttonText}

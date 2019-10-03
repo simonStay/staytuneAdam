@@ -1,21 +1,22 @@
 import { StyleSheet } from "react-native"
+import { color } from "../../theme"
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
-        justifyContent: "center",
-        // alignItems: "center",
-        backgroundColor: "white",
+        backgroundColor: color.ImageBackgroundColor,
     },
     textField: {
         marginHorizontal: 20,
         height: 60,
         borderRadius: 10,
         borderColor: "#969696",
-        borderWidth: 1,
+        borderWidth: 0,
         textAlign: "center",
-        color: 'black'
+        color: color.textColor,
+        fontSize: 19,
+        fontFamily: "OpenSans",
     },
     wallpaper: { flex: 1 },
     scrollContainer: { flex: 1, justifyContent: "center", },
@@ -26,26 +27,31 @@ const styles = StyleSheet.create({
         marginVertical: 10
     },
     welcomeText: {
-        fontSize: 21,
-        color: 'black',
-        textAlign: 'center'
+        color: color.text,
+        fontSize: 24,
+        textAlign: "center",
+        marginHorizontal: 10,
+        fontFamily: "OpenSans-Semibold"
     },
     button: {
-        backgroundColor: 'orange',
         marginHorizontal: 20,
         height: 60,
-        marginTop: 30
+        borderRadius: 10,
+        marginTop: 20,
+        color: color.buttonColor,
     },
     buttonText: {
-        fontSize: 21,
-        textAlign: 'center',
-        fontWeight: 'bold'
+        color: color.text,
+        fontSize: 26,
+        fontWeight: "600",
+        fontFamily: "OpenSans-Semibold"
     },
     bottomText: {
         fontSize: 19,
-        color: 'black',
+        color: color.text,
         textAlign: 'center',
-        marginTop: 10
+        marginTop: 10,
+        fontFamily: "OpenSans-Semibold"
     }
 })
 

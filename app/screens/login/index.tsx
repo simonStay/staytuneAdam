@@ -6,6 +6,7 @@ import { TextField } from "../../components/text-field"
 import { Button } from "../../components/button"
 import { Text } from "../../components/text"
 import styles from "./styles"
+import { color } from "../../theme"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
@@ -25,15 +26,15 @@ class Login extends Component<Props, {}> {
           <Text style={styles.textStyle}>
             Hello! I'm StayTune, your personal travel assistant, may i have your email & password
           </Text>
-          <TextField inputStyle={styles.inputStyle} placeholder="Enter your email" />
-          <TextField inputStyle={styles.inputStyle} placeholder="Enter your password" />
+          <TextField inputStyle={styles.inputStyle} placeholder="Enter your email" placeholderTextColor={color.placeholderText} />
+          <TextField inputStyle={styles.inputStyle} placeholder="Enter your password" placeholderTextColor={color.placeholderText} />
           <Text
             style={styles.forgotPasswordText}
             onPress={() => {
               navigation.navigate("ForgotPassword")
             }}
           >
-            forgot password?
+            Forgot Password ?
           </Text>
           <Button style={styles.button} onPress={() => navigation.navigate("MapScreen")}>
             <Text style={styles.buttonText}>LOGIN</Text>
