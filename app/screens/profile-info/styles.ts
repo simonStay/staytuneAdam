@@ -1,44 +1,45 @@
 import { StyleSheet } from "react-native"
+import { color, dimensions } from "../../theme"
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
-        // justifyContent: "center",
-        // alignItems: "center",
-        backgroundColor: "white",
+        backgroundColor: color.ImageBackgroundColor
     },
     textField: {
         marginHorizontal: 20,
-        height: 60,
+        height: dimensions.height / 15.6,
         borderRadius: 10,
         borderColor: "#969696",
-        borderWidth: 1,
+        borderWidth: 0,
         textAlign: "center",
-        color: 'black',
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
+        color: color.textColor,
+        fontSize: 19,
+        fontFamily: "OpenSans",
     },
     wallpaper: { flex: 1 },
-    header: { backgroundColor: 'black', height: 88 },
-    headerTitle: { fontSize: 26, color: 'white', alignSelf: 'center', marginTop: 15, fontWeight: '600' },
+    header: { backgroundColor: color.primaryColor, height: 88 },
+    headerTitle: {
+        fontSize: 24,
+        color: color.headerTitle,
+        alignSelf: 'center',
+        marginTop: 15,
+        fontFamily: "OpenSans-Semibold"
+    },
     scrollContainer: { flex: 1 },
     button: {
-        backgroundColor: 'orange',
         marginHorizontal: 20,
-        height: 60,
-        marginTop: 30
+        height: dimensions.height / 15.6,
+        borderRadius: 10,
+        marginTop: 20,
+        color: color.buttonColor,
     },
     buttonText: {
-        fontSize: 21,
-        textAlign: 'center',
-        fontWeight: 'bold'
+        color: color.text,
+        fontSize: 26,
+        fontWeight: "600",
+        fontFamily: "OpenSans-Semibold"
     },
 })
 

@@ -46,7 +46,7 @@ class SelectAvatar extends Component<Props, {}> {
         <Wallpaper style={styles.wallpaper} />
         <Header
           style={styles.header}
-          headerText={"Select Avatar"}
+          headerText={"SELECT AVATAR"}
           titleStyle={styles.headerTitle}
         />
         <FlatList

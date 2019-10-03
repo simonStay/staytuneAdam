@@ -19,7 +19,6 @@ export function Text(props: TextProps) {
   const content = i18nText || text || children
 
   const style = mergeAll(flatten([presets[preset] || presets.default, styleOverride]))
-  console.log('style_style:', style)
   return (
     <ReactNativeText {...rest} style={style}>
       {content}
