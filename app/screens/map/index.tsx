@@ -47,7 +47,7 @@ class MapScreen extends Component<Props, {}> {
                     headerText={"STAY TUNE"}
                     titleStyle={styles.headerTitle}
                     leftIcon={"menu"}
-                    onLeftPress={() => alert('menu')} />
+                    onLeftPress={() => this.props.navigation.navigate("DrawerOpen")} />
                 <MapView
                     style={{ flex: 1 }}
                     region={this.state.region}

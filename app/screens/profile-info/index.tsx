@@ -31,7 +31,7 @@ class ProfileInfo extends Component<Props, {}> {
                 <Header style={styles.header} headerText={"PROFILE INFORMATION"} titleStyle={styles.headerTitle} />
                 <GoldBarView />
                 <ScrollView contentContainerStyle={styles.scrollContainer}>
-                    <TextField placeholder="Full Name" inputStyle={styles.textField} placeholderTextColor={color.placeholderText} />
+                    <TextField placeholder="First Name" inputStyle={styles.textField} placeholderTextColor={color.placeholderText} />
                     <TextField placeholder="Last Name" inputStyle={styles.textField} placeholderTextColor={color.placeholderText} />
                     <TextField placeholder="City" inputStyle={styles.textField} placeholderTextColor={color.placeholderText} />
                     <TextField placeholder="State" inputStyle={styles.textField} placeholderTextColor={color.placeholderText} />
