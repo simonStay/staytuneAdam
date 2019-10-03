@@ -27,6 +27,12 @@ target 'StayTune' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
+
+  pod 'react-native-google-maps', :path => '../node_modules/react-native-maps'  # Uncomment this line if you want to support GoogleMaps on iOS
+  pod 'GoogleMaps'  # Uncomment this line if you want to support GoogleMaps on iOS
+  pod 'Google-Maps-iOS-Utils' # Uncomment this line if you want to support GoogleMaps on iOS
+
   target 'StayTuneTests' do
     inherit! :search_paths
     # Pods for testing
