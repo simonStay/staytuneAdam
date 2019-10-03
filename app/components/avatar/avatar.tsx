@@ -1,7 +1,6 @@
 import * as React from "react"
-import { TouchableOpacity } from "react-native"
-import { Text } from "../text"
-import { viewPresets, textPresets } from "./avatar.presets"
+import { TouchableOpacity, Image } from "react-native"
+import { viewPresets } from "./avatar.presets"
 import { AvatarProps } from "./avatar.props"
 import { mergeAll, flatten } from "ramda"
 
@@ -17,17 +16,20 @@ export function Avatar(props: AvatarProps) {
     tx,
     text,
     style: styleOverride,
-    textStyle: textStyleOverride,
+    avatarStyle: avatarStyleOverride,
     children,
     ...rest
   } = props
 
   const viewStyle = mergeAll(flatten([viewPresets[preset] || viewPresets.primary, styleOverride]))
-  const textStyle = mergeAll(
-    flatten([textPresets[preset] || textPresets.primary, textStyleOverride]),
-  )
+  const avatarStyle = { width: 100, height: 100, borderRadius: 50 }
 
-  const content = children || <Text tx={tx} text={text} style={textStyle} />
+  const content = children || (
+    <Image
+      source={{ uri: "https://cdn.pixabay.com/photo/2013/07/13/10/07/man-156584_960_720.png" }}
+      style={avatarStyle}
+    />
+  )
 
   return (
     <TouchableOpacity style={viewStyle} {...rest}>
