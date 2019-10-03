@@ -35,7 +35,7 @@ class Login extends Component<Props, {}> {
           >
             forgot password?
           </Text>
-          <Button style={styles.button} onPress={() => navigation.navigate("MapScreen")}>
+          <Button style={styles.button} onPress={() => navigation.navigate("ProfileInfo")}>
             <Text style={styles.buttonText}>LOGIN</Text>
           </Button>
           <Button style={styles.button} onPress={this.onSignUp.bind(this)}>

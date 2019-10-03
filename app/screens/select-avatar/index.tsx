@@ -4,9 +4,9 @@ import { NavigationScreenProp, NavigationState } from "react-navigation"
 import styles from "./styles"
 
 import { Wallpaper } from "../../components/wallpaper"
-
+import { Button } from "../../components/button"
 import { Avatar } from "../../components/avatar"
-
+import { Text } from "../../components/text"
 import { Header } from "../../components/header"
 let DATA = [
   {
@@ -63,6 +63,9 @@ class SelectAvatar extends Component<Props, {}> {
             </Avatar>
           )}
         />
+        <Button style={styles.button} onPress={() => navigation.navigate("MapScreen")}>
+          <Text style={styles.buttonText}>SUBMIT</Text>
+        </Button>
       </View>
     )
   }
