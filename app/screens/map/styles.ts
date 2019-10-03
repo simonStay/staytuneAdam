@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native"
+import { color, dimensions } from "../../theme"
 
 const styles = StyleSheet.create({
     container: {
@@ -6,16 +7,16 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         // alignItems: "center",
-        backgroundColor: "white",
+        backgroundColor: color.ImageBackgroundColor
     },
-    header: { backgroundColor: 'black', height: 88 },
+    header: { backgroundColor: color.primaryColor, height: 88 },
     mapView: { flex: 1 },
     headerTitle: {
-        fontSize: 26,
-        color: 'white',
+        fontSize: 24,
+        color: color.headerTitle,
         alignSelf: 'center',
         marginTop: 15,
-        fontWeight: '600'
+        fontFamily: "OpenSans-Semibold"
     },
 })
 

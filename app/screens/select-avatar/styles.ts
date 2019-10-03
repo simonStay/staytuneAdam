@@ -1,51 +1,34 @@
 import { StyleSheet } from "react-native"
-import { dimensions } from "../../theme/dimensions"
+import { color, dimensions } from "../../theme/"
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    // justifyContent: "center",
-    // alignItems: "center",
-    backgroundColor: "white",
-  },
-  textField: {
-    marginHorizontal: 20,
-    height: 60,
-    borderRadius: 10,
-    borderColor: "#969696",
-    borderWidth: 1,
-    textAlign: "center",
-    color: "black",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    backgroundColor: color.ImageBackgroundColor,
   },
   wallpaper: { flex: 1 },
-  header: { backgroundColor: "black", height: 88 },
+  header: { backgroundColor: color.primaryColor, height: 88 },
   headerTitle: {
-    fontSize: 26,
-    color: "white",
-    alignSelf: "center",
+    fontSize: 24,
+    color: color.headerTitle,
+    alignSelf: 'center',
     marginTop: 15,
-    fontWeight: "600",
+    fontFamily: "OpenSans-Semibold"
   },
   scrollContainer: { flex: 1 },
   button: {
-    backgroundColor: "orange",
     marginHorizontal: 20,
-    height: 60,
-    marginTop: 30,
+    height: dimensions.height / 15.6,
+    borderRadius: 10,
+    marginTop: 20,
+    color: color.buttonColor,
   },
   buttonText: {
-    fontSize: 21,
-    textAlign: "center",
-    fontWeight: "bold",
+    color: color.text,
+    fontSize: 26,
+    fontWeight: "600",
+    fontFamily: "OpenSans-Semibold"
   },
   avatar: {
     width: dimensions.width / 3 - 40,

@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native"
-import { color } from "../../theme"
+import { color, dimensions } from "../../theme"
 
 const styles = StyleSheet.create({
     container: {
@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     },
     textField: {
         marginHorizontal: 20,
-        height: 60,
+        height: dimensions.height / 15.6,
         borderRadius: 10,
         borderColor: "#969696",
         borderWidth: 0,
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     },
     button: {
         marginHorizontal: 20,
-        height: 60,
+        height: dimensions.height / 15.6,
         borderRadius: 10,
         marginTop: 20,
         color: color.buttonColor,

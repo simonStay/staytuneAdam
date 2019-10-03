@@ -31,6 +31,8 @@ export const color = {
 
   placeholderText: palette.greyLighter,
 
+  headerTitle: palette.yellowDarker,
+
   transparent: "rgba(0, 0, 0, 0)",
   /**
    * The screen background.
