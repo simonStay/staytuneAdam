@@ -1,4 +1,4 @@
-import { ViewStyle, TextStyle, TouchableOpacityProps } from "react-native"
+import { ViewStyle, TextStyle, TouchableOpacityProps, ImageStyle } from "react-native"
 import { ButtonPresetNames } from "./avatar.presets"
 
 export interface AvatarProps extends TouchableOpacityProps {
@@ -22,6 +22,7 @@ export interface AvatarProps extends TouchableOpacityProps {
    */
   textStyle?: TextStyle | TextStyle[]
 
+  avatarStyle?: ImageStyle | ImageStyle[]
   /**
    * One of the different types of text presets.
    */

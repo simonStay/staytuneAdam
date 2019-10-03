@@ -13,7 +13,19 @@ interface Props {
   navigation: NavigationScreenProp<NavigationState>
 }
 
-class ForgotPassword extends Component<Props, {}> {
+interface userDetails {
+  email: string
+}
+
+class ForgotPassword extends Component<Props, userDetails> {
+  constructor(props: Props) {
+    super(props)
+    this.state = { email: "" }
+  }
+  handleSubmit() {
+    alert("email" + JSON.stringify(this.state))
+    this.props.navigation.navigate("Login")
+  }
   render() {
     const { navigation } = this.props
     return (
@@ -25,14 +37,15 @@ class ForgotPassword extends Component<Props, {}> {
           <Text style={styles.textStyle}>
             Hello! I'm StayTune, your personal travel assistant, may i have your email.
           </Text>
-          <TextField inputStyle={styles.inputStyle} placeholder="Enter your email" placeholderTextColor={color.placeholderText} />
+          <TextField
+            inputStyle={styles.inputStyle}
+            placeholder="Enter your email"
+            placeholderTextColor={color.placeholderText}
+            onChangeText={value => this.setState({ email: value })}
+            value={this.state.email}
+          />
           <Button style={styles.button}>
-            <Text
-              style={styles.buttonText}
-              onPress={() => {
-                navigation.navigate("Login")
-              }}
-            >
+            <Text style={styles.buttonText} onPress={this.handleSubmit.bind(this)}>
               SUBMIT
             </Text>
           </Button>

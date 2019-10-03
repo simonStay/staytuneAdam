@@ -11,38 +11,88 @@ import { Button } from "../../components/button"
 import { Header } from "../../components/header"
 import { GoldBarView } from "../../components/goldBar"
 
-
 interface Props {
-    navigation: NavigationScreenProp<NavigationState>
+  navigation: NavigationScreenProp<NavigationState>
+}
+interface UserInformation {
+  firstName: string
+  lastName: string
+  city: string
+  state: string
+  zip: string
 }
 
-class ProfileInfo extends Component<Props, {}> {
-
-    onSelectAvatar() {
-        const { navigation } = this.props
-        navigation.navigate('SelectAvatar')
+class ProfileInfo extends Component<Props, UserInformation> {
+  constructor(props: Props) {
+    super(props)
+    this.state = {
+      firstName: "",
+      lastName: "",
+      city: "",
+      state: "",
+      zip: "",
     }
+  }
+  onSelectAvatar() {
+    alert("profileInfo" + JSON.stringify(this.state))
+    const { navigation } = this.props
+    navigation.navigate("SelectAvatar")
+  }
 
-    render() {
-        const { navigation } = this.props
-        return (
-            <View style={styles.container}>
-                <Wallpaper style={styles.wallpaper} />
-                <Header style={styles.header} headerText={"PROFILE INFORMATION"} titleStyle={styles.headerTitle} />
-                <GoldBarView />
-                <ScrollView contentContainerStyle={styles.scrollContainer}>
-                    <TextField placeholder="Full Name" inputStyle={styles.textField} placeholderTextColor={color.placeholderText} />
-                    <TextField placeholder="Last Name" inputStyle={styles.textField} placeholderTextColor={color.placeholderText} />
-                    <TextField placeholder="City" inputStyle={styles.textField} placeholderTextColor={color.placeholderText} />
-                    <TextField placeholder="State" inputStyle={styles.textField} placeholderTextColor={color.placeholderText} />
-                    <TextField placeholder="Zip" inputStyle={styles.textField} placeholderTextColor={color.placeholderText} />
-                    <Button style={styles.button} onPress={this.onSelectAvatar.bind(this)}>
-                        <Text style={styles.buttonText}>SELECT AVATAR</Text>
-                    </Button>
-                </ScrollView>
-            </View>
-        )
-    }
+  render() {
+    const { navigation } = this.props
+    return (
+      <View style={styles.container}>
+        <Wallpaper style={styles.wallpaper} />
+        <Header
+          style={styles.header}
+          headerText={"PROFILE INFORMATION"}
+          titleStyle={styles.headerTitle}
+        />
+        <GoldBarView />
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <TextField
+            placeholder="First Name"
+            inputStyle={styles.textField}
+            placeholderTextColor={color.placeholderText}
+            onChangeText={value => this.setState({ firstName: value })}
+            value={this.state.firstName}
+          />
+          <TextField
+            placeholder="Last Name"
+            inputStyle={styles.textField}
+            placeholderTextColor={color.placeholderText}
+            onChangeText={value => this.setState({ lastName: value })}
+            value={this.state.lastName}
+          />
+          <TextField
+            placeholder="City"
+            inputStyle={styles.textField}
+            placeholderTextColor={color.placeholderText}
+            onChangeText={value => this.setState({ city: value })}
+            value={this.state.city}
+          />
+          <TextField
+            placeholder="State"
+            inputStyle={styles.textField}
+            placeholderTextColor={color.placeholderText}
+            onChangeText={value => this.setState({ state: value })}
+            value={this.state.state}
+          />
+          <TextField
+            placeholder="Zip"
+            inputStyle={styles.textField}
+            placeholderTextColor={color.placeholderText}
+            onChangeText={value => this.setState({ zip: value })}
+            value={this.state.zip}
+          />
+          <Button style={styles.button} onPress={this.onSelectAvatar.bind(this)}>
+            <Text style={styles.buttonText}>SELECT AVATAR</Text>
+          </Button>
+        </ScrollView>
+      </View>
+    )
+  }
 }
 
 export default ProfileInfo
