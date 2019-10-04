@@ -26,14 +26,16 @@ const DrawerNav = createDrawerNavigator(
   },
   {
     contentComponent: SideBar,
+    drawerPosition: 'left',
+    useNativeAnimations: false,
+    drawerBackgroundColor: '#ffffff',
+    overlayColor: 0.76,
     contentOptions: {
-      activeColor: 'blue',
-      activeTintColor: 'blue',
-      inactiveTintColor: 'transparent',
-      activeBackgroundColor: '#ffffff',
-      labelStyle: {
-        fontSize: 15
-      }
+      // activeBackgroundColor: 'transparent',
+      // inactiveTintColor: 'transparent',
+      // labelStyle: {
+      //   fontSize: 15
+      // }
     }
   }
 );
@@ -50,7 +52,7 @@ const stackNav = createStackNavigator(
     // MapScreen: { screen: MapScreen },
   },
   {
-    initialRouteName: "Splash",
+    initialRouteName: "DrawerNav",
     headerMode: "none",
     defaultNavigationOptions: {
       gesturesEnabled: false,
