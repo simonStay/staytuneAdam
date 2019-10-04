@@ -34,6 +34,7 @@ class MapScreen extends Component<Props, MapScreen, {}> {
       isOpen: false,
     }
   }
+
   componentDidMount() {
     Geolocation.getCurrentPosition(position => {
       console.log("position", JSON.stringify(position))
@@ -78,6 +79,8 @@ class MapScreen extends Component<Props, MapScreen, {}> {
         <GoldBarView />
         <View style={{ flex: 1, overflow: "hidden" }}>
           <Drawer
+            openDrawerOffset={0.4}
+            panCloseMask={0.4}
             ref={ref => {
               this.drawer = ref
             }}

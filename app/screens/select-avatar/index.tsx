@@ -8,6 +8,8 @@ import { Button } from "../../components/button"
 import { Avatar } from "../../components/avatar"
 import { Text } from "../../components/text"
 import { Header } from "../../components/header"
+import { GoldBarView } from "../../components/goldBar"
+
 let DATA = [
   {
     uri: "https://cdn.pixabay.com/photo/2013/07/13/10/07/man-156584_960_720.png",
@@ -49,6 +51,7 @@ class SelectAvatar extends Component<Props, {}> {
           headerText={"SELECT AVATAR"}
           titleStyle={styles.headerTitle}
         />
+        <GoldBarView />
         <FlatList
           data={DATA}
           numColumns={3}
