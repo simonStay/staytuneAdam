@@ -3,9 +3,9 @@ import { View } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 import styles from "./styles"
 
-import MapView from 'react-native-maps';
+import MapView from "react-native-maps"
 import { Header } from "../../components/header"
-import { Drawer } from 'native-base';
+import { Drawer } from "native-base"
 
 import SideBar from "../side-bar/index"
 import { GoldBarView } from "../../components/goldBar"
@@ -18,14 +18,14 @@ interface Props {
 
 class MapScreen extends Component<Props, {}> {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             region: {
                 latitude: 37.78825,
                 longitude: -122.4324,
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
-            }
+            },
         }
     }
 
@@ -41,33 +41,28 @@ class MapScreen extends Component<Props, {}> {
     // }
 
     closeDrawer() {
-        this.drawer._root.close();
+        this.drawer._root.close()
     }
 
     onRegionChange(region) {
-        this.setState({ region: region });
-    }
-
-    onLeft() {
-        this.props.navigation.dispatch(DrawerActions.toggleDrawer());
+        this.setState({ region: region })
     }
 
     render() {
         const { navigation } = this.props
         return (
-
             <View style={{ flex: 1 }}>
                 <Header
                     style={styles.header}
                     headerText={"STAY TUNE"}
                     titleStyle={styles.headerTitle}
                     leftIcon={"menu"}
-                    onLeftPress={this.onLeft.bind(this)} />
+                    onLeftPress={() => this.props.navigation.openDrawer()}
+                />
                 <GoldBarView />
-
                 {/* <Drawer
                     ref={ref => {
-                        this.drawer = ref;
+                        this.drawer = ref
                     }}
                     content={
                         <SideBar
@@ -84,8 +79,7 @@ class MapScreen extends Component<Props, {}> {
                         showsUserLocation={true}
                     /> */}
                 {/* </Drawer> */}
-            </View >
-
+            </View>
         )
     }
 }

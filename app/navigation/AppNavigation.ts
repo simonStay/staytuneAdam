@@ -9,7 +9,6 @@
 import "react-native-gesture-handler"
 
 import { createAppContainer } from "react-navigation"
-
 import { createStackNavigator } from "react-navigation-stack"
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import Splash from "../screens/splash"
@@ -23,13 +22,14 @@ import SideBar from '../screens/side-bar';
 
 const DrawerNav = createDrawerNavigator(
   {
-    ProfileInfo: { screen: ProfileInfo },
+    MapScreen: { screen: MapScreen },
   },
   {
     contentComponent: SideBar,
     contentOptions: {
-      activeTintColor: '#000000',
-      inactiveTintColor: '#000000',
+      activeColor: 'blue',
+      activeTintColor: 'blue',
+      inactiveTintColor: 'transparent',
       activeBackgroundColor: '#ffffff',
       labelStyle: {
         fontSize: 15
@@ -40,24 +40,26 @@ const DrawerNav = createDrawerNavigator(
 
 const stackNav = createStackNavigator(
   {
-    DrawerNav,
+    DrawerNav: { screen: DrawerNav },
     Splash: { screen: Splash },
     Register: { screen: Register },
     Login: { screen: Login },
     ProfileInfo: { screen: ProfileInfo },
     SelectAvatar: { screen: SelectAvatar },
     ForgotPassword: { screen: ForgotPassword },
-    MapScreen: { screen: MapScreen }
+    // MapScreen: { screen: MapScreen },
   },
   {
     initialRouteName: "Splash",
     headerMode: "none",
+    defaultNavigationOptions: {
+      gesturesEnabled: false,
+    },
     navigationOptions: {
       gesturesEnabled: false,
-      swipeEnabled: false
+      swipeEnabled: false,
     },
   },
-
 )
 
 
