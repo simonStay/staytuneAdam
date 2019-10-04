@@ -10,7 +10,7 @@ import "react-native-gesture-handler"
 
 import { createAppContainer } from "react-navigation"
 import { createStackNavigator } from "react-navigation-stack"
-import { createDrawerNavigator } from 'react-navigation-drawer';
+import { createDrawerNavigator } from "react-navigation-drawer"
 import Splash from "../screens/splash"
 import Register from "../screens/register"
 import Login from "../screens/login"
@@ -18,7 +18,7 @@ import ProfileInfo from "../screens/profile-info"
 import SelectAvatar from "../screens/select-avatar"
 import ForgotPassword from "../screens/forgot-password"
 import MapScreen from "../screens/map"
-import SideBar from '../screens/side-bar';
+import SideBar from "../screens/side-bar"
 
 const DrawerNav = createDrawerNavigator(
   {
@@ -26,9 +26,9 @@ const DrawerNav = createDrawerNavigator(
   },
   {
     contentComponent: SideBar,
-    drawerPosition: 'left',
+    drawerPosition: "left",
     useNativeAnimations: false,
-    drawerBackgroundColor: '#ffffff',
+    drawerBackgroundColor: "transparent",
     overlayColor: 0.76,
     contentOptions: {
       // activeBackgroundColor: 'transparent',
@@ -36,9 +36,9 @@ const DrawerNav = createDrawerNavigator(
       // labelStyle: {
       //   fontSize: 15
       // }
-    }
-  }
-);
+    },
+  },
+)
 
 const stackNav = createStackNavigator(
   {
@@ -63,7 +63,5 @@ const stackNav = createStackNavigator(
     },
   },
 )
-
-
 
 export default createAppContainer(stackNav)
