@@ -59,6 +59,7 @@ class MapScreen extends Component<Props, {}> {
         />
         <GoldBarView />
         <Drawer
+          type="static"
           ref={ref => {
             this.drawer = ref
           }}
