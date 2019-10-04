@@ -43,7 +43,7 @@ class SideBar extends Component<Props, {}> {
         const { navigation } = this.props
         return (
             <View style={styles.container}>
-                <Text style={{ color: 'white', fontSize: 26, alignSelf: 'center', fontWeight: '600' }}>SIDE MENU</Text>
+                <Text>SIDE MENU</Text>
             </View>
         )
     }

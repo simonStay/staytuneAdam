@@ -8,9 +8,9 @@
 
 import "react-native-gesture-handler"
 
-import { createAppContainer, createDrawerNavigator } from "react-navigation"
-
+import { createAppContainer } from "react-navigation"
 import { createStackNavigator } from "react-navigation-stack"
+import { createDrawerNavigator } from 'react-navigation-drawer';
 import Splash from "../screens/splash"
 import Register from "../screens/register"
 import Login from "../screens/login"
@@ -18,21 +18,36 @@ import ProfileInfo from "../screens/profile-info"
 import SelectAvatar from "../screens/select-avatar"
 import ForgotPassword from "../screens/forgot-password"
 import MapScreen from "../screens/map"
-// const MapScreenStack = createDrawerNavigator({
-//   Home: {
-//     screen: MapScreen,
-//   },
-// })
+import SideBar from '../screens/side-bar';
+
+const DrawerNav = createDrawerNavigator(
+  {
+    MapScreen: { screen: MapScreen },
+  },
+  {
+    contentComponent: SideBar,
+    contentOptions: {
+      activeColor: 'blue',
+      activeTintColor: 'blue',
+      inactiveTintColor: 'transparent',
+      activeBackgroundColor: '#ffffff',
+      labelStyle: {
+        fontSize: 15
+      }
+    }
+  }
+);
 
 const stackNav = createStackNavigator(
   {
+    DrawerNav: { screen: DrawerNav },
     Splash: { screen: Splash },
     Register: { screen: Register },
     Login: { screen: Login },
     ProfileInfo: { screen: ProfileInfo },
     SelectAvatar: { screen: SelectAvatar },
     ForgotPassword: { screen: ForgotPassword },
-    MapScreen: { screen: MapScreen },
+    // MapScreen: { screen: MapScreen },
   },
   {
     initialRouteName: "Splash",
@@ -46,5 +61,7 @@ const stackNav = createStackNavigator(
     },
   },
 )
+
+
 
 export default createAppContainer(stackNav)
