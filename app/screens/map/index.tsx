@@ -9,6 +9,8 @@ import { Drawer } from 'native-base';
 
 import SideBar from "../side-bar/index"
 import { GoldBarView } from "../../components/goldBar"
+import { DrawerActions } from 'react-navigation-drawer';
+
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState>
@@ -46,6 +48,10 @@ class MapScreen extends Component<Props, {}> {
         this.setState({ region: region });
     }
 
+    onLeft() {
+        this.props.navigation.dispatch(DrawerActions.toggleDrawer());
+    }
+
     render() {
         const { navigation } = this.props
         return (
@@ -56,9 +62,10 @@ class MapScreen extends Component<Props, {}> {
                     headerText={"STAY TUNE"}
                     titleStyle={styles.headerTitle}
                     leftIcon={"menu"}
-                    onLeftPress={() => this.drawer._root.open()} />
+                    onLeftPress={this.onLeft.bind(this)} />
                 <GoldBarView />
-                <Drawer
+
+                {/* <Drawer
                     ref={ref => {
                         this.drawer = ref;
                     }}
@@ -69,14 +76,14 @@ class MapScreen extends Component<Props, {}> {
                         />
                     }
                     onClose={() => this.closeDrawer()}
-                >
-                    {/* <MapView
+                > */}
+                {/* <MapView
                         style={{ flex: 1 }}
                         region={this.state.region}
                         onRegionChange={this.onRegionChange.bind(this)}
                         showsUserLocation={true}
                     /> */}
-                </Drawer>
+                {/* </Drawer> */}
             </View >
 
         )
