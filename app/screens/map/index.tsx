@@ -5,6 +5,10 @@ import styles from "./styles"
 
 import MapView from 'react-native-maps';
 import { Header } from "../../components/header"
+import { Drawer } from 'native-base';
+
+import SideBar from "../side-bar/index"
+import { GoldBarView } from "../../components/goldBar"
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState>
@@ -34,6 +38,10 @@ class MapScreen extends Component<Props, {}> {
     //     };
     // }
 
+    closeDrawer() {
+        this.drawer._root.close();
+    }
+
     onRegionChange(region) {
         this.setState({ region: region });
     }
@@ -41,20 +49,36 @@ class MapScreen extends Component<Props, {}> {
     render() {
         const { navigation } = this.props
         return (
+
             <View style={{ flex: 1 }}>
                 <Header
                     style={styles.header}
                     headerText={"STAY TUNE"}
                     titleStyle={styles.headerTitle}
                     leftIcon={"menu"}
-                    onLeftPress={() => this.props.navigation.navigate("DrawerOpen")} />
-                <MapView
-                    style={{ flex: 1 }}
-                    region={this.state.region}
-                    onRegionChange={this.onRegionChange.bind(this)}
-                    showsUserLocation={true}
-                />
+                    onLeftPress={() => this.drawer._root.open()} />
+                <GoldBarView />
+                <Drawer
+                    ref={ref => {
+                        this.drawer = ref;
+                    }}
+                    content={
+                        <SideBar
+                            navigation={this.props.navigation}
+                        // onCloseMenu={params => this.closeDrawer(params)}
+                        />
+                    }
+                    onClose={() => this.closeDrawer()}
+                >
+                    {/* <MapView
+                        style={{ flex: 1 }}
+                        region={this.state.region}
+                        onRegionChange={this.onRegionChange.bind(this)}
+                        showsUserLocation={true}
+                    /> */}
+                </Drawer>
             </View >
+
         )
     }
 }

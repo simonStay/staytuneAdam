@@ -18,8 +18,6 @@ import ProfileInfo from "../screens/profile-info"
 import SelectAvatar from "../screens/select-avatar"
 import ForgotPassword from "../screens/forgot-password"
 import MapScreen from "../screens/map"
-import SideBar from "../screens/SideBar";
-
 
 const stackNav = createStackNavigator(
   {
@@ -32,14 +30,11 @@ const stackNav = createStackNavigator(
     MapScreen: { screen: MapScreen }
   },
   {
-    contentComponent: SideBar
-  },
-  {
     initialRouteName: "Splash",
     headerMode: "none",
     navigationOptions: {
       gesturesEnabled: false,
-      swipeEnabled: false,
+      swipeEnabled: false
     },
   },
 

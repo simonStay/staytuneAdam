@@ -11,13 +11,26 @@ import { color } from "../../theme"
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
 }
+interface userDetails {
+  email: string
+  password: string
+}
 
-class Login extends Component<Props, {}> {
+class Login extends Component<Props, userDetails> {
+  constructor(props: Props) {
+    super(props)
+    this.state = { email: "", password: "" }
+  }
   onSignUp() {
     this.props.navigation.navigate("Register")
   }
+  Login() {
+    alert("values" + JSON.stringify(this.state))
+    this.props.navigation.navigate("ProfileInfo")
+  }
   render() {
     const { navigation } = this.props
+
     return (
       <View style={styles.container}>
         <Wallpaper style={styles.wallpaper} />
@@ -26,8 +39,21 @@ class Login extends Component<Props, {}> {
           <Text style={styles.textStyle}>
             Hello! I'm StayTune, your personal travel assistant, may i have your email & password
           </Text>
-          <TextField inputStyle={styles.inputStyle} placeholder="Enter your email" placeholderTextColor={color.placeholderText} />
-          <TextField inputStyle={styles.inputStyle} placeholder="Enter your password" placeholderTextColor={color.placeholderText} />
+          <TextField
+            inputStyle={styles.inputStyle}
+            placeholder="Enter your email"
+            placeholderTextColor={color.placeholderText}
+            onChangeText={value => this.setState({ email: value })}
+            value={this.state.email}
+          />
+          <TextField
+            inputStyle={styles.inputStyle}
+            placeholder="Enter your password"
+            placeholderTextColor={color.placeholderText}
+            secureTextEntry={true}
+            onChangeText={value => this.setState({ password: value })}
+            value={this.state.password}
+          />
           <Text
             style={styles.forgotPasswordText}
             onPress={() => {
@@ -36,7 +62,7 @@ class Login extends Component<Props, {}> {
           >
             Forgot Password ?
           </Text>
-          <Button style={styles.button} onPress={() => navigation.navigate("ProfileInfo")}>
+          <Button style={styles.button} onPress={this.Login.bind(this)}>
             <Text style={styles.buttonText}>LOGIN</Text>
           </Button>
           <Button style={styles.button} onPress={this.onSignUp.bind(this)}>

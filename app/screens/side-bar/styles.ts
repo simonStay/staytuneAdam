@@ -5,7 +5,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
-        backgroundColor: color.ImageBackgroundColor,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: color.primaryColor,
     },
     wallpaper: { flex: 1 },
     header: { backgroundColor: color.primaryColor, height: 88 },

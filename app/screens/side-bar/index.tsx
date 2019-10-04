@@ -43,29 +43,7 @@ class SideBar extends Component<Props, {}> {
         const { navigation } = this.props
         return (
             <View style={styles.container}>
-                <Wallpaper style={styles.wallpaper} />
-                <Header
-                    style={styles.header}
-                    headerText={"SELECT AVATAR"}
-                    titleStyle={styles.headerTitle}
-                />
-                <FlatList
-                    data={DATA}
-                    numColumns={3}
-                    renderItem={({ item }) => (
-                        <Avatar style={styles.avatar}>
-                            <Image
-                                source={{
-                                    uri: item.uri,
-                                }}
-                                style={styles.avatarImage}
-                            />
-                        </Avatar>
-                    )}
-                />
-                <Button style={styles.button} onPress={() => navigation.navigate("MapScreen")}>
-                    <Text style={styles.buttonText}>SUBMIT</Text>
-                </Button>
+                <Text style={{ color: 'white', fontSize: 26, alignSelf: 'center', fontWeight: '600' }}>SIDE MENU</Text>
             </View>
         )
     }
