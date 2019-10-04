@@ -10,7 +10,6 @@ import "react-native-gesture-handler"
 
 import { createAppContainer } from "react-navigation"
 import { createStackNavigator } from "react-navigation-stack"
-import { createDrawerNavigator } from 'react-navigation-drawer';
 import Splash from "../screens/splash"
 import Register from "../screens/register"
 import Login from "../screens/login"
