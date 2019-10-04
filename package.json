@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.6.1",
+    "@react-native-community/geolocation": "^2.0.2",
     "@types/node": "^12.7.5",
     "apisauce": "1.0.3",
     "i18n-js": "^3.0.11",

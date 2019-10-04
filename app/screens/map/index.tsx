@@ -4,6 +4,7 @@ import { NavigationScreenProp, NavigationState } from "react-navigation"
 import styles from "./styles"
 
 import MapView from "react-native-maps"
+import Geolocation from "@react-native-community/geolocation"
 import { Header } from "../../components/header"
 import { Drawer } from "native-base"
 
@@ -32,6 +33,14 @@ class MapScreen extends Component<Props, MapScreen, {}> {
       },
       isOpen: false,
     }
+  }
+  componentDidMount() {
+    Geolocation.getCurrentPosition(position => {
+      console.log("position", JSON.stringify(position))
+    })
+    Geolocation.watchPosition(position => {
+      console.log("Watchposition", JSON.stringify(position))
+    })
   }
   closeDrawer() {
     this.drawer._root.close()
