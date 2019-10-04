@@ -4,7 +4,7 @@ import { color, dimensions } from "../../theme/"
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'blue',
+        backgroundColor: color.ImageBackgroundColor,
     },
     wallpaper: { flex: 1 },
     header: { backgroundColor: color.primaryColor, height: 88 },

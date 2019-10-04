@@ -18,41 +18,19 @@ import ProfileInfo from "../screens/profile-info"
 import SelectAvatar from "../screens/select-avatar"
 import ForgotPassword from "../screens/forgot-password"
 import MapScreen from "../screens/map"
-import SideBar from '../screens/side-bar';
-
-const DrawerNav = createDrawerNavigator(
-  {
-    MapScreen: { screen: MapScreen },
-  },
-  {
-    contentComponent: SideBar,
-    drawerPosition: 'left',
-    useNativeAnimations: false,
-    drawerBackgroundColor: '#ffffff',
-    overlayColor: 0.76,
-    contentOptions: {
-      // activeBackgroundColor: 'transparent',
-      // inactiveTintColor: 'transparent',
-      // labelStyle: {
-      //   fontSize: 15
-      // }
-    }
-  }
-);
 
 const stackNav = createStackNavigator(
   {
-    DrawerNav: { screen: DrawerNav },
     Splash: { screen: Splash },
     Register: { screen: Register },
     Login: { screen: Login },
     ProfileInfo: { screen: ProfileInfo },
     SelectAvatar: { screen: SelectAvatar },
     ForgotPassword: { screen: ForgotPassword },
-    // MapScreen: { screen: MapScreen },
+    MapScreen: { screen: MapScreen },
   },
   {
-    initialRouteName: "DrawerNav",
+    initialRouteName: "Splash",
     headerMode: "none",
     defaultNavigationOptions: {
       gesturesEnabled: false,
@@ -63,7 +41,5 @@ const stackNav = createStackNavigator(
     },
   },
 )
-
-
 
 export default createAppContainer(stackNav)
