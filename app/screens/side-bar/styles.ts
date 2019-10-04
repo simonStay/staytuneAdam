@@ -6,16 +6,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: color.ImageBackgroundColor,
     },
-    wallpaper: { flex: 1 },
-    header: { backgroundColor: color.primaryColor, height: 88 },
-    headerTitle: {
-        fontSize: 24,
-        color: color.headerTitle,
-        alignSelf: 'center',
-        marginTop: 15,
-        fontFamily: "OpenSans-Semibold"
-    },
-    scrollContainer: { flex: 1 },
+
     button: {
         marginHorizontal: 20,
         height: dimensions.height / 15.6,
@@ -29,18 +20,59 @@ const styles = StyleSheet.create({
         fontWeight: "600",
         fontFamily: "OpenSans-Semibold"
     },
-    avatar: {
-        width: dimensions.width / 3 - 40,
-        height: dimensions.width / 3 - 40,
-        borderRadius: (dimensions.width / 3 - 40) / 2,
+    profilePicOutterView: {
+        flex: 0.26,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    profilePicView: {
+        width: dimensions.width / 2 - 60,
+        height: dimensions.width / 2 - 60,
+        borderRadius: (dimensions.width / 2 - 60) / 2,
         marginHorizontal: 20,
         marginVertical: 20,
+        backgroundColor: color.text
     },
-    avatarImage: {
-        width: dimensions.width / 3 - 40,
-        height: dimensions.width / 3 - 40,
-        borderRadius: (dimensions.width / 3 - 40) / 2,
+    profilePic: {
+        width: dimensions.width / 2 - 60,
+        height: dimensions.width / 2 - 60,
+        borderRadius: (dimensions.width / 2 - 60) / 2,
     },
+    buttonView: {
+        flex: 0.12,
+        justifyContent: 'center',
+        alignItems: 'center',
+        // backgroundColor: 'orange'
+    },
+    editProfileButton: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: dimensions.width / 2 - 30,
+        height: dimensions.width / 2 - 160,
+    },
+    editprofileText: {
+        color: color.primaryColor,
+        fontSize: 21,
+        fontFamily: "OpenSans-Semibold"
+    },
+    menuItemsView: {
+        flex: 0.73,
+        justifyContent: 'center',
+        // alignItems: 'center',
+        // backgroundColor: 'blue'
+    },
+    row: {
+        marginHorizontal: 15,
+        marginVertical: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: color.line,
+        flexDirection: 'row'
+    },
+    itemText: {
+        color: color.text,
+        fontSize: 19,
+        fontFamily: "OpenSans-Semibold"
+    }
 })
 
 export default styles

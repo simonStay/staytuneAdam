@@ -34,7 +34,7 @@ class ProfileInfo extends Component<Props, UserInformation> {
         }
     }
     onSelectAvatar() {
-        alert("profileInfo" + JSON.stringify(this.state))
+        console.log("profileInfo" + JSON.stringify(this.state))
         const { navigation } = this.props
         navigation.navigate("SelectAvatar")
     }

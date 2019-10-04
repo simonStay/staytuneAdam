@@ -64,6 +64,8 @@ class MapScreen extends Component<Props, {}> {
                 <GoldBarView />
                 <View style={{ flex: 1, overflow: 'hidden' }}>
                     <Drawer
+                        openDrawerOffset={0.4}
+                        panCloseMask={0.4}
                         ref={ref => {
                             this.drawer = ref;
                         }}

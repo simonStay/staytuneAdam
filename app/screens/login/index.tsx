@@ -25,7 +25,7 @@ class Login extends Component<Props, userDetails> {
     this.props.navigation.navigate("Register")
   }
   Login() {
-    alert("values" + JSON.stringify(this.state))
+    console.log("values" + JSON.stringify(this.state))
     this.props.navigation.navigate("ProfileInfo")
   }
   render() {
