@@ -79,15 +79,15 @@ class MapScreen extends Component<Props, MapScreen, {}> {
         <GoldBarView />
         <View style={{ flex: 1, overflow: "hidden" }}>
           <Drawer
-            openDrawerOffset={0.4}
-            panCloseMask={0.4}
+            openDrawerOffset={0.36}
+            panCloseMask={0.36}
             ref={ref => {
               this.drawer = ref
             }}
             content={
               <SideBar
                 navigation={this.props.navigation}
-                // onCloseMenu={params => this.closeDrawer(params)}
+                onCloseMenu={params => this.closeDrawer(params)}
               />
             }
             onClose={() => this.closeDrawer()}

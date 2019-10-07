@@ -64,9 +64,21 @@ const styles = StyleSheet.create({
     row: {
         marginHorizontal: 15,
         marginVertical: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: color.line,
         flexDirection: 'row'
+    },
+    line: {
+        width: '90%',
+        height: 1,
+        backgroundColor: color.line,
+        marginLeft: 15,
+        marginRight: 15,
+    },
+    itemIcon: {
+        height: 31,
+        width: 31,
+        marginTop: 0,
+        marginLeft: 3,
+        marginRight: 10
     },
     itemText: {
         color: color.text,
