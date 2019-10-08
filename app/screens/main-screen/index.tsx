@@ -37,10 +37,11 @@ class MainScreen extends Component<Props, UserInformation, {}> {
     constructor(props: Props) {
         super(props)
         this.state = {
-            selectedValue: "", headerTitle: "", isOpen: false
+            selectedValue: this.props.navigation.state.params === undefined
+                ? 'Start a plan'
+                : this.props.navigation.state.params, headerTitle: "", isOpen: false
         }
     }
-
 
     onSave() {
         alert('submit')
