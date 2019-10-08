@@ -15,10 +15,8 @@ interface Props {
   navigation: NavigationScreenProp<NavigationState>
 }
 interface MapScreen {
-  drawer: any
   state: any
   region: any
-  isOpen: boolean
 }
 
 class MapScreen extends Component<Props, MapScreen, {}> {
@@ -31,7 +29,6 @@ class MapScreen extends Component<Props, MapScreen, {}> {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       },
-      isOpen: false,
     }
   }
 
@@ -43,63 +40,21 @@ class MapScreen extends Component<Props, MapScreen, {}> {
       console.log("Watchposition", JSON.stringify(position))
     })
   }
-  closeDrawer() {
-    this.drawer._root.close()
-  }
 
   onRegionChange(region) {
     this.setState({ region: region })
-  }
-
-  onLeft() {
-    if (this.state.isOpen) {
-      this.drawer._root.close()
-      this.setState({
-        isOpen: false,
-      })
-    } else {
-      this.drawer._root.open()
-      this.setState({
-        isOpen: true,
-      })
-    }
   }
 
   render() {
     const { navigation } = this.props
     return (
       <View style={{ flex: 1 }}>
-        <Header
-          style={styles.header}
-          headerText={"STAY TUNE"}
-          titleStyle={styles.headerTitle}
-          leftIcon={"menu"}
-          onLeftPress={this.onLeft.bind(this)}
+        <MapView
+          style={{ flex: 1 }}
+          region={this.state.region}
+          onRegionChange={this.onRegionChange.bind(this)}
+          showsUserLocation={true}
         />
-        <GoldBarView />
-        <View style={{ flex: 1, overflow: "hidden" }}>
-          <Drawer
-            openDrawerOffset={0.36}
-            panCloseMask={0.36}
-            ref={ref => {
-              this.drawer = ref
-            }}
-            content={
-              <SideBar
-                navigation={this.props.navigation}
-                onCloseMenu={params => this.closeDrawer(params)}
-              />
-            }
-            onClose={() => this.closeDrawer()}
-          >
-            <MapView
-              style={{ flex: 1 }}
-              region={this.state.region}
-              onRegionChange={this.onRegionChange.bind(this)}
-              showsUserLocation={true}
-            />
-          </Drawer>
-        </View>
       </View>
     )
   }

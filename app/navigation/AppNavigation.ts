@@ -17,6 +17,7 @@ import ProfileInfo from "../screens/profile-info"
 import SelectAvatar from "../screens/select-avatar"
 import ForgotPassword from "../screens/forgot-password"
 import MapScreen from "../screens/map"
+import MainScreen from "../screens/main-screen"
 
 import EditProfile from "../screens/edit-profile"
 
@@ -30,7 +31,8 @@ const stackNav = createStackNavigator(
     SelectAvatar: { screen: SelectAvatar },
     ForgotPassword: { screen: ForgotPassword },
     MapScreen: { screen: MapScreen },
-    EditProfile: { screen: EditProfile }
+    EditProfile: { screen: EditProfile },
+    MainScreen: { screen: MainScreen }
   },
   {
     initialRouteName: "Splash",

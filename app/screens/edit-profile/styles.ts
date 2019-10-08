@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
-        backgroundColor: color.ImageBackgroundColor
+        backgroundColor: color.transparent
     },
     textField: {
         marginHorizontal: 20,
@@ -19,14 +19,6 @@ const styles = StyleSheet.create({
         fontFamily: "OpenSans",
     },
     wallpaper: { flex: 1 },
-    header: { backgroundColor: color.primaryColor, height: 88 },
-    headerTitle: {
-        fontSize: 24,
-        color: color.headerTitle,
-        alignSelf: 'center',
-        marginTop: 15,
-        fontFamily: "OpenSans-Semibold"
-    },
     scrollContainer: { flex: 1 },
     button: {
         marginHorizontal: 20,

@@ -34,24 +34,41 @@ interface sideMenuItems {
 
 class SideBar extends Component<Props, sideMenuItems, {}> {
 
-    onEditProfile(value) {
-        if (value == 'EditProfile') {
-            this.props.navigation.navigate('EditProfile')
-            this.props.onCloseMenu('EditProfile');
-        } else {
+    onEditProfile() {
+        this.props.onCloseMenu('Edit Profile');
+    }
 
+    onSelectedValue(value) {
+        if (value == 'Start a plan') {
+            this.props.onCloseMenu('Start a plan')
+        } else if (value == 'Start a plan') {
+            this.props.onCloseMenu('Start a plan')
+        } else if (value == 'Itinerary suggestions') {
+            this.props.onCloseMenu('Itinerary suggestions')
+        } else if (value == 'Travel preference') {
+            this.props.onCloseMenu('Travel preference')
+        } else if (value == 'Digital Souvenir') {
+            this.props.onCloseMenu('Digital Souvenir')
+        } else if (value == 'Find a Local Friend') {
+            this.props.onCloseMenu('Find a Local Friend')
+        } else if (value == 'Saved locations') {
+            this.props.onCloseMenu('Saved locations')
+        } else if (value == 'Budget') {
+            this.props.onCloseMenu('Budget')
+        } else if (value == 'Signout') {
+            this.props.onCloseMenu('Signout')
         }
     }
 
     renderItem = ({ item }) => {
         return (
-            <View>
+            <TouchableOpacity onPress={this.onSelectedValue.bind(this, item.type)}>
                 <View style={styles.row}>
                     <Icon icon={item.icon} style={styles.itemIcon} />
                     <Text style={styles.itemText}>{item.type}</Text>
                 </View>
                 <View style={styles.line}></View>
-            </View>
+            </TouchableOpacity>
         )
     }
 
@@ -69,7 +86,7 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
                 </View>
                 <View style={styles.buttonView}>
 
-                    <TouchableOpacity onPress={this.onEditProfile.bind(this, 'EditProfile')}>
+                    <TouchableOpacity onPress={this.onEditProfile.bind(this)}>
                         <GoldBarView style={styles.editProfileButton} >
                             <Text style={styles.editprofileText}>EDIT PROFILE</Text>
                         </GoldBarView>

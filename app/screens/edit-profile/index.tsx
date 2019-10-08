@@ -24,9 +24,6 @@ interface UserInformation {
     city: string
     state: string
     zip: string
-    drawer: any
-    region: any
-    isOpen: boolean
 }
 
 const profilePic = require('./../../assests/camplaceholderimg.jpeg')
@@ -44,24 +41,6 @@ class EditProfile extends Component<Props, UserInformation> {
     }
     onSave() {
         alert('submit')
-    }
-
-    closeDrawer(params) {
-        this.drawer._root.close()
-    }
-
-    onLeft() {
-        if (this.state.isOpen) {
-            this.drawer._root.close()
-            this.setState({
-                isOpen: false,
-            })
-        } else {
-            this.drawer._root.open()
-            this.setState({
-                isOpen: true,
-            })
-        }
     }
 
     onSelectImage() {
@@ -103,76 +82,52 @@ class EditProfile extends Component<Props, UserInformation> {
         const { navigation } = this.props
         return (
             <View style={styles.container}>
-                <Wallpaper style={styles.wallpaper} />
-                <Header
-                    style={styles.header}
-                    headerText={"EDIT PROFILE"}
-                    titleStyle={styles.headerTitle}
-                    leftIcon={"menu"}
-                    onLeftPress={this.onLeft.bind(this)}
-                />
-                <GoldBarView />
-                <Drawer
-                    openDrawerOffset={0.36}
-                    panCloseMask={0.36}
-                    ref={ref => {
-                        this.drawer = ref
-                    }}
-                    content={
-                        <SideBar
-                            navigation={this.props.navigation}
-                            onCloseMenu={params => this.closeDrawer(params)}
+                <ScrollView contentContainerStyle={styles.scrollContainer}>
+                    <TouchableOpacity style={styles.profilePicView} onPress={this.onSelectImage.bind(this)}>
+                        <Image
+                            source={this.state.avatarSource}
+                            style={styles.profilePic}
                         />
-                    }
-                    onClose={() => this.closeDrawer()}
-                >
-                    <ScrollView contentContainerStyle={styles.scrollContainer}>
-                        <TouchableOpacity style={styles.profilePicView} onPress={this.onSelectImage.bind(this)}>
-                            <Image
-                                source={this.state.avatarSource}
-                                style={styles.profilePic}
-                            />
-                        </TouchableOpacity>
-                        <TextField
-                            placeholder="First Name"
-                            inputStyle={styles.textField}
-                            placeholderTextColor={color.placeholderText}
-                            onChangeText={value => this.setState({ firstName: value })}
-                            value={this.state.firstName}
-                        />
-                        <TextField
-                            placeholder="Last Name"
-                            inputStyle={styles.textField}
-                            placeholderTextColor={color.placeholderText}
-                            onChangeText={value => this.setState({ lastName: value })}
-                            value={this.state.lastName}
-                        />
-                        <TextField
-                            placeholder="City"
-                            inputStyle={styles.textField}
-                            placeholderTextColor={color.placeholderText}
-                            onChangeText={value => this.setState({ city: value })}
-                            value={this.state.city}
-                        />
-                        <TextField
-                            placeholder="State"
-                            inputStyle={styles.textField}
-                            placeholderTextColor={color.placeholderText}
-                            onChangeText={value => this.setState({ state: value })}
-                            value={this.state.state}
-                        />
-                        <TextField
-                            placeholder="Zip"
-                            inputStyle={styles.textField}
-                            placeholderTextColor={color.placeholderText}
-                            onChangeText={value => this.setState({ zip: value })}
-                            value={this.state.zip}
-                        />
-                        <Button style={styles.button} onPress={this.onSave.bind(this)}>
-                            <Text style={styles.buttonText}>SAVE</Text>
-                        </Button>
-                    </ScrollView>
-                </Drawer>
+                    </TouchableOpacity>
+                    <TextField
+                        placeholder="First Name"
+                        inputStyle={styles.textField}
+                        placeholderTextColor={color.placeholderText}
+                        onChangeText={value => this.setState({ firstName: value })}
+                        value={this.state.firstName}
+                    />
+                    <TextField
+                        placeholder="Last Name"
+                        inputStyle={styles.textField}
+                        placeholderTextColor={color.placeholderText}
+                        onChangeText={value => this.setState({ lastName: value })}
+                        value={this.state.lastName}
+                    />
+                    <TextField
+                        placeholder="City"
+                        inputStyle={styles.textField}
+                        placeholderTextColor={color.placeholderText}
+                        onChangeText={value => this.setState({ city: value })}
+                        value={this.state.city}
+                    />
+                    <TextField
+                        placeholder="State"
+                        inputStyle={styles.textField}
+                        placeholderTextColor={color.placeholderText}
+                        onChangeText={value => this.setState({ state: value })}
+                        value={this.state.state}
+                    />
+                    <TextField
+                        placeholder="Zip"
+                        inputStyle={styles.textField}
+                        placeholderTextColor={color.placeholderText}
+                        onChangeText={value => this.setState({ zip: value })}
+                        value={this.state.zip}
+                    />
+                    <Button style={styles.button} onPress={this.onSave.bind(this)}>
+                        <Text style={styles.buttonText}>SAVE</Text>
+                    </Button>
+                </ScrollView>
             </View>
         )
     }

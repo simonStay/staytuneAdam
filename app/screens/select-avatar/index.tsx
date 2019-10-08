@@ -66,7 +66,7 @@ class SelectAvatar extends Component<Props, {}> {
             </Avatar>
           )}
         />
-        <Button style={styles.button} onPress={() => navigation.navigate("MapScreen")}>
+        <Button style={styles.button} onPress={() => navigation.navigate("MainScreen")}>
           <Text style={styles.buttonText}>SUBMIT</Text>
         </Button>
       </View>
