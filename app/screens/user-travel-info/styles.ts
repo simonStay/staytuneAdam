@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         fontSize: 23,
         fontWeight: "600",
         fontFamily: "OpenSans",
-        marginTop: 10,
+        marginTop: 6,
     },
     editText: {
         color: color.text,

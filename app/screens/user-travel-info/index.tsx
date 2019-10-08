@@ -14,7 +14,7 @@ import { Button } from "../../components/button"
 import { Header } from "../../components/header"
 import LinearGradient from 'react-native-linear-gradient';
 
-// import { Tabs } from "../../components/tabs"
+import { Tabs } from "../../components/tabs"
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState>
@@ -43,7 +43,7 @@ class UserTravelInfo extends Component<Props, UserInformation> {
                     start={{ x: 0.0, y: 0.0 }} end={{ x: 0.0, y: 1.0 }}
                     locations={[0, 0.5, 1]}
                     colors={["#000000", "#1F2022", "#00000010"]}
-                    style={{ width: dimensions.width, height: 210 }}
+                    style={{ width: dimensions.width, height: dimensions.height * 0.13 }}
                 >
                     <View style={styles.userContainer}>
                         <View style={styles.leftContainer}>
@@ -61,7 +61,7 @@ class UserTravelInfo extends Component<Props, UserInformation> {
                     </View>
 
                 </LinearGradient>
-                {/* <Tabs /> */}
+                <Tabs />
                 <ScrollView contentContainerStyle={styles.scrollContainer}>
                     <Text style={styles.initialText}>COMING SOON....</Text>
                 </ScrollView>
