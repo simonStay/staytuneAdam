@@ -28,8 +28,8 @@ interface Props {
 }
 interface UserInformation {
     isOpen: boolean
-    selectedValue: string
-    headerTitle: string
+    selectedValue: any
+    headerTitle: any
 }
 
 
@@ -37,9 +37,8 @@ class MainScreen extends Component<Props, UserInformation, {}> {
     constructor(props: Props) {
         super(props)
         this.state = {
-            selectedValue: this.props.navigation.state.params === undefined
-                ? 'Start a plan'
-                : this.props.navigation.state.params, headerTitle: "", isOpen: false
+            selectedValue: this.props.navigation.state.params === undefined ? 'Start a plan' : this.props.navigation.state.params,
+            headerTitle: this.props.navigation.state.params === undefined ? 'START A PLAN' : this.props.navigation.state.params, isOpen: false
         }
     }
 
@@ -124,9 +123,9 @@ class MainScreen extends Component<Props, UserInformation, {}> {
         } else if (this.state.selectedValue == 'Find a Local Friend') {
             return <FindLocalFriend navigation={this.props.navigation} />
         } else if (this.state.selectedValue == 'Saved locations') {
-            return <UserTravelInfo navigation={this.props.navigation} />
+            return <UserTravelInfo navigation={this.props.navigation} tabId={2} tabValue={'SAVED LOCATIONS'} />
         } else if (this.state.selectedValue == 'Budget') {
-            return <UserTravelInfo navigation={this.props.navigation} />
+            return <UserTravelInfo navigation={this.props.navigation} tabId={1} tabValue={'BUDGET INFO'} />
         }
     }
 

@@ -4,9 +4,8 @@ import { color, dimensions } from "../../theme/"
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: color.ImageBackgroundColor,
+        backgroundColor: color.primaryColor,
     },
-
     button: {
         marginHorizontal: 20,
         height: dimensions.height / 15.6,

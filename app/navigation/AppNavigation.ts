@@ -35,7 +35,7 @@ const stackNav = createStackNavigator(
     MainScreen: { screen: MainScreen }
   },
   {
-    initialRouteName: "Splash",
+    initialRouteName: "MainScreen",
     headerMode: "none",
     defaultNavigationOptions: {
       gesturesEnabled: false,

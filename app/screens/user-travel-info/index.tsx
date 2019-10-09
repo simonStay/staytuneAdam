@@ -21,18 +21,43 @@ interface Props {
 }
 interface UserInformation {
     isOpen: boolean
+    selectedTabId: any
+    tabValue: any
+    tabId: number
 }
 
 const profilePic = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlsjY5BTaQA9ourJ7KW1PDagYVjryOF51notG3PPlaPM3-3am30w";
+const TabsList = [{ id: 0, tab: 'PROFILE INFO' }, { id: 1, tab: 'BUDGET INFO' }, { id: 2, tab: 'SAVED LOCATIONS' }];
+
 
 class UserTravelInfo extends Component<Props, UserInformation> {
     constructor(props: Props) {
         super(props)
         this.state = {
+            selectedTabId: 0
         }
     }
     onSave() {
         alert('submit')
+    }
+
+    componentDidMount() {
+        this.setState({
+            selectedTabId: this.props.tabId
+        })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            selectedTabId: nextProps.tabId
+        })
+    }
+
+    selectedTab(value) {
+        this.setState({
+            selectedTabId: value.id
+        })
+        // console.log('onTab_123:', value)
     }
 
     render() {
@@ -42,7 +67,7 @@ class UserTravelInfo extends Component<Props, UserInformation> {
                 <LinearGradient
                     start={{ x: 0.0, y: 0.0 }} end={{ x: 0.0, y: 1.0 }}
                     locations={[0, 0.5, 1]}
-                    colors={["#000000", "#1F2022", "#00000010"]}
+                    colors={[color.primaryColor, color.primaryColor, "#00000010"]}
                     style={{ width: dimensions.width, height: dimensions.height * 0.13 }}
                 >
                     <View style={styles.userContainer}>
@@ -61,7 +86,11 @@ class UserTravelInfo extends Component<Props, UserInformation> {
                     </View>
 
                 </LinearGradient>
-                <Tabs />
+                <Tabs
+                    TabsList={TabsList}
+                    onPress={(value) => this.selectedTab(value)}
+                    selectedTabId={this.state.selectedTabId}
+                />
                 <ScrollView contentContainerStyle={styles.scrollContainer}>
                     <Text style={styles.initialText}>COMING SOON....</Text>
                 </ScrollView>

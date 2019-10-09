@@ -8,4 +8,7 @@ export interface ViewProps extends ViewProperties {
   text?: string
   style?: ViewStyle | ViewStyle[]
   preset?: tabsPresets
+  TabsList?: [] | object
+  onPress?: (newValue: any) => void
+  selectedTabId: any
 }
