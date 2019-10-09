@@ -35,7 +35,16 @@ class MapScreen extends Component<Props, MapScreen, {}> {
   componentDidMount() {
     Geolocation.getCurrentPosition(position => {
       console.log("position", JSON.stringify(position))
+      this.setState({
+        region: {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }
+      })
     })
+
     Geolocation.watchPosition(position => {
       console.log("Watchposition", JSON.stringify(position))
     })

@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, Image } from "react-native"
+import { View, Image, Keyboard, Alert } from "react-native"
 import { NavigationScreenProp, NavigationState, ScrollView } from "react-navigation"
 import styles from "./styles"
 
@@ -9,6 +9,9 @@ import { Text } from "../../components/text"
 import { Button } from "../../components/button"
 import { color } from "../../theme"
 
+import { connect } from 'react-redux';
+import { signUp } from "../../redux/actions/user"
+
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
 }
@@ -16,6 +19,7 @@ interface userDetails {
   fullName: string
   email: string
   password: string
+  signUp?: () => void
 }
 
 class Register extends Component<Props, userDetails> {
@@ -27,9 +31,80 @@ class Register extends Component<Props, userDetails> {
       password: "",
     }
   }
-  onSubmit() {
-    alert("SIGNUP" + JSON.stringify(this.state))
-    this.props.navigation.navigate("ProfileInfo")
+
+  validateEmail = (email) => {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  };
+
+  // validatPassword = (str) => {
+  //   var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,16}$/;
+  //   return re.test(str);
+  // }
+
+  async onSubmit() {
+    Keyboard.dismiss();
+    console.log("SIGNUP" + JSON.stringify(this.state))
+
+    if (this.state.fullName == "") {
+      Alert.alert(
+        'Stay Tune',
+        'Please enter fullName',
+        [
+          { text: 'OK', onPress: () => console.log('OK Pressed') },
+        ],
+        { cancelable: false },
+      );
+    } else if (this.state.email == "") {
+      Alert.alert(
+        'Stay Tune',
+        'Please enter email',
+        [
+          { text: 'OK', onPress: () => console.log('OK Pressed') },
+        ],
+        { cancelable: false },
+      );
+    } else if (this.state.email == "") {
+      Alert.alert(
+        'Stay Tune',
+        'Please enter email',
+        [
+          { text: 'OK', onPress: () => console.log('OK Pressed') },
+        ],
+        { cancelable: false },
+      );
+    } else if (!this.validateEmail(this.state.email)) {
+      Alert.alert(
+        'Stay Tune',
+        'Please enter valid email',
+        [
+          { text: 'OK', onPress: () => console.log('OK Pressed') },
+        ],
+        { cancelable: false },
+      );
+    } else if (this.state.password == "") {
+      Alert.alert(
+        'Stay Tune',
+        'Please enter password',
+        [
+          { text: 'OK', onPress: () => console.log('OK Pressed') },
+        ],
+        { cancelable: false },
+      );
+    } else if (this.state.password.length < 8 || this.state.password.length > 10) {
+      Alert.alert(
+        'Stay Tune',
+        'Password range should between 8 and 10',
+        [
+          { text: 'OK', onPress: () => console.log('OK Pressed') },
+        ],
+        { cancelable: false },
+      );
+    } else {
+      const { fullName, email, password } = this.state
+      await this.props.signUp(fullName, email, password);
+      // this.props.navigation.navigate("ProfileInfo")
+    }
   }
 
   render() {
@@ -84,4 +159,25 @@ class Register extends Component<Props, userDetails> {
   }
 }
 
-export default Register
+export default connect(
+  state => ({
+    user: state.user,
+  }),
+  {
+    signUp,
+  }
+)(Register);
+
+// const mapDispatchToProps = {
+//   signUp: (username, password) => signUp(username, password)
+// };
+
+// const mapStateToProps = state => ({
+//   user: state.user,
+// });
+
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(Register);
+
