@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, ScrollView, Image } from "react-native"
+import { View, ScrollView, Image, Keyboard, Alert } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 import { Wallpaper } from "../../components/wallpaper"
 import { TextField } from "../../components/text-field"
@@ -7,6 +7,8 @@ import { Button } from "../../components/button"
 import { Text } from "../../components/text"
 import styles from "./styles"
 import { color } from "../../theme"
+import { Login } from "../../redux/actions/user"
+import { connect } from 'react-redux';
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
@@ -16,7 +18,7 @@ interface userDetails {
   password: string
 }
 
-class Login extends Component<Props, userDetails> {
+class LoginScreen extends Component<Props, userDetails> {
   constructor(props: Props) {
     super(props)
     this.state = { email: "", password: "" }
@@ -24,10 +26,44 @@ class Login extends Component<Props, userDetails> {
   onSignUp() {
     this.props.navigation.navigate("Register")
   }
-  Login() {
-    console.log("values" + JSON.stringify(this.state))
-    this.props.navigation.navigate("ProfileInfo")
+
+  validateEmail = (email) => {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  };
+
+  async onLogin() {
+    Keyboard.dismiss();
+    //console.log("values" + JSON.stringify(this.state))
+
+    if (this.state.email == "") {
+      Alert.alert(
+        'Stay Tune',
+        'Please enter email',
+        [
+          { text: 'OK', onPress: () => console.log('OK Pressed') },
+        ],
+        { cancelable: false },
+      );
+    } else if (this.state.password == "") {
+      Alert.alert(
+        'Stay Tune',
+        'Please enter password',
+        [
+          { text: 'OK', onPress: () => console.log('OK Pressed') },
+        ],
+        { cancelable: false },
+      );
+    } else {
+      const { email, password } = this.state
+      await this.props.Login(email, password);
+      console.log("user_123", this.props.user)
+      //this.props.navigation.navigate("ProfileInfo")
+    }
+
+    //this.props.navigation.navigate("ProfileInfo")
   }
+
   render() {
     const { navigation } = this.props
 
@@ -45,6 +81,7 @@ class Login extends Component<Props, userDetails> {
             placeholderTextColor={color.placeholderText}
             onChangeText={value => this.setState({ email: value })}
             value={this.state.email}
+            autoCapitalize='none'
           />
           <TextField
             inputStyle={styles.inputStyle}
@@ -53,6 +90,7 @@ class Login extends Component<Props, userDetails> {
             secureTextEntry={true}
             onChangeText={value => this.setState({ password: value })}
             value={this.state.password}
+            autoCapitalize='none'
           />
           <Text
             style={styles.forgotPasswordText}
@@ -62,7 +100,7 @@ class Login extends Component<Props, userDetails> {
           >
             Forgot Password ?
           </Text>
-          <Button style={styles.button} onPress={this.Login.bind(this)}>
+          <Button style={styles.button} onPress={this.onLogin.bind(this)}>
             <Text style={styles.buttonText}>LOGIN</Text>
           </Button>
           <Button style={styles.button} onPress={this.onSignUp.bind(this)}>
@@ -74,4 +112,11 @@ class Login extends Component<Props, userDetails> {
   }
 }
 
-export default Login
+export default connect(
+  state => ({
+    user: state,
+  }),
+  {
+    Login,
+  }
+)(LoginScreen);

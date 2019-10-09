@@ -11,6 +11,7 @@ import { color } from "../../theme"
 
 import { connect } from 'react-redux';
 import { signUp } from "../../redux/actions/user"
+import PropTypes from 'prop-types';
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
@@ -20,9 +21,13 @@ interface userDetails {
   email: string
   password: string
   signUp?: () => void
+  user: any
 }
 
 class Register extends Component<Props, userDetails> {
+  static propTypes = {
+    user: PropTypes.object.isRequired
+  }
   constructor(props: Props) {
     super(props)
     this.state = {
@@ -50,15 +55,6 @@ class Register extends Component<Props, userDetails> {
       Alert.alert(
         'Stay Tune',
         'Please enter fullName',
-        [
-          { text: 'OK', onPress: () => console.log('OK Pressed') },
-        ],
-        { cancelable: false },
-      );
-    } else if (this.state.email == "") {
-      Alert.alert(
-        'Stay Tune',
-        'Please enter email',
         [
           { text: 'OK', onPress: () => console.log('OK Pressed') },
         ],
@@ -103,7 +99,8 @@ class Register extends Component<Props, userDetails> {
     } else {
       const { fullName, email, password } = this.state
       await this.props.signUp(fullName, email, password);
-      // this.props.navigation.navigate("ProfileInfo")
+      console.log("user_123", this.props.user)
+      this.props.navigation.navigate('Login')
     }
   }
 
@@ -123,6 +120,7 @@ class Register extends Component<Props, userDetails> {
             placeholderTextColor={color.placeholderText}
             onChangeText={value => this.setState({ fullName: value })}
             value={this.state.fullName}
+            autoCapitalize='none'
           />
           <TextField
             placeholder="Enter your email"
@@ -130,6 +128,7 @@ class Register extends Component<Props, userDetails> {
             placeholderTextColor={color.placeholderText}
             onChangeText={value => this.setState({ email: value })}
             value={this.state.email}
+            autoCapitalize='none'
           />
           <TextField
             placeholder="Enter your password"
@@ -138,6 +137,7 @@ class Register extends Component<Props, userDetails> {
             onChangeText={value => this.setState({ password: value })}
             value={this.state.password}
             secureTextEntry={true}
+            autoCapitalize='none'
           />
           <Button style={styles.button} onPress={this.onSubmit.bind(this)}>
             <Text style={styles.buttonText}>SUBMIT</Text>
@@ -161,23 +161,11 @@ class Register extends Component<Props, userDetails> {
 
 export default connect(
   state => ({
-    user: state.user,
+    user: state,
   }),
   {
     signUp,
   }
 )(Register);
 
-// const mapDispatchToProps = {
-//   signUp: (username, password) => signUp(username, password)
-// };
-
-// const mapStateToProps = state => ({
-//   user: state.user,
-// });
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(Register);
 
