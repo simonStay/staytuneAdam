@@ -5,8 +5,6 @@ import { color, spacing } from "../../theme"
  * All text will start off looking like this.
  */
 const BASE_VIEW: ViewStyle = {
-  paddingVertical: spacing[2],
-  paddingHorizontal: spacing[2],
   borderRadius: 4,
   justifyContent: "center",
   alignItems: "center",

@@ -99,8 +99,22 @@ class Register extends Component<Props, userDetails> {
     } else {
       const { fullName, email, password } = this.state
       await this.props.signUp(fullName, email, password);
-      console.log("user_123", this.props.user)
-      this.props.navigation.navigate('Login')
+      if (this.props.user.status == "failed") {
+        Alert.alert(
+          'Stay Tune',
+          this.props.user.message,
+          [
+            { text: 'OK', onPress: () => console.log('OK Pressed') },
+          ],
+          { cancelable: false },
+        );
+      } else if (this.props.user.status == "success") {
+        this.props.navigation.navigate('Login', {
+          intialUser: true,
+        })
+      }
+      console.log("state_user_123:", this.props.user)
+      // this.props.navigation.navigate('Login')
     }
   }
 
@@ -161,7 +175,7 @@ class Register extends Component<Props, userDetails> {
 
 export default connect(
   state => ({
-    user: state,
+    user: state.user.register,
   }),
   {
     signUp,

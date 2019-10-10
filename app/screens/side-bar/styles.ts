@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native"
-import { color, dimensions } from "../../theme/"
+import { color, dimensions, fontsize } from "../../theme/"
 
 const styles = StyleSheet.create({
     container: {
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     },
     itemText: {
         color: color.text,
-        fontSize: 19,
+        fontSize: fontsize.menuText,
         fontFamily: "OpenSans-Semibold"
     }
 })

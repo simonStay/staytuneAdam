@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native"
-import { color, dimensions } from "../../theme/"
+import { color, dimensions, fontsize } from "../../theme/"
 
 const styles = StyleSheet.create({
   container: {
@@ -21,12 +21,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     height: dimensions.height / 15.6,
     borderRadius: 10,
-    marginTop: 20,
+    marginBottom: 30,
     color: color.buttonColor,
   },
   buttonText: {
     color: color.text,
-    fontSize: 26,
+    fontSize: fontsize.buttonText,
     fontWeight: "600",
     fontFamily: "OpenSans-Semibold"
   },

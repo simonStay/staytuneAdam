@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native"
-import { color, dimensions } from "../../theme"
+import { color, dimensions, fontsize } from "../../theme"
 
 const styles = StyleSheet.create({
     container: {
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: color.text,
-        fontSize: 26,
+        fontSize: fontsize.buttonText,
         fontWeight: "600",
         fontFamily: "OpenSans-Semibold"
     },

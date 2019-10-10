@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native"
-import { color, dimensions } from "../../theme"
+import { color, dimensions, fontsize } from "../../theme"
 import { textPresets } from '../../components/button/button.presets';
 
 const styles = StyleSheet.create({

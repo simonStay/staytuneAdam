@@ -5,15 +5,20 @@ import { StorybookUIRoot } from "../storybook"
 //import { SafeAreaView } from "react-navigation"
 import { Provider } from "react-redux"
 import AppContainer from "./navigation/AppNavigation"
-import configureStore from "./redux/store"
-const store = configureStore()
+//import configureStore from "./redux/store"
+//const store = configureStore()
+import { PersistGate } from 'redux-persist/integration/react'
+
+import { store, persistor } from './redux/store';
 
 export default class App extends Component {
   render() {
     return (
       // <SafeAreaView style={{ flex: 1, backgroundColor: "green" }}>
       <Provider store={store}>
-        <AppContainer />
+        <PersistGate loading={null} persistor={persistor}>
+          <AppContainer />
+        </PersistGate>
       </Provider>
       // </SafeAreaView>
     )
