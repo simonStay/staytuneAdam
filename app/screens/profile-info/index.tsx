@@ -104,8 +104,8 @@ class ProfileInfo extends Component<Props, UserInformation> {
         } else {
             const { navigation } = this.props
             let userObj = {
-                firstName: this.state.firstName,
-                lastName: this.state.firstName,
+                firstname: this.state.firstName,
+                lastname: this.state.lastName,
                 city: this.state.city,
                 state: this.state.state,
                 zip: this.state.zip,
@@ -115,27 +115,6 @@ class ProfileInfo extends Component<Props, UserInformation> {
             navigation.navigate("SelectAvatar", { 'userObj': userObj })
         }
     }
-
-    // componentDidMount() {
-    //     this.setState({
-    //         userId: this.props.navigation.state.params.userId,
-    //         token: this.props.navigation.state.params.token
-    //     }, () => {
-
-    //         this.props.getUserDetails(this.state.userId, this.state.token)
-    //     })
-
-    //     this.setState({
-    //         firstName: "",
-    //         lastName: "",
-    //         city: "",
-    //         state: "",
-    //         zip: "",
-    //     })
-
-    //     console.log("componentDidMount_123:", this.props.user.userDetails)
-
-    // }
 
     render() {
         const { navigation } = this.props

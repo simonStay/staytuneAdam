@@ -19,6 +19,14 @@ const styles = StyleSheet.create({
         fontWeight: "600",
         fontFamily: "OpenSans-Semibold"
     },
+    nameStyle: {
+        color: "white",
+        fontSize: 26,
+        fontWeight: "600",
+        fontFamily: "OpenSans-Semibold",
+        alignSelf: 'center',
+        marginBottom: 10
+    },
     profilePicOutterView: {
         flex: 0.26,
         justifyContent: 'center',

@@ -10,6 +10,8 @@ import { Icon } from "../../components/icon"
 import { Text } from "../../components/text"
 import { GoldBarView } from "../../components/goldBar"
 
+import { connect } from "react-redux"
+
 const profilePic = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlsjY5BTaQA9ourJ7KW1PDagYVjryOF51notG3PPlaPM3-3am30w";
 
 const MenuItems = [
@@ -30,10 +32,24 @@ interface Props {
 
 interface sideMenuItems {
     profilePic: string
+    userName: string
 }
 
 class SideBar extends Component<Props, sideMenuItems, {}> {
+    constructor(props: Props) {
+        super(props)
+        this.state = {
+            profilePic: profilePic,
+            userName: ''
+        }
+    }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            profilePic: nextProps.user.userDetails.profilePic,
+            userName: nextProps.user.userDetails.firstname + ' ' + this.props.user.userDetails.lastname
+        })
+    }
     onEditProfile() {
         this.props.onCloseMenu('Edit Profile');
     }
@@ -81,11 +97,13 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
                     <View style={styles.profilePicOutterView}>
                         <View style={styles.profilePicView}>
                             <Image
-                                source={{ uri: profilePic }}
+                                source={{ uri: this.state.profilePic }}
                                 style={styles.profilePic}
                             />
                         </View>
                     </View>
+
+                    <Text style={styles.nameStyle}>{this.state.userName}</Text>
                     <View style={styles.buttonView}>
 
                         <TouchableOpacity onPress={this.onEditProfile.bind(this)}>
@@ -109,4 +127,12 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
     }
 }
 
-export default SideBar
+export default connect(
+    state => ({
+        user: state.user,
+    }),
+    {
+    }
+)(SideBar);
+
+
