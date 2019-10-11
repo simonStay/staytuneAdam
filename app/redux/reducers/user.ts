@@ -4,7 +4,6 @@ import {
   GET_USER_DETAILS,
   CREATE_USER_PROFILE,
   GET_AVATAR_IMAGES,
-  SELECT_AVATAR_IMAGE,
   FORGOT_PASSWORD,
 } from "../actions/user"
 
@@ -35,11 +34,6 @@ export default function user(state = {}, action) {
       return {
         ...state,
         avatarImages: action.payload,
-      }
-    case SELECT_AVATAR_IMAGE:
-      return {
-        ...state,
-        selectAvatarImage: action.playload,
       }
     case FORGOT_PASSWORD:
       return {
