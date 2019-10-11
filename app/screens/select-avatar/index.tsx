@@ -13,6 +13,7 @@ import { GoldBarView } from "../../components/goldBar"
 import { connect } from "react-redux"
 import { getAvatarImages, createUserProfile } from "../../redux/actions/user"
 
+
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
 }
@@ -39,8 +40,8 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
     }
   }
   async componentDidMount() {
-    //await this.props.getAvatarImages()
-    // console.log("getAvatarImages_get:", this.props.avatarList)
+    await this.props.getAvatarImages()
+    console.log("getAvatarImages_get:", this.props.avatarList)
     //console.log("userInfoObject_123:", this.props.navigation.state.params.userObj)
     this.setState({ avatarImagesList: this.props.avatarList })
   }
@@ -50,51 +51,51 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
   }
 
   onSubmit() {
-    // if (this.state.selectedAvatarId == "") {
-    //   Alert.alert(
-    //     'Stay Tune',
-    //     'Please Select Avatar',
-    //     [
-    //       { text: 'OK', onPress: () => console.log('OK Pressed') },
-    //     ],
-    //     { cancelable: false },
-    //   );
-    // } else {
-    //   let userInfoObj = {
-    //     firstName: this.props.navigation.state.params.userObj.firstName,
-    //     lastName: this.props.navigation.state.params.userObj.firstName,
-    //     city: this.props.navigation.state.params.userObj.city,
-    //     state: this.props.navigation.state.params.userObj.state,
-    //     zip: this.props.navigation.state.params.userObj.zip,
-    //     profilePic: this.state.selectedAvatarUrl,
-    //     userId: this.props.navigation.state.params.userObj.userId,
-    //   }
+    if (this.state.selectedAvatarId == "") {
+      Alert.alert(
+        'Stay Tune',
+        'Please Select Avatar',
+        [
+          { text: 'OK', onPress: () => console.log('OK Pressed') },
+        ],
+        { cancelable: false },
+      );
+    } else {
+      let userInfoObj = {
+        firstName: this.props.navigation.state.params.userObj.firstName,
+        lastName: this.props.navigation.state.params.userObj.firstName,
+        city: this.props.navigation.state.params.userObj.city,
+        state: this.props.navigation.state.params.userObj.state,
+        zip: this.props.navigation.state.params.userObj.zip,
+        profilePic: this.state.selectedAvatarUrl,
+        userId: this.props.navigation.state.params.userObj.userId,
+      }
 
-    //   console.log("userInfoObj_123:", userInfoObj)
-    //   this.props.createUserProfile(userInfoObj)
-    //   console.log('createUserProfile_123:', this.props.navigation.state.params.userObj.userId)
-    //   if (this.props.user.userProfileInfo.status == "sucess") {
+      console.log("userInfoObj_123:", userInfoObj)
+      this.props.createUserProfile(userInfoObj)
+      try {
+        if (this.props.user.userProfileInfo.status == "sucess") {
 
-    //     // this.props.navigation.navigate("MainScreen", {
-    //     //   userId: this.props.navigation.state.params.userObj.userId
-    //     // })
+          this.props.navigation.navigate("MainScreen", {
+            userId: this.props.navigation.state.params.userObj.userId
+          })
 
+        } else {
+          Alert.alert(
+            'Stay Tune',
+            'Something went wrong',
+            [
+              { text: 'OK', onPress: () => console.log('OK Pressed') },
+            ],
+            { cancelable: false },
+          );
+        }
+      } catch (error) {
+        console.log('error:', error)
+      }
 
+    }
 
-    //   } else {
-    //     Alert.alert(
-    //       'Stay Tune',
-    //       'Something went wrong',
-    //       [
-    //         { text: 'OK', onPress: () => console.log('OK Pressed') },
-    //       ],
-    //       { cancelable: false },
-    //     );
-    //   }
-    // }
-    this.props.navigation.navigate('MainScreen', { paramName: 'value' })
-
-    // this.props.navigation.navigate("MainScreen")
   }
 
   renderItem({ item }) {
