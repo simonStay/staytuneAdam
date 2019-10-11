@@ -1,12 +1,11 @@
 import React, { Component } from "react"
-import { View, ScrollView, Image, Keyboard, Alert } from "react-native"
+import { View, ScrollView, Image, Alert } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 import { Wallpaper } from "../../components/wallpaper"
 import { TextField } from "../../components/text-field"
 import { Button } from "../../components/button"
 import { Text } from "../../components/text"
 import { Header } from "../../components/header"
-import { ForgotPassword } from "../../redux/actions/user"
 import { connect } from "react-redux"
 import styles from "./styles"
 import { color } from "../../theme"
@@ -16,52 +15,29 @@ interface Props {
 }
 
 interface userDetails {
-  email: string
+  OTP: string
 }
 
-class ForgotPasswordScreen extends Component<Props, userDetails> {
+class OTPScreen extends Component<Props, userDetails> {
   constructor(props: Props) {
     super(props)
-    this.state = { email: "" }
+    this.state = { OTP: "" }
   }
-  validateEmail = email => {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    return re.test(email)
-  }
-  async handleSubmit() {
-    Keyboard.dismiss()
-    if (this.state.email == "") {
-      Alert.alert(
-        "Stay Tune",
-        "Please enter email",
-        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-        { cancelable: false },
-      )
-    } else if (!this.validateEmail(this.state.email)) {
-      Alert.alert(
-        "Stay Tune",
-        "Please enter valid email",
-        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-        { cancelable: false },
-      )
-    } else {
-      const { email } = this.state
-      let value = await this.props.ForgotPassword(email)
-      console.log("value_123", JSON.stringify(value))
-      if (value.payload.otp !== undefined) {
-        this.props.navigation.navigate("OTPScreen")
-      } else {
-        Alert.alert(
-          "Stay Tune",
-          value.payload.status,
-          [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-          { cancelable: false },
-        )
-      }
-      //console.log("user_123", this.props.user)
-      //this.props.navigation.navigate("ProfileInfo")
-    }
 
+  async handleSubmit() {
+    let OTPValue = await this.props.user.user.passwordCode.otp
+    console.log("user_otp", JSON.stringify(OTPValue))
+    if (OTPValue == this.state.OTP) {
+      this.props.navigation.navigate("ChangePassword")
+    } else {
+      console.log("OTPValue", OTPValue, "_OTP", this.state.OTP)
+      Alert.alert(
+        "Stay Tune",
+        "OTP is incorrect, please enter the correct OTP",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+        { cancelable: false },
+      )
+    }
     //this.props.navigation.navigate("Login")
   }
   render() {
@@ -73,14 +49,15 @@ class ForgotPasswordScreen extends Component<Props, userDetails> {
           <Header style={styles.header} leftIcon={"back"} onLeftPress={() => navigation.goBack()} />
           <Image style={styles.logo} source={require("../splash/logo.png")} />
           <Text style={styles.textStyle}>
-            Hello! I'm StayTune, your personal travel assistant, may i have your email.
+            Hello! I'm StayTune, your personal travel assistant, may i have your OTP which was sent
+            to your email.
           </Text>
           <TextField
             inputStyle={styles.inputStyle}
-            placeholder="Enter your email"
+            placeholder="Enter your OTP"
             placeholderTextColor={color.placeholderText}
-            onChangeText={value => this.setState({ email: value.toLowerCase() })}
-            value={this.state.email}
+            onChangeText={value => this.setState({ OTP: value })}
+            value={this.state.OTP}
           />
           <Button style={styles.button} onPress={this.handleSubmit.bind(this)}>
             <Text style={styles.buttonText}>SUBMIT</Text>
@@ -96,6 +73,6 @@ export default connect(
     user: state,
   }),
   {
-    ForgotPassword,
+    OTPScreen,
   },
-)(ForgotPasswordScreen)
+)(OTPScreen)
