@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { View, Image } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
+import { connect } from "react-redux"
 
 import styles from "./styles"
 
@@ -13,9 +14,18 @@ interface Props {
 class Splash extends Component<Props, {}> {
   componentDidMount() {
     let self = this
-    setTimeout(function () {
+    setTimeout(function() {
       //console.log("Test")
-      self.props.navigation.navigate("Login")
+      if (self.props.user.login !== undefined && self.props.user.login.verified !== undefined) {
+        if (self.props.user.login.verified && self.props.user.login.profilePic != "") {
+          self.props.navigation.navigate("MainScreen", {
+            userId: self.props.user.login.id,
+            token: self.props.user.login.token,
+          })
+        }
+      } else {
+        self.props.navigation.navigate("Login")
+      }
     }, 3000)
   }
   render() {
@@ -29,4 +39,9 @@ class Splash extends Component<Props, {}> {
   }
 }
 
-export default Splash
+export default connect(
+  state => ({
+    user: state.user,
+  }),
+  {},
+)(Splash)

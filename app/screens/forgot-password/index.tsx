@@ -10,6 +10,7 @@ import { ForgotPassword } from "../../redux/actions/user"
 import { connect } from "react-redux"
 import styles from "./styles"
 import { color } from "../../theme"
+import AnimatedLoader from "react-native-animated-loader"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
@@ -86,6 +87,13 @@ class ForgotPasswordScreen extends Component<Props, userDetails> {
           <Button style={styles.button} onPress={this.handleSubmit.bind(this)}>
             <Text style={styles.buttonText}>SUBMIT</Text>
           </Button>
+          <AnimatedLoader
+            visible={this.props.user.loader}
+            overlayColor="rgba(255,255,255,0.75)"
+            source={require("./../loader.json")}
+            animationStyle={styles.lottie}
+            speed={1}
+          />
         </ScrollView>
       </View>
     )

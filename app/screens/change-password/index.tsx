@@ -10,6 +10,7 @@ import { ChangePassword } from "../../redux/actions/user"
 import { connect } from "react-redux"
 import styles from "./styles"
 import { color } from "../../theme"
+import AnimatedLoader from "react-native-animated-loader"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
@@ -47,7 +48,7 @@ class ChangePasswordScreen extends Component<Props, userDetails> {
       await this.props.ChangePassword(body)
       console.log("userInfo", JSON.stringify(this.props.user))
       try {
-        if (this.props.user.user.userProfileInfo.status == "sucess") {
+        if (this.props.user.user.userProfileInfo.status == "success") {
           this.props.navigation.navigate("Login")
         } else {
           Alert.alert(
@@ -95,6 +96,13 @@ class ChangePasswordScreen extends Component<Props, userDetails> {
           <Button style={styles.button} onPress={this.handleSubmit.bind(this)}>
             <Text style={styles.buttonText}>SUBMIT</Text>
           </Button>
+          <AnimatedLoader
+            visible={this.props.user.loader}
+            overlayColor="rgba(255,255,255,0.75)"
+            source={require("./../loader.json")}
+            animationStyle={styles.lottie}
+            speed={1}
+          />
         </ScrollView>
       </View>
     )

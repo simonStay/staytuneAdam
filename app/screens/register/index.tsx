@@ -9,9 +9,10 @@ import { Text } from "../../components/text"
 import { Button } from "../../components/button"
 import { color } from "../../theme"
 
-import { connect } from 'react-redux';
+import { connect } from "react-redux"
 import { signUp } from "../../redux/actions/user"
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types"
+import AnimatedLoader from "react-native-animated-loader"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
@@ -26,7 +27,7 @@ interface userDetails {
 
 class Register extends Component<Props, userDetails> {
   static propTypes = {
-    user: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
   }
   constructor(props: Props) {
     super(props)
@@ -37,10 +38,10 @@ class Register extends Component<Props, userDetails> {
     }
   }
 
-  validateEmail = (email) => {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-  };
+  validateEmail = email => {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return re.test(email)
+  }
 
   // validatPassword = (str) => {
   //   var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,16}$/;
@@ -48,69 +49,62 @@ class Register extends Component<Props, userDetails> {
   // }
 
   async onSubmit() {
-    Keyboard.dismiss();
+    Keyboard.dismiss()
     console.log("SIGNUP" + JSON.stringify(this.state))
 
     if (this.state.fullName == "") {
       Alert.alert(
-        'Stay Tune',
-        'Please enter fullName',
-        [
-          { text: 'OK', onPress: () => console.log('OK Pressed') },
-        ],
+        "Stay Tune",
+        "Please enter fullName",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
         { cancelable: false },
-      );
+      )
     } else if (this.state.email == "") {
       Alert.alert(
-        'Stay Tune',
-        'Please enter email',
-        [
-          { text: 'OK', onPress: () => console.log('OK Pressed') },
-        ],
+        "Stay Tune",
+        "Please enter email",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
         { cancelable: false },
-      );
+      )
     } else if (!this.validateEmail(this.state.email)) {
       Alert.alert(
-        'Stay Tune',
-        'Please enter valid email',
-        [
-          { text: 'OK', onPress: () => console.log('OK Pressed') },
-        ],
+        "Stay Tune",
+        "Please enter valid email",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
         { cancelable: false },
-      );
+      )
     } else if (this.state.password == "") {
       Alert.alert(
-        'Stay Tune',
-        'Please enter password',
-        [
-          { text: 'OK', onPress: () => console.log('OK Pressed') },
-        ],
+        "Stay Tune",
+        "Please enter password",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
         { cancelable: false },
-      );
+      )
     } else if (this.state.password.length < 8 || this.state.password.length > 10) {
       Alert.alert(
-        'Stay Tune',
-        'Password range should between 8 and 10',
-        [
-          { text: 'OK', onPress: () => console.log('OK Pressed') },
-        ],
+        "Stay Tune",
+        "Password range should between 8 and 10",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
         { cancelable: false },
-      );
+      )
     } else {
       const { fullName, email, password } = this.state
-      await this.props.signUp(fullName, email, password);
+      await this.props.signUp(fullName, email, password)
       if (this.props.user.status == "failed") {
         Alert.alert(
-          'Stay Tune',
+          "Stay Tune",
           this.props.user.message,
-          [
-            { text: 'OK', onPress: () => console.log('OK Pressed') },
-          ],
+          [{ text: "OK", onPress: () => console.log("OK Pressed") }],
           { cancelable: false },
-        );
+        )
       } else if (this.props.user.status == "success") {
-        this.props.navigation.navigate('Login', {
+        this.props.navigation.navigate("Login", {
           intialUser: true,
+        })
+        this.setState({
+          fullName: "",
+          email: "",
+          password: "",
         })
       }
       console.log("state_user_123:", this.props.user)
@@ -134,7 +128,7 @@ class Register extends Component<Props, userDetails> {
             placeholderTextColor={color.placeholderText}
             onChangeText={value => this.setState({ fullName: value })}
             value={this.state.fullName}
-            autoCapitalize='none'
+            autoCapitalize="none"
           />
           <TextField
             placeholder="Enter your email"
@@ -142,7 +136,7 @@ class Register extends Component<Props, userDetails> {
             placeholderTextColor={color.placeholderText}
             onChangeText={value => this.setState({ email: value })}
             value={this.state.email}
-            autoCapitalize='none'
+            autoCapitalize="none"
           />
           <TextField
             placeholder="Enter your password"
@@ -151,16 +145,28 @@ class Register extends Component<Props, userDetails> {
             onChangeText={value => this.setState({ password: value })}
             value={this.state.password}
             secureTextEntry={true}
-            autoCapitalize='none'
+            autoCapitalize="none"
           />
           <Button style={styles.button} onPress={this.onSubmit.bind(this)}>
             <Text style={styles.buttonText}>SUBMIT</Text>
           </Button>
+          <AnimatedLoader
+            visible={this.props.loader}
+            overlayColor="rgba(255,255,255,0.75)"
+            source={require("./../loader.json")}
+            animationStyle={styles.lottie}
+            speed={1}
+          />
           <Text style={styles.bottomText}>
             Already have an account ?{" "}
             <Text
               onPress={() => {
                 navigation.navigate("Login")
+                this.setState({
+                  fullName: "",
+                  email: "",
+                  password: "",
+                })
               }}
               style={[styles.bottomText, { color: "#61cbff" }]}
             >
@@ -176,10 +182,9 @@ class Register extends Component<Props, userDetails> {
 export default connect(
   state => ({
     user: state.user.register,
+    loader: state.user.loader,
   }),
   {
     signUp,
-  }
-)(Register);
-
-
+  },
+)(Register)

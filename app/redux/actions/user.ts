@@ -1,6 +1,8 @@
 import resToBody from "../resToBody/resToBody"
 export const SIGN_UP = "SIGN_UP"
+export const SIGN_OUT = "SIGN_OUT"
 export const LOGIN = "LOGIN"
+export const LOADER = "LOADER"
 export const FORGOT_PASSWORD = "FORGOT_PASSWORD"
 export const GET_USER_DETAILS = "GET_USER_DETAILS"
 export const CREATE_USER_PROFILE = "CREATE_USER_PROFILE"
@@ -10,6 +12,10 @@ const STAYTUNELIVEURL = "https://staytune.austinconversionoptimization.com/"
 
 export function signUp(fullName, email, password) {
   return async dispatch => {
+    dispatch({
+      type: LOADER,
+      payload: true,
+    })
     const res = await fetch(STAYTUNELIVEURL + `users`, {
       method: "POST",
       headers: {
@@ -32,6 +38,10 @@ export function signUp(fullName, email, password) {
 
 export function Login(email, password) {
   return async dispatch => {
+    dispatch({
+      type: LOADER,
+      payload: true,
+    })
     const res = await fetch(STAYTUNELIVEURL + `users/login`, {
       method: "POST",
       headers: {
@@ -50,8 +60,21 @@ export function Login(email, password) {
     })
   }
 }
+
+export function Signout() {
+  return async dispatch => {
+    return dispatch({
+      type: SIGN_OUT,
+      payload: {},
+    })
+  }
+}
 export function ChangePassword(user) {
   return async dispatch => {
+    dispatch({
+      type: LOADER,
+      payload: true,
+    })
     const res = await fetch(STAYTUNELIVEURL + `users/` + user.id, {
       method: "PATCH",
       headers: {
@@ -72,6 +95,10 @@ export function ChangePassword(user) {
 
 export function ForgotPassword(email) {
   return async dispatch => {
+    dispatch({
+      type: LOADER,
+      payload: true,
+    })
     const res = await fetch(STAYTUNELIVEURL + `user/forgot-password`, {
       method: "POST",
       headers: {
@@ -110,6 +137,10 @@ export function getUserDetails(userId, token) {
 
 export function createUserProfile(userInfoObj) {
   return async dispatch => {
+    dispatch({
+      type: LOADER,
+      payload: true,
+    })
     const res = await fetch(STAYTUNELIVEURL + `users/` + userInfoObj.userId, {
       method: "PATCH",
       headers: {
@@ -136,6 +167,10 @@ export function createUserProfile(userInfoObj) {
 
 export function getAvatarImages() {
   return async dispatch => {
+    dispatch({
+      type: LOADER,
+      payload: true,
+    })
     const res = await fetch(STAYTUNELIVEURL + `/avathars/`, {
       method: "GET",
       headers: {
@@ -159,9 +194,11 @@ export default {
   getAvatarImages,
   ForgotPassword,
   SIGN_UP,
+  SIGN_OUT,
   LOGIN,
   GET_USER_DETAILS,
   CREATE_USER_PROFILE,
   GET_AVATAR_IMAGES,
   FORGOT_PASSWORD,
+  LOADER,
 }

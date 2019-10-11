@@ -13,169 +13,186 @@ import { Button } from "../../components/button"
 import { Header } from "../../components/header"
 import { GoldBarView } from "../../components/goldBar"
 
-import { Map } from 'react-powerplug';
+import { Map } from "react-powerplug"
 
 import EditProfile from "../edit-profile"
-import MapScreen from '../map';
+import MapScreen from "../map"
 import ItinerarySuggestions from "../itinerary-suggestions"
 import TravelPreference from "../travel-preference"
 import DigitalSouvenir from "../digital-souvenir"
 import FindLocalFriend from "../find-local-friend"
 import UserTravelInfo from "../user-travel-info"
+import { connect } from "react-redux"
+import { Signout } from "../../redux/actions/user"
 
 interface Props {
-    navigation: NavigationScreenProp<NavigationState>
+  navigation: NavigationScreenProp<NavigationState>
 }
 interface UserInformation {
-    isOpen: boolean
-    selectedValue: any
-    headerTitle: any
+  isOpen: boolean
+  selectedValue: any
+  headerTitle: any
 }
 
 class MainScreen extends Component<Props, UserInformation> {
-    constructor(props: Props) {
-        super(props)
-        this.state = {
-            // selectedValue: this.props.navigation.state.params === undefined ? 'Start a plan' : this.props.navigation.state.params,
-            // headerTitle: this.props.navigation.state.params === undefined ? 'START A PLAN' : this.props.navigation.state.params, isOpen: false
-            selectedValue: 'Start a plan',
-            headerTitle: 'START A PLAN', isOpen: false
-        }
+  constructor(props: Props) {
+    super(props)
+    this.state = {
+      // selectedValue: this.props.navigation.state.params === undefined ? 'Start a plan' : this.props.navigation.state.params,
+      // headerTitle: this.props.navigation.state.params === undefined ? 'START A PLAN' : this.props.navigation.state.params, isOpen: false
+      selectedValue: "Start a plan",
+      headerTitle: "START A PLAN",
+      isOpen: false,
     }
+  }
 
-    async componentDidMount() {
-        console.log("user_id_123:", this.props.navigation.state.params.userId)
-    }
+  async componentDidMount() {
+    console.log("user_id_123:", this.props.navigation.state.params.userId)
+  }
 
-    onLeft() {
-        if (this.state.isOpen) {
-            this.drawer._root.close()
-            this.setState({
-                isOpen: false,
-            })
-        } else {
-            this.drawer._root.open()
-            this.setState({
-                isOpen: true,
-            })
-        }
+  onLeft() {
+    if (this.state.isOpen) {
+      this.drawer._root.close()
+      this.setState({
+        isOpen: false,
+      })
+    } else {
+      this.drawer._root.open()
+      this.setState({
+        isOpen: true,
+      })
     }
+  }
 
-    closeDrawer(params) {
-        if (params == 'Edit Profile') {
-            this.setState({
-                selectedValue: 'Edit Profile',
-                headerTitle: 'EDIT PROFILE'
-            });
-        } else if (params == 'Start a plan') {
-            this.setState({
-                selectedValue: 'Start a plan',
-                headerTitle: 'STAY TUNE'
-            });
-        } else if (params == 'Itinerary suggestions') {
-            this.setState({
-                selectedValue: 'Itinerary suggestions',
-                headerTitle: 'ITINERARY SUGGESTIONS'
-            });
-        } else if (params == 'Travel preference') {
-            this.setState({
-                selectedValue: 'Travel preference',
-                headerTitle: 'TRAVEL PREFERENCE'
-            });
-        } else if (params == 'Digital Souvenir') {
-            this.setState({
-                selectedValue: 'Digital Souvenir',
-                headerTitle: 'DIGITAL SOUVENIR'
-            });
-        } else if (params == 'Find a Local Friend') {
-            this.setState({
-                selectedValue: 'Find a Local Friend',
-                headerTitle: 'FIND A LOCAL FRIEND'
-            });
-        } else if (params == 'Saved locations') {
-            this.setState({
-                selectedValue: 'Saved locations',
-                headerTitle: ''
-            });
-        } else if (params == 'Budget') {
-            this.setState({
-                selectedValue: 'Budget',
-                headerTitle: ''
-            });
-        } else if (params == 'Signout') {
-            alert('Signout')
-        }
-        this.drawer._root.close()
+  async closeDrawer(params) {
+    if (params == "Edit Profile") {
+      this.setState({
+        selectedValue: "Edit Profile",
+        headerTitle: "EDIT PROFILE",
+      })
+    } else if (params == "Start a plan") {
+      this.setState({
+        selectedValue: "Start a plan",
+        headerTitle: "STAY TUNE",
+      })
+    } else if (params == "Itinerary suggestions") {
+      this.setState({
+        selectedValue: "Itinerary suggestions",
+        headerTitle: "ITINERARY SUGGESTIONS",
+      })
+    } else if (params == "Travel preference") {
+      this.setState({
+        selectedValue: "Travel preference",
+        headerTitle: "TRAVEL PREFERENCE",
+      })
+    } else if (params == "Digital Souvenir") {
+      this.setState({
+        selectedValue: "Digital Souvenir",
+        headerTitle: "DIGITAL SOUVENIR",
+      })
+    } else if (params == "Find a Local Friend") {
+      this.setState({
+        selectedValue: "Find a Local Friend",
+        headerTitle: "FIND A LOCAL FRIEND",
+      })
+    } else if (params == "Saved locations") {
+      this.setState({
+        selectedValue: "Saved locations",
+        headerTitle: "",
+      })
+    } else if (params == "Budget") {
+      this.setState({
+        selectedValue: "Budget",
+        headerTitle: "",
+      })
+    } else if (params == "Signout") {
+      await this.props.Signout()
+      this.props.navigation.navigate("Login")
     }
+    this.drawer._root.close()
+  }
 
-    getData(val) {
-        console.log('getData_123', val);
-    }
+  getData(val) {
+    console.log("getData_123", val)
+  }
 
-    renderContanier() {
-        if (this.state.selectedValue == 'Edit Profile') {
-            return <EditProfile navigation={this.props.navigation} sendData={this.getData} />
-        } else if (this.state.selectedValue == 'Start a plan') {
-            return <MapScreen navigation={this.props.navigation} />
-        } else if (this.state.selectedValue == 'Itinerary suggestions') {
-            return <ItinerarySuggestions navigation={this.props.navigation} />
-        } else if (this.state.selectedValue == 'Travel preference') {
-            return <TravelPreference navigation={this.props.navigation} />
-        } else if (this.state.selectedValue == 'Digital Souvenir') {
-            return <DigitalSouvenir navigation={this.props.navigation} />
-        } else if (this.state.selectedValue == 'Find a Local Friend') {
-            return <FindLocalFriend navigation={this.props.navigation} />
-        } else if (this.state.selectedValue == 'Saved locations') {
-            return <UserTravelInfo navigation={this.props.navigation} tabId={2} tabValue={'SAVED LOCATIONS'} />
-        } else if (this.state.selectedValue == 'Budget') {
-            return <UserTravelInfo navigation={this.props.navigation} tabId={1} tabValue={'BUDGET INFO'} />
-        }
+  renderContanier() {
+    if (this.state.selectedValue == "Edit Profile") {
+      return <EditProfile navigation={this.props.navigation} sendData={this.getData} />
+    } else if (this.state.selectedValue == "Start a plan") {
+      return <MapScreen navigation={this.props.navigation} />
+    } else if (this.state.selectedValue == "Itinerary suggestions") {
+      return <ItinerarySuggestions navigation={this.props.navigation} />
+    } else if (this.state.selectedValue == "Travel preference") {
+      return <TravelPreference navigation={this.props.navigation} />
+    } else if (this.state.selectedValue == "Digital Souvenir") {
+      return <DigitalSouvenir navigation={this.props.navigation} />
+    } else if (this.state.selectedValue == "Find a Local Friend") {
+      return <FindLocalFriend navigation={this.props.navigation} />
+    } else if (this.state.selectedValue == "Saved locations") {
+      return (
+        <UserTravelInfo navigation={this.props.navigation} tabId={2} tabValue={"SAVED LOCATIONS"} />
+      )
+    } else if (this.state.selectedValue == "Budget") {
+      return (
+        <UserTravelInfo navigation={this.props.navigation} tabId={1} tabValue={"BUDGET INFO"} />
+      )
     }
+  }
 
-    render() {
-        const { navigation } = this.props
-        return (
-            <View style={styles.container}>
-                <Wallpaper style={styles.wallpaper} />
-                {this.state.selectedValue == 'Saved locations' || this.state.selectedValue == 'Budget' ?
-                    (<Header
-                        style={styles.headerView}
-                        headerText={this.state.headerTitle}
-                        titleStyle={styles.headerTitle}
-                        leftIcon={"menu"}
-                        onLeftPress={this.onLeft.bind(this)}
-                    />)
-                    : (<View>
-                        <Header
-                            style={styles.header}
-                            headerText={this.state.headerTitle}
-                            titleStyle={styles.headerTitle}
-                            leftIcon={"menu"}
-                            onLeftPress={this.onLeft.bind(this)}
-                        />
-                        <GoldBarView />
-                    </View>)}
-                <View style={{ flex: 1, overflow: "hidden" }}>
-                    <Drawer
-                        openDrawerOffset={0.36}
-                        panCloseMask={0.36}
-                        ref={ref => {
-                            this.drawer = ref
-                        }}
-                        content={
-                            <SideBar
-                                navigation={this.props.navigation}
-                                onCloseMenu={params => this.closeDrawer(params)}
-                            />
-                        }
-                        onClose={() => this.closeDrawer()}
-                    >
-                        {this.renderContanier()}
-                    </Drawer>
-                </View>
-            </View>
-        )
-    }
+  render() {
+    const { navigation } = this.props
+    return (
+      <View style={styles.container}>
+        <Wallpaper style={styles.wallpaper} />
+        {this.state.selectedValue == "Saved locations" || this.state.selectedValue == "Budget" ? (
+          <Header
+            style={styles.headerView}
+            headerText={this.state.headerTitle}
+            titleStyle={styles.headerTitle}
+            leftIcon={"menu"}
+            onLeftPress={this.onLeft.bind(this)}
+          />
+        ) : (
+          <View>
+            <Header
+              style={styles.header}
+              headerText={this.state.headerTitle}
+              titleStyle={styles.headerTitle}
+              leftIcon={"menu"}
+              onLeftPress={this.onLeft.bind(this)}
+            />
+            <GoldBarView />
+          </View>
+        )}
+        <View style={{ flex: 1, overflow: "hidden" }}>
+          <Drawer
+            openDrawerOffset={0.36}
+            panCloseMask={0.36}
+            ref={ref => {
+              this.drawer = ref
+            }}
+            content={
+              <SideBar
+                navigation={this.props.navigation}
+                onCloseMenu={params => this.closeDrawer(params)}
+              />
+            }
+            onClose={() => this.closeDrawer()}
+          >
+            {this.renderContanier()}
+          </Drawer>
+        </View>
+      </View>
+    )
+  }
 }
 
-export default MainScreen
+export default connect(
+  state => ({
+    user: state.user,
+  }),
+  {
+    Signout,
+  },
+)(MainScreen)
