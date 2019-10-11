@@ -36,8 +36,10 @@ class MainScreen extends Component<Props, UserInformation> {
     constructor(props: Props) {
         super(props)
         this.state = {
-            selectedValue: this.props.navigation.state.params === undefined ? 'Start a plan' : this.props.navigation.state.params,
-            headerTitle: this.props.navigation.state.params === undefined ? 'START A PLAN' : this.props.navigation.state.params, isOpen: false
+            // selectedValue: this.props.navigation.state.params === undefined ? 'Start a plan' : this.props.navigation.state.params,
+            // headerTitle: this.props.navigation.state.params === undefined ? 'START A PLAN' : this.props.navigation.state.params, isOpen: false
+            selectedValue: 'Start a plan',
+            headerTitle: 'START A PLAN', isOpen: false
         }
     }
 
@@ -46,7 +48,7 @@ class MainScreen extends Component<Props, UserInformation> {
     }
 
     async componentDidMount() {
-        // console.log("user_id_123:", this.props.navigation.state.params.userId)
+        console.log("user_id_123:", this.props.navigation.state.params.userId)
     }
 
     onLeft() {

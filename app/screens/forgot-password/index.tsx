@@ -79,8 +79,9 @@ class ForgotPasswordScreen extends Component<Props, userDetails> {
             inputStyle={styles.inputStyle}
             placeholder="Enter your email"
             placeholderTextColor={color.placeholderText}
-            onChangeText={value => this.setState({ email: value.toLowerCase() })}
+            onChangeText={value => this.setState({ email: value })}
             value={this.state.email}
+            autoCapitalize="none"
           />
           <Button style={styles.button} onPress={this.handleSubmit.bind(this)}>
             <Text style={styles.buttonText}>SUBMIT</Text>
