@@ -99,11 +99,10 @@ class LoginScreen extends Component<Props, userDetails> {
             token: this.state.token
           })
         } else {
-          this.props.navigation.navigate("ProfileInfo", {
+          this.props.navigation.navigate("MainScreen", {
             userId: this.state.userId,
             token: this.state.token
           })
-          // this.props.navigation.navigate("MainScreen")
         }
 
       }

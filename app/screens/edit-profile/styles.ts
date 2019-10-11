@@ -40,13 +40,20 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         marginVertical: 20,
         backgroundColor: color.text,
-        alignSelf: 'center'
+        alignSelf: 'center',
     },
     profilePic: {
         width: dimensions.width / 2 - 60,
         height: dimensions.width / 2 - 60,
         borderRadius: (dimensions.width / 2 - 60) / 2,
+        alignSelf: 'center',
     },
+    changeProfileText: {
+        color: "blue",
+        fontSize: 23,
+        fontFamily: "OpenSans-Semibold",
+        alignSelf: 'center'
+    }
 })
 
 export default styles

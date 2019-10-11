@@ -45,11 +45,12 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
     this.setState({ avatarImagesList: this.props.avatarList })
   }
 
-  onSelect(item) {
-    this.setState({ selectedAvatarId: item.id, selectedAvatarUrl: item.url })
+  async onSelect(item) {
+    await this.setState({ selectedAvatarId: item.id, selectedAvatarUrl: item.url })
+    console.log("selectedAvatarUrl:", this.state.selectedAvatarUrl)
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.state.selectedAvatarId == "") {
       Alert.alert(
         "Stay Tune",
@@ -59,8 +60,8 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
       )
     } else {
       let userInfoObj = {
-        firstName: this.props.navigation.state.params.userObj.firstName,
-        lastName: this.props.navigation.state.params.userObj.firstName,
+        firstname: this.props.navigation.state.params.userObj.firstname,
+        lastname: this.props.navigation.state.params.userObj.lastname,
         city: this.props.navigation.state.params.userObj.city,
         state: this.props.navigation.state.params.userObj.state,
         zip: this.props.navigation.state.params.userObj.zip,
@@ -69,7 +70,7 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
       }
 
       console.log("userInfoObj_123:", userInfoObj)
-      this.props.createUserProfile(userInfoObj)
+      await this.props.createUserProfile(userInfoObj)
       try {
         if (this.props.user.userProfileInfo.status == "sucess") {
           this.props.navigation.navigate("MainScreen", {
