@@ -43,10 +43,6 @@ class MainScreen extends Component<Props, UserInformation> {
         }
     }
 
-    onSave() {
-        alert('submit')
-    }
-
     async componentDidMount() {
         console.log("user_id_123:", this.props.navigation.state.params.userId)
     }
@@ -110,13 +106,15 @@ class MainScreen extends Component<Props, UserInformation> {
             alert('Signout')
         }
         this.drawer._root.close()
+    }
 
-
+    getData(val) {
+        console.log('getData_123', val);
     }
 
     renderContanier() {
         if (this.state.selectedValue == 'Edit Profile') {
-            return <EditProfile navigation={this.props.navigation} />
+            return <EditProfile navigation={this.props.navigation} sendData={this.getData} />
         } else if (this.state.selectedValue == 'Start a plan') {
             return <MapScreen navigation={this.props.navigation} />
         } else if (this.state.selectedValue == 'Itinerary suggestions') {

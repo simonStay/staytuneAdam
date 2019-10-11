@@ -44,12 +44,14 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            profilePic: nextProps.user.userDetails.profilePic,
-            userName: nextProps.user.userDetails.firstname + ' ' + this.props.user.userDetails.lastname
-        })
-    }
+    // async componentWillReceiveProps(nextProps) {
+    //     console.log('nextProps_123:', nextProps.user.userDetails)
+    //     await this.setState({
+    //         profilePic: nextProps.user.userDetails.profilePic,
+    //         userName: nextProps.user.userDetails.firstname + ' ' + this.props.user.userDetails.lastname
+    //     })
+    // }
+
     onEditProfile() {
         this.props.onCloseMenu('Edit Profile');
     }
