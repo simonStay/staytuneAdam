@@ -11,6 +11,9 @@ import { Button } from "../../components/button"
 import { Header } from "../../components/header"
 import { GoldBarView } from "../../components/goldBar"
 
+import { connect } from 'react-redux';
+import { getUserDetails, createUserProfile } from "../../redux/actions/user"
+
 interface Props {
     navigation: NavigationScreenProp<NavigationState>
 }
@@ -20,6 +23,9 @@ interface UserInformation {
     city: string
     state: string
     zip: string
+    userId: any
+    token: any
+    getUserDetails?: () => void
 }
 
 class ProfileInfo extends Component<Props, UserInformation> {
@@ -31,6 +37,8 @@ class ProfileInfo extends Component<Props, UserInformation> {
             city: "",
             state: "",
             zip: "",
+            userId: "",
+            token: ""
         }
     }
     onSelectAvatar() {
@@ -38,6 +46,27 @@ class ProfileInfo extends Component<Props, UserInformation> {
         const { navigation } = this.props
         navigation.navigate("SelectAvatar")
     }
+
+    // componentDidMount() {
+    //     this.setState({
+    //         userId: this.props.navigation.state.params.userId,
+    //         token: this.props.navigation.state.params.token
+    //     }, () => {
+
+    //         this.props.getUserDetails(this.state.userId, this.state.token)
+    //     })
+
+    //     this.setState({
+    //         firstName: "",
+    //         lastName: "",
+    //         city: "",
+    //         state: "",
+    //         zip: "",
+    //     })
+
+    //     console.log("componentDidMount_123:", this.props.user.userDetails)
+
+    // }
 
     render() {
         const { navigation } = this.props
@@ -95,4 +124,13 @@ class ProfileInfo extends Component<Props, UserInformation> {
     }
 }
 
-export default ProfileInfo
+export default connect(
+    state => ({
+        user: state.user,
+    }),
+    {
+        createUserProfile,
+        getUserDetails,
+    }
+)(ProfileInfo);
+

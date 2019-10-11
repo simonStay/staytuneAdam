@@ -1,11 +1,13 @@
 import React, { Component } from "react"
-import { View, ScrollView, Image, TouchableOpacity } from "react-native"
+import { View, ScrollView, Image, Keyboard, Alert } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 import { Wallpaper } from "../../components/wallpaper"
 import { TextField } from "../../components/text-field"
 import { Button } from "../../components/button"
 import { Text } from "../../components/text"
 import { Header } from "../../components/header"
+import { ForgotPassword } from "../../redux/actions/user"
+import { connect } from "react-redux"
 import styles from "./styles"
 import { color } from "../../theme"
 
@@ -17,14 +19,39 @@ interface userDetails {
   email: string
 }
 
-class ForgotPassword extends Component<Props, userDetails> {
+class ForgotPasswordScreen extends Component<Props, userDetails> {
   constructor(props: Props) {
     super(props)
     this.state = { email: "" }
   }
-  handleSubmit() {
-    alert("email" + JSON.stringify(this.state))
-    this.props.navigation.navigate("Login")
+  validateEmail = email => {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return re.test(email)
+  }
+  async handleSubmit() {
+    Keyboard.dismiss()
+    if (this.state.email == "") {
+      Alert.alert(
+        "Stay Tune",
+        "Please enter email",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+        { cancelable: false },
+      )
+    } else if (!this.validateEmail(this.state.email)) {
+      Alert.alert(
+        "Stay Tune",
+        "Please enter valid email",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+        { cancelable: false },
+      )
+    } else {
+      const { email } = this.state
+      await this.props.ForgotPassword(email)
+      //console.log("user_123", this.props.user)
+      //this.props.navigation.navigate("ProfileInfo")
+    }
+
+    //this.props.navigation.navigate("Login")
   }
   render() {
     const { navigation } = this.props
@@ -55,4 +82,11 @@ class ForgotPassword extends Component<Props, userDetails> {
   }
 }
 
-export default ForgotPassword
+export default connect(
+  state => ({
+    user: state,
+  }),
+  {
+    ForgotPassword,
+  },
+)(ForgotPasswordScreen)

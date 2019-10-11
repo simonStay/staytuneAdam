@@ -15,16 +15,16 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashScreen" translatesAutoresizingMaskIntoConstraints="NO" id="JVX-AQ-5tl">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashScreen" translatesAutoresizingMaskIntoConstraints="NO" id="HeR-t9-P5F">
                     <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="JVX-AQ-5tl" secondAttribute="trailing" id="FuE-Yn-bzZ"/>
-                <constraint firstItem="JVX-AQ-5tl" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="WjW-Ve-dkD"/>
-                <constraint firstAttribute="bottom" secondItem="JVX-AQ-5tl" secondAttribute="bottom" id="b2g-j5-Ln3"/>
-                <constraint firstItem="JVX-AQ-5tl" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="k3k-XN-rUr"/>
+                <constraint firstItem="HeR-t9-P5F" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="EET-6s-4dR"/>
+                <constraint firstAttribute="bottom" secondItem="HeR-t9-P5F" secondAttribute="bottom" id="MGy-BT-ckk"/>
+                <constraint firstItem="HeR-t9-P5F" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Xlg-nd-OsC"/>
+                <constraint firstAttribute="trailing" secondItem="HeR-t9-P5F" secondAttribute="trailing" id="ubT-8v-WGn"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -32,6 +32,6 @@
         </view>
     </objects>
     <resources>
-        <image name="splashScreen" width="600" height="899"/>
+        <image name="splashScreen" width="394" height="307"/>
     </resources>
 </document>

@@ -10,37 +10,62 @@ import { Text } from "../../components/text"
 import { Header } from "../../components/header"
 import { GoldBarView } from "../../components/goldBar"
 
-let DATA = [
-  {
-    uri: "https://cdn.pixabay.com/photo/2013/07/13/10/07/man-156584_960_720.png",
-  },
-  {
-    uri:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQSlL7khGH-Z3o48IDosMRnocgQAMv7Dxg7qLwzb5vrWf8WR7vRA",
-  },
-  {
-    uri:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQSlL7khGH-Z3o48IDosMRnocgQAMv7Dxg7qLwzb5vrWf8WR7vRA",
-  },
-  {
-    uri:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlsjY5BTaQA9ourJ7KW1PDagYVjryOF51notG3PPlaPM3-3am30w",
-  },
-  {
-    uri:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9PZOT9dO001vXBd5ZNRdV6ogwmvueBXwfOx4q3lcxJKpTLMQ4",
-  },
-  {
-    uri:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQSlL7khGH-Z3o48IDosMRnocgQAMv7Dxg7qLwzb5vrWf8WR7vRA",
-  },
-]
+import { connect } from "react-redux"
+import { getAvatarImages, selectAvatarImage } from "../../redux/actions/user"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
 }
 
-class SelectAvatar extends Component<Props, {}> {
+interface listOfAvatars {
+  getAvatarImages?: () => void
+  onSelect?: () => void
+  avatarList: any
+  avatarImagesList: any
+  url: string
+  selectedAvatarId: string
+}
+
+class SelectAvatar extends Component<Props, listOfAvatars, {}> {
+  constructor(props: Props) {
+    super(props)
+    this.state = {
+      avatarImagesList: [],
+      selectedAvatarId: ''
+    }
+  }
+  async componentDidMount() {
+    await this.props.getAvatarImages()
+    // console.log("getAvatarImages_get:", this.props.avatarList)
+    this.setState({ avatarImagesList: this.props.avatarList })
+  }
+
+  onSelect(item) {
+    this.props.selectAvatarImage(item)
+    this.setState({ selectedAvatarId: item.id })
+  }
+
+  renderItem({ item }) {
+    if (item.id == this.state.selectedAvatarId) {
+      var ViewType = (<View style={{ width: 60, height: 60, backgroundColor: 'blue' }}></View>)
+    } else {
+      var ViewType = (<View style={{ width: 60, height: 60, backgroundColor: 'orange' }}></View>)
+    }
+    return (
+      <View>
+        {ViewType}
+        <Avatar style={styles.avatar} onPress={this.onSelect.bind(this, item)}>
+          <Image
+            source={{
+              uri: item.url,
+            }}
+            style={styles.avatarImage}
+          />
+        </Avatar>
+      </View>)
+  }
+
+
   render() {
     const { navigation } = this.props
     return (
@@ -53,18 +78,10 @@ class SelectAvatar extends Component<Props, {}> {
         />
         <GoldBarView />
         <FlatList
-          data={DATA}
+          data={this.state.avatarImagesList}
+          extraData={this.state}
           numColumns={3}
-          renderItem={({ item }) => (
-            <Avatar style={styles.avatar}>
-              <Image
-                source={{
-                  uri: item.uri,
-                }}
-                style={styles.avatarImage}
-              />
-            </Avatar>
-          )}
+          renderItem={this.renderItem.bind(this)}
         />
         <Button style={styles.button} onPress={() => navigation.navigate("MainScreen")}>
           <Text style={styles.buttonText}>SUBMIT</Text>
@@ -74,4 +91,13 @@ class SelectAvatar extends Component<Props, {}> {
   }
 }
 
-export default SelectAvatar
+export default connect(
+  state => ({
+    avatarList: state.user.avatarImages
+  }),
+  {
+    getAvatarImages,
+    selectAvatarImage
+  }
+)(SelectAvatar);
+

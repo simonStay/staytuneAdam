@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, FlatList, Image, TouchableOpacity } from "react-native"
+import { View, FlatList, Image, TouchableOpacity, ScrollView } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 import styles from "./styles"
 
@@ -75,33 +75,36 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
     render() {
         const { navigation } = this.props
         return (
+
             <View style={styles.container}>
-                <View style={styles.profilePicOutterView}>
-                    <View style={styles.profilePicView}>
-                        <Image
-                            source={{ uri: profilePic }}
-                            style={styles.profilePic}
+                <ScrollView>
+                    <View style={styles.profilePicOutterView}>
+                        <View style={styles.profilePicView}>
+                            <Image
+                                source={{ uri: profilePic }}
+                                style={styles.profilePic}
+                            />
+                        </View>
+                    </View>
+                    <View style={styles.buttonView}>
+
+                        <TouchableOpacity onPress={this.onEditProfile.bind(this)}>
+                            <GoldBarView style={styles.editProfileButton} >
+                                <Text style={styles.editprofileText}>EDIT PROFILE</Text>
+                            </GoldBarView>
+                        </TouchableOpacity>
+
+                    </View>
+                    <View style={styles.menuItemsView}>
+                        <FlatList
+                            data={MenuItems}
+                            renderItem={this.renderItem.bind(this)}
+                            scrollEnabled={false}
                         />
                     </View>
-                </View>
-                <View style={styles.buttonView}>
-
-                    <TouchableOpacity onPress={this.onEditProfile.bind(this)}>
-                        <GoldBarView style={styles.editProfileButton} >
-                            <Text style={styles.editprofileText}>EDIT PROFILE</Text>
-                        </GoldBarView>
-                    </TouchableOpacity>
-
-                </View>
-                <View style={styles.menuItemsView}>
-                    <FlatList
-                        data={MenuItems}
-                        renderItem={this.renderItem.bind(this)}
-                        scrollEnabled={false}
-                    />
-                </View>
-
+                </ScrollView>
             </View>
+
         )
     }
 }

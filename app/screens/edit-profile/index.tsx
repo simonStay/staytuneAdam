@@ -82,7 +82,7 @@ class EditProfile extends Component<Props, UserInformation> {
         const { navigation } = this.props
         return (
             <View style={styles.container}>
-                <ScrollView contentContainerStyle={styles.scrollContainer}>
+                <ScrollView>
                     <TouchableOpacity style={styles.profilePicView} onPress={this.onSelectImage.bind(this)}>
                         <Image
                             source={this.state.avatarSource}

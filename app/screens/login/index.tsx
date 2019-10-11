@@ -10,18 +10,29 @@ import { color } from "../../theme"
 import { Login } from "../../redux/actions/user"
 import { connect } from 'react-redux';
 
+
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
 }
 interface userDetails {
   email: string
   password: string
+  intialUser: any
+  token: any
+  userId: any
+  user: any
 }
 
 class LoginScreen extends Component<Props, userDetails> {
   constructor(props: Props) {
     super(props)
-    this.state = { email: "", password: "" }
+    this.state = {
+      email: "",
+      password: "",
+      intialUser: this.props.navigation.state.params === undefined ? false : this.props.navigation.state.params.intialUser,
+      token: "",
+      userId: "",
+    }
   }
   onSignUp() {
     this.props.navigation.navigate("Register")
@@ -54,14 +65,49 @@ class LoginScreen extends Component<Props, userDetails> {
         ],
         { cancelable: false },
       );
+    } else if (this.state.password.length < 7) {
+      Alert.alert(
+        'Stay Tune',
+        'password is invalid',
+        [
+          { text: 'OK', onPress: () => console.log('OK Pressed') },
+        ],
+        { cancelable: false },
+      );
     } else {
       const { email, password } = this.state
       await this.props.Login(email, password);
-      console.log("user_123", this.props.user)
-      //this.props.navigation.navigate("ProfileInfo")
-    }
+      console.log("this.props.user.login", this.props.user.login)
 
-    //this.props.navigation.navigate("ProfileInfo")
+      if (this.props.user.login == undefined || this.props.user.login == "undefined") {
+        Alert.alert(
+          'Stay Tune',
+          'Invalid email or password.',
+          [
+            { text: 'OK', onPress: () => console.log('OK Pressed') },
+          ],
+          { cancelable: false },
+        );
+      } else {
+        this.setState({
+          userId: this.props.user.login.id,
+          token: this.props.user.login.token
+        })
+        if (this.state.intialUser == true) {
+          this.props.navigation.navigate("ProfileInfo", {
+            userId: this.state.userId,
+            token: this.state.token
+          })
+        } else {
+          this.props.navigation.navigate("ProfileInfo", {
+            userId: this.state.userId,
+            token: this.state.token
+          })
+          // this.props.navigation.navigate("MainScreen")
+        }
+
+      }
+    }
   }
 
   render() {
@@ -114,7 +160,7 @@ class LoginScreen extends Component<Props, userDetails> {
 
 export default connect(
   state => ({
-    user: state,
+    user: state.user,
   }),
   {
     Login,
