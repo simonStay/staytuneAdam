@@ -115,10 +115,17 @@ class EditProfile extends Component<Props, UserInformation> {
             try {
                 if (this.props.user.userProfileInfo.status == "sucess") {
 
-                    this.props.navigation.navigate("MainScreen", {
-                        userId: this.props.navigation.state.params.userObj.userId
-                    })
-
+                    // this.props.navigation.navigate("MainScreen", {
+                    //     userId: this.state.userId
+                    // })
+                    Alert.alert(
+                        'Stay Tune',
+                        this.props.user.userProfileInfo.message,
+                        [
+                            { text: 'OK', onPress: () => console.log('OK Pressed') },
+                        ],
+                        { cancelable: false },
+                    );
                 } else {
                     Alert.alert(
                         'Stay Tune',
@@ -130,7 +137,7 @@ class EditProfile extends Component<Props, UserInformation> {
                     );
                 }
             } catch (error) {
-                console.log('error:', error)
+                console.log('error_error:', error)
             }
         }
     }
@@ -145,6 +152,7 @@ class EditProfile extends Component<Props, UserInformation> {
             state: this.props.user.userDetails.state,
             zip: this.props.user.userDetails.zip,
         })
+        this.props.sendData('data');
         console.log("getUserDetails_123", this.props.user.userDetails)
     }
 
@@ -192,9 +200,9 @@ class EditProfile extends Component<Props, UserInformation> {
                             source={{ uri: this.state.avatarSource }}
                         />
                     </View>
-                    <TouchableOpacity onPress={this.onSelectImage.bind(this)}>
+                    {/* <TouchableOpacity onPress={this.onSelectImage.bind(this)}>
                         <Text style={styles.changeProfileText}>Change Profile</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     <TextField
                         placeholder="First Name"
                         inputStyle={styles.textField}
