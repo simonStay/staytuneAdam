@@ -44,13 +44,25 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
         }
     }
 
-    // async componentWillReceiveProps(nextProps) {
-    //     console.log('nextProps_123:', nextProps.user.userDetails)
-    //     await this.setState({
-    //         profilePic: nextProps.user.userDetails.profilePic,
-    //         userName: nextProps.user.userDetails.firstname + ' ' + this.props.user.userDetails.lastname
-    //     })
-    // }
+    async componentDidMount() {
+        //console.log('nextProps_123:', nextProps.user.userDetails)
+        await this.setState({
+            profilePic: this.props.user.userDetails.profilePic,
+            userName: this.props.user.userDetails.firstname + ' ' + this.props.user.userDetails.lastname
+        })
+    }
+
+    async componentWillReceiveProps(nextProps) {
+        try {
+            // console.log('nextProps_123:', nextProps.userObj)
+            await this.setState({
+                profilePic: nextProps.userProfileInfo.data.profilePic,
+                userName: nextProps.userProfileInfo.data.firstname + ' ' + nextProps.userProfileInfo.data.lastname
+            })
+        } catch (error) {
+
+        }
+    }
 
     onEditProfile() {
         this.props.onCloseMenu('Edit Profile');
@@ -132,6 +144,7 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
 export default connect(
     state => ({
         user: state.user,
+        userProfileInfo: state.user.userProfileInfo
     }),
     {
     }

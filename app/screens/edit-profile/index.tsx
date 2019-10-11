@@ -22,6 +22,7 @@ interface UserInformation {
     state: string
     zip: string
     profilePic: string
+    sendData: (e) => void;
 }
 
 const profilePic = 'https://pipdigz.co.uk/p3/img/placeholder-square.png'
@@ -40,6 +41,22 @@ class EditProfile extends Component<Props, UserInformation> {
 
     validateZip = (zip) => {
         return /^\d{5}(-\d{4})?$/.test(zip);
+    }
+
+    async componentDidMount() {
+        await this.props.getUserDetails(this.props.userId, this.props.userToken)
+    }
+
+    async componentWillReceiveProps(nextProps) {
+        console.log("componentWillReceiveProps_123", nextProps.userProfileInfo)
+        await this.setState({
+            avatarSource: nextProps.userProfileInfo.data.profilePic,
+            firstName: nextProps.userProfileInfo.data.firstname,
+            lastName: nextProps.userProfileInfo.data.lastname,
+            city: nextProps.userProfileInfo.data.city,
+            state: nextProps.userProfileInfo.data.state,
+            zip: nextProps.userProfileInfo.data.zip,
+        })
     }
 
     async onSave() {
@@ -110,14 +127,16 @@ class EditProfile extends Component<Props, UserInformation> {
                 profilePic: this.state.avatarSource,
             }
 
-            console.log("userInfoObj_123:", userInfoObj)
+
             await this.props.createUserProfile(userInfoObj)
+            console.log("createUserProfile_editprofile:", this.props.user.userProfileInfo.status)
             try {
-                if (this.props.user.userProfileInfo.status == "sucess") {
+                if (this.props.user.userProfileInfo.status == "success") {
 
                     // this.props.navigation.navigate("MainScreen", {
                     //     userId: this.state.userId
                     // })
+
                     Alert.alert(
                         'Stay Tune',
                         this.props.user.userProfileInfo.message,
@@ -137,23 +156,10 @@ class EditProfile extends Component<Props, UserInformation> {
                     );
                 }
             } catch (error) {
+                console.log("createUserProfile_error:", this.props.user.userProfileInfo.status)
                 console.log('error_error:', error)
             }
         }
-    }
-
-    async componentDidMount() {
-        await this.props.getUserDetails(this.props.userId, this.props.userToken)
-        this.setState({
-            avatarSource: this.props.user.userDetails.profilePic,
-            firstName: this.props.user.userDetails.firstname,
-            lastName: this.props.user.userDetails.lastname,
-            city: this.props.user.userDetails.city,
-            state: this.props.user.userDetails.state,
-            zip: this.props.user.userDetails.zip,
-        })
-        this.props.sendData('data');
-        console.log("getUserDetails_123", this.props.user.userDetails)
     }
 
     onSelectImage() {
@@ -251,7 +257,8 @@ export default connect(
     state => ({
         user: state.user,
         userId: state.user.login.id,
-        userToken: state.user.login.token
+        userToken: state.user.login.token,
+        userProfileInfo: state.user.userProfileInfo
     }),
     {
         getUserDetails, createUserProfile,
