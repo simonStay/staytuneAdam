@@ -112,7 +112,7 @@ class ProfileInfo extends Component<Props, UserInformation> {
                 userId: this.state.userId,
                 token: this.state.token
             }
-            navigation.navigate("SelectAvatar", { userObj: userObj })
+            navigation.navigate("SelectAvatar", { 'userObj': userObj })
         }
     }
 
@@ -155,6 +155,7 @@ class ProfileInfo extends Component<Props, UserInformation> {
                         placeholderTextColor={color.placeholderText}
                         onChangeText={value => this.setState({ firstName: value })}
                         value={this.state.firstName}
+                        autoCapitalize='none'
                     />
                     <TextField
                         placeholder="Last Name"
@@ -162,6 +163,7 @@ class ProfileInfo extends Component<Props, UserInformation> {
                         placeholderTextColor={color.placeholderText}
                         onChangeText={value => this.setState({ lastName: value })}
                         value={this.state.lastName}
+                        autoCapitalize='none'
                     />
                     <TextField
                         placeholder="City"
@@ -169,6 +171,7 @@ class ProfileInfo extends Component<Props, UserInformation> {
                         placeholderTextColor={color.placeholderText}
                         onChangeText={value => this.setState({ city: value })}
                         value={this.state.city}
+                        autoCapitalize='none'
                     />
                     <TextField
                         placeholder="State"
@@ -176,6 +179,7 @@ class ProfileInfo extends Component<Props, UserInformation> {
                         placeholderTextColor={color.placeholderText}
                         onChangeText={value => this.setState({ state: value })}
                         value={this.state.state}
+                        autoCapitalize='none'
                     />
                     <TextField
                         placeholder="Zip"
@@ -183,6 +187,7 @@ class ProfileInfo extends Component<Props, UserInformation> {
                         placeholderTextColor={color.placeholderText}
                         onChangeText={value => this.setState({ zip: value })}
                         value={this.state.zip}
+                        autoCapitalize='none'
                     />
                     <Button style={styles.button} onPress={this.onSelectAvatar.bind(this)}>
                         <Text style={styles.buttonText}>SELECT AVATAR</Text>

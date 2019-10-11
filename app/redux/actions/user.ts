@@ -110,7 +110,7 @@ export function createUserProfile(userInfoObj) {
             }
         );
         const body = await resToBody(res);
-        // console.log("Login_123:", body)
+        console.log("createUserProfile_actions:", body)
         return dispatch({
             type: CREATE_USER_PROFILE,
             payload: body

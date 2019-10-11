@@ -32,8 +32,7 @@ interface UserInformation {
     headerTitle: any
 }
 
-
-class MainScreen extends Component<Props, UserInformation, {}> {
+class MainScreen extends Component<Props, UserInformation> {
     constructor(props: Props) {
         super(props)
         this.state = {
@@ -44,6 +43,10 @@ class MainScreen extends Component<Props, UserInformation, {}> {
 
     onSave() {
         alert('submit')
+    }
+
+    async componentDidMount() {
+        // console.log("user_id_123:", this.props.navigation.state.params.userId)
     }
 
     onLeft() {

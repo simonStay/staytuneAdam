@@ -35,13 +35,13 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
     this.state = {
       avatarImagesList: [],
       selectedAvatarId: '',
-      selectedAvatarUrl: ''
+      selectedAvatarUrl: '',
     }
   }
   async componentDidMount() {
-    await this.props.getAvatarImages()
+    //await this.props.getAvatarImages()
     // console.log("getAvatarImages_get:", this.props.avatarList)
-    console.log("userInfoObject_123:", this.props.navigation.state.params.userInfoObj)
+    //console.log("userInfoObject_123:", this.props.navigation.state.params.userObj)
     this.setState({ avatarImagesList: this.props.avatarList })
   }
 
@@ -50,32 +50,54 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
   }
 
   onSubmit() {
-    if (this.state.selectedAvatarId == "") {
-      Alert.alert(
-        'Stay Tune',
-        'Please Select Avatar',
-        [
-          { text: 'OK', onPress: () => console.log('OK Pressed') },
-        ],
-        { cancelable: false },
-      );
-    } else {
-      let userInfoObj = {
-        firstName: this.props.navigation.state.params.userObj.firstName,
-        lastName: this.props.navigation.state.params.userObj.firstName,
-        city: this.props.navigation.state.params.userObj.city,
-        state: this.props.navigation.state.params.userObj.state,
-        zip: this.props.navigation.state.params.userObj.zip,
-        profilePic: this.state.selectedAvatarUrl,
-        userId: this.props.navigation.state.params.userObj.userId,
-        token: this.props.navigation.state.params.userObj.token
-      }
+    // if (this.state.selectedAvatarId == "") {
+    //   Alert.alert(
+    //     'Stay Tune',
+    //     'Please Select Avatar',
+    //     [
+    //       { text: 'OK', onPress: () => console.log('OK Pressed') },
+    //     ],
+    //     { cancelable: false },
+    //   );
+    // } else {
+    //   let userInfoObj = {
+    //     firstName: this.props.navigation.state.params.userObj.firstName,
+    //     lastName: this.props.navigation.state.params.userObj.firstName,
+    //     city: this.props.navigation.state.params.userObj.city,
+    //     state: this.props.navigation.state.params.userObj.state,
+    //     zip: this.props.navigation.state.params.userObj.zip,
+    //     profilePic: this.state.selectedAvatarUrl,
+    //     userId: this.props.navigation.state.params.userObj.userId,
+    //   }
 
-      console.log("userInfoObj_123:", userInfoObj)
-      // this.props.createUserProfile(userInfoObj)
-    }
+    //   console.log("userInfoObj_123:", userInfoObj)
+    //   this.props.createUserProfile(userInfoObj)
+    //   console.log('createUserProfile_123:', this.props.navigation.state.params.userObj.userId)
+    //   if (this.props.user.userProfileInfo.status == "sucess") {
+
+    //     // this.props.navigation.navigate("MainScreen", {
+    //     //   userId: this.props.navigation.state.params.userObj.userId
+    //     // })
+
+
+
+    //   } else {
+    //     Alert.alert(
+    //       'Stay Tune',
+    //       'Something went wrong',
+    //       [
+    //         { text: 'OK', onPress: () => console.log('OK Pressed') },
+    //       ],
+    //       { cancelable: false },
+    //     );
+    //   }
+    // }
+
+    this.props.navigation.navigate("MainScreen", {
+      range: 'range'
+    })
+
     // this.props.navigation.navigate("MainScreen")
-
   }
 
   renderItem({ item }) {
@@ -127,7 +149,8 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
 
 export default connect(
   state => ({
-    avatarList: state.user.avatarImages
+    avatarList: state.user.avatarImages,
+    user: state.user,
   }),
   {
     getAvatarImages,
