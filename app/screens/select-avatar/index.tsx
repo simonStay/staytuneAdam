@@ -92,10 +92,7 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
     //     );
     //   }
     // }
-
-    this.props.navigation.navigate("MainScreen", {
-      range: 'range'
-    })
+    this.props.navigation.navigate('MainScreen', { paramName: 'value' })
 
     // this.props.navigation.navigate("MainScreen")
   }
