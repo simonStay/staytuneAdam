@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, FlatList, Image } from "react-native"
+import { View, FlatList, Image, Alert } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 import styles from "./styles"
 
@@ -11,7 +11,7 @@ import { Header } from "../../components/header"
 import { GoldBarView } from "../../components/goldBar"
 
 import { connect } from "react-redux"
-import { getAvatarImages, selectAvatarImage } from "../../redux/actions/user"
+import { getAvatarImages, createUserProfile } from "../../redux/actions/user"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
@@ -24,6 +24,9 @@ interface listOfAvatars {
   avatarImagesList: any
   url: string
   selectedAvatarId: string
+  userObj: any
+  userInfoObj: any
+  selectedAvatarUrl: string
 }
 
 class SelectAvatar extends Component<Props, listOfAvatars, {}> {
@@ -31,30 +34,61 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
     super(props)
     this.state = {
       avatarImagesList: [],
-      selectedAvatarId: ''
+      selectedAvatarId: '',
+      selectedAvatarUrl: ''
     }
   }
   async componentDidMount() {
     await this.props.getAvatarImages()
     // console.log("getAvatarImages_get:", this.props.avatarList)
+    console.log("userInfoObject_123:", this.props.navigation.state.params.userInfoObj)
     this.setState({ avatarImagesList: this.props.avatarList })
   }
 
   onSelect(item) {
-    this.props.selectAvatarImage(item)
-    this.setState({ selectedAvatarId: item.id })
+    this.setState({ selectedAvatarId: item.id, selectedAvatarUrl: item.url })
+  }
+
+  onSubmit() {
+    if (this.state.selectedAvatarId == "") {
+      Alert.alert(
+        'Stay Tune',
+        'Please Select Avatar',
+        [
+          { text: 'OK', onPress: () => console.log('OK Pressed') },
+        ],
+        { cancelable: false },
+      );
+    } else {
+      let userInfoObj = {
+        firstName: this.props.navigation.state.params.userObj.firstName,
+        lastName: this.props.navigation.state.params.userObj.firstName,
+        city: this.props.navigation.state.params.userObj.city,
+        state: this.props.navigation.state.params.userObj.state,
+        zip: this.props.navigation.state.params.userObj.zip,
+        profilePic: this.state.selectedAvatarUrl,
+        userId: this.props.navigation.state.params.userObj.userId,
+        token: this.props.navigation.state.params.userObj.token
+      }
+
+      console.log("userInfoObj_123:", userInfoObj)
+      // this.props.createUserProfile(userInfoObj)
+    }
+    // this.props.navigation.navigate("MainScreen")
+
   }
 
   renderItem({ item }) {
     if (item.id == this.state.selectedAvatarId) {
-      var ViewType = (<View style={{ width: 60, height: 60, backgroundColor: 'blue' }}></View>)
+      var ViewType = (<Image source={require("./../../assests/check-circle.png")}
+        style={styles.checkImage} />)
     } else {
-      var ViewType = (<View style={{ width: 60, height: 60, backgroundColor: 'orange' }}></View>)
+      var ViewType = (<View />)
     }
     return (
-      <View>
+      <View style={styles.avatarView}>
         {ViewType}
-        <Avatar style={styles.avatar} onPress={this.onSelect.bind(this, item)}>
+        <Avatar style={styles.avatarImage} onPress={this.onSelect.bind(this, item)}>
           <Image
             source={{
               uri: item.url,
@@ -62,9 +96,9 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
             style={styles.avatarImage}
           />
         </Avatar>
-      </View>)
+      </View >
+    )
   }
-
 
   render() {
     const { navigation } = this.props
@@ -83,7 +117,7 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
           numColumns={3}
           renderItem={this.renderItem.bind(this)}
         />
-        <Button style={styles.button} onPress={() => navigation.navigate("MainScreen")}>
+        <Button style={styles.button} onPress={this.onSubmit.bind(this)}>
           <Text style={styles.buttonText}>SUBMIT</Text>
         </Button>
       </View>
@@ -97,7 +131,7 @@ export default connect(
   }),
   {
     getAvatarImages,
-    selectAvatarImage
+    createUserProfile
   }
 )(SelectAvatar);
 

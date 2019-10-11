@@ -5,7 +5,6 @@ export const LOGIN = "LOGIN"
 export const GET_USER_DETAILS = "GET_USER_DETAILS"
 export const CREATE_USER_PROFILE = "CREATE_USER_PROFILE"
 export const GET_AVATAR_IMAGES = "GET_AVATAR_IMAGES"
-export const SELECT_AVATAR_IMAGE = "SELECT_AVATAR_IMAGE"
 
 const STAYTUNELIVEURL = "https://staytune.austinconversionoptimization.com/"
 
@@ -79,10 +78,10 @@ export function getUserDetails(userId, token) {
     }
 }
 
-export function createUserProfile(userId, firstname, lastname, city, state, zip) {
+export function createUserProfile(userInfoObj) {
     return async dispatch => {
         const res = await fetch(
-            STAYTUNELIVEURL + `users/` + userId,
+            STAYTUNELIVEURL + `users/` + userInfoObj.userId,
             {
                 method: 'PATCH',
                 headers: {
@@ -90,11 +89,12 @@ export function createUserProfile(userId, firstname, lastname, city, state, zip)
                 },
                 body: JSON.stringify({
                     "verified": true,
-                    "firstname": firstname,
-                    "lastname": lastname,
-                    "city": city,
-                    "state": state,
-                    "zip": zip
+                    "firstname": userInfoObj.firstname,
+                    "lastname": userInfoObj.lastname,
+                    "city": userInfoObj.city,
+                    "state": userInfoObj.state,
+                    "zip": userInfoObj.zip,
+                    "profilePic": userInfoObj.profilePic
                 })
             }
         );
@@ -127,24 +127,15 @@ export function getAvatarImages() {
     }
 }
 
-export function selectAvatarImage(data) {
-    return {
-        type: SELECT_AVATAR_IMAGE,
-        payload: data
-    }
-}
-
 export default {
     signUp,
     Login,
     getUserDetails,
     createUserProfile,
     getAvatarImages,
-    selectAvatarImage,
     SIGN_UP,
     LOGIN,
     GET_USER_DETAILS,
     CREATE_USER_PROFILE,
     GET_AVATAR_IMAGES,
-    SELECT_AVATAR_IMAGE
 }

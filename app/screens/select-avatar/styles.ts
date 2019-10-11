@@ -41,7 +41,25 @@ const styles = StyleSheet.create({
     width: dimensions.width / 3 - 40,
     height: dimensions.width / 3 - 40,
     borderRadius: (dimensions.width / 3 - 40) / 2,
+    // backgroundColor: 'pink',
+    alignSelf: 'center',
+    position: 'absolute'
   },
+  avatarView: {
+    width: dimensions.width / 3 - 40,
+    height: dimensions.width / 3 - 40,
+    // backgroundColor: 'white',
+    marginHorizontal: 20,
+    marginVertical: 20,
+  },
+  checkImage: {
+    width: dimensions.width / 6 - 40,
+    height: dimensions.width / 6 - 40,
+    borderRadius: (dimensions.width / 6 - 40) / 2,
+    backgroundColor: 'white',
+    alignSelf: 'flex-end',
+    zIndex: 9
+  }
 })
 
 export default styles

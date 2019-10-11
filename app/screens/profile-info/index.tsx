@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View } from "react-native"
+import { View, Alert } from "react-native"
 import { NavigationScreenProp, NavigationState, ScrollView } from "react-navigation"
 import styles from "./styles"
 import { color } from "../../theme"
@@ -12,7 +12,6 @@ import { Header } from "../../components/header"
 import { GoldBarView } from "../../components/goldBar"
 
 import { connect } from 'react-redux';
-import { getUserDetails, createUserProfile } from "../../redux/actions/user"
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState>
@@ -37,14 +36,84 @@ class ProfileInfo extends Component<Props, UserInformation> {
             city: "",
             state: "",
             zip: "",
-            userId: "",
-            token: ""
+            userId: this.props.navigation.state.params === undefined ? "" : this.props.navigation.state.params.userId,
+            token: this.props.navigation.state.params === undefined ? "" : this.props.navigation.state.params.token,
         }
     }
+
+    validateZip = (zip) => {
+        return /^\d{5}(-\d{4})?$/.test(zip);
+    }
+
     onSelectAvatar() {
         console.log("profileInfo" + JSON.stringify(this.state))
-        const { navigation } = this.props
-        navigation.navigate("SelectAvatar")
+        if (this.state.firstName == "" || this.state.firstName == null) {
+            Alert.alert(
+                'Stay Tune',
+                'Please enter firstName',
+                [
+                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                ],
+                { cancelable: false },
+            );
+        } else if (this.state.lastName == "" || this.state.lastName == null) {
+            Alert.alert(
+                'Stay Tune',
+                'Please enter lastName',
+                [
+                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                ],
+                { cancelable: false },
+            );
+        } else if (this.state.city == "" || this.state.city == null) {
+            Alert.alert(
+                'Stay Tune',
+                'Please enter city',
+                [
+                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                ],
+                { cancelable: false },
+            );
+        } else if (this.state.state == "" || this.state.state == null) {
+            Alert.alert(
+                'Stay Tune',
+                'Please enter state',
+                [
+                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                ],
+                { cancelable: false },
+            );
+        } else if (this.state.zip == "" || this.state.zip == null) {
+            Alert.alert(
+                'Stay Tune',
+                'Please enter zip',
+                [
+                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                ],
+                { cancelable: false },
+            );
+        } else if (!(this.validateZip(this.state.zip))) {
+            Alert.alert(
+                'Stay Tune',
+                'Please enter a valid zip code',
+                [
+                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                ],
+                { cancelable: false },
+            );
+        } else {
+            const { navigation } = this.props
+            let userObj = {
+                firstName: this.state.firstName,
+                lastName: this.state.firstName,
+                city: this.state.city,
+                state: this.state.state,
+                zip: this.state.zip,
+                userId: this.state.userId,
+                token: this.state.token
+            }
+            navigation.navigate("SelectAvatar", { userObj: userObj })
+        }
     }
 
     // componentDidMount() {
@@ -127,10 +196,6 @@ class ProfileInfo extends Component<Props, UserInformation> {
 export default connect(
     state => ({
         user: state.user,
-    }),
-    {
-        createUserProfile,
-        getUserDetails,
-    }
+    })
 )(ProfileInfo);
 
