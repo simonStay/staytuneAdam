@@ -34,12 +34,12 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
     super(props)
     this.state = {
       avatarImagesList: [],
-      selectedAvatarId: '',
-      selectedAvatarUrl: '',
+      selectedAvatarId: "",
+      selectedAvatarUrl: "",
     }
   }
   async componentDidMount() {
-    //await this.props.getAvatarImages()
+    await this.props.getAvatarImages()
     // console.log("getAvatarImages_get:", this.props.avatarList)
     //console.log("userInfoObject_123:", this.props.navigation.state.params.userObj)
     this.setState({ avatarImagesList: this.props.avatarList })
@@ -79,8 +79,6 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
     //     //   userId: this.props.navigation.state.params.userObj.userId
     //     // })
 
-
-
     //   } else {
     //     Alert.alert(
     //       'Stay Tune',
@@ -92,17 +90,18 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
     //     );
     //   }
     // }
-    this.props.navigation.navigate('MainScreen', { paramName: 'value' })
+    this.props.navigation.navigate("MainScreen", { paramName: "value" })
 
     // this.props.navigation.navigate("MainScreen")
   }
 
   renderItem({ item }) {
     if (item.id == this.state.selectedAvatarId) {
-      var ViewType = (<Image source={require("./../../assests/check-circle.png")}
-        style={styles.checkImage} />)
+      var ViewType = (
+        <Image source={require("./../../assests/check-circle.png")} style={styles.checkImage} />
+      )
     } else {
-      var ViewType = (<View />)
+      var ViewType = <View />
     }
     return (
       <View style={styles.avatarView}>
@@ -115,7 +114,7 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
             style={styles.avatarImage}
           />
         </Avatar>
-      </View >
+      </View>
     )
   }
 
@@ -151,7 +150,6 @@ export default connect(
   }),
   {
     getAvatarImages,
-    createUserProfile
-  }
-)(SelectAvatar);
-
+    createUserProfile,
+  },
+)(SelectAvatar)
