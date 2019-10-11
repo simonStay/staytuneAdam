@@ -1,4 +1,6 @@
+
 export default async function resToBody(res) {
+    // console.log("res_123", JSON.stringify(res))
     let body = null;
     if (res.headers['Content-Type'] === 'application/json') {
         body = await res.json();
