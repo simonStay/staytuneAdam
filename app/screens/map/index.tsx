@@ -41,12 +41,20 @@ class MapScreen extends Component<Props, MapScreen, {}> {
           longitude: position.coords.longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
-        }
+        },
       })
     })
 
     Geolocation.watchPosition(position => {
-      console.log("Watchposition", JSON.stringify(position))
+      this.setState({
+        region: {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        },
+      })
+      // console.log("Watchposition", JSON.stringify(position))
     })
   }
 
@@ -61,6 +69,7 @@ class MapScreen extends Component<Props, MapScreen, {}> {
         <MapView
           style={{ flex: 1 }}
           region={this.state.region}
+          zoomEnabled={true}
           onRegionChange={this.onRegionChange.bind(this)}
           showsUserLocation={true}
         />
