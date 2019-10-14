@@ -52,7 +52,7 @@ class MainScreen extends Component<Props, UserInformation> {
       // selectedValue: this.props.navigation.state.params === undefined ? 'Start a plan' : this.props.navigation.state.params,
       // headerTitle: this.props.navigation.state.params === undefined ? 'START A PLAN' : this.props.navigation.state.params, isOpen: false
       selectedValue: 'Start a plan',
-      headerTitle: 'START A PLAN', isOpen: false,
+      headerTitle: 'STAY TUNE', isOpen: false,
       userObj: null,
       avatarSource: "",
       firstName: "",

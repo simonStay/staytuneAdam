@@ -48,11 +48,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: dimensions.width / 2 - 30,
-        height: dimensions.width / 2 - 160,
+        height: dimensions.width / 4 - 50,
+        marginBottom: dimensions.width * 0.06
     },
     editprofileText: {
         color: color.primaryColor,
-        fontSize: 21,
+        fontSize: fontsize.editprofileText,
         fontFamily: "OpenSans-Semibold"
     },
     menuItemsView: {
