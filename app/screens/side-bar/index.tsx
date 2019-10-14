@@ -48,10 +48,17 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
         //console.log('nextProps_123:', nextProps.user.userDetails)
         try {
             console.log('nextProps_123:', this.props.userInfo)
-            await this.setState({
-                profilePic: this.props.userInfo.profilePic,
-                userName: this.props.userInfo.firstname + ' ' + this.props.userInfo.lastname
-            })
+            if (this.props.userInfo.firstname !== undefined && this.props.userInfo.lastname !== undefined) {
+                await this.setState({
+                    // profilePic: this.props.userInfo.profilePic,
+                    userName: this.props.userInfo.firstname + ' ' + this.props.userInfo.lastname
+                })
+            } else if (this.props.userInfo.profilePic !== undefined || this.props.userInfo.profilePic !== "undefined") {
+                await this.setState({
+                    profilePic: this.props.userInfo.profilePic,
+                    //userName: this.props.userInfo.firstname + ' ' + this.props.userInfo.lastname
+                })
+            }
         } catch (error) {
             console.log("error_123:", error)
         }

@@ -1,27 +1,20 @@
 import { StyleSheet } from "react-native"
-import { color, dimensions, fontsize } from "../../theme/"
+import { color, dimensions, fontsize, spacing } from "../../theme/"
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: color.primaryColor,
     },
-    button: {
-        marginHorizontal: 20,
-        height: dimensions.height / 15.6,
-        borderRadius: 10,
-        marginTop: 20,
-        color: color.buttonColor,
-    },
     buttonText: {
         color: color.text,
-        fontSize: 26,
+        fontSize: fontsize.buttonText,
         fontWeight: "600",
         fontFamily: "OpenSans-Semibold"
     },
     nameStyle: {
         color: "white",
-        fontSize: 26,
+        fontSize: fontsize.buttonText,
         fontWeight: "600",
         fontFamily: "OpenSans-Semibold",
         alignSelf: 'center',
@@ -69,9 +62,10 @@ const styles = StyleSheet.create({
         // backgroundColor: 'blue'
     },
     row: {
-        marginHorizontal: 15,
-        marginVertical: 10,
-        flexDirection: 'row'
+        marginHorizontal: spacing[5],
+        marginVertical: spacing[3],
+        flexDirection: 'row',
+        // alignItems: 'baseline'
     },
     line: {
         width: '90%',
@@ -81,11 +75,11 @@ const styles = StyleSheet.create({
         marginRight: 15,
     },
     itemIcon: {
-        height: 31,
-        width: 31,
+        height: dimensions.width * 0.06,
+        width: dimensions.width * 0.06,
         marginTop: 0,
         marginLeft: 3,
-        marginRight: 10
+        marginRight: 7
     },
     itemText: {
         color: color.text,
