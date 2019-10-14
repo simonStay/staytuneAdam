@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { View, Image, TouchableOpacity } from "react-native"
 import { NavigationScreenProp, NavigationState, ScrollView } from "react-navigation"
 import styles from "./styles"
-import { color } from "../../theme"
+import { color, dimensions } from "../../theme"
 import { Drawer } from "native-base"
 import SideBar from "../side-bar/index"
 
@@ -61,6 +61,10 @@ class MainScreen extends Component<Props, UserInformation> {
       state: "",
       zip: "",
     }
+  }
+
+  componentDidMount() {
+    // alert(dimensions.width)
   }
 
   onLeft() {
