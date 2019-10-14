@@ -9,12 +9,13 @@ import { Wallpaper } from "../../components/wallpaper"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
+  user: any
 }
 
 class Splash extends Component<Props, {}> {
   componentDidMount() {
     let self = this
-    setTimeout(function () {
+    setTimeout(function() {
       //console.log("Test")
       if (self.props.user.login !== undefined && self.props.user.login.verified !== undefined) {
         if (self.props.user.login.verified && self.props.user.login.profilePic != "") {
@@ -29,7 +30,6 @@ class Splash extends Component<Props, {}> {
     }, 3000)
   }
   render() {
-    const { navigation } = this.props
     return (
       <View style={styles.container}>
         <Wallpaper style={{ flex: 1 }} />

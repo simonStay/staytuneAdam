@@ -14,13 +14,14 @@ import AnimatedLoader from "react-native-animated-loader"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
+  user: any
+  Login: any
 }
 interface userDetails {
   email: string
   password: string
   token: any
   userId: any
-  user: any
   visible: boolean
 }
 
@@ -32,17 +33,9 @@ class LoginScreen extends Component<Props, userDetails> {
       password: "",
       token: "",
       userId: "",
-      // visible: this.props.user.loader,
+      visible: this.props.user.loader,
     }
   }
-
-  // componentDidMount() {
-  //   setInterval(() => {
-  //     this.setState({
-  //       visible: !this.state.visible,
-  //     })
-  //   }, 2000)
-  // }
 
   onSignUp() {
     this.setState({
@@ -59,8 +52,6 @@ class LoginScreen extends Component<Props, userDetails> {
 
   async onLogin() {
     Keyboard.dismiss()
-    //console.log("values" + JSON.stringify(this.state))
-
     if (this.state.email == "") {
       Alert.alert(
         "Stay Tune",
@@ -85,8 +76,6 @@ class LoginScreen extends Component<Props, userDetails> {
     } else {
       const { email, password } = this.state
       await this.props.Login(email, password)
-      console.log("this.props.user.login", this.props.user.login)
-
       if (this.props.user.login == undefined || this.props.user.login == "undefined") {
         {
           /* Note: this is Temporary solution alert is not diplaying after animation making for that 
@@ -133,12 +122,10 @@ class LoginScreen extends Component<Props, userDetails> {
 
   render() {
     const { navigation } = this.props
-    const { visible } = this.state
     return (
       <View style={styles.container}>
         <Wallpaper style={styles.wallpaper} />
         <KeyboardAwareScrollView resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled={true}>
-          {/* <ScrollView contentContainerStyle={styles.contentStyle}> */}
           <Image style={styles.logo} source={require("../splash/logo.png")} />
           <Text style={styles.textStyle}>
             Hello! I'm StayTune, your personal travel assistant, may i have your email & password
@@ -185,7 +172,6 @@ class LoginScreen extends Component<Props, userDetails> {
             animationStyle={styles.lottie}
             speed={1}
           />
-          {/* </ScrollView> */}
         </KeyboardAwareScrollView>
       </View>
     )

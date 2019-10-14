@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, ScrollView, Image, Keyboard, Alert } from "react-native"
+import { View, Image, Keyboard, Alert } from "react-native"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 import { Wallpaper } from "../../components/wallpaper"
@@ -15,6 +15,8 @@ import AnimatedLoader from "react-native-animated-loader"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
+  ForgotPassword: any
+  user: any
 }
 
 interface userDetails {
@@ -62,11 +64,7 @@ class ForgotPasswordScreen extends Component<Props, userDetails> {
           )
         }, 100)
       }
-      //console.log("user_123", this.props.user)
-      //this.props.navigation.navigate("ProfileInfo")
     }
-
-    //this.props.navigation.navigate("Login")
   }
   render() {
     const { navigation } = this.props

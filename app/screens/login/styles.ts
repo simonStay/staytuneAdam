@@ -38,10 +38,6 @@ const styles = StyleSheet.create({
     color: color.textColor,
     fontSize: 19,
     fontFamily: "OpenSans",
-    // shadowOpacity: 0.75,
-    // shadowRadius: 5,
-    // shadowColor: '#969696',
-    // shadowOffset: { height: 0, width: 0 },
   },
   wallpaper: { flex: 1 },
   logo: {

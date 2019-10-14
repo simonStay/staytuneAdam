@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { View, Alert } from "react-native"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
-import { NavigationScreenProp, NavigationState, ScrollView } from "react-navigation"
+import { NavigationScreenProp, NavigationState } from "react-navigation"
 import styles from "./styles"
 import { color } from "../../theme"
 
@@ -112,7 +112,6 @@ class ProfileInfo extends Component<Props, UserInformation> {
   }
 
   render() {
-    const { navigation } = this.props
     return (
       <View style={styles.container}>
         <Wallpaper style={styles.wallpaper} />

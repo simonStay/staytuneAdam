@@ -1,15 +1,9 @@
 import React, { Component } from "react"
 import { View } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
-import styles from "./styles"
 
 import MapView from "react-native-maps"
 import Geolocation from "@react-native-community/geolocation"
-import { Header } from "../../components/header"
-import { Drawer } from "native-base"
-
-import SideBar from "../side-bar/index"
-import { GoldBarView } from "../../components/goldBar"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
@@ -54,7 +48,6 @@ class MapScreen extends Component<Props, MapScreen, {}> {
           longitudeDelta: 0.0421,
         },
       })
-      // console.log("Watchposition", JSON.stringify(position))
     })
   }
 
@@ -63,7 +56,6 @@ class MapScreen extends Component<Props, MapScreen, {}> {
   }
 
   render() {
-    const { navigation } = this.props
     return (
       <View style={{ flex: 1 }}>
         <MapView

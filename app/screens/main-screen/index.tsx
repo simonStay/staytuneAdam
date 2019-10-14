@@ -1,20 +1,12 @@
 import React, { Component } from "react"
-import { View, Image, TouchableOpacity } from "react-native"
-import { NavigationScreenProp, NavigationState, ScrollView } from "react-navigation"
+import { View } from "react-native"
+import { NavigationScreenProp, NavigationState } from "react-navigation"
 import styles from "./styles"
-import { color, dimensions } from "../../theme"
 import { Drawer } from "native-base"
 import SideBar from "../side-bar/index"
-
 import { Wallpaper } from "../../components/wallpaper"
-import { TextField } from "../../components/text-field"
-import { Text } from "../../components/text"
-import { Button } from "../../components/button"
 import { Header } from "../../components/header"
 import { GoldBarView } from "../../components/goldBar"
-
-import { Map } from "react-powerplug"
-
 import EditProfile from "../edit-profile"
 import MapScreen from "../map"
 import ItinerarySuggestions from "../itinerary-suggestions"
@@ -27,6 +19,8 @@ import { Signout } from "../../redux/actions/user"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
+  userProfileInfo: any
+  Signout: any
 }
 interface UserInformation {
   isOpen: boolean
@@ -37,19 +31,20 @@ interface UserInformation {
   firstName: string
   lastName: string
   city: string
-  state: string
+  state: any
   zip: string
   profilePic: string
-  userProfileInfo: any
-  Signout: () => void
 }
 
-class MainScreen extends Component<Props, UserInformation> {
+interface extraInfo {
+  drawer: any
+}
+
+class MainScreen extends Component<Props, UserInformation, extraInfo> {
+  state: UserInformation
   constructor(props: Props) {
     super(props)
     this.state = {
-      // selectedValue: this.props.navigation.state.params === undefined ? 'Start a plan' : this.props.navigation.state.params,
-      // headerTitle: this.props.navigation.state.params === undefined ? 'START A PLAN' : this.props.navigation.state.params, isOpen: false
       selectedValue: "Start a plan",
       headerTitle: "STAY TUNE",
       isOpen: false,
@@ -60,6 +55,7 @@ class MainScreen extends Component<Props, UserInformation> {
       city: "",
       state: "",
       zip: "",
+      profilePic: "",
     }
   }
 
@@ -162,7 +158,6 @@ class MainScreen extends Component<Props, UserInformation> {
   }
 
   render() {
-    const { navigation } = this.props
     return (
       <View style={styles.container}>
         <Wallpaper style={styles.wallpaper} />

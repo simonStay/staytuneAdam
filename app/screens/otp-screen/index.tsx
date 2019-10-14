@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, ScrollView, Image, Alert } from "react-native"
+import { View, Image, Alert } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 import { Wallpaper } from "../../components/wallpaper"
@@ -13,6 +13,7 @@ import { color } from "../../theme"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
+  user: any
 }
 
 interface userDetails {
@@ -39,10 +40,8 @@ class OTPScreen extends Component<Props, userDetails> {
         { cancelable: false },
       )
     }
-    //this.props.navigation.navigate("Login")
   }
   render() {
-    const { navigation } = this.props
     return (
       <View style={styles.container}>
         <Wallpaper style={styles.wallpaper} />
