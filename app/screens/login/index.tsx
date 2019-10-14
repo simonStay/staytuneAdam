@@ -1,5 +1,6 @@
 import React, { Component } from "react"
-import { View, ScrollView, Image, Keyboard, Alert } from "react-native"
+import { Image, Keyboard, Alert, View } from "react-native"
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 import { Wallpaper } from "../../components/wallpaper"
 import { TextField } from "../../components/text-field"
@@ -131,7 +132,8 @@ class LoginScreen extends Component<Props, userDetails> {
     return (
       <View style={styles.container}>
         <Wallpaper style={styles.wallpaper} />
-        <ScrollView contentContainerStyle={styles.contentStyle}>
+        <KeyboardAwareScrollView resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled={true}>
+          {/* <ScrollView contentContainerStyle={styles.contentStyle}> */}
           <Image style={styles.logo} source={require("../splash/logo.png")} />
           <Text style={styles.textStyle}>
             Hello! I'm StayTune, your personal travel assistant, may i have your email & password
@@ -174,7 +176,8 @@ class LoginScreen extends Component<Props, userDetails> {
             animationStyle={styles.lottie}
             speed={1}
           />
-        </ScrollView>
+          {/* </ScrollView> */}
+        </KeyboardAwareScrollView>
       </View>
     )
   }

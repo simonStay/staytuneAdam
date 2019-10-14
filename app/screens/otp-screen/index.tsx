@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { View, ScrollView, Image, Alert } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 import { Wallpaper } from "../../components/wallpaper"
 import { TextField } from "../../components/text-field"
 import { Button } from "../../components/button"
@@ -45,7 +46,7 @@ class OTPScreen extends Component<Props, userDetails> {
     return (
       <View style={styles.container}>
         <Wallpaper style={styles.wallpaper} />
-        <ScrollView contentContainerStyle={styles.contentStyle}>
+        <KeyboardAwareScrollView resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled={true}>
           <Header style={styles.header} />
           <Image style={styles.logo} source={require("../splash/logo.png")} />
           <Text style={styles.textStyle}>
@@ -62,7 +63,7 @@ class OTPScreen extends Component<Props, userDetails> {
           <Button style={styles.button} onPress={this.handleSubmit.bind(this)}>
             <Text style={styles.buttonText}>SUBMIT</Text>
           </Button>
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </View>
     )
   }

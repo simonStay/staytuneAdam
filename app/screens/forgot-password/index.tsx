@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { View, ScrollView, Image, Keyboard, Alert } from "react-native"
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 import { Wallpaper } from "../../components/wallpaper"
 import { TextField } from "../../components/text-field"
@@ -70,7 +71,7 @@ class ForgotPasswordScreen extends Component<Props, userDetails> {
     return (
       <View style={styles.container}>
         <Wallpaper style={styles.wallpaper} />
-        <ScrollView contentContainerStyle={styles.contentStyle}>
+        <KeyboardAwareScrollView resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled={true}>
           <Header style={styles.header} leftIcon={"back"} onLeftPress={() => navigation.goBack()} />
           <Image style={styles.logo} source={require("../splash/logo.png")} />
           <Text style={styles.textStyle}>
@@ -94,7 +95,7 @@ class ForgotPasswordScreen extends Component<Props, userDetails> {
             animationStyle={styles.lottie}
             speed={1}
           />
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </View>
     )
   }

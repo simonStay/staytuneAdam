@@ -1,6 +1,7 @@
 import React, { Component } from "react"
-import { View, Image, Keyboard, Alert } from "react-native"
-import { NavigationScreenProp, NavigationState, ScrollView } from "react-navigation"
+import { Image, Keyboard, Alert, ScrollView, View } from "react-native"
+import { NavigationScreenProp, NavigationState } from "react-navigation"
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 import styles from "./styles"
 
 import { Wallpaper } from "../../components/wallpaper"
@@ -117,7 +118,7 @@ class Register extends Component<Props, userDetails> {
     return (
       <View style={styles.container}>
         <Wallpaper style={styles.wallpaper} />
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <KeyboardAwareScrollView resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled={true}>
           <Image style={styles.logo} source={require("../splash/logo.png")} />
           <Text style={styles.welcomeText}>
             Hello! I'm StayTune, your personal travel assistant, may i have your details?
@@ -173,7 +174,7 @@ class Register extends Component<Props, userDetails> {
               Login now
             </Text>
           </Text>
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </View>
     )
   }
