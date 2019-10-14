@@ -52,12 +52,17 @@ class ChangePasswordScreen extends Component<Props, userDetails> {
         if (this.props.user.user.userProfileInfo.status == "success") {
           this.props.navigation.navigate("Login")
         } else {
-          Alert.alert(
-            "Stay Tune",
-            "Something went wrong",
-            [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-            { cancelable: false },
-          )
+          {
+            /*This is Temporary solution */
+          }
+          setTimeout(() => {
+            Alert.alert(
+              "Stay Tune",
+              "Something went wrong",
+              [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+              { cancelable: false },
+            )
+          }, 100)
         }
       } catch (error) {
         console.log("error:", error)

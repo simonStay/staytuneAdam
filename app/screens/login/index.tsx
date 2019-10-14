@@ -89,12 +89,18 @@ class LoginScreen extends Component<Props, userDetails> {
       console.log("this.props.user.login", this.props.user.login)
 
       if (this.props.user.login == undefined || this.props.user.login == "undefined") {
-        Alert.alert(
-          "Stay Tune",
-          "Invalid email or password.",
-          [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-          { cancelable: false },
-        )
+        {
+          /* Note: this is Temporary solution alert is not diplaying after animation making for that 
+         i used this functionality need to change when we find better solutions for it */
+        }
+        setTimeout(() => {
+          Alert.alert(
+            "Stay Tune",
+            "Invalid email or password.",
+            [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+            { cancelable: false },
+          )
+        }, 100)
       } else {
         this.setState({
           userId: this.props.user.login.id,

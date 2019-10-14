@@ -92,12 +92,18 @@ class Register extends Component<Props, userDetails> {
       const { fullName, email, password } = this.state
       await this.props.signUp(fullName, email, password)
       if (this.props.user.status == "failed") {
-        Alert.alert(
-          "Stay Tune",
-          this.props.user.message,
-          [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-          { cancelable: false },
-        )
+        {
+          /* Note: this is Temporary solution alert is not diplaying after animation making for that 
+         i used this functionality need to change when we find better solutions for it */
+        }
+        setTimeout(() => {
+          Alert.alert(
+            "Stay Tune",
+            this.props.user.message,
+            [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+            { cancelable: false },
+          )
+        }, 100)
       } else if (this.props.user.status == "success") {
         this.props.navigation.navigate("Login", {
           intialUser: true,
