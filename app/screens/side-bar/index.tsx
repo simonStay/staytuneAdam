@@ -46,10 +46,16 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
 
     async componentDidMount() {
         //console.log('nextProps_123:', nextProps.user.userDetails)
-        await this.setState({
-            profilePic: this.props.user.userDetails.profilePic,
-            userName: this.props.user.userDetails.firstname + ' ' + this.props.user.userDetails.lastname
-        })
+        try {
+            console.log('nextProps_123:', this.props.userInfo)
+            await this.setState({
+                profilePic: this.props.userInfo.profilePic,
+                userName: this.props.userInfo.firstname + ' ' + this.props.userInfo.lastname
+            })
+        } catch (error) {
+            console.log("error_123:", error)
+        }
+
     }
 
     async componentWillReceiveProps(nextProps) {
@@ -144,7 +150,7 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
 export default connect(
     state => ({
         user: state.user,
-        userProfileInfo: state.user.userProfileInfo
+        userInfo: state.user.login
     }),
     {
     }

@@ -44,19 +44,38 @@ class EditProfile extends Component<Props, UserInformation> {
     }
 
     async componentDidMount() {
-        await this.props.getUserDetails(this.props.userId, this.props.userToken)
+        try {
+
+            await this.props.getUserDetails(this.props.userId, this.props.userToken)
+            console.log("getUserDetails______123", this.props.user.userDetails)
+            // await this.setState({
+            //     avatarSource: this.props.user.userDetails.profilePic,
+            //     firstName: this.props.user.userDetails.firstname,
+            //     lastName: this.props.user.userDetails.lastname,
+            //     city: this.props.user.userDetails.city,
+            //     state: this.props.user.userDetails.state,
+            //     zip: this.props.user.userDetails.zip,
+            // })
+        } catch (error) {
+            console.log('userinfo_123_error:', error)
+        }
     }
 
     async componentWillReceiveProps(nextProps) {
-        console.log("componentWillReceiveProps_123", nextProps.userProfileInfo)
-        await this.setState({
-            avatarSource: nextProps.userProfileInfo.data.profilePic,
-            firstName: nextProps.userProfileInfo.data.firstname,
-            lastName: nextProps.userProfileInfo.data.lastname,
-            city: nextProps.userProfileInfo.data.city,
-            state: nextProps.userProfileInfo.data.state,
-            zip: nextProps.userProfileInfo.data.zip,
-        })
+        try {
+            console.log("componentWillReceiveProps_123", this.props.userInfo)
+            await this.setState({
+                avatarSource: this.props.userInfo.profilePic,
+                firstName: nextProps.userProfileInfo.data.firstname,
+                lastName: nextProps.userProfileInfo.data.lastname,
+                city: nextProps.userProfileInfo.data.city,
+                state: nextProps.userProfileInfo.data.state,
+                zip: nextProps.userProfileInfo.data.zip,
+            })
+        } catch (error) {
+            console.log('userinfo_123:', error)
+        }
+
     }
 
     async onSave() {
@@ -127,10 +146,9 @@ class EditProfile extends Component<Props, UserInformation> {
                 profilePic: this.state.avatarSource,
             }
 
-
-            await this.props.createUserProfile(userInfoObj)
-            console.log("createUserProfile_editprofile:", this.props.user.userProfileInfo.status)
             try {
+                await this.props.createUserProfile(userInfoObj)
+                console.log("createUserProfile_editprofile:", this.props.user.userProfileInfo.status)
                 if (this.props.user.userProfileInfo.status == "success") {
 
                     // this.props.navigation.navigate("MainScreen", {
@@ -258,7 +276,9 @@ export default connect(
         user: state.user,
         userId: state.user.login.id,
         userToken: state.user.login.token,
-        userProfileInfo: state.user.userProfileInfo
+        userProfileInfo: state.user.userProfileInfo,
+        userInfo: state.user.login,
+        userDetails: state.user.userDetails
     }),
     {
         getUserDetails, createUserProfile,

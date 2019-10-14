@@ -24,7 +24,6 @@ import FindLocalFriend from "../find-local-friend"
 import UserTravelInfo from "../user-travel-info"
 
 import { connect } from "react-redux"
-import { getUserDetails } from "../../redux/actions/user"
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState>
@@ -197,8 +196,5 @@ export default connect(
         userId: state.user.login.id,
         userToken: state.user.login.token,
         userProfileInfo: state.user.userProfileInfo
-    }),
-    {
-        getUserDetails,
-    }
+    })
 )(MainScreen);
