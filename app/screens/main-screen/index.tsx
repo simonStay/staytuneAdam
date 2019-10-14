@@ -196,8 +196,6 @@ class MainScreen extends Component<Props, UserInformation> {
 export default connect(
   state => ({
     user: state.user,
-    userId: state.user.login.id,
-    userToken: state.user.login.token,
     userProfileInfo: state.user.userProfileInfo
   }), {
     Signout

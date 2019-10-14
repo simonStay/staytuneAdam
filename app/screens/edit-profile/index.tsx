@@ -45,9 +45,10 @@ class EditProfile extends Component<Props, UserInformation> {
     }
 
     async componentDidMount() {
+        console.log('user_info__info_123:', this.props.user)
         try {
 
-            let userDetails = await this.props.getUserDetails(this.props.userId, this.props.userToken)
+            let userDetails = await this.props.getUserDetails(this.props.userInfo.id, this.props.userInfo.token)
             console.log("getUserDetails______123", JSON.stringify(userDetails.payload))
             await this.setState({
                 avatarSource: userDetails.payload.profilePic,
@@ -143,8 +144,8 @@ class EditProfile extends Component<Props, UserInformation> {
                 city: this.state.city,
                 state: this.state.state,
                 zip: this.state.zip,
-                userId: this.props.userId,
-                token: this.props.userToken,
+                userId: this.props.userInfo.id,
+                token: this.props.userInfo.token,
                 profilePic: this.state.avatarSource,
             }
 
@@ -282,8 +283,6 @@ class EditProfile extends Component<Props, UserInformation> {
 export default connect(
     state => ({
         user: state.user,
-        userId: state.user.login.id,
-        userToken: state.user.login.token,
         userProfileInfo: state.user.userProfileInfo,
         userInfo: state.user.login,
         userDetails: state.user.userDetails
