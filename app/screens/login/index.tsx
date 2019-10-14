@@ -45,6 +45,10 @@ class LoginScreen extends Component<Props, userDetails> {
   // }
 
   onSignUp() {
+    this.setState({
+      email: "",
+      password: "",
+    })
     this.props.navigation.navigate("Register")
   }
 
@@ -159,6 +163,10 @@ class LoginScreen extends Component<Props, userDetails> {
           <Text
             style={styles.forgotPasswordText}
             onPress={() => {
+              this.setState({
+                email: "",
+                password: "",
+              })
               navigation.navigate("ForgotPassword")
             }}
           >
