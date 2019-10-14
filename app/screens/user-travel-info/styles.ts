@@ -68,6 +68,29 @@ const styles = StyleSheet.create({
         textShadowOffset: { width: 1, height: 1 },
         textShadowRadius: 0
     },
+    userInfoUpperText: {
+        color: color.text,
+        fontSize: 25,
+        alignSelf: 'center',
+        fontFamily: "OpenSans-Semibold",
+        textShadowColor: color.textColor,
+        textShadowOffset: { width: 1, height: 1 },
+        textShadowRadius: 0
+    },
+    userInfoBottomText: {
+        color: "blue",
+        fontSize: 19,
+        alignSelf: 'center',
+        fontFamily: "OpenSans-Semibold",
+    },
+    line: {
+        width: dimensions.width / 2,
+        alignSelf: 'center',
+        height: 1,
+        backgroundColor: color.ImageBackgroundColor,
+        marginTop: 3,
+        marginBottom: 10
+    },
     scrollContainer: { flex: 1, justifyContent: 'center' },
 })
 

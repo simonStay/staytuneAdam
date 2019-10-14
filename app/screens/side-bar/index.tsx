@@ -47,16 +47,19 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
     async componentDidMount() {
         //console.log('nextProps_123:', nextProps.user.userDetails)
         try {
-            console.log('nextProps_123:', this.props.userInfo)
-            if (this.props.userInfo.firstname !== undefined && this.props.userInfo.lastname !== undefined) {
+            let userDetails = await this.props.userInfo
+            console.log('nextProps_123_component:', userDetails)
+            if (userDetails.profilePic == undefined || userDetails.profilePic == "undefined") {
+            } else {
                 await this.setState({
-                    // profilePic: this.props.userInfo.profilePic,
-                    userName: this.props.userInfo.firstname + ' ' + this.props.userInfo.lastname
+                    profilePic: userDetails.profilePic,
                 })
-            } else if (this.props.userInfo.profilePic !== undefined || this.props.userInfo.profilePic !== "undefined") {
+            }
+            if (userDetails.firstname == undefined || userDetails.firstname == "undefined" &&
+                userDetails.lastname == undefined || userDetails.lastname == "undefined") {
+            } else {
                 await this.setState({
-                    profilePic: this.props.userInfo.profilePic,
-                    //userName: this.props.userInfo.firstname + ' ' + this.props.userInfo.lastname
+                    userName: userDetails.firstname + ' ' + userDetails.lastname
                 })
             }
         } catch (error) {
@@ -67,11 +70,22 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
 
     async componentWillReceiveProps(nextProps) {
         try {
-            // console.log('nextProps_123:', nextProps.userObj)
-            await this.setState({
-                profilePic: nextProps.userProfileInfo.data.profilePic,
-                userName: nextProps.userProfileInfo.data.firstname + ' ' + nextProps.userProfileInfo.data.lastname
-            })
+            console.log('nextProps_123:', nextProps.userProfileInfo)
+            if (nextProps.userProfileInfo.data.profilePic == undefined || nextProps.userProfileInfo.data.profilePic == "undefined") {
+
+            } else {
+                await this.setState({
+                    profilePic: nextProps.userProfileInfo.data.profilePic
+                })
+            }
+            if (nextProps.userProfileInfo.data.firstname == undefined || nextProps.userProfileInfo.data.firstname == "undefined" &&
+                nextProps.userProfileInfo.data.lastname == undefined || nextProps.userProfileInfo.data.lastname == "undefined") {
+
+            } else {
+                await this.setState({
+                    userName: nextProps.userProfileInfo.data.firstname + ' ' + nextProps.userProfileInfo.data.lastname
+                })
+            }
         } catch (error) {
 
         }
