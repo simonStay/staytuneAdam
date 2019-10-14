@@ -1,7 +1,7 @@
 import React, { Component } from "react"
-import { View, Image, TouchableOpacity, Alert } from "react-native"
+import { View, Image, Alert } from "react-native"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
-import { NavigationScreenProp, NavigationState, ScrollView } from "react-navigation"
+import { NavigationScreenProp, NavigationState } from "react-navigation"
 import styles from "./styles"
 import { color } from "../../theme"
 import { TextField } from "../../components/text-field"
@@ -15,16 +15,18 @@ import AnimatedLoader from "react-native-animated-loader"
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState>
+    getUserDetails: any
+    user: any
+    userInfo: any
+    createUserProfile: any
 }
 interface UserInformation {
-    avatarSource: string
+    avatarSource: any
     firstName: string
     lastName: string
     city: string
     state: string
     zip: string
-    profilePic: string
-    sendData: (e) => void
 }
 
 const profilePic = "https://pipdigz.co.uk/p3/img/placeholder-square.png"
@@ -39,6 +41,9 @@ class EditProfile extends Component<Props, UserInformation> {
             state: "",
             zip: "",
         }
+    }
+    validateZip = zip => {
+        return /^\d{5}(-\d{4})?$/.test(zip)
     }
 
     async componentDidMount() {
@@ -138,9 +143,6 @@ class EditProfile extends Component<Props, UserInformation> {
                 let editProfile = await this.props.createUserProfile(userInfoObj)
                 console.log("createUserProfile_editprofile:", editProfile)
                 if (editProfile.payload.status == "success") {
-                    // this.props.navigation.navigate("MainScreen", {
-                    //     userId: this.state.userId
-                    // })
                     setTimeout(() => {
                         Alert.alert(
                             "Stay Tune",
@@ -199,7 +201,6 @@ class EditProfile extends Component<Props, UserInformation> {
     }
 
     render() {
-        const { navigation } = this.props
         return (
             <View style={styles.container}>
                 <KeyboardAwareScrollView resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled={true}>

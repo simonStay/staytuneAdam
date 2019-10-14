@@ -15,17 +15,15 @@ import { getAvatarImages, createUserProfile } from "../../redux/actions/user"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
+  getAvatarImages: any
+  avatarList: any
+  createUserProfile: any
+  user: any
 }
 
 interface listOfAvatars {
-  getAvatarImages?: () => void
-  onSelect?: () => void
-  avatarList: any
   avatarImagesList: any
-  url: string
   selectedAvatarId: string
-  userObj: any
-  userInfoObj: any
   selectedAvatarUrl: string
 }
 
@@ -41,7 +39,6 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
   async componentDidMount() {
     await this.props.getAvatarImages()
     console.log("getAvatarImages_get:", this.props.avatarList)
-    //console.log("userInfoObject_123:", this.props.navigation.state.params.userObj)
     this.setState({ avatarImagesList: this.props.avatarList })
   }
 
@@ -116,7 +113,6 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
   }
 
   render() {
-    const { navigation } = this.props
     return (
       <View style={styles.container}>
         <Wallpaper style={styles.wallpaper} />

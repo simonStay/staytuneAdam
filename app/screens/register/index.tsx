@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Image, Keyboard, Alert, ScrollView, View } from "react-native"
+import { Image, Keyboard, Alert, View } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 import styles from "./styles"
@@ -17,13 +17,14 @@ import AnimatedLoader from "react-native-animated-loader"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
+  user: any
+  signUp: any
+  loader: any
 }
 interface userDetails {
   fullName: string
   email: string
   password: string
-  signUp?: () => void
-  user: any
 }
 
 class Register extends Component<Props, userDetails> {

@@ -2,32 +2,30 @@ import React, { Component } from "react"
 import { View, FlatList, Image, TouchableOpacity, ScrollView } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 import styles from "./styles"
-
-import { Wallpaper } from "../../components/wallpaper"
-import { Button } from "../../components/button"
-import { Avatar } from "../../components/avatar"
 import { Icon } from "../../components/icon"
 import { Text } from "../../components/text"
 import { GoldBarView } from "../../components/goldBar"
 
 import { connect } from "react-redux"
 
-const profilePic = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlsjY5BTaQA9ourJ7KW1PDagYVjryOF51notG3PPlaPM3-3am30w";
+const profilePic =
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlsjY5BTaQA9ourJ7KW1PDagYVjryOF51notG3PPlaPM3-3am30w"
 
 const MenuItems = [
-    { "id": 0, "type": 'Start a plan', "icon": 'startplan' },
-    { "id": 1, "type": 'Itinerary suggestions', "icon": 'travelsuggestions' },
-    { "id": 2, "type": 'Travel preference', "icon": 'preference' },
-    { "id": 3, "type": 'Digital Souvenir', "icon": 'souvenir' },
-    { "id": 4, "type": 'Find a Local Friend', "icon": 'localfriend' },
-    { "id": 5, "type": 'Saved locations', "icon": 'savedlocation' },
-    { "id": 6, "type": 'Budget', "icon": 'budget' },
-    { "id": 7, "type": 'Signout', "icon": 'logout' },
+    { id: 0, type: "Start a plan", icon: "startplan" },
+    { id: 1, type: "Itinerary suggestions", icon: "travelsuggestions" },
+    { id: 2, type: "Travel preference", icon: "preference" },
+    { id: 3, type: "Digital Souvenir", icon: "souvenir" },
+    { id: 4, type: "Find a Local Friend", icon: "localfriend" },
+    { id: 5, type: "Saved locations", icon: "savedlocation" },
+    { id: 6, type: "Budget", icon: "budget" },
+    { id: 7, type: "Signout", icon: "logout" },
 ]
 
 interface Props {
-    navigation: NavigationScreenProp<NavigationState>,
+    navigation: NavigationScreenProp<NavigationState>
     onCloseMenu: any
+    userInfo: any
 }
 
 interface sideMenuItems {
@@ -96,24 +94,24 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
     }
 
     onSelectedValue(value) {
-        if (value == 'Start a plan') {
-            this.props.onCloseMenu('Start a plan')
-        } else if (value == 'Start a plan') {
-            this.props.onCloseMenu('Start a plan')
-        } else if (value == 'Itinerary suggestions') {
-            this.props.onCloseMenu('Itinerary suggestions')
-        } else if (value == 'Travel preference') {
-            this.props.onCloseMenu('Travel preference')
-        } else if (value == 'Digital Souvenir') {
-            this.props.onCloseMenu('Digital Souvenir')
-        } else if (value == 'Find a Local Friend') {
-            this.props.onCloseMenu('Find a Local Friend')
-        } else if (value == 'Saved locations') {
-            this.props.onCloseMenu('Saved locations')
-        } else if (value == 'Budget') {
-            this.props.onCloseMenu('Budget')
-        } else if (value == 'Signout') {
-            this.props.onCloseMenu('Signout')
+        if (value == "Start a plan") {
+            this.props.onCloseMenu("Start a plan")
+        } else if (value == "Start a plan") {
+            this.props.onCloseMenu("Start a plan")
+        } else if (value == "Itinerary suggestions") {
+            this.props.onCloseMenu("Itinerary suggestions")
+        } else if (value == "Travel preference") {
+            this.props.onCloseMenu("Travel preference")
+        } else if (value == "Digital Souvenir") {
+            this.props.onCloseMenu("Digital Souvenir")
+        } else if (value == "Find a Local Friend") {
+            this.props.onCloseMenu("Find a Local Friend")
+        } else if (value == "Saved locations") {
+            this.props.onCloseMenu("Saved locations")
+        } else if (value == "Budget") {
+            this.props.onCloseMenu("Budget")
+        } else if (value == "Signout") {
+            this.props.onCloseMenu("Signout")
         }
     }
 
@@ -130,29 +128,22 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
     }
 
     render() {
-        const { navigation } = this.props
         return (
-
             <View style={styles.container}>
                 <ScrollView>
                     <View style={styles.profilePicOutterView}>
                         <View style={styles.profilePicView}>
-                            <Image
-                                source={{ uri: this.state.profilePic }}
-                                style={styles.profilePic}
-                            />
+                            <Image source={{ uri: this.state.profilePic }} style={styles.profilePic} />
                         </View>
                     </View>
 
                     <Text style={styles.nameStyle}>{this.state.userName}</Text>
                     <View style={styles.buttonView}>
-
                         <TouchableOpacity onPress={this.onEditProfile.bind(this)}>
-                            <GoldBarView style={styles.editProfileButton} >
+                            <GoldBarView style={styles.editProfileButton}>
                                 <Text style={styles.editprofileText}>EDIT PROFILE</Text>
                             </GoldBarView>
                         </TouchableOpacity>
-
                     </View>
                     <View style={styles.menuItemsView}>
                         <FlatList
@@ -163,7 +154,6 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
                     </View>
                 </ScrollView>
             </View>
-
         )
     }
 }
@@ -171,10 +161,7 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
 export default connect(
     state => ({
         user: state.user,
-        userInfo: state.user.login
+        userInfo: state.user.login,
     }),
-    {
-    }
-)(SideBar);
-
-
+    {},
+)(SideBar)

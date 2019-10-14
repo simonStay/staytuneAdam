@@ -1,15 +1,9 @@
 import React, { Component } from "react"
 import { View } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
-import styles from "./styles"
 
 import MapView from "react-native-maps"
 import Geolocation from "@react-native-community/geolocation"
-import { Header } from "../../components/header"
-import { Drawer } from "native-base"
-
-import SideBar from "../side-bar/index"
-import { GoldBarView } from "../../components/goldBar"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
@@ -41,12 +35,19 @@ class MapScreen extends Component<Props, MapScreen, {}> {
           longitude: position.coords.longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
-        }
+        },
       })
     })
 
     Geolocation.watchPosition(position => {
-      console.log("Watchposition", JSON.stringify(position))
+      this.setState({
+        region: {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        },
+      })
     })
   }
 
@@ -55,12 +56,12 @@ class MapScreen extends Component<Props, MapScreen, {}> {
   }
 
   render() {
-    const { navigation } = this.props
     return (
       <View style={{ flex: 1 }}>
         <MapView
           style={{ flex: 1 }}
           region={this.state.region}
+          zoomEnabled={true}
           onRegionChange={this.onRegionChange.bind(this)}
           showsUserLocation={true}
         />

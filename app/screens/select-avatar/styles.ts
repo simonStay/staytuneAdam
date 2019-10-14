@@ -12,9 +12,9 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 24,
     color: color.headerTitle,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginTop: 15,
-    fontFamily: "OpenSans-Semibold"
+    fontFamily: "OpenSans-Semibold",
   },
   scrollContainer: { flex: 1 },
   button: {
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     color: color.text,
     fontSize: fontsize.buttonText,
     fontWeight: "600",
-    fontFamily: "OpenSans-Semibold"
+    fontFamily: "OpenSans-Semibold",
   },
   avatar: {
     width: dimensions.width / 3 - 40,
@@ -41,14 +41,12 @@ const styles = StyleSheet.create({
     width: dimensions.width / 3 - 40,
     height: dimensions.width / 3 - 40,
     borderRadius: (dimensions.width / 3 - 40) / 2,
-    // backgroundColor: 'pink',
-    alignSelf: 'center',
-    position: 'absolute'
+    alignSelf: "center",
+    position: "absolute",
   },
   avatarView: {
     width: dimensions.width / 3 - 40,
     height: dimensions.width / 3 - 40,
-    // backgroundColor: 'white',
     marginHorizontal: 20,
     marginVertical: 20,
   },
@@ -56,10 +54,10 @@ const styles = StyleSheet.create({
     width: dimensions.width / 6 - 40,
     height: dimensions.width / 6 - 40,
     borderRadius: (dimensions.width / 6 - 40) / 2,
-    backgroundColor: 'white',
-    alignSelf: 'flex-end',
-    zIndex: 9
-  }
+    backgroundColor: "white",
+    alignSelf: "flex-end",
+    zIndex: 9,
+  },
 })
 
 export default styles

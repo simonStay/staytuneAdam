@@ -1,18 +1,11 @@
 import React, { Component } from "react"
-import { View, Image, TouchableOpacity } from "react-native"
+import { View, Image } from "react-native"
 
 import { NavigationScreenProp, NavigationState, ScrollView } from "react-navigation"
 import styles from "./styles"
 import { color, dimensions } from "../../theme"
-import { Drawer } from "native-base"
-import SideBar from "../side-bar/index"
-
-import { Wallpaper } from "../../components/wallpaper"
-import { TextField } from "../../components/text-field"
 import { Text } from "../../components/text"
-import { Button } from "../../components/button"
-import { Header } from "../../components/header"
-import LinearGradient from 'react-native-linear-gradient';
+import LinearGradient from "react-native-linear-gradient"
 
 import { Tabs } from "../../components/tabs"
 import { getUserDetails } from "../../redux/actions/user"
@@ -20,12 +13,12 @@ import { connect } from "react-redux"
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState>
+    tabId: any
+    getUserDetails: any
+    userInfo: any
 }
 interface UserInformation {
-    isOpen: boolean
     selectedTabId: any
-    tabValue: any
-    tabId: any
     fullName: string
     firstName: string
     lastName: string
@@ -36,16 +29,20 @@ interface UserInformation {
     profilePic: string
 }
 
-const profilePic = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlsjY5BTaQA9ourJ7KW1PDagYVjryOF51notG3PPlaPM3-3am30w";
-const TabsList = [{ id: 0, tab: 'PROFILE INFO' }, { id: 1, tab: 'BUDGET INFO' }, { id: 2, tab: 'SAVED LOCATIONS' }];
-
+const profilePic =
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlsjY5BTaQA9ourJ7KW1PDagYVjryOF51notG3PPlaPM3-3am30w"
+const TabsList = [
+    { id: 0, tab: "PROFILE INFO" },
+    { id: 1, tab: "BUDGET INFO" },
+    { id: 2, tab: "SAVED LOCATIONS" },
+]
 
 class UserTravelInfo extends Component<Props, UserInformation> {
     constructor(props: Props) {
         super(props)
         this.state = {
             selectedTabId: this.props.tabId == undefined ? 0 : this.props.tabId,
-            profilePic: "",
+            profilePic: profilePic,
             fullName: "",
             firstName: "",
             lastName: "",
@@ -55,6 +52,7 @@ class UserTravelInfo extends Component<Props, UserInformation> {
             zip: "",
         }
     }
+
     onSave() {
         alert('submit')
     }
@@ -85,7 +83,7 @@ class UserTravelInfo extends Component<Props, UserInformation> {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            selectedTabId: nextProps.tabId
+            selectedTabId: nextProps.tabId,
         })
     }
 
@@ -121,7 +119,6 @@ class UserTravelInfo extends Component<Props, UserInformation> {
     }
 
     render() {
-        const { navigation } = this.props
         return (
             <View style={styles.container}>
                 <LinearGradient
