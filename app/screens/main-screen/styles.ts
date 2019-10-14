@@ -9,13 +9,10 @@ const styles = StyleSheet.create({
         backgroundColor: color.ImageBackgroundColor
     },
     wallpaper: { flex: 1 },
-    header: { backgroundColor: color.primaryColor, height: 88 },
-    headerView: { backgroundColor: color.primaryColor, height: 88 },
+    header: { backgroundColor: color.primaryColor },
+    headerView: { backgroundColor: color.primaryColor },
     headerTitle: {
-        fontSize: 24,
         color: color.headerTitle,
-        alignSelf: 'center',
-        marginTop: 15,
         fontFamily: "OpenSans-Semibold"
     },
     initialText: {

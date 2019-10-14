@@ -1,4 +1,5 @@
 import resToBody from "../resToBody/resToBody"
+
 export const SIGN_UP = "SIGN_UP"
 export const SIGN_OUT = "SIGN_OUT"
 export const LOGIN = "LOGIN"

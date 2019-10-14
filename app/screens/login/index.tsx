@@ -18,7 +18,6 @@ interface Props {
 interface userDetails {
   email: string
   password: string
-  intialUser: any
   token: any
   userId: any
   user: any
@@ -31,10 +30,6 @@ class LoginScreen extends Component<Props, userDetails> {
     this.state = {
       email: "",
       password: "",
-      intialUser:
-        this.props.navigation.state.params === undefined
-          ? false
-          : this.props.navigation.state.params.intialUser,
       token: "",
       userId: "",
       // visible: this.props.user.loader,

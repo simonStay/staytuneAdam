@@ -53,12 +53,14 @@ class ForgotPasswordScreen extends Component<Props, userDetails> {
       if (value.payload.otp !== undefined) {
         this.props.navigation.navigate("OTPScreen")
       } else {
-        Alert.alert(
-          "Stay Tune",
-          value.payload.status,
-          [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-          { cancelable: false },
-        )
+        setTimeout(() => {
+          Alert.alert(
+            "Stay Tune",
+            value.payload.status,
+            [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+            { cancelable: false },
+          )
+        }, 100)
       }
       //console.log("user_123", this.props.user)
       //this.props.navigation.navigate("ProfileInfo")

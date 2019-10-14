@@ -11,6 +11,7 @@ import ImagePicker from "react-native-image-picker"
 
 import { connect } from "react-redux"
 import { getUserDetails, createUserProfile } from "../../redux/actions/user"
+import AnimatedLoader from "react-native-animated-loader"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
@@ -23,6 +24,7 @@ interface UserInformation {
   state: string
   zip: string
   profilePic: string
+  sendData: (e) => void
 }
 
 const profilePic = "https://pipdigz.co.uk/p3/img/placeholder-square.png"
@@ -39,8 +41,42 @@ class EditProfile extends Component<Props, UserInformation> {
     }
   }
 
-  validateZip = zip => {
-    return /^\d{5}(-\d{4})?$/.test(zip)
+  async componentDidMount() {
+    console.log("user_info__info_123:", this.props.user)
+    try {
+      let userDetails = await this.props.getUserDetails(
+        this.props.userInfo.id,
+        this.props.userInfo.token,
+      )
+      console.log("getUserDetails______123", JSON.stringify(userDetails.payload))
+      await this.setState({
+        avatarSource: userDetails.payload.profilePic,
+        firstName: userDetails.payload.firstname,
+        lastName: userDetails.payload.lastname,
+        city: userDetails.payload.city,
+        state: userDetails.payload.state,
+        zip: userDetails.payload.zip,
+      })
+    } catch (error) {
+      console.log("userinfo_123_error:", error)
+    }
+  }
+
+  async componentWillReceiveProps(nextProps) {
+    try {
+      console.log("this.props.user.loader", this.props.user.loader)
+      console.log("componentWillReceivePropsEdit_123", this.props.userInfo)
+      await this.setState({
+        avatarSource: this.props.userInfo.profilePic,
+        firstName: nextProps.userProfileInfo.data.firstname,
+        lastName: nextProps.userProfileInfo.data.lastname,
+        city: nextProps.userProfileInfo.data.city,
+        state: nextProps.userProfileInfo.data.state,
+        zip: nextProps.userProfileInfo.data.zip,
+      })
+    } catch (error) {
+      console.log("userinfo_123:", error)
+    }
   }
 
   async onSave() {
@@ -93,50 +129,40 @@ class EditProfile extends Component<Props, UserInformation> {
         city: this.state.city,
         state: this.state.state,
         zip: this.state.zip,
-        userId: this.props.userId,
-        token: this.props.userToken,
+        userId: this.props.userInfo.id,
+        token: this.props.userInfo.token,
         profilePic: this.state.avatarSource,
       }
 
-      console.log("userInfoObj_123:", userInfoObj)
-      await this.props.createUserProfile(userInfoObj)
       try {
-        if (this.props.user.userProfileInfo.status == "sucess") {
+        let editProfile = await this.props.createUserProfile(userInfoObj)
+        console.log("createUserProfile_editprofile:", editProfile)
+        if (editProfile.payload.status == "success") {
           // this.props.navigation.navigate("MainScreen", {
           //     userId: this.state.userId
           // })
-          Alert.alert(
-            "Stay Tune",
-            this.props.user.userProfileInfo.message,
-            [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-            { cancelable: false },
-          )
+          setTimeout(() => {
+            Alert.alert(
+              "Stay Tune",
+              editProfile.payload.message,
+              [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+              { cancelable: false },
+            )
+          }, 100)
         } else {
-          Alert.alert(
-            "Stay Tune",
-            "Something went wrong",
-            [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-            { cancelable: false },
-          )
+          setTimeout(() => {
+            Alert.alert(
+              "Stay Tune",
+              "Something went wrong",
+              [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+              { cancelable: false },
+            )
+          }, 100)
         }
       } catch (error) {
         console.log("error_error:", error)
       }
     }
-  }
-
-  async componentDidMount() {
-    await this.props.getUserDetails(this.props.userId, this.props.userToken)
-    this.setState({
-      avatarSource: this.props.user.userDetails.profilePic,
-      firstName: this.props.user.userDetails.firstname,
-      lastName: this.props.user.userDetails.lastname,
-      city: this.props.user.userDetails.city,
-      state: this.props.user.userDetails.state,
-      zip: this.props.user.userDetails.zip,
-    })
-    this.props.sendData("data")
-    console.log("getUserDetails_123", this.props.user.userDetails)
   }
 
   onSelectImage() {
@@ -221,6 +247,13 @@ class EditProfile extends Component<Props, UserInformation> {
           <Button style={styles.button} onPress={this.onSave.bind(this)}>
             <Text style={styles.buttonText}>SAVE</Text>
           </Button>
+          <AnimatedLoader
+            visible={this.props.user.loader}
+            overlayColor="rgba(255,255,255,0.75)"
+            source={require("./../loader.json")}
+            animationStyle={styles.lottie}
+            speed={1}
+          />
         </KeyboardAwareScrollView>
       </View>
     )
@@ -230,8 +263,9 @@ class EditProfile extends Component<Props, UserInformation> {
 export default connect(
   state => ({
     user: state.user,
-    userId: state.user.login.id,
-    userToken: state.user.login.token,
+    userProfileInfo: state.user.userProfileInfo,
+    userInfo: state.user.login,
+    userDetails: state.user.userDetails,
   }),
   {
     getUserDetails,

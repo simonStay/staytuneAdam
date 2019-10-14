@@ -53,7 +53,11 @@ const styles = StyleSheet.create({
         fontSize: 23,
         fontFamily: "OpenSans-Semibold",
         alignSelf: 'center'
-    }
+    },
+    lottie: {
+        width: 100,
+        height: 100,
+    },
 })
 
 export default styles

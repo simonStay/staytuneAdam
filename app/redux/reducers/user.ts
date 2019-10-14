@@ -28,12 +28,13 @@ export default function user(state = {}, action) {
       return {
         ...state,
         userDetails: action.payload,
+        loader: false,
       }
     case CREATE_USER_PROFILE:
       return {
         ...state,
         userProfileInfo: action.payload,
-        loader: false,
+        // loader: false,
       }
     case GET_AVATAR_IMAGES:
       return {

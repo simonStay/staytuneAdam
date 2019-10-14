@@ -77,12 +77,14 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
             userId: this.props.navigation.state.params.userObj.userId,
           })
         } else {
-          Alert.alert(
-            "Stay Tune",
-            "Something went wrong",
-            [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-            { cancelable: false },
-          )
+          setTimeout(() => {
+            Alert.alert(
+              "Stay Tune",
+              "Something went wrong",
+              [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+              { cancelable: false },
+            )
+          }, 100)
         }
       } catch (error) {
         console.log("error:", error)

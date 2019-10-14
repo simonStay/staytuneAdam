@@ -14,7 +14,7 @@ interface Props {
 class Splash extends Component<Props, {}> {
   componentDidMount() {
     let self = this
-    setTimeout(function() {
+    setTimeout(function () {
       //console.log("Test")
       if (self.props.user.login !== undefined && self.props.user.login.verified !== undefined) {
         if (self.props.user.login.verified && self.props.user.login.profilePic != "") {
