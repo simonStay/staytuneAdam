@@ -46,7 +46,7 @@ class OTPScreen extends Component<Props, userDetails> {
       <View style={styles.container}>
         <Wallpaper style={styles.wallpaper} />
         <ScrollView contentContainerStyle={styles.contentStyle}>
-          <Header style={styles.header} leftIcon={"back"} onLeftPress={() => navigation.goBack()} />
+          <Header style={styles.header} />
           <Image style={styles.logo} source={require("../splash/logo.png")} />
           <Text style={styles.textStyle}>
             Hello! I'm StayTune, your personal travel assistant, may i have your OTP which was sent

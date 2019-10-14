@@ -2,6 +2,10 @@ import { StyleSheet } from "react-native"
 import { color, dimensions, fontsize } from "../../theme"
 
 const styles = StyleSheet.create({
+  lottie: {
+    width: 100,
+    height: 100,
+  },
   container: {
     flex: 1,
     flexDirection: "column",
@@ -15,14 +19,14 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: "center",
     marginHorizontal: 10,
-    fontFamily: "OpenSans-Semibold"
+    fontFamily: "OpenSans-Semibold",
   },
   forgotPasswordText: {
     color: color.text,
     fontSize: 20,
     textAlign: "right",
     marginRight: 20,
-    fontFamily: "OpenSans-Semibold"
+    fontFamily: "OpenSans-Semibold",
   },
   inputStyle: {
     marginHorizontal: 20,
@@ -58,7 +62,7 @@ const styles = StyleSheet.create({
     color: color.text,
     fontSize: fontsize.buttonText,
     fontWeight: "600",
-    fontFamily: "OpenSans-Semibold"
+    fontFamily: "OpenSans-Semibold",
   },
 })
 

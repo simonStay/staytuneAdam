@@ -10,6 +10,7 @@ import ImagePicker from 'react-native-image-picker';
 
 import { connect } from "react-redux"
 import { getUserDetails, createUserProfile } from "../../redux/actions/user"
+import AnimatedLoader from "react-native-animated-loader"
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState>
@@ -46,16 +47,16 @@ class EditProfile extends Component<Props, UserInformation> {
     async componentDidMount() {
         try {
 
-            await this.props.getUserDetails(this.props.userId, this.props.userToken)
-            console.log("getUserDetails______123", this.props.user.userDetails)
-            // await this.setState({
-            //     avatarSource: this.props.user.userDetails.profilePic,
-            //     firstName: this.props.user.userDetails.firstname,
-            //     lastName: this.props.user.userDetails.lastname,
-            //     city: this.props.user.userDetails.city,
-            //     state: this.props.user.userDetails.state,
-            //     zip: this.props.user.userDetails.zip,
-            // })
+            let userDetails = await this.props.getUserDetails(this.props.userId, this.props.userToken)
+            console.log("getUserDetails______123", JSON.stringify(userDetails.payload))
+            await this.setState({
+                avatarSource: userDetails.payload.profilePic,
+                firstName: userDetails.payload.firstname,
+                lastName: userDetails.payload.lastname,
+                city: userDetails.payload.city,
+                state: userDetails.payload.state,
+                zip: userDetails.payload.zip,
+            })
         } catch (error) {
             console.log('userinfo_123_error:', error)
         }
@@ -63,7 +64,8 @@ class EditProfile extends Component<Props, UserInformation> {
 
     async componentWillReceiveProps(nextProps) {
         try {
-            console.log("componentWillReceiveProps_123", this.props.userInfo)
+            console.log("this.props.user.loader", this.props.user.loader)
+            console.log("componentWillReceivePropsEdit_123", this.props.userInfo)
             await this.setState({
                 avatarSource: this.props.userInfo.profilePic,
                 firstName: nextProps.userProfileInfo.data.firstname,
@@ -147,9 +149,9 @@ class EditProfile extends Component<Props, UserInformation> {
             }
 
             try {
-                await this.props.createUserProfile(userInfoObj)
-                console.log("createUserProfile_editprofile:", this.props.user.userProfileInfo.status)
-                if (this.props.user.userProfileInfo.status == "success") {
+                let editProfile = await this.props.createUserProfile(userInfoObj)
+                console.log("createUserProfile_editprofile:", editProfile)
+                if (editProfile.payload.status == "success") {
 
                     // this.props.navigation.navigate("MainScreen", {
                     //     userId: this.state.userId
@@ -157,7 +159,7 @@ class EditProfile extends Component<Props, UserInformation> {
 
                     Alert.alert(
                         'Stay Tune',
-                        this.props.user.userProfileInfo.message,
+                        editProfile.payload.message,
                         [
                             { text: 'OK', onPress: () => console.log('OK Pressed') },
                         ],
@@ -174,7 +176,6 @@ class EditProfile extends Component<Props, UserInformation> {
                     );
                 }
             } catch (error) {
-                console.log("createUserProfile_error:", this.props.user.userProfileInfo.status)
                 console.log('error_error:', error)
             }
         }
@@ -265,6 +266,13 @@ class EditProfile extends Component<Props, UserInformation> {
                     <Button style={styles.button} onPress={this.onSave.bind(this)}>
                         <Text style={styles.buttonText}>SAVE</Text>
                     </Button>
+                    <AnimatedLoader
+                        visible={this.props.user.loader}
+                        overlayColor="rgba(255,255,255,0.75)"
+                        source={require("./../loader.json")}
+                        animationStyle={styles.lottie}
+                        speed={1}
+                    />
                 </ScrollView>
             </View>
         )

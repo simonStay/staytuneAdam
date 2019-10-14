@@ -6,9 +6,11 @@ import { TextField } from "../../components/text-field"
 import { Button } from "../../components/button"
 import { Text } from "../../components/text"
 import { Header } from "../../components/header"
+import { ChangePassword } from "../../redux/actions/user"
 import { connect } from "react-redux"
 import styles from "./styles"
 import { color } from "../../theme"
+import AnimatedLoader from "react-native-animated-loader"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
@@ -26,19 +28,40 @@ class ChangePasswordScreen extends Component<Props, userDetails> {
   }
 
   async handleSubmit() {
-    // let OTPValue = await this.props.user.user.passwordCode.otp
-    // console.log("user_otp", JSON.stringify(OTPValue))
-    // if (OTPValue == this.state.OTP) {
-    // } else {
-    //   console.log("OTPValue", OTPValue, "_OTP", this.state.OTP)
-    //   Alert.alert(
-    //     "Stay Tune",
-    //     "OTP is incorrect, please enter the correct OTP",
-    //     [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-    //     { cancelable: false },
-    //   )
-    // }
-    //this.props.navigation.navigate("Login")
+    let id = await this.props.user.user.passwordCode.id
+    let body = { id: id, password: this.state.password }
+    if (this.state.password !== this.state.confirmPassword) {
+      Alert.alert(
+        "Stay Tune",
+        "Password and Confirm Password not matched",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+        { cancelable: false },
+      )
+    } else if (this.state.password.length < 8 || this.state.password.length > 10) {
+      Alert.alert(
+        "Stay Tune",
+        "Password range should between 8 and 10",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+        { cancelable: false },
+      )
+    } else {
+      await this.props.ChangePassword(body)
+      console.log("userInfo", JSON.stringify(this.props.user))
+      try {
+        if (this.props.user.user.userProfileInfo.status == "success") {
+          this.props.navigation.navigate("Login")
+        } else {
+          Alert.alert(
+            "Stay Tune",
+            "Something went wrong",
+            [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+            { cancelable: false },
+          )
+        }
+      } catch (error) {
+        console.log("error:", error)
+      }
+    }
   }
   render() {
     const { navigation } = this.props
@@ -46,7 +69,7 @@ class ChangePasswordScreen extends Component<Props, userDetails> {
       <View style={styles.container}>
         <Wallpaper style={styles.wallpaper} />
         <ScrollView contentContainerStyle={styles.contentStyle}>
-          <Header style={styles.header} leftIcon={"back"} onLeftPress={() => navigation.goBack()} />
+          <Header style={styles.header} />
           <Image style={styles.logo} source={require("../splash/logo.png")} />
           <Text style={styles.textStyle}>
             Hello! I'm StayTune, your personal travel assistant, may i have your Password and
@@ -57,18 +80,29 @@ class ChangePasswordScreen extends Component<Props, userDetails> {
             placeholder="Enter your password"
             placeholderTextColor={color.placeholderText}
             onChangeText={value => this.setState({ password: value })}
-            value={this.state.OTP}
+            value={this.state.password}
+            autoCapitalize="none"
+            secureTextEntry={true}
           />
           <TextField
             inputStyle={styles.inputStyle}
             placeholder="Enter your confirm password"
             placeholderTextColor={color.placeholderText}
             onChangeText={value => this.setState({ confirmPassword: value })}
-            value={this.state.OTP}
+            value={this.state.confirmPassword}
+            autoCapitalize="none"
+            secureTextEntry={true}
           />
           <Button style={styles.button} onPress={this.handleSubmit.bind(this)}>
             <Text style={styles.buttonText}>SUBMIT</Text>
           </Button>
+          <AnimatedLoader
+            visible={this.props.user.loader}
+            overlayColor="rgba(255,255,255,0.75)"
+            source={require("./../loader.json")}
+            animationStyle={styles.lottie}
+            speed={1}
+          />
         </ScrollView>
       </View>
     )
@@ -80,6 +114,6 @@ export default connect(
     user: state,
   }),
   {
-    ChangePasswordScreen,
+    ChangePassword,
   },
 )(ChangePasswordScreen)

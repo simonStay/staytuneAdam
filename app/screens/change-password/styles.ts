@@ -2,6 +2,10 @@ import { StyleSheet } from "react-native"
 import { color, dimensions, fontsize } from "../../theme"
 
 const styles = StyleSheet.create({
+  lottie: {
+    width: 100,
+    height: 100,
+  },
   container: {
     flex: 1,
     flexDirection: "column",

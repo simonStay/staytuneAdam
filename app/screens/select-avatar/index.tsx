@@ -13,7 +13,6 @@ import { GoldBarView } from "../../components/goldBar"
 import { connect } from "react-redux"
 import { getAvatarImages, createUserProfile } from "../../redux/actions/user"
 
-
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
 }
@@ -35,8 +34,8 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
     super(props)
     this.state = {
       avatarImagesList: [],
-      selectedAvatarId: '',
-      selectedAvatarUrl: '',
+      selectedAvatarId: "",
+      selectedAvatarUrl: "",
     }
   }
   async componentDidMount() {
@@ -54,13 +53,11 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
   async onSubmit() {
     if (this.state.selectedAvatarId == "") {
       Alert.alert(
-        'Stay Tune',
-        'Please Select Avatar',
-        [
-          { text: 'OK', onPress: () => console.log('OK Pressed') },
-        ],
+        "Stay Tune",
+        "Please Select Avatar",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
         { cancelable: false },
-      );
+      )
     } else {
       let userInfoObj = {
         firstname: this.props.navigation.state.params.userObj.firstname,
@@ -75,36 +72,31 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
       console.log("userInfoObj_123:", userInfoObj)
       await this.props.createUserProfile(userInfoObj)
       try {
-        if (this.props.user.userProfileInfo.status == "sucess") {
-
+        if (this.props.user.userProfileInfo.status == "success") {
           this.props.navigation.navigate("MainScreen", {
-            userId: this.props.navigation.state.params.userObj.userId
+            userId: this.props.navigation.state.params.userObj.userId,
           })
-
         } else {
           Alert.alert(
-            'Stay Tune',
-            'Something went wrong',
-            [
-              { text: 'OK', onPress: () => console.log('OK Pressed') },
-            ],
+            "Stay Tune",
+            "Something went wrong",
+            [{ text: "OK", onPress: () => console.log("OK Pressed") }],
             { cancelable: false },
-          );
+          )
         }
       } catch (error) {
-        console.log('error:', error)
+        console.log("error:", error)
       }
-
     }
-
   }
 
   renderItem({ item }) {
     if (item.id == this.state.selectedAvatarId) {
-      var ViewType = (<Image source={require("./../../assests/check-circle.png")}
-        style={styles.checkImage} />)
+      var ViewType = (
+        <Image source={require("./../../assests/check-circle.png")} style={styles.checkImage} />
+      )
     } else {
-      var ViewType = (<View />)
+      var ViewType = <View />
     }
     return (
       <View style={styles.avatarView}>
@@ -117,7 +109,7 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
             style={styles.avatarImage}
           />
         </Avatar>
-      </View >
+      </View>
     )
   }
 
@@ -153,7 +145,6 @@ export default connect(
   }),
   {
     getAvatarImages,
-    createUserProfile
-  }
-)(SelectAvatar);
-
+    createUserProfile,
+  },
+)(SelectAvatar)
