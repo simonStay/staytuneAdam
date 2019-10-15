@@ -11,4 +11,6 @@ export interface ViewProps extends ViewProperties {
   TabsList?: [] | object
   onPress?: (newValue: any) => void
   selectedTabId: any
+  length: any
+  map: any
 }
