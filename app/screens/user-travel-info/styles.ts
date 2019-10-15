@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
         fontSize: 23,
         fontWeight: "600",
         fontFamily: "OpenSans",
-        marginTop: 6,
     },
     editText: {
         color: color.text,
@@ -30,26 +29,26 @@ const styles = StyleSheet.create({
     },
     userContainer: {
         flex: 1,
-        flexDirection: "row",
+        flexDirection: "row"
     },
     leftContainer: {
         flex: 0.3,
-        // backgroundColor: "orange",
-        // justifyContent: 'center',
+        //backgroundColor: "orange",
+        justifyContent: 'center',
         alignItems: 'center'
     },
     rightContainer: {
         flex: 0.7,
         flexDirection: "column",
-        // backgroundColor: "blue",
-        alignItems: 'flex-start'
+        //backgroundColor: "blue",
+        alignItems: 'baseline'
     },
     profilePicView: {
         width: dimensions.width / 2.6 - 60,
         height: dimensions.width / 2.6 - 60,
         borderRadius: (dimensions.width / 2.6 - 60) / 2,
         marginHorizontal: 20,
-        marginTop: 10,
+        //marginTop: 10,
         backgroundColor: color.text,
     },
     profilePic: {

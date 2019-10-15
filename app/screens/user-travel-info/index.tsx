@@ -125,7 +125,7 @@ class UserTravelInfo extends Component<Props, UserInformation> {
                     start={{ x: 0.0, y: 0.0 }} end={{ x: 0.0, y: 1.0 }}
                     locations={[0, 0.5, 1]}
                     colors={[color.primaryColor, color.primaryColor, "#00000010"]}
-                    style={{ width: dimensions.width, height: dimensions.height * 0.13 }}
+                    style={{ width: dimensions.width, height: dimensions.width / 3.91 }}
                 >
                     <View style={styles.userContainer}>
                         <View style={styles.leftContainer}>
