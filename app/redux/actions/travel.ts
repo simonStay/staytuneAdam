@@ -1,6 +1,7 @@
 import resToBody from "../resToBody/resToBody"
 export const TRAVEL_CATEGORIES = "TRAVEL_CATEGORIES"
 export const SELECTED_TRAVEL_CATEGORIES = "SELECTED_TRAVEL_CATEGORIES"
+export const SET_BUDGET_INFO = "SET_BUDGET_INFO"
 
 const STAYTUNELIVEURL = "https://staytune.austinconversionoptimization.com/"
 
@@ -29,10 +30,20 @@ export function selectedTravelCategories(categories) {
         })
     }
 }
+export function setBudgetInfo(setTravelBudget) {
+    return async dispatch => {
+        return dispatch({
+            type: SET_BUDGET_INFO,
+            payload: setTravelBudget
+        })
+    }
+}
 
 export default {
     travelCategories,
     selectedTravelCategories,
+    setBudgetInfo,
     SELECTED_TRAVEL_CATEGORIES,
-    TRAVEL_CATEGORIES
+    TRAVEL_CATEGORIES,
+    SET_BUDGET_INFO
 }

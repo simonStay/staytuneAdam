@@ -19,6 +19,7 @@ interface Props {
     user: any
     userInfo: any
     createUserProfile: any
+    userDetails: any
 }
 interface UserInformation {
     avatarSource: any
@@ -53,14 +54,14 @@ class EditProfile extends Component<Props, UserInformation> {
                 this.props.userInfo.id,
                 this.props.userInfo.token,
             )
-            console.log("getUserDetails______123", JSON.stringify(userDetails.payload))
+            console.log("getUserDetails______123", JSON.stringify(this.props.userDetails))
             await this.setState({
-                avatarSource: userDetails.payload.profilePic,
-                firstName: userDetails.payload.firstname,
-                lastName: userDetails.payload.lastname,
-                city: userDetails.payload.city,
-                state: userDetails.payload.state,
-                zip: userDetails.payload.zip,
+                avatarSource: this.props.userDetails.profilePic,
+                firstName: this.props.userDetails.firstname,
+                lastName: this.props.userDetails.lastname,
+                city: this.props.userDetails.city,
+                state: this.props.userDetails.state,
+                zip: this.props.userDetails.zip,
             })
         } catch (error) {
             console.log("userinfo_123_error:", error)

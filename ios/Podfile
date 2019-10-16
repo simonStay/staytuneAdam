@@ -36,6 +36,8 @@ target 'StayTune' do
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
 
+  pod 'react-native-fetch-blob', :path => '../node_modules/react-native-fetch-blob'
+
   target 'StayTuneTests' do
     inherit! :search_paths
     # Pods for testing

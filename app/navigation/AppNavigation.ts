@@ -18,6 +18,9 @@ import SelectAvatar from "../screens/select-avatar"
 import ForgotPassword from "../screens/forgot-password"
 import MapScreen from "../screens/map"
 import MainScreen from "../screens/main-screen"
+import TravelPreference from "../screens/travel-preference"
+import SetBudget from "../screens/set-budget"
+import SetInitialInterest from "../screens/set-initial-interest"
 import OTPScreen from "../screens/otp-screen"
 import ChangePassword from "../screens/change-password"
 
@@ -34,11 +37,14 @@ const stackNav = createStackNavigator(
     MapScreen: { screen: MapScreen },
     EditProfile: { screen: EditProfile },
     MainScreen: { screen: MainScreen },
+    TravelPreference: { screen: TravelPreference },
+    SetInitialInterest: { screen: SetInitialInterest },
+    SetBudget: { screen: SetBudget },
     OTPScreen: { screen: OTPScreen },
     ChangePassword: { screen: ChangePassword },
   },
   {
-    initialRouteName: "Splash",
+    initialRouteName: "SetInitialInterest",
     headerMode: "none",
     defaultNavigationOptions: {
       gesturesEnabled: false,
