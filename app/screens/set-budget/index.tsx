@@ -14,16 +14,19 @@ import { color } from "../../theme"
 
 import { connect } from "react-redux"
 import { setBudgetInfo } from "../../redux/actions/travel"
+import AnimatedLoader from "react-native-animated-loader"
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState>
     setBudgetInfo: any
+    travel: any
 }
 interface UserInformation {
     personsCount: any
     daysCount: any
     totalBudget: any
     city: any
+    visible: boolean
 }
 
 
@@ -35,7 +38,8 @@ class SetBudget extends Component<Props, UserInformation> {
             personsCount: '',
             daysCount: '',
             totalBudget: '',
-            city: ''
+            city: '',
+            visible: this.props.travel.loader,
         }
     }
 
@@ -191,6 +195,13 @@ class SetBudget extends Component<Props, UserInformation> {
                             <Icon icon={"back"} style={styles.icon} />
                         </View>
                     </Button>
+                    <AnimatedLoader
+                        visible={this.props.travel.loader}
+                        overlayColor="rgba(255,255,255,0.75)"
+                        source={require("./../loader.json")}
+                        animationStyle={styles.lottie}
+                        speed={1}
+                    />
                 </KeyboardAwareScrollView>
             </View>
         )
@@ -200,6 +211,7 @@ class SetBudget extends Component<Props, UserInformation> {
 export default connect(
     state => ({
         user: state.user,
+        travel: state.travel
     }),
     { setBudgetInfo },
 )(SetBudget)

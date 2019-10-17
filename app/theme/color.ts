@@ -31,7 +31,11 @@ export const color = {
 
   placeholderText: palette.greyLighter,
 
+  switchInitialColor: palette.greyLighter,
+
   headerTitle: palette.yellowDarker,
+
+  lightLine: palette.lightGrey,
 
   transparent: "rgba(0, 0, 0, 0)",
   /**

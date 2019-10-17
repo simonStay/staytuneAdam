@@ -12,6 +12,8 @@ export interface SwitchProps {
    */
   onToggle?: (newValue: boolean) => void
 
+  getValue?: (any) => void
+
   /**
    * A style override to apply to the container.  Useful for margins and paddings.
    */

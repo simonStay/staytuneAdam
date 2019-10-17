@@ -1,4 +1,5 @@
 import {
+    LOADER,
     TRAVEL_CATEGORIES,
     SELECTED_TRAVEL_CATEGORIES,
     SET_BUDGET_INFO
@@ -9,7 +10,8 @@ export default function travel(state = {}, action) {
         case TRAVEL_CATEGORIES:
             return {
                 ...state,
-                travelCategories: action.payload
+                travelCategories: action.payload,
+                loader: false
             }
         case SELECTED_TRAVEL_CATEGORIES:
             return {
@@ -19,7 +21,13 @@ export default function travel(state = {}, action) {
         case SET_BUDGET_INFO:
             return {
                 ...state,
-                setTravelBudget: action.payload
+                setTravelBudget: action.payload,
+                loader: false
+            }
+        case LOADER:
+            return {
+                ...state,
+                loader: action.payload,
             }
     }
     return state

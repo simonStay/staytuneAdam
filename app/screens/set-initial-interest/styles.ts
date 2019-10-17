@@ -54,23 +54,14 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         color: color.buttonColor,
         flexDirection: 'row',
-        marginTop: dimensions.height / 6.5
+        //marginTop: dimensions.height / 6.5
     },
     buttonText: {
         color: color.text,
         fontSize: fontsize.buttonText,
-        alignSelf: 'flex-end',
+        alignSelf: 'center',
         fontWeight: "600",
         fontFamily: "OpenSans-Semibold",
-    },
-    buttonLeft: { flex: 0.6, justifyContent: 'flex-end' },
-    buttonRight: { flex: 0.4, justifyContent: 'flex-start' },
-    icon: {
-        width: dimensions.width * 0.076,
-        marginRight: 3,
-        height: dimensions.width * 0.076,
-        alignSelf: 'flex-end',
-        transform: [{ rotateY: '180deg' }],
     },
     iconStyle: {
         width: 30,
@@ -97,12 +88,15 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         backgroundColor: color.text,
         justifyContent: 'center',
-        paddingHorizontal: 10,
     },
     subListRow: {
-        flexDirection: 'column',
-        paddingHorizontal: 0,
+        flexDirection: 'row',
+        paddingHorizontal: 10,
         height: dimensions.width * 0.149,
+        backgroundColor: color.background,
+        width: '100%',
+        borderBottomColor: color.lightLine,
+        alignItems: 'center'
     },
     preferenceRow: {
         flexDirection: 'row',
@@ -129,20 +123,33 @@ const styles = StyleSheet.create({
         transform: [{ rotateY: '180deg' }],
     },
     subListLeftRow: {
-        flex: 0.9,
+        flex: 0.84,
         justifyContent: 'center'
     },
     subListRightRow: {
-        flex: 0.1,
+        flex: 0.16,
         alignItems: 'flex-end'
     },
-    sublistLine: { width: '100%', height: 1, backgroundColor: color.ImageBackgroundColor, marginHorizontal: 0 },
     subcategoryText: {
         color: color.textColor,
         fontSize: fontsize.menuText,
         alignSelf: 'flex-start',
         fontFamily: "OpenSans-Semibold",
-    }
+    },
+    trackOn: {
+        backgroundColor: color.headerTitle,
+        borderColor: color.lightLine
+    },
+    trackOff: {
+        backgroundColor: color.switchInitialColor,
+        borderColor: color.lightLine
+    },
+    thumbOff: { backgroundColor: color.background },
+    thumbOn: { backgroundColor: color.ImageBackgroundColor },
+    lottie: {
+        width: 100,
+        height: 100,
+    },
 })
 
 export default styles

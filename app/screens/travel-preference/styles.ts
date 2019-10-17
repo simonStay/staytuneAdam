@@ -94,7 +94,11 @@ const styles = StyleSheet.create({
     fontFamily: "OpenSans-Semibold",
   },
   buttonLeft: { flex: 0.6, justifyContent: 'flex-end' },
-  buttonRight: { flex: 0.4, justifyContent: 'flex-start' }
+  buttonRight: { flex: 0.4, justifyContent: 'flex-start' },
+  lottie: {
+    width: 100,
+    height: 100,
+  },
 })
 
 export default styles

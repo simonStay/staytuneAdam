@@ -44,7 +44,7 @@ const stackNav = createStackNavigator(
     ChangePassword: { screen: ChangePassword },
   },
   {
-    initialRouteName: "SetInitialInterest",
+    initialRouteName: "Splash",
     headerMode: "none",
     defaultNavigationOptions: {
       gesturesEnabled: false,

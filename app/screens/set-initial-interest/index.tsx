@@ -8,46 +8,67 @@ import { Header } from "../../components/header"
 import { GoldBarView } from "../../components/goldBar"
 import { Text } from "../../components/text"
 import { Button } from "../../components/button"
-import { TextField } from "../../components/text-field"
+import { Switch } from "../../components/switch"
+import { Toggle } from "react-powerplug"
 import { Icon } from "../../components/icon"
 import { color, dimensions } from "../../theme"
 
 import { connect } from "react-redux"
 import { setBudgetInfo } from "../../redux/actions/travel"
+import AnimatedLoader from "react-native-animated-loader"
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState>
+    getValue: any
+    travel: any
 }
 interface UserInformation {
     selectedId: any
     selectedPreference: any
+    visible: boolean
+    userTravelPreferences: any
+    listOpen: any
 }
 
 const array = [
-
     {
-        id: 0, expanded: false, preferenceType: "Culinary", preferenceCategories: [{ id: 1, name: 'Mi' }, { id: 2, name: 'RealMe' }, { id: 3, name: 'Samsung' },
-        { id: 4, name: 'Infinix' }, { id: 5, name: 'Oppo' }, { id: 6, name: 'Apple' }, { id: 7, name: 'Honor' }]
+        id: 0,
+        preferenceType: "Culinary",
+        preferenceCategories:
+            [{ id: 0, name: 'Food', selected: false },
+            { id: 1, name: 'beer', selected: false },
+            { id: 2, name: ' bakery café', selected: false },
+            { id: 3, name: 'bar', selected: false }]
     },
-
     {
-        id: 1, expanded: false, preferenceType: "Museums", preferenceCategories: [{ id: 8, name: 'Dell' }, { id: 9, name: 'MAC' }, { id: 10, name: 'HP' },
-        { id: 11, name: 'ASUS' }]
+        id: 1,
+        preferenceType: "Museums",
+        preferenceCategories:
+            [{ id: 0, name: 'Art', selected: false },
+            { id: 1, name: 'History', selected: false },
+            { id: 2, name: 'customs', selected: false }]
     },
-
     {
-        id: 2, expanded: false, preferenceType: "Entertainments", preferenceCategories: [{ id: 12, name: 'Pendrive' }, { id: 13, name: 'Bag' },
-        { id: 14, name: 'Mouse' }, { id: 15, name: 'Keyboard' }]
+        id: 2,
+        preferenceType: "Entertainments",
+        preferenceCategories:
+            [{ id: 0, name: 'shows', selected: false },
+            { id: 1, name: 'concerts', selected: false },
+            { id: 2, name: 'amusement parks', selected: false },
+            { id: 3, name: 'night club', selected: false },
+            { id: 4, name: 'bookstores', selected: false }]
     },
-
     {
-        id: 3, expanded: false, preferenceType: "Adventure", preferenceCategories: [{ id: 16, name: 'Home Audio Speakers' },
-        { id: 17, name: 'Home Theatres' }, { id: 18, name: 'Bluetooth Speakers' }, { id: 19, name: 'DTH Set Top Box' }]
+        id: 3,
+        preferenceType: "Adventure",
+        preferenceCategories: [{ id: 0, name: 'hiking', selected: false }]
     },
-
     {
-        id: 4, expanded: false, preferenceType: "Shopping", preferenceCategories: [{ id: 20, name: 'Mi' },
-        { id: 21, name: 'Thomson' }, { id: 22, name: 'LG' }, { id: 23, name: 'SONY' }]
+        id: 4,
+        preferenceType: "Shopping",
+        preferenceCategories:
+            [{ id: 0, name: 'boutique', selected: false },
+            { id: 1, name: 'high-end couture', selected: false }]
     },
 ];
 
@@ -58,7 +79,10 @@ class SetInitialInterest extends Component<Props, UserInformation> {
         super(props)
         this.state = {
             selectedId: '',
-            selectedPreference: []
+            selectedPreference: [],
+            visible: this.props.travel.loader,
+            userTravelPreferences: [],
+            listOpen: false
         }
     }
 
@@ -91,6 +115,21 @@ class SetInitialInterest extends Component<Props, UserInformation> {
         }
         await this.setState({ selectedPreference: this.state.selectedPreference })
         console.log('selectedPreference_123:', this.state.selectedPreference)
+    }
+
+    toggleSwitch(item, res, toggle, on, showSublist) {
+        console.log("showSublist_123:", showSublist)
+        let count = 0
+        if (on === true) {
+            console.log('toggleSwitch:' + JSON.stringify(item.preferenceType) + ' ' + 'res:', JSON.stringify(res) + ' ' + 'on:' + on)
+            if (this.state.userTravelPreferences.length == 0) {
+                this.state.userTravelPreferences.push({ categoryname: "item.preferenceType", subCategories: { name: res.name } })
+            }
+        }
+    }
+
+    onToggleChange(on, res) {
+        console.log('showSublist_1111123', JSON.stringify(res))
     }
 
     renderItem({ item }) {
@@ -128,21 +167,36 @@ class SetInitialInterest extends Component<Props, UserInformation> {
                 <View style={styles.subListView}>
                     {showSublist == true ? (
                         item.preferenceCategories.map((res, i) => {
-                            return (<View style={styles.subListRow}>
-                                <View style={styles.subListLeftRow}>
-                                    <Text style={styles.subcategoryText}>{res.name}</Text>
-                                </View>
-                                <View style={styles.subListRightRow}>
+                            return (
+                                <View style={[styles.subListRow, { borderBottomWidth: i === item.preferenceCategories.length - 1 ? 0 : 1 }]}>
+                                    <View style={styles.subListLeftRow}>
+                                        <Text style={styles.subcategoryText}>{res.name}</Text>
+                                    </View>
+                                    <View style={styles.subListRightRow}>
 
-                                </View>
-                                {i === item.preferenceCategories.length - 1 ? (null) : <View style={styles.sublistLine} />}
-                            </View>)
+                                        <Toggle initial={false} onChange={this.onToggleChange(res)}>
+                                            {({ on, toggle, set }) =>
+                                                <Switch
+                                                    trackOnStyle={styles.trackOn}
+                                                    trackOffStyle={styles.trackOff}
+                                                    thumbOnStyle={styles.thumbOn}
+                                                    thumbOffStyle={styles.thumbOff}
+                                                    value={on}
+                                                    onToggle={toggle}
+                                                    getValue={this.toggleSwitch(item, res, toggle, on, showSublist)}
+                                                />
+                                            }
+                                        </Toggle>
+
+                                    </View>
+                                </View>)
                         })
                     ) : null}
                 </View>
             </View>
         )
     }
+
 
     render() {
         return (
@@ -157,22 +211,27 @@ class SetInitialInterest extends Component<Props, UserInformation> {
                     onLeftPress={this.onLeft.bind(this)}
                 />
                 <GoldBarView />
-                <KeyboardAwareScrollView resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled={true}>
-                    <FlatList
-                        style={{ marginTop: dimensions.width * 0.09 }}
-                        data={array}
-                        extraData={this.state}
-                        renderItem={this.renderItem.bind(this)}
-                    />
-                    {/* <Button style={styles.button} onPress={this.onNext.bind(this)}>
-                        <View style={styles.buttonLeft}>
-                            <Text style={styles.buttonText}>Next</Text>
-                        </View>
-                        <View style={styles.buttonRight}>
-                            <Icon icon={"back"} style={styles.icon} />
-                        </View>
-                    </Button> */}
-                </KeyboardAwareScrollView>
+
+                <FlatList
+                    style={{ flex: 1, marginTop: 10 }}
+                    data={array}
+                    extraData={this.state}
+                    renderItem={this.renderItem.bind(this)}
+                />
+
+                <View style={{ marginTop: 15 }}>
+                    <Button style={styles.button} onPress={this.onNext.bind(this)}>
+                        <Text style={styles.buttonText}>Submit</Text>
+                    </Button>
+                </View>
+
+                <AnimatedLoader
+                    visible={this.props.travel.loader}
+                    overlayColor="rgba(255,255,255,0.75)"
+                    source={require("./../loader.json")}
+                    animationStyle={styles.lottie}
+                    speed={1}
+                />
             </View>
         )
     }
@@ -181,6 +240,7 @@ class SetInitialInterest extends Component<Props, UserInformation> {
 export default connect(
     state => ({
         user: state.user,
+        travel: state.travel,
     }),
     {},
 )(SetInitialInterest)
