@@ -89,6 +89,31 @@ class LoginScreen extends Component<Props, userDetails> {
             { cancelable: false },
           )
         }, 100)
+      } else if (this.props.user.login.message === "User not verified") {
+        let self = this
+        setTimeout(() => {
+          Alert.alert(
+            "Stay Tune",
+            "email is not verfied please verify your email, OTP will be sent to your registered email",
+            [
+              {
+                text: "OK",
+                onPress: () => {
+                  self.props.navigation.navigate("OTPScreen", {
+                    intialUser: true,
+                    previousScreen: "Login",
+                    id: this.props.user.login.id,
+                  })
+                },
+              },
+            ],
+            { cancelable: false },
+          )
+          self.setState({
+            email: "",
+            password: "",
+          })
+        }, 100)
       } else {
         this.setState({
           userId: this.props.user.login.id,

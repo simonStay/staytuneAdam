@@ -32,10 +32,15 @@ class OTPScreen extends Component<Props, userDetails> {
     let OTPValue =
       this.props.navigation.state.params.previousScreen === "register"
         ? await this.props.user.user.register.otp
+        : this.props.navigation.state.params.previousScreen === "Login"
+        ? await this.props.user.user.login.otp
         : await this.props.user.user.passwordCode.otp
     console.log("user_otp", JSON.stringify(OTPValue))
     if (OTPValue == this.state.OTP) {
-      if (this.props.navigation.state.params.previousScreen === "register") {
+      if (
+        this.props.navigation.state.params.previousScreen === "register" ||
+        this.props.navigation.state.params.previousScreen === "Login"
+      ) {
         let body = { id: this.props.navigation.state.params.id, verified: true }
         let verifyUserResponse = await this.props.verifyUser(body)
         console.log("verifyUserResponse", JSON.stringify(verifyUserResponse))
