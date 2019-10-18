@@ -1,22 +1,22 @@
 import {
     LOADER,
-    TRAVEL_CATEGORIES,
-    SELECTED_TRAVEL_CATEGORIES,
+    TRAVEL_PREFERENCE_TYPES,
+    SELECTED_TRAVEL_PREFERENCE,
     SET_BUDGET_INFO
 } from "./../actions/travel"
 
 export default function travel(state = {}, action) {
     switch (action.type) {
-        case TRAVEL_CATEGORIES:
+        case TRAVEL_PREFERENCE_TYPES:
             return {
                 ...state,
-                travelCategories: action.payload,
+                travelPreferenceTypes: action.payload,
                 loader: false
             }
-        case SELECTED_TRAVEL_CATEGORIES:
+        case SELECTED_TRAVEL_PREFERENCE:
             return {
                 ...state,
-                selectedTravelCategories: action.payload
+                selectedTravelPreferences: action.payload
             }
         case SET_BUDGET_INFO:
             return {
