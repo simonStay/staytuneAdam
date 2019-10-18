@@ -1,5 +1,4 @@
 import resToBody from "../resToBody/resToBody"
-
 export const SIGN_UP = "SIGN_UP"
 export const SIGN_OUT = "SIGN_OUT"
 export const LOGIN = "LOGIN"
@@ -87,6 +86,30 @@ export function ChangePassword(user) {
     })
     const body = await resToBody(res)
     console.log("createUserProfile_actions:", body)
+    return dispatch({
+      type: CREATE_USER_PROFILE,
+      payload: body,
+    })
+  }
+}
+export function verifyUser(user) {
+  console.log("user_12345", JSON.stringify(user))
+  return async dispatch => {
+    dispatch({
+      type: LOADER,
+      payload: true,
+    })
+    const res = await fetch(STAYTUNELIVEURL + `users/` + user.id, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        verified: user.verified,
+      }),
+    })
+    const body = await resToBody(res)
+    console.log("createUserProfile_actions:", JSON.stringify(body))
     return dispatch({
       type: CREATE_USER_PROFILE,
       payload: body,

@@ -52,6 +52,7 @@
 		000212F5920D26136DCC83D008D78550 /* RCTUIManagerObserverCoordinator.h in Headers */ = {isa = PBXBuildFile; fileRef = 85B7AE1C707D055BC4108A72CFE4BC8B /* RCTUIManagerObserverCoordinator.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		0060810FB3851F5761DD7524A5AD905E /* RNGestureHandlerEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = DC308598A2A36A5C67936F4097FEAF05 /* RNGestureHandlerEvents.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		00DF48F08DDC9BBD7C8A0CA43272844A /* RCTCxxBridgeDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C712FB0E22076EC10FCF447225368924 /* RCTCxxBridgeDelegate.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		00E3B62E0162218D47B175CB587C13AF /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0088092749E6F9B9CF6CCD836BF5F988 /* ContainerView.swift */; };
 		00FE45766AF02AB4506F8EA418EC2CED /* RCTImageSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 80CDBB0F2ED5A765FF5D091C1464970F /* RCTImageSource.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		012B4F9EDBC257E416D04C2198524E4D /* RCTComponentEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = E7F3CCB0AA86845A0D256141487A2139 /* RCTComponentEvent.m */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-documentation"; }; };
 		0137552672A9F25231E4B3F6F8197A42 /* YGConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D76F368B4F63970558B72B5F48D288 /* YGConfig.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -324,10 +325,8 @@
 		4664C6FB05AC69F2DB792BBBDEA85B28 /* Pods-StayTune-tvOSTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 33D5709C8386EA0F4DAFCEBD859661E5 /* Pods-StayTune-tvOSTests-dummy.m */; };
 		467EE974E50216762552550AA8938655 /* RNTextGradientViewManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A9A104E0EA7CE58B168288EAA2EE0CFD /* RNTextGradientViewManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		46BE0022E01AD8A7D26FC37B5595C99D /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1136AC1FC568BAF3E8374F6B643D50 /* Shape.swift */; };
-		46D5CA176BE8D4CEDAA08BB172EA7C69 /* lottie-react-native-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 455C3B9E0DFEA8B0DCD8B8240F0EBC2E /* lottie-react-native-dummy.m */; };
 		473F68B22FEFA508C5DCAAE4D51B1864 /* AnimatedSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AC26AC79416003C2E8EA3A9C4322FB /* AnimatedSwitch.swift */; };
 		47A9738E81FBF0D584999C2134B9F409 /* RCTPackagerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 865D6F018245CF8A65E6BFBA71E17BC1 /* RCTPackagerClient.m */; };
-		47B993A4470DCD9E53B0A83314E4A0FB /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0088092749E6F9B9CF6CCD836BF5F988 /* ContainerView.swift */; };
 		47D2D6E6518E747F0BCBFDD70FE810DB /* YGNodePrint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 390F6966BD901146FE8FF5D0F0493490 /* YGNodePrint.cpp */; settings = {COMPILER_FLAGS = "-fno-omit-frame-pointer -fexceptions -Wall -Werror -std=c++1y -fPIC -fno-objc-arc"; }; };
 		484D55B9B3A30C62BD6C28D1061E3368 /* GMUGeoJSONParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 17FCA9F1C84FC8F181B632A4780D0889 /* GMUGeoJSONParser.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		48D0278331EE13434A7A058C58D969DD /* GMUGeometryContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 37E98E2D39BB1B8905C3F2FC2BF3DD19 /* GMUGeometryContainer.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -454,6 +453,7 @@
 		64AD182861EEA4E2716B3E12FCEAA1C7 /* jsi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2FBB88C23D4406879722AB475EFF90AD /* jsi.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-documentation"; }; };
 		64BE4C4AFD1151C3371F71FCDFCBEC78 /* AIRMapCallout.m in Sources */ = {isa = PBXBuildFile; fileRef = 797723A1C2A1C7D45D17E8F539E321FD /* AIRMapCallout.m */; };
 		6543421D546A4639EAAADD0B91A7EE73 /* cached-powers.h in Headers */ = {isa = PBXBuildFile; fileRef = 646EBEE40C3024B67D6122B7F3DF7CE9 /* cached-powers.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		656CC4AFE34B5EB3A2DAAB7112EFE23B /* AnimationViewManagerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA33A7F3A6929647B0414530F18994A /* AnimationViewManagerModule.swift */; };
 		658B0FA41E7B309B41DE2C33A1CFBC52 /* CompactValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 1CF5F2DC61AE0FD73ECD1813ABBC78CC /* CompactValue.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		6597B52211E0838307B353277DEC6A3E /* RCTURLRequestDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4905DA8F502C700E6757B764005EF670 /* RCTURLRequestDelegate.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		6605AE5B6FFE1AEE5334A4987CB25A33 /* RCTModalHostView.h in Headers */ = {isa = PBXBuildFile; fileRef = 718946038E9D9DCDA221A90869A7A937 /* RCTModalHostView.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -482,7 +482,6 @@
 		6A4865B6088BABD5F5698CA061BCBBDE /* ShapeCompositionLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C42CD274B10BE74C6F0CE783769030 /* ShapeCompositionLayer.swift */; };
 		6B101AA2D68F8A00E2AA651A005FECDF /* RCTI18nManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DB1015266091812A034AD05CC97BDA7 /* RCTI18nManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		6B42E611B3C6F814EFD60907799FF3DA /* RCTImageStoreManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 56216109057BE335AE50C846E1CBD3F2 /* RCTImageStoreManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		6B4FE9DB94B090B464566C5C9AFF5FD5 /* LRNAnimationViewManagerObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 883631EF3B423B2BB4E8CFC1E5732FEF /* LRNAnimationViewManagerObjC.m */; };
 		6BB4FBC97D09BB3CAEDFFA54D8285167 /* ImagePickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A25B55BB6AFDC017CDE13F03F6F89635 /* ImagePickerManager.m */; };
 		6BDEA2B57AECFF3009BE05423931A5DD /* YGConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A466116A9BF184101EC53B765D2E0 /* YGConfig.cpp */; settings = {COMPILER_FLAGS = "-fno-omit-frame-pointer -fexceptions -Wall -Werror -std=c++1y -fPIC -fno-objc-arc"; }; };
 		6C33FE7E671B752679A1B57B84CFBC80 /* AIRMapPolylineManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 12BA19DBB7219C816DB2A5909DFBF1CB /* AIRMapPolylineManager.m */; };
@@ -534,6 +533,7 @@
 		791BF21E654DD6C3664AC2CD4719362E /* GradientFillRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B458C80A7A369B04EDCE9E7F2C5F6F00 /* GradientFillRenderer.swift */; };
 		796148059246B13613543AFEE497C626 /* RAMBundleRegistry.h in Headers */ = {isa = PBXBuildFile; fileRef = 5961D81BDE44092CA35EC76DB4B0C6E6 /* RAMBundleRegistry.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		79B1A4175DD17CF315B960F78E216A49 /* RCTDecayAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5951302E888AF7BFAF2771CEFCE66063 /* RCTDecayAnimation.m */; };
+		79BA9FDD5C9DD611F6DCDC7763162F47 /* LRNAnimationViewManagerObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 883631EF3B423B2BB4E8CFC1E5732FEF /* LRNAnimationViewManagerObjC.m */; };
 		79F657FA8CA899BFC9D0E3DAE0E8EE7A /* AnyValueProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FBE30ADE90D845BFC96653B72B8306 /* AnyValueProvider.swift */; };
 		7A064706A77C027541515EDD81453460 /* AIRMapCalloutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FFB7FF9897880591962CB70A40E9D6AD /* AIRMapCalloutManager.m */; };
 		7A0C81F86BF3A4BF3915FCAE4D79B2A8 /* RCTNetInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B334AC11311C3E032E6D83102DFD2EE /* RCTNetInfo.m */; };
@@ -640,6 +640,7 @@
 		9809F247AE90381FCB5557C57FFD7289 /* NodePropertyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840B2DEF6B20EEB2770C94ED085FF9C1 /* NodePropertyMap.swift */; };
 		982187073177EC80E8637298D2307E23 /* react-native-image-picker-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC88053B7416164A6EC41FD71108B6F /* react-native-image-picker-dummy.m */; };
 		98484302A7BC9E42C926556F8BA04944 /* RNTextGradientShadowViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C8515EDFD362AF39092ACD7F5DB37E7 /* RNTextGradientShadowViewDelegate.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		98707BCE1068546AEC64D2B304410956 /* lottie-react-native-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 455C3B9E0DFEA8B0DCD8B8240F0EBC2E /* lottie-react-native-dummy.m */; };
 		98785746063AFE3D4866C0E503C02919 /* fixed-dtoa.h in Headers */ = {isa = PBXBuildFile; fileRef = F0B19A29DACC4FA32783D70EF4D52DCA /* fixed-dtoa.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		989E86445F3039D8131B28C6C7127263 /* RNLinearTextGradientShadowView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A907CD7D247FFB37EE50C10850993C8 /* RNLinearTextGradientShadowView.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		99252338C6AC97265D58D5C0E135EED3 /* AIRMapCalloutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = AEE343E0575B01FE4792825A66D56511 /* AIRMapCalloutManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -875,7 +876,6 @@
 		D79E20DD057C2766CBFA3B7EAAE50FF8 /* RCTSurfaceStage.h in Headers */ = {isa = PBXBuildFile; fileRef = D450827DABBF459F3A0DA944F79F6208 /* RCTSurfaceStage.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D7C0F0A6E8C830988DF408695C905850 /* RCTJSStackFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = A5B1DF6539B5421F19A42D733B030D88 /* RCTJSStackFrame.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D7EF96076EA56A15920B97FFB9859D43 /* GMUClusterAlgorithm.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F8B84FD5501E4A07ECDA1A5CAE9120F /* GMUClusterAlgorithm.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		D826D5C1DCEE1C3B52913418333A0972 /* AnimationViewManagerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA33A7F3A6929647B0414530F18994A /* AnimationViewManagerModule.swift */; };
 		D866E4A8069DD977414D409990F77130 /* RCTRawTextViewManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F62B194027DAB3D5775CAB46EEF6E9E /* RCTRawTextViewManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D8BF732F94396795F85EA94D6BD81B3F /* BVLinearGradient.h in Headers */ = {isa = PBXBuildFile; fileRef = 7083BAA67E89AC3E681C22E7F99A81CE /* BVLinearGradient.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D942F947E98B998E31292371B94924C1 /* RNFlingHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 4EA0EC75F0BA32D8303F06DA3F381209 /* RNFlingHandler.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -7500,7 +7500,7 @@
 			buildConfigurationList = 8104230FA477477007C8293B4B45F406 /* Build configuration list for PBXNativeTarget "lottie-react-native" */;
 			buildPhases = (
 				495BC4CB6DEBF0EB4E8CA81139D8A476 /* Headers */,
-				ED5B5E00FA7C760010FCA2430E6D3254 /* Sources */,
+				F1FA6B6D47F9980D32593882FE998E68 /* Sources */,
 				6CC31CDD404DD9BFD6EF3FF2F24E4C9F /* Frameworks */,
 				7179C1FDE469A27AD6AB7AD16A67692D /* Copy generated compatibility header */,
 			);
@@ -8577,14 +8577,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		ED5B5E00FA7C760010FCA2430E6D3254 /* Sources */ = {
+		F1FA6B6D47F9980D32593882FE998E68 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D826D5C1DCEE1C3B52913418333A0972 /* AnimationViewManagerModule.swift in Sources */,
-				47B993A4470DCD9E53B0A83314E4A0FB /* ContainerView.swift in Sources */,
-				46D5CA176BE8D4CEDAA08BB172EA7C69 /* lottie-react-native-dummy.m in Sources */,
-				6B4FE9DB94B090B464566C5C9AFF5FD5 /* LRNAnimationViewManagerObjC.m in Sources */,
+				656CC4AFE34B5EB3A2DAAB7112EFE23B /* AnimationViewManagerModule.swift in Sources */,
+				00E3B62E0162218D47B175CB587C13AF /* ContainerView.swift in Sources */,
+				98707BCE1068546AEC64D2B304410956 /* lottie-react-native-dummy.m in Sources */,
+				79BA9FDD5C9DD611F6DCDC7763162F47 /* LRNAnimationViewManagerObjC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
