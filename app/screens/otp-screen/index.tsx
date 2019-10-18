@@ -7,6 +7,7 @@ import { TextField } from "../../components/text-field"
 import { Button } from "../../components/button"
 import { Text } from "../../components/text"
 import { Header } from "../../components/header"
+import { verifyUser } from "../../redux/actions/user"
 import { connect } from "react-redux"
 import styles from "./styles"
 import { color } from "../../theme"
@@ -14,6 +15,7 @@ import { color } from "../../theme"
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
   user: any
+  verifyUser: any
 }
 
 interface userDetails {
@@ -27,10 +29,37 @@ class OTPScreen extends Component<Props, userDetails> {
   }
 
   async handleSubmit() {
-    let OTPValue = await this.props.user.user.passwordCode.otp
+    let OTPValue =
+      this.props.navigation.state.params.previousScreen === "register"
+        ? await this.props.user.user.register.otp
+        : await this.props.user.user.passwordCode.otp
     console.log("user_otp", JSON.stringify(OTPValue))
     if (OTPValue == this.state.OTP) {
-      this.props.navigation.navigate("ChangePassword")
+      if (this.props.navigation.state.params.previousScreen === "register") {
+        let body = { id: this.props.navigation.state.params.id, verified: true }
+        let verifyUserResponse = await this.props.verifyUser(body)
+        console.log("verifyUserResponse", JSON.stringify(verifyUserResponse))
+        if (verifyUserResponse.payload.status == "success") {
+          let self = this
+          setTimeout(() => {
+            Alert.alert(
+              "Stay Tune",
+              "Your Email is verified successfully please login",
+              [
+                {
+                  text: "OK",
+                  onPress: () => {
+                    self.props.navigation.navigate("Login")
+                  },
+                },
+              ],
+              { cancelable: false },
+            )
+          }, 100)
+        }
+      } else {
+        this.props.navigation.navigate("ChangePassword")
+      }
     } else {
       console.log("OTPValue", OTPValue, "_OTP", this.state.OTP)
       Alert.alert(
@@ -42,6 +71,7 @@ class OTPScreen extends Component<Props, userDetails> {
     }
   }
   render() {
+    console.log("navigation_123", this.props.navigation.state.params.previousScreen)
     return (
       <View style={styles.container}>
         <Wallpaper style={styles.wallpaper} />
@@ -73,6 +103,6 @@ export default connect(
     user: state,
   }),
   {
-    OTPScreen,
+    verifyUser,
   },
 )(OTPScreen)

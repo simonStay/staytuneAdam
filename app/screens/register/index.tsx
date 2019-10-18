@@ -45,11 +45,6 @@ class Register extends Component<Props, userDetails> {
     return re.test(email)
   }
 
-  // validatPassword = (str) => {
-  //   var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,16}$/;
-  //   return re.test(str);
-  // }
-
   async onSubmit() {
     Keyboard.dismiss()
     console.log("SIGNUP" + JSON.stringify(this.state))
@@ -106,14 +101,31 @@ class Register extends Component<Props, userDetails> {
           )
         }, 100)
       } else if (this.props.user.status == "success") {
-        this.props.navigation.navigate("Login", {
-          intialUser: true,
-        })
-        this.setState({
-          fullName: "",
-          email: "",
-          password: "",
-        })
+        let self = this
+        setTimeout(() => {
+          Alert.alert(
+            "Stay Tune",
+            "OTP will be sent to your registered email",
+            [
+              {
+                text: "OK",
+                onPress: () => {
+                  self.props.navigation.navigate("OTPScreen", {
+                    intialUser: true,
+                    previousScreen: "register",
+                    id: this.props.user.id,
+                  })
+                  self.setState({
+                    fullName: "",
+                    email: "",
+                    password: "",
+                  })
+                },
+              },
+            ],
+            { cancelable: false },
+          )
+        }, 100)
       }
       console.log("state_user_123:", this.props.user)
       // this.props.navigation.navigate('Login')

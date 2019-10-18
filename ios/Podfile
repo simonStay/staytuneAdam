@@ -35,6 +35,8 @@ target 'StayTune' do
 
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
+
+
   target 'StayTuneTests' do
     inherit! :search_paths
     # Pods for testing

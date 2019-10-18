@@ -5,16 +5,16 @@ import styles from "./styles"
 import { Text } from "../../components/text"
 import { Button } from "../../components/button"
 import { Icon } from "../../components/icon"
-import { travelCategories, selectedTravelCategories } from '../../redux/actions/travel';
+import { travelPreferenceTypes, selectedTravelPreferences } from '../../redux/actions/travel';
 import { connect } from "react-redux"
 import ImageLoad from 'react-native-image-placeholder';
 import AnimatedLoader from "react-native-animated-loader"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
-  selectedTravelCategories: any
+  selectedTravelPreferences: any
   travel: any
-  travelCategories: any
+  travelPreferenceTypes: any
   travelCategoriesList: any
 }
 interface categoriesInfo {
@@ -33,7 +33,6 @@ const TravelCategories = [
   { id: 5, categoryname: "Entertainment", categoryPic: "http://www.dailyentertainment.us/wp-content/uploads/2018/09/Hollywood-The-Entertainment-Capital-of-the-World.jpg" },
 ]
 
-
 class TravelPreference extends Component<Props, categoriesInfo> {
   constructor(props: Props) {
     super(props)
@@ -47,11 +46,14 @@ class TravelPreference extends Component<Props, categoriesInfo> {
 
   async componentDidMount() {
     try {
-
-      let listOfCategories = await this.props.travelCategories()
-      console.log('this.props.travelCategoriesList:', this.props.travel.travelCategories)
+      let listOfCategories = await this.props.travelPreferenceTypes()
+      console.log('this.props.travelCategoriesList:', this.props.travel.loader)
       await this.setState({
-        categoriesList: this.props.travel.travelCategories
+        categoriesList: this.props.travel.travelPreferenceTypes
+      }, () => {
+        this.setState({
+          visible: this.props.travel.loader
+        })
       })
     } catch (error) {
       console.log('error_TravelPreference:')
@@ -59,6 +61,7 @@ class TravelPreference extends Component<Props, categoriesInfo> {
   }
 
   async onSelectedCategory(category) {
+    let selectedPreferences = []
     let count = 0
     if (this.state.selectedCategoryList.length == 0) {
       this.state.selectedCategoryList.push(category)
@@ -76,7 +79,13 @@ class TravelPreference extends Component<Props, categoriesInfo> {
     this.setState({ selectedCategoryList: this.state.selectedCategoryList })
 
     let categories = this.state.selectedCategoryList
-    await this.props.selectedTravelCategories(categories)
+    categories.map(async (res, i) => {
+      selectedPreferences.push(res.name)
+    })
+
+    console.log("selectedCategoryList_123:", (selectedPreferences))
+
+    await this.props.selectedTravelPreferences(selectedPreferences)
 
     // console.log("selectedCategoryList_123:", (this.state.selectedCategoryList))
   }
@@ -104,11 +113,11 @@ class TravelPreference extends Component<Props, categoriesInfo> {
       ImageView = (<View />)
     }
     return (
-      <TouchableOpacity onPress={this.onSelectedCategory.bind(this, item)} activeOpacity={0.6}>
+      <TouchableOpacity onPress={this.state.visible == false ? this.onSelectedCategory.bind(this, item) : null} activeOpacity={0.6}>
         <ImageLoad
           style={styles.listImage}
           loadingStyle={{ size: 'large', color: 'blue' }}
-          source={{ uri: item.categoryPic }}
+          source={{ uri: item.image }}
           placeholderSource={require("./../../assests/placeholder-image.png")}
           placeholderStyle={styles.listImage}
         >
@@ -123,7 +132,7 @@ class TravelPreference extends Component<Props, categoriesInfo> {
 
         <View style={styles.elevateView}>
           {ImageView}
-          <Text style={styles.categoryText}>{item.categoryname}</Text>
+          <Text style={styles.categoryText}>{item.name}</Text>
         </View>
       </TouchableOpacity>
     )
@@ -170,8 +179,8 @@ export default connect(
     user: state.user,
     travel: state.travel
   }), {
-    travelCategories,
-    selectedTravelCategories
+    travelPreferenceTypes,
+    selectedTravelPreferences
   }
 )(TravelPreference)
 
