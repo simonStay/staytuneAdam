@@ -22,7 +22,7 @@ export default function user(state = {}, action) {
       return {
         ...state,
         loader: false,
-        login: action.payload.user,
+        login: action.payload,
       }
     case GET_USER_DETAILS:
       return {
