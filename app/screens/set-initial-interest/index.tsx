@@ -26,7 +26,7 @@ interface UserInformation {
     selectedId: any
     selectedPreference: any
     visible: boolean
-    userTravelPreferences: any
+    userInitialInterests: any
     listOpen: any
 }
 
@@ -81,7 +81,7 @@ class SetInitialInterest extends Component<Props, UserInformation> {
             selectedId: '',
             selectedPreference: [],
             visible: this.props.travel.loader,
-            userTravelPreferences: [],
+            userInitialInterests: [],
             listOpen: false
         }
     }
@@ -95,7 +95,7 @@ class SetInitialInterest extends Component<Props, UserInformation> {
     }
 
     async onNext() {
-
+        console.log("userInitialInterests" + JSON.stringify(this.state.userInitialInterests))
     }
 
     async onToggleList(item) {
@@ -118,14 +118,34 @@ class SetInitialInterest extends Component<Props, UserInformation> {
     }
 
     toggleSwitch(item, res, toggle, on, showSublist) {
-        console.log("showSublist_123:", showSublist)
-        let count = 0
-        if (on === true) {
-            console.log('toggleSwitch:' + JSON.stringify(item.preferenceType) + ' ' + 'res:', JSON.stringify(res) + ' ' + 'on:' + on)
-            if (this.state.userTravelPreferences.length == 0) {
-                this.state.userTravelPreferences.push({ categoryname: "item.preferenceType", subCategories: { name: res.name } })
-            }
-        }
+        //console.log("showSublist_123:", showSublist)
+        // let count = 0
+        // let subCategoriesCount = 0
+        // if (on === true) {
+        //     // console.log('toggleSwitch:' + JSON.stringify(item.preferenceType) + ' ' + 'res:', JSON.stringify(res) + ' ' + 'on:' + on)
+        //     if (this.state.userInitialInterests.length == 0) {
+        //         this.state.userInitialInterests.push({
+        //             categoryname: item.preferenceType,
+        //             subCategories: [{ id: res.id, name: res.name, selected: on }]
+        //         })
+        //     } else {
+        //         this.state.userInitialInterests.map((prefObj, i) => {
+        //             prefObj.subCategories.map((value, j) => {
+        //                 if (item.preferenceType == prefObj.categoryname) {
+        //                     if (res.name == value.name) {
+        //                         prefObj.subCategories.splice(1, j)
+        //                         subCategoriesCount++
+        //                     }
+        //                     prefObj.subCategories.push({ id: res.id, name: res.name, selected: on })
+        //                 }
+        //             })
+
+        //         })
+        //         if (subCategoriesCount == 0) {
+        //             this.state.userInitialInterests.push({ categoryname: item.preferenceType, subCategories: [{ id: res.id, name: res.name, selected: on }] })
+        //         }
+        //     }
+        // }
     }
 
     onToggleChange(on, res) {

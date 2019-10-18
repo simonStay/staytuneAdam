@@ -10,11 +10,12 @@ import { Text } from "../../components/text"
 import { Button } from "../../components/button"
 import { TextField } from "../../components/text-field"
 import { Icon } from "../../components/icon"
-import { color } from "../../theme"
+import { color, dimensions } from "../../theme"
 
 import { connect } from "react-redux"
 import { setBudgetInfo } from "../../redux/actions/travel"
 import AnimatedLoader from "react-native-animated-loader"
+import DatePicker from "react-native-datepicker"
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState>
@@ -27,6 +28,7 @@ interface UserInformation {
     totalBudget: any
     city: any
     visible: boolean
+    travelDate: any
 }
 
 
@@ -39,6 +41,7 @@ class SetBudget extends Component<Props, UserInformation> {
             daysCount: '',
             totalBudget: '',
             city: '',
+            travelDate: '',
             visible: this.props.travel.loader,
         }
     }
@@ -58,7 +61,15 @@ class SetBudget extends Component<Props, UserInformation> {
 
     async onNext() {
 
-        if (this.state.personsCount == '' || this.state.personsCount == null) {
+        if (this.state.travelDate == '' || this.state.travelDate == null) {
+            Alert.alert(
+                "Stay Tune",
+                "Please enter travel date",
+                [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+                { cancelable: false },
+            )
+        }
+        else if (this.state.personsCount == '' || this.state.personsCount == null) {
             Alert.alert(
                 "Stay Tune",
                 "Please enter persons count",
@@ -111,6 +122,7 @@ class SetBudget extends Component<Props, UserInformation> {
             )
         } else {
             let setTravelBudget = {
+                travelDate: this.state.travelDate,
                 personsCount: this.state.personsCount,
                 daysCount: this.state.daysCount,
                 totalBudget: this.state.totalBudget,
@@ -138,8 +150,59 @@ class SetBudget extends Component<Props, UserInformation> {
                 <KeyboardAwareScrollView resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled={true}>
                     <View>
                         <Text style={styles.textStyle}>
+                            Select your travel date ?
+                        </Text>
+                        <DatePicker
+                            style={{
+                                borderWidth: 0,
+                                borderStyle: null,
+                                borderRadius: 10,
+                                marginVertical: 26,
+                                //height: dimensions.height / 15.6,
+                                width: dimensions.width / 1.09,
+                                backgroundColor: 'white',
+                                marginHorizontal: 20,
+                            }}
+                            date={this.state.travelDate}
+                            mode="date"
+                            placeholder="Select travel date"
+                            format="DD-MM-YYYY"
+                            //minDate="2016-05-01"
+                            //maxDate="2016-06-01"
+                            confirmBtnText="Confirm"
+                            cancelBtnText="Cancel"
+                            showIcon={false}
+                            onDateChange={(date) => { this.setState({ travelDate: date }) }}
+                            customStyles={{
+                                dateText: {
+                                    color: color.textColor,
+                                    fontSize: 19,
+                                    fontFamily: "OpenSans"
+                                },
+                                placeholderText: {
+                                    color: color.placeholderText,
+                                    fontSize: 19,
+                                    fontFamily: "OpenSans"
+                                },
+                                dateInput: {
+                                    backgroundColor: color.background,
+                                    top: 0,
+                                    bottom: 0,
+                                    minHeight: 60,
+                                    marginTop: 15,
+                                    borderRadius: 10,
+                                    color: color.textColor,
+                                    fontSize: 19,
+                                    fontFamily: "OpenSans"
+                                }
+                            }}
+                        />
+                    </View>
+
+                    <View>
+                        <Text style={styles.textStyle}>
                             How many persons are there in your travel ?
-                    </Text>
+                        </Text>
                         <TextField
                             inputStyle={styles.inputStyle}
                             placeholder="Number of Persons"
@@ -152,7 +215,7 @@ class SetBudget extends Component<Props, UserInformation> {
                     <View>
                         <Text style={styles.textStyle}>
                             How many days you will travel ?
-                    </Text>
+                        </Text>
                         <TextField
                             inputStyle={styles.inputStyle}
                             placeholder="Number of Days"
@@ -165,7 +228,7 @@ class SetBudget extends Component<Props, UserInformation> {
                     <View>
                         <Text style={styles.textStyle}>
                             How much is your total budget for this travel ?
-                    </Text>
+                        </Text>
                         <TextField
                             inputStyle={styles.inputStyle}
                             placeholder="Total Budget"
@@ -178,7 +241,7 @@ class SetBudget extends Component<Props, UserInformation> {
                     <View>
                         <Text style={styles.textStyle}>
                             For which city you want to travel ?
-                    </Text>
+                        </Text>
                         <TextField
                             inputStyle={styles.inputStyle}
                             placeholder="City"
@@ -187,22 +250,22 @@ class SetBudget extends Component<Props, UserInformation> {
                             value={this.state.city}
                         />
                     </View>
-                    <Button style={styles.button} onPress={this.onNext.bind(this)}>
-                        <View style={styles.buttonLeft}>
-                            <Text style={styles.buttonText}>Next</Text>
-                        </View>
-                        <View style={styles.buttonRight}>
-                            <Icon icon={"back"} style={styles.icon} />
-                        </View>
-                    </Button>
-                    <AnimatedLoader
-                        visible={this.props.travel.loader}
-                        overlayColor="rgba(255,255,255,0.75)"
-                        source={require("./../loader.json")}
-                        animationStyle={styles.lottie}
-                        speed={1}
-                    />
                 </KeyboardAwareScrollView>
+                <Button style={styles.button} onPress={this.onNext.bind(this)}>
+                    <View style={styles.buttonLeft}>
+                        <Text style={styles.buttonText}>Next</Text>
+                    </View>
+                    <View style={styles.buttonRight}>
+                        <Icon icon={"back"} style={styles.icon} />
+                    </View>
+                </Button>
+                <AnimatedLoader
+                    visible={this.props.travel.loader}
+                    overlayColor="rgba(255,255,255,0.75)"
+                    source={require("./../loader.json")}
+                    animationStyle={styles.lottie}
+                    speed={1}
+                />
             </View>
         )
     }
