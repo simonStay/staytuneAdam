@@ -18,7 +18,7 @@ interface Props {
   travelCategoriesList: any
 }
 interface categoriesInfo {
-  selectedCategoryList: any
+  selectedPrefenceList: any
   categoryId: any
   categoriesList: any
   visible: boolean
@@ -39,7 +39,7 @@ class TravelPreference extends Component<Props, categoriesInfo> {
     this.state = {
       categoryId: '',
       categoriesList: [],
-      selectedCategoryList: [],
+      selectedPrefenceList: [],
       visible: this.props.travel.loader,
     }
   }
@@ -60,34 +60,27 @@ class TravelPreference extends Component<Props, categoriesInfo> {
     }
   }
 
-  async onSelectedCategory(category) {
-    let selectedPreferences = []
+  async onSelectedPreference(preference) {
     let count = 0
-    if (this.state.selectedCategoryList.length == 0) {
-      this.state.selectedCategoryList.push(category)
+    if (this.state.selectedPrefenceList.length == 0) {
+      this.state.selectedPrefenceList.push(preference.name)
     } else {
-      this.state.selectedCategoryList.map((res, i) => {
-        if (res.id == category.id) {
-          this.state.selectedCategoryList.splice(i, 1)
+      this.state.selectedPrefenceList.map((res, i) => {
+        if (res == preference.name) {
+          this.state.selectedPrefenceList.splice(i, 1)
           count = count + 1
         }
       })
       if (count == 0) {
-        this.state.selectedCategoryList.push(category)
+        this.state.selectedPrefenceList.push(preference.name)
       }
     }
-    this.setState({ selectedCategoryList: this.state.selectedCategoryList })
 
-    let categories = this.state.selectedCategoryList
-    categories.map(async (res, i) => {
-      selectedPreferences.push(res.name)
-    })
+    this.setState({ selectedPrefenceList: this.state.selectedPrefenceList })
 
-    console.log("selectedCategoryList_123:", (selectedPreferences))
+    console.log("selectedPrefenceList_123:", (this.state.selectedPrefenceList))
 
-    await this.props.selectedTravelPreferences(selectedPreferences)
-
-    // console.log("selectedCategoryList_123:", (this.state.selectedCategoryList))
+    await this.props.selectedTravelPreferences(this.state.selectedPrefenceList)
   }
 
   onNext() {
@@ -97,8 +90,8 @@ class TravelPreference extends Component<Props, categoriesInfo> {
   renderItem = ({ item }) => {
     var count = 0;
     var ImageView;
-    this.state.selectedCategoryList.map((res, i) => {
-      if (res.id == item.id) {
+    this.state.selectedPrefenceList.map((res, i) => {
+      if (res == item.name) {
         ImageView = 'true';
         count = count + 1;
       }
@@ -113,7 +106,7 @@ class TravelPreference extends Component<Props, categoriesInfo> {
       ImageView = (<View />)
     }
     return (
-      <TouchableOpacity onPress={this.state.visible == false ? this.onSelectedCategory.bind(this, item) : null} activeOpacity={0.6}>
+      <TouchableOpacity onPress={this.state.visible == false ? this.onSelectedPreference.bind(this, item) : null} activeOpacity={0.6}>
         <ImageLoad
           style={styles.listImage}
           loadingStyle={{ size: 'large', color: 'blue' }}
@@ -153,7 +146,7 @@ class TravelPreference extends Component<Props, categoriesInfo> {
           renderItem={this.renderItem.bind(this)}
           numColumns={2}
         />
-        {this.state.selectedCategoryList.length != 0 ? (
+        {this.state.selectedPrefenceList.length != 0 ? (
           <Button style={styles.button} onPress={this.onNext.bind(this)}>
             <View style={styles.buttonLeft}>
               <Text style={styles.buttonText}>Next</Text>
