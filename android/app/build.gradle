@@ -188,7 +188,6 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-fetch-blob')
     implementation project(':react-native-text-gradient')
     implementation project(':react-native-linear-gradient')
     implementation project(':react-native-maps')
