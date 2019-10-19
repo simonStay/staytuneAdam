@@ -11,7 +11,6 @@ import { Button } from "../../components/button"
 import { Switch } from "../../components/switch"
 import { Toggle } from "react-powerplug"
 import { Icon } from "../../components/icon"
-import { color, dimensions } from "../../theme"
 
 import { connect } from "react-redux"
 import { setBudgetInfo } from "../../redux/actions/travel"
@@ -26,11 +25,12 @@ interface UserInformation {
   selectedId: any
   selectedPreference: any
   visible: boolean
-  userTravelPreferences: any
+  userInitialInterests: any
   listOpen: any
+  categories: any
 }
 
-const array = [
+const categories = [
   {
     id: 0,
     preferenceType: "Culinary",
@@ -83,8 +83,9 @@ class SetInitialInterest extends Component<Props, UserInformation> {
     this.state = {
       selectedId: "",
       selectedPreference: [],
+      categories: categories,
       visible: this.props.travel.loader,
-      userTravelPreferences: [],
+      userInitialInterests: [],
       listOpen: false,
     }
   }
@@ -98,7 +99,7 @@ class SetInitialInterest extends Component<Props, UserInformation> {
   }
 
   async onNext() {
-    this.props.navigation.navigate("MainScreen")
+    console.log("userInitialInterests" + JSON.stringify(this.state.userInitialInterests))
   }
 
   async onToggleList(item) {
@@ -121,26 +122,86 @@ class SetInitialInterest extends Component<Props, UserInformation> {
   }
 
   toggleSwitch(item, res, toggle, on, showSublist) {
-    console.log("showSublist_123:", showSublist)
-    let count = 0
+    // console.log(
+    //   "toggleSwitch:" + JSON.stringify(item.preferenceType) + " " + "res:",
+    //   JSON.stringify(res) + " " + "on:" + on + "toggle" + toggle,
+    //   "showSublist" + showSublist,
+    // )
     if (on === true) {
-      console.log(
-        "toggleSwitch:" + JSON.stringify(item.preferenceType) + " " + "res:",
-        JSON.stringify(res) + " " + "on:" + on,
-      )
-      if (this.state.userTravelPreferences.length == 0) {
-        this.state.userTravelPreferences.push({
-          categoryname: "item.preferenceType",
-          subCategories: { name: res.name },
-        })
+      let categories = this.state.categories
+      let selected = false
+      categories.map(category => {
+        if (item.id === category.id) {
+          category.preferenceCategories.map(preferenceCategory => {
+            if (res.id === preferenceCategory.id) {
+              preferenceCategory.selected = true
+              selected = !selected
+            }
+          })
+        }
+      })
+      if (selected) {
+        console.log("categories_123", JSON.stringify(categories))
+        // this.setState(
+        //   {
+        //     categories: categories,
+        //   },
+        //   () => {
+        //     console.log("categories_123", JSON.stringify(this.state.categories))
+        //   },
+        // )
       }
+      // if (categoriesLength === categories.length) {
+      //   this.setState({
+      //     categories: categories,
+      //   })
+      //   console.log("categories_123", JSON.stringify(categories))
+      // }
+
+      //  console.log("categories_123", JSON.stringify(categories))
+      // console.log("item_123", JSON.stringify(item))
+      // console.log("res_123", JSON.stringify(res))
+    } else {
+      console.log("item_12345", JSON.stringify(item))
+      console.log("res_123", JSON.stringify(res))
     }
+    //alert("switch")
+    //console.log("showSublist_123:", showSublist)
+    // let count = 0
+    // let subCategoriesCount = 0
+    // if (on === true) {
+    //     // console.log('toggleSwitch:' + JSON.stringify(item.preferenceType) + ' ' + 'res:', JSON.stringify(res) + ' ' + 'on:' + on)
+    //     if (this.state.userInitialInterests.length == 0) {
+    //         this.state.userInitialInterests.push({
+    //             categoryname: item.preferenceType,
+    //             subCategories: [{ id: res.id, name: res.name, selected: on }]
+    //         })
+    //     } else {
+    //         this.state.userInitialInterests.map((prefObj, i) => {
+    //             prefObj.subCategories.map((value, j) => {
+    //                 if (item.preferenceType == prefObj.categoryname) {
+    //                     if (res.name == value.name) {
+    //                         prefObj.subCategories.splice(1, j)
+    //                         subCategoriesCount++
+    //                     }
+    //                     prefObj.subCategories.push({ id: res.id, name: res.name, selected: on })
+    //                 }
+    //             })
+    //         })
+    //         if (subCategoriesCount == 0) {
+    //             this.state.userInitialInterests.push({ categoryname: item.preferenceType, subCategories: [{ id: res.id, name: res.name, selected: on }] })
+    //         }
+    //     }
+    // }
   }
 
-  onToggleChange(on, res) {
-    console.log("showSublist_1111123", JSON.stringify(res))
+  onToggleChange(res) {
+    // console.log("item", JSON.stringify(item))
+    console.log("hussian_123", res)
   }
-
+  // toggle(){
+  //   alert("toogle")
+  // }
   renderItem({ item }) {
     var count = 0
     var showSublist
@@ -188,8 +249,8 @@ class SetInitialInterest extends Component<Props, UserInformation> {
                       <Text style={styles.subcategoryText}>{res.name}</Text>
                     </View>
                     <View style={styles.subListRightRow}>
-                      <Toggle initial={false} onChange={this.onToggleChange(res)}>
-                        {({ on, toggle, set }) => (
+                      <Toggle initial={false} onChange={this.onToggleChange}>
+                        {({ on, toggle }) => (
                           <Switch
                             trackOnStyle={styles.trackOn}
                             trackOffStyle={styles.trackOff}
@@ -227,7 +288,7 @@ class SetInitialInterest extends Component<Props, UserInformation> {
 
         <FlatList
           style={{ flex: 1, marginTop: 10 }}
-          data={array}
+          data={this.state.categories}
           extraData={this.state}
           renderItem={this.renderItem.bind(this)}
         />
