@@ -5,7 +5,7 @@ export const SELECTED_TRAVEL_PREFERENCE = "SELECTED_TRAVEL_PREFERENCE"
 export const SET_TRAVEL_PREFERENCE = "SET_TRAVEL_PREFERENCE"
 export const USER_TRAVEL_PREFERENCE = "USER_TRAVEL_PREFERENCE"
 export const USER_SAVED_LOCATIONS = "USER_SAVED_LOCATIONS"
-export const GET_CATEGORIES = "GET_CATEGORIES"
+export const SET_TRAVEL_INFO = "SET_TRAVEL_INFO"
 
 const STAYTUNELIVEURL = "https://staytune.austinconversionoptimization.com/"
 
@@ -39,8 +39,13 @@ export function selectedTravelPreferences(preferences) {
         })
     }
 }
+
 export function setTravelPreferences(setTravelBudget) {
     return async dispatch => {
+        dispatch({
+            type: SET_TRAVEL_INFO,
+            payload: setTravelBudget
+        })
         dispatch({
             type: LOADER,
             payload: true,
@@ -59,6 +64,7 @@ export function setTravelPreferences(setTravelBudget) {
                 userId: setTravelBudget.userId,
                 locationImage: setTravelBudget.locationImage,
                 travelDate: setTravelBudget.travelDate,
+                selectedCategories: setTravelBudget.selectedCategories
             }),
         })
         const body = await resToBody(res)
@@ -70,7 +76,8 @@ export function setTravelPreferences(setTravelBudget) {
     }
 }
 
-export function userSavedLocations(perferences) {
+export function userSavedLocations(id) {
+
     return async dispatch => {
         dispatch({
             type: LOADER,
@@ -102,5 +109,5 @@ export default {
     LOADER,
     USER_TRAVEL_PREFERENCE,
     USER_SAVED_LOCATIONS,
-    GET_CATEGORIES
+    SET_TRAVEL_INFO
 }

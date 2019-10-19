@@ -3,7 +3,7 @@ import {
     TRAVEL_PREFERENCE_TYPES,
     SELECTED_TRAVEL_PREFERENCE,
     SET_TRAVEL_PREFERENCE,
-    GET_CATEGORIES
+    SET_TRAVEL_INFO
 } from "./../actions/travel"
 
 export default function travel(state = {}, action) {
@@ -23,6 +23,12 @@ export default function travel(state = {}, action) {
             return {
                 ...state,
                 travelPreferenceInfo: action.payload,
+                loader: false
+            }
+        case SET_TRAVEL_INFO:
+            return {
+                ...state,
+                travelInfo: action.payload,
                 loader: false
             }
         case LOADER:

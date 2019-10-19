@@ -130,6 +130,7 @@ class SetBudget extends Component<Props, UserInformation> {
                 userId: this.props.user.login.id,
                 locationImage: "",
                 travelDate: this.state.travelDate,
+
             }
             try {
                 await this.props.setTravelPreferences(setTravelBudget)
