@@ -232,6 +232,7 @@ class SetBudget extends Component<Props, UserInformation> {
                             onChangeText={value => this.setState({ personsCount: value })}
                             value={this.state.personsCount}
                             keyboardType='numeric'
+                            returnKeyType="done"
                         />
                     </View>
                     <View>
@@ -245,6 +246,7 @@ class SetBudget extends Component<Props, UserInformation> {
                             onChangeText={value => this.setState({ daysCount: value })}
                             value={this.state.daysCount}
                             keyboardType='numeric'
+                            returnKeyType="done"
                         />
                     </View>
                     <View>
@@ -258,6 +260,7 @@ class SetBudget extends Component<Props, UserInformation> {
                             onChangeText={value => this.setState({ totalBudget: value })}
                             value={this.state.totalBudget}
                             keyboardType='numeric'
+                            returnKeyType="done"
                         />
                     </View>
                     <View>

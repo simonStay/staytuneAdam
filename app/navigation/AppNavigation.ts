@@ -44,7 +44,7 @@ const stackNav = createStackNavigator(
     ChangePassword: { screen: ChangePassword },
   },
   {
-    initialRouteName: "MainScreen",
+    initialRouteName: "Splash",
     headerMode: "none",
     defaultNavigationOptions: {
       gesturesEnabled: false,
