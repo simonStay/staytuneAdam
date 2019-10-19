@@ -6,6 +6,7 @@ export const SET_TRAVEL_PREFERENCE = "SET_TRAVEL_PREFERENCE"
 export const USER_TRAVEL_PREFERENCE = "USER_TRAVEL_PREFERENCE"
 export const USER_SAVED_LOCATIONS = "USER_SAVED_LOCATIONS"
 export const SET_TRAVEL_INFO = "SET_TRAVEL_INFO"
+export const UPDATE_TRAVEL_PREFERENCE = "UPDATE_TRAVEL_PREFERENCE"
 
 const STAYTUNELIVEURL = "https://staytune.austinconversionoptimization.com/"
 
@@ -82,6 +83,39 @@ export function setTravelPreferences(setTravelBudget) {
     }
 }
 
+export function updateTravelPreferences(setTravelBudget) {
+    console.log('setTravelBudget.selectedCategories_123:', setTravelBudget.selectedCategories)
+    return async dispatch => {
+        dispatch({
+            type: LOADER,
+            payload: true,
+        })
+        const res = await fetch(STAYTUNELIVEURL + `/travel-preferences/` + setTravelBudget.preferenceId, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                selectedTravelPreferences: setTravelBudget.selectedTravelPreferences,
+                personsCount: setTravelBudget.personsCount,
+                daysCount: setTravelBudget.daysCount,
+                totalBudget: setTravelBudget.totalBudget,
+                city: setTravelBudget.city,
+                userId: setTravelBudget.userId,
+                locationImage: setTravelBudget.locationImage,
+                travelDate: setTravelBudget.travelDate,
+                selectedCategories: setTravelBudget.selectedCategories
+            }),
+        })
+        const body = await resToBody(res)
+        // console.log("body_123:", body)
+        return dispatch({
+            type: UPDATE_TRAVEL_PREFERENCE,
+            payload: body,
+        })
+    }
+}
+
 export function userSavedLocations(userId) {
 
     return async dispatch => {
@@ -89,11 +123,14 @@ export function userSavedLocations(userId) {
             type: LOADER,
             payload: true,
         })
-        const res = await fetch(STAYTUNELIVEURL + `/travel-preferences` + userId, {
-            method: "GET",
+        const res = await fetch(STAYTUNELIVEURL + `/travel-preferences/userId`, {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
-            }
+            },
+            body: JSON.stringify({
+                userId: userId
+            }),
         })
         const body = await resToBody(res)
         console.log("createUserProfile_actions:", body)
@@ -110,11 +147,13 @@ export default {
     setTravelPreferences,
     userSavedLocations,
     setBudgeInfo,
+    updateTravelPreferences,
     SELECTED_TRAVEL_PREFERENCE,
     TRAVEL_PREFERENCE_TYPES,
     SET_TRAVEL_PREFERENCE,
     LOADER,
     USER_TRAVEL_PREFERENCE,
     USER_SAVED_LOCATIONS,
-    SET_TRAVEL_INFO
+    SET_TRAVEL_INFO,
+    UPDATE_TRAVEL_PREFERENCE
 }

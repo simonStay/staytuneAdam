@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, FlatList, TouchableOpacity, Alert, } from "react-native"
+import { View, FlatList, TouchableOpacity, Alert } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 import styles from "./styles"
 import { Wallpaper } from "../../components/wallpaper"
@@ -13,11 +13,11 @@ import { Icon } from "../../components/icon"
 
 import { connect } from "react-redux"
 import AnimatedLoader from "react-native-animated-loader"
-import { setTravelPreferences } from "../../redux/actions/travel"
+import { updateTravelPreferences } from "../../redux/actions/travel"
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState>
-    setTravelPreferences: any
+    updateTravelPreferences: any
     user: any
     getValue: any
     travel: any
@@ -52,8 +52,6 @@ class SetInitialInterest extends Component<Props, UserInformation> {
         } catch (error) {
             console.log("categories_catch_error", error)
         }
-
-
     }
 
     onLeft() {
@@ -64,6 +62,7 @@ class SetInitialInterest extends Component<Props, UserInformation> {
         // console.log("userInitialInterests_123" + JSON.stringify(this.state.categories))
         try {
             let setTravelBudget = {
+                preferenceId: this.props.travel.travelPreferenceInfo.id,
                 selectedTravelPreferences: this.props.travel.travelInfo.selectedTravelPreferences,
                 personsCount: parseInt(this.props.travel.travelInfo.personsCount),
                 daysCount: parseInt(this.props.travel.travelInfo.daysCount),
@@ -72,12 +71,28 @@ class SetInitialInterest extends Component<Props, UserInformation> {
                 userId: this.props.user.login.id,
                 locationImage: this.props.travel.travelInfo.locationImage,
                 travelDate: this.props.travel.travelInfo.travelDate,
-                selectedCategories: this.state.categories
+                selectedCategories: this.state.categories,
             }
 
-            await this.props.setTravelPreferences(setTravelBudget)
-            if (this.props.travel.travelPreferenceInfo.status == "Success") {
-                this.props.navigation.navigate('MainSCreen', { selectedValue: "Saved locations", tabId: 2 })
+            await this.props.updateTravelPreferences(setTravelBudget)
+            if (this.props.travel.updatetravelPreferenceInfo.status == "success") {
+                let self = this
+                // alert("success")
+                // setTimeout(() => {
+                //     self.props.navigation.navigate('MainSCreen')
+                // }, 100)
+                setTimeout(() => {
+                    Alert.alert(
+                        "Stay Tune",
+                        "Created your Travel preference successfully",
+                        [{
+                            text: "OK", onPress: () => {
+                                this.props.navigation.push("MainScreen")
+                            }
+                        }],
+                        { cancelable: false },
+                    )
+                }, 100)
             } else {
                 {
                     /*This is Temporary solution */
@@ -91,9 +106,8 @@ class SetInitialInterest extends Component<Props, UserInformation> {
                     )
                 }, 100)
             }
-
         } catch (error) {
-            console.log('travel_preference_error_on_next:', error)
+            console.log("travel_preference_error_on_next:", error)
         }
     }
 
@@ -274,5 +288,5 @@ export default connect(
         user: state.user,
         travel: state.travel,
     }),
-    { setTravelPreferences },
+    { updateTravelPreferences },
 )(SetInitialInterest)

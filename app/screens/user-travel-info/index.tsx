@@ -12,6 +12,9 @@ import { getUserDetails, } from "../../redux/actions/user"
 import { userSavedLocations } from '../../redux/actions/travel';
 
 import { connect } from "react-redux"
+import SavedLocations from "../saved-locations"
+
+
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState>
@@ -19,6 +22,7 @@ interface Props {
     userSavedLocations: any
     getUserDetails: any
     userInfo: any
+    handleSelectedValue: any
 }
 interface UserInformation {
     selectedTabId: any
@@ -75,8 +79,17 @@ class UserTravelInfo extends Component<Props, UserInformation> {
                 state: userDetails.payload.state,
                 zip: userDetails.payload.zip,
             })
+            let userId = this.props.user.login.id
+            console.log("userId", userId)
+            let getUserSavedLocations = await this.props.userSavedLocations(userId)
+            console.log("getUserSavedLocations", getUserSavedLocations.payload.length)
+            if (getUserSavedLocations.payload.length === 0) {
+                // alert("zero")
+                setTimeout(() => {
+                    this.props.handleSelectedValue()
+                }, 100)
 
-            let getUserSavedLocations = await this.props.userSavedLocations("5da9bcc56694b46d657c19af")
+            }
 
         } catch (error) {
             console.log('error_profileinfoscreen', error)
@@ -98,14 +111,21 @@ class UserTravelInfo extends Component<Props, UserInformation> {
             selectedTabId: value.id
         })
         // console.log('onTab_123:', value)
+
+
+        this.setState({
+            selectedTabId: this.props.tabId,
+        })
     }
 
     renderProfileInfo() {
         let userInfoList = []
-        let userDetails = [{ key: 'Email', value: this.state.email },
-        { key: 'City', value: this.state.city },
-        { key: 'State', value: this.state.state },
-        { key: 'Zip', value: this.state.zip }]
+        let userDetails = [
+            { key: "Email", value: this.state.email },
+            { key: "City", value: this.state.city },
+            { key: "State", value: this.state.state },
+            { key: "Zip", value: this.state.zip },
+        ]
 
         userDetails.map((res, i) => {
             userInfoList.push(
@@ -114,21 +134,19 @@ class UserTravelInfo extends Component<Props, UserInformation> {
                         <Text style={styles.userInfoUpperText}>{res.value}</Text>
                         <Text style={styles.userInfoBottomText}>{res.key}</Text>
                     </View>
-                    {i == userDetails.length - 1 ? (null) : (<View style={styles.line}></View>)}
-                </View>)
+                    {i == userDetails.length - 1 ? null : <View style={styles.line}></View>}
+                </View>,
+            )
         })
-        return (
-            <View style={{ marginTop: dimensions.height / 7.6 }}>
-                {userInfoList}
-            </View>
-        )
+        return <View style={{ marginTop: dimensions.height / 7.6 }}>{userInfoList}</View>
     }
 
     render() {
         return (
             <View style={styles.container}>
                 <LinearGradient
-                    start={{ x: 0.0, y: 0.0 }} end={{ x: 0.0, y: 1.0 }}
+                    start={{ x: 0.0, y: 0.0 }}
+                    end={{ x: 0.0, y: 1.0 }}
                     locations={[0, 0.5, 1]}
                     colors={[color.primaryColor, color.primaryColor, "#00000010"]}
                     style={{ width: dimensions.width, height: dimensions.width / 3.91 }}
@@ -136,10 +154,7 @@ class UserTravelInfo extends Component<Props, UserInformation> {
                     <View style={styles.userContainer}>
                         <View style={styles.leftContainer}>
                             <View style={styles.profilePicView}>
-                                <Image
-                                    source={{ uri: this.state.profilePic }}
-                                    style={styles.profilePic}
-                                />
+                                <Image source={{ uri: this.state.profilePic }} style={styles.profilePic} />
                             </View>
                         </View>
                         <View style={styles.rightContainer}>
@@ -147,26 +162,23 @@ class UserTravelInfo extends Component<Props, UserInformation> {
                             {/* <Text style={styles.editText}>EDIT PROFILE</Text> */}
                         </View>
                     </View>
-
                 </LinearGradient>
                 <Tabs
                     TabsList={TabsList}
-                    onPress={(value) => this.selectedTab(value)}
+                    onPress={value => this.selectedTab(value)}
                     selectedTabId={this.state.selectedTabId}
                 />
-                {this.state.selectedTabId == 0 ?
-                    (<ScrollView contentContainerStyle={{}}>
-                        {this.renderProfileInfo()}
-                    </ScrollView>)
-                    : this.state.selectedTabId == 1 ?
-                        (<ScrollView contentContainerStyle={styles.scrollContainer}>
-                            <Text style={styles.initialText}>COMING SOON....</Text>
-                        </ScrollView>)
-                        : (<ScrollView contentContainerStyle={styles.scrollContainer}>
-                            <Text style={styles.initialText}>COMING SOON....</Text>
-                        </ScrollView>)
-                }
-
+                {this.state.selectedTabId == 0 ? (
+                    <ScrollView contentContainerStyle={{}}>{this.renderProfileInfo()}</ScrollView>
+                ) : this.state.selectedTabId == 1 ? (
+                    <ScrollView contentContainerStyle={styles.scrollContainer}>
+                        <Text style={styles.initialText}>COMING SOON....</Text>
+                    </ScrollView>
+                ) : (
+                            <ScrollView contentContainerStyle={styles.scrollContainer}>
+                                <SavedLocations />
+                            </ScrollView>
+                        )}
             </View>
         )
     }

@@ -46,8 +46,8 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      selectedValue: "Start a plan",
-      headerTitle: "STAY TUNE",
+      selectedValue: "Saved locations",
+      headerTitle: "",
       isOpen: false,
       userObj: null,
       avatarSource: "",
@@ -57,7 +57,7 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
       state: "",
       zip: "",
       profilePic: "",
-      tabId: ""
+      tabId: 2,
     }
   }
 
@@ -129,14 +129,14 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
         selectedValue: "Saved locations",
         headerTitle: "",
         isOpen: false,
-        tabId: 2
+        tabId: 2,
       })
     } else if (params == "Budget") {
       this.setState({
         selectedValue: "Budget",
         headerTitle: "",
         isOpen: false,
-        tabId: 1
+        tabId: 1,
       })
     } else if (params == "Signout") {
       await this.props.Signout()
@@ -144,12 +144,18 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
     }
     this.drawer._root.close()
   }
+  handleSelectedValue() {
+    this.setState({
+      selectedValue: "Start a plan",
+      headerTitle: "TRAVEL PREFERENCE",
+    })
+  }
 
   renderContanier() {
     if (this.state.selectedValue == "Edit Profile") {
       return <EditProfile navigation={this.props.navigation} />
     } else if (this.state.selectedValue == "Start a plan") {
-      return <MapScreen navigation={this.props.navigation} />
+      return <TravelPreference navigation={this.props.navigation} />
     } else if (this.state.selectedValue == "Itinerary suggestions") {
       return <ItinerarySuggestions navigation={this.props.navigation} />
     } else if (this.state.selectedValue == "Travel preference") {
@@ -160,11 +166,20 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
       return <FindLocalFriend navigation={this.props.navigation} />
     } else if (this.state.selectedValue == "Saved locations") {
       return (
-        <UserTravelInfo navigation={this.props.navigation} tabId={this.state.tabId} tabValue={"SAVED LOCATIONS"} />
+        <UserTravelInfo
+          navigation={this.props.navigation}
+          tabId={this.state.tabId}
+          tabValue={"SAVED LOCATIONS"}
+          handleSelectedValue={this.handleSelectedValue.bind(this)}
+        />
       )
     } else if (this.state.selectedValue == "Budget") {
       return (
-        <UserTravelInfo navigation={this.props.navigation} tabId={this.state.tabId} tabValue={"BUDGET INFO"} />
+        <UserTravelInfo
+          navigation={this.props.navigation}
+          tabId={this.state.tabId}
+          tabValue={"BUDGET INFO"}
+        />
       )
     }
   }
