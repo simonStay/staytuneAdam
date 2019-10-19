@@ -8,12 +8,15 @@ import { Text } from "../../components/text"
 import LinearGradient from "react-native-linear-gradient"
 
 import { Tabs } from "../../components/tabs"
-import { getUserDetails } from "../../redux/actions/user"
+import { getUserDetails, } from "../../redux/actions/user"
+import { userSavedLocations } from '../../redux/actions/travel';
+
 import { connect } from "react-redux"
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState>
     tabId: any
+    userSavedLocations: any
     getUserDetails: any
     userInfo: any
 }
@@ -72,6 +75,9 @@ class UserTravelInfo extends Component<Props, UserInformation> {
                 state: userDetails.payload.state,
                 zip: userDetails.payload.zip,
             })
+
+            let getUserSavedLocations = await this.props.userSavedLocations("5da9bcc56694b46d657c19af")
+
         } catch (error) {
             console.log('error_profileinfoscreen', error)
         }
@@ -170,7 +176,9 @@ export default connect(
     state => ({
         user: state.user,
         userInfo: state.user.login,
+        travel: state.travel
     }), {
-        getUserDetails
+        getUserDetails,
+        userSavedLocations
     }
 )(UserTravelInfo)

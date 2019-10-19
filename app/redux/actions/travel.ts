@@ -82,14 +82,14 @@ export function setTravelPreferences(setTravelBudget) {
     }
 }
 
-export function userSavedLocations(id) {
+export function userSavedLocations(userId) {
 
     return async dispatch => {
         dispatch({
             type: LOADER,
             payload: true,
         })
-        const res = await fetch(STAYTUNELIVEURL + `/travel-preferences` + id, {
+        const res = await fetch(STAYTUNELIVEURL + `/travel-preferences` + userId, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

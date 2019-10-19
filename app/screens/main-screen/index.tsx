@@ -62,14 +62,14 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
   }
 
   componentDidMount() {
-    try {
-      this.setState({
-        selectedValue: this.props.navigation.state.params.selectedValue,
-        tabId: this.props.navigation.state.params.tabId
-      })
-    } catch (error) {
+    // try {
+    //   this.setState({
+    //     selectedValue: this.props.navigation.state.params.selectedValue,
+    //     tabId: this.props.navigation.state.params.tabId
+    //   })
+    // } catch (error) {
 
-    }
+    // }
     // alert(dimensions.width)
   }
 
