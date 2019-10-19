@@ -26,67 +26,77 @@ interface UserInformation {
     visible: boolean
     userInitialInterests: any
     listOpen: any
+    categories: any
 }
 
-const array = [
+const categories = [
     {
         id: 0,
         preferenceType: "Culinary",
-        preferenceCategories:
-            [{ id: 0, name: 'Food', selected: false },
-            { id: 1, name: 'beer', selected: false },
-            { id: 2, name: ' bakery café', selected: false },
-            { id: 3, name: 'bar', selected: false }]
+        subCategories: [
+            { id: 0, name: "Food", selected: false },
+            { id: 1, name: "beer", selected: false },
+            { id: 2, name: " bakery café", selected: false },
+            { id: 3, name: "bar", selected: false },
+        ],
     },
     {
         id: 1,
         preferenceType: "Museums",
-        preferenceCategories:
-            [{ id: 0, name: 'Art', selected: false },
-            { id: 1, name: 'History', selected: false },
-            { id: 2, name: 'customs', selected: false }]
+        subCategories: [
+            { id: 0, name: "Art", selected: false },
+            { id: 1, name: "History", selected: false },
+            { id: 2, name: "customs", selected: false },
+        ],
     },
     {
         id: 2,
         preferenceType: "Entertainments",
-        preferenceCategories:
-            [{ id: 0, name: 'shows', selected: false },
-            { id: 1, name: 'concerts', selected: false },
-            { id: 2, name: 'amusement parks', selected: false },
-            { id: 3, name: 'night club', selected: false },
-            { id: 4, name: 'bookstores', selected: false }]
+        subCategories: [
+            { id: 0, name: "shows", selected: false },
+            { id: 1, name: "concerts", selected: false },
+            { id: 2, name: "amusement parks", selected: false },
+            { id: 3, name: "night club", selected: false },
+            { id: 4, name: "bookstores", selected: false },
+        ],
     },
     {
         id: 3,
         preferenceType: "Adventure",
-        preferenceCategories: [{ id: 0, name: 'hiking', selected: false }]
+        subCategories: [{ id: 0, name: "hiking", selected: false }],
     },
     {
         id: 4,
         preferenceType: "Shopping",
-        preferenceCategories:
-            [{ id: 0, name: 'boutique', selected: false },
-            { id: 1, name: 'high-end couture', selected: false }]
+        subCategories: [
+            { id: 0, name: "boutique", selected: false },
+            { id: 1, name: "high-end couture", selected: false },
+        ],
     },
-];
-
+]
 
 class SetInitialInterest extends Component<Props, UserInformation> {
     state: UserInformation
     constructor(props: Props) {
         super(props)
         this.state = {
-            selectedId: '',
+            selectedId: "",
             selectedPreference: [],
+            categories: [],
             visible: this.props.travel.loader,
-            userInitialInterests: array,
-            listOpen: false
+            userInitialInterests: [],
+            listOpen: false,
         }
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         // alert(dimensions.width)
-        //this.setState({ userInitialInterests: [] })
+        try {
+            this.setState({ categories: this.props.travel.travelPreferenceInfo.categoriesList })
+        } catch (error) {
+            console.log("categories_catch_error", error)
+
+        }
     }
 
     onLeft() {
@@ -113,70 +123,139 @@ class SetInitialInterest extends Component<Props, UserInformation> {
             }
         }
         await this.setState({ selectedPreference: this.state.selectedPreference })
-        console.log('selectedPreference_123:', this.state.selectedPreference)
+        console.log("selectedPreference_123:", this.state.selectedPreference)
     }
 
     toggleSwitch(item, res, toggle, on, showSublist) {
-        let selectedPreferences = []
-        console.log('showSublist', showSublist)
-        console.log('toggleSwitch:' + JSON.stringify(item.preferenceType) + ' ' + 'res:', JSON.stringify(res) + ' ' + 'on:' + on)
-        // this.state.userInitialInterests.map((preference, i) => {})
+        // console.log(
+        //   "toggleSwitch:" + JSON.stringify(item.preferenceType) + " " + "res:",
+        //   JSON.stringify(res) + " " + "on:" + on + "toggle" + toggle,
+        //   "showSublist" + showSublist,
+        // )
+        if (on === true) {
+            let categories = this.state.categories
+            let selected = false
+            categories.map(category => {
+                if (item.id === category.id) {
+                    category.subCategories.map(preferenceCategory => {
+                        if (res.id === preferenceCategory.id) {
+                            preferenceCategory.selected = true
+                            selected = !selected
+                        }
+                    })
+                }
+            })
+            if (selected) {
+                console.log("categories_123", JSON.stringify(categories))
+                // this.setState(
+                //   {
+                //     categories: categories,
+                //   },
+                //   () => {
+                //     console.log("categories_123", JSON.stringify(this.state.categories))
+                //   },
+                // )
+            }
+            // if (categoriesLength === categories.length) {
+            //   this.setState({
+            //     categories: categories,
+            //   })
+            //   console.log("categories_123", JSON.stringify(categories))
+            // }
 
-        if (selectedPreferences.length == 0) {
-            selectedPreferences.push({ preferenceType: item.preferenceType.preferenceCategories })
+            //  console.log("categories_123", JSON.stringify(categories))
+            // console.log("item_123", JSON.stringify(item))
+            // console.log("res_123", JSON.stringify(res))
+        } else {
+            console.log("item_12345", JSON.stringify(item))
+            console.log("res_123", JSON.stringify(res))
         }
-
-        // console.log("userInitialInterests", JSON.stringify(selectedPreferences))
+        //alert("switch")
+        //console.log("showSublist_123:", showSublist)
+        // let count = 0
+        // let subCategoriesCount = 0
+        // if (on === true) {
+        //     // console.log('toggleSwitch:' + JSON.stringify(item.preferenceType) + ' ' + 'res:', JSON.stringify(res) + ' ' + 'on:' + on)
+        //     if (this.state.userInitialInterests.length == 0) {
+        //         this.state.userInitialInterests.push({
+        //             categoryname: item.preferenceType,
+        //             subCategories: [{ id: res.id, name: res.name, selected: on }]
+        //         })
+        //     } else {
+        //         this.state.userInitialInterests.map((prefObj, i) => {
+        //             prefObj.subCategories.map((value, j) => {
+        //                 if (item.preferenceType == prefObj.categoryname) {
+        //                     if (res.name == value.name) {
+        //                         prefObj.subCategories.splice(1, j)
+        //                         subCategoriesCount++
+        //                     }
+        //                     prefObj.subCategories.push({ id: res.id, name: res.name, selected: on })
+        //                 }
+        //             })
+        //         })
+        //         if (subCategoriesCount == 0) {
+        //             this.state.userInitialInterests.push({ categoryname: item.preferenceType, subCategories: [{ id: res.id, name: res.name, selected: on }] })
+        //         }
+        //     }
+        // }
     }
 
-    onToggleChange(on, res) {
-        console.log('showSublist_1111123', JSON.stringify(res))
+    onToggleChange(res) {
+        // console.log("item", JSON.stringify(item))
+        console.log("hussian_123", res)
     }
-
+    // toggle(){
+    //   alert("toogle")
+    // }
     renderItem({ item }) {
-        var count = 0;
-        var showSublist;
-        var ImageView;
+        var count = 0
+        var showSublist
+        var ImageView
         this.state.selectedPreference.map((res, i) => {
             if (res.id == item.id) {
-                showSublist = true;
-                count = count + 1;
+                showSublist = true
+                count = count + 1
             }
             if (count === 0) {
-                showSublist = false;
+                showSublist = false
             }
-        });
+        })
 
         if (showSublist == true) {
-            ImageView = (<Icon icon={"verticaldownarrow"} style={styles.toggleBackIcon} />)
+            ImageView = <Icon icon={"verticaldownarrow"} style={styles.toggleBackIcon} />
         } else {
-            ImageView = (<Icon icon={"back"} style={styles.toggleBackIcon} />)
+            ImageView = <Icon icon={"back"} style={styles.toggleBackIcon} />
         }
 
         return (
             <View>
                 <View style={styles.mainListView}>
-                    <TouchableOpacity style={styles.preferenceRow} onPress={this.onToggleList.bind(this, item)}>
+                    <TouchableOpacity
+                        style={styles.preferenceRow}
+                        onPress={this.onToggleList.bind(this, item)}
+                    >
                         <View style={styles.preferenceLeftRow}>
-                            <Text style={styles.preferenceText}>{item.preferenceType}</Text>
+                            <Text style={styles.preferenceText}>{item.categoryname}</Text>
                         </View>
-                        <View style={styles.preferenceRightRow}>
-                            {ImageView}
-                        </View>
+                        <View style={styles.preferenceRightRow}>{ImageView}</View>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.subListView}>
-                    {showSublist == true ? (
-                        item.preferenceCategories.map((res, i) => {
+                    {showSublist == true
+                        ? item.subCategories.map((res, i) => {
                             return (
-                                <View style={[styles.subListRow, { borderBottomWidth: i === item.preferenceCategories.length - 1 ? 0 : 1 }]}>
+                                <View
+                                    style={[
+                                        styles.subListRow,
+                                        { borderBottomWidth: i === item.subCategories.length - 1 ? 0 : 1 },
+                                    ]}
+                                >
                                     <View style={styles.subListLeftRow}>
-                                        <Text style={styles.subcategoryText}>{res.name}</Text>
+                                        <Text style={styles.subcategoryText}>{res.categoryname}</Text>
                                     </View>
                                     <View style={styles.subListRightRow}>
-
-                                        <Toggle initial={false} onChange={this.onToggleChange(res)}>
-                                            {({ on, toggle, set }) =>
+                                        <Toggle initial={false} onChange={this.onToggleChange}>
+                                            {({ on, toggle }) => (
                                                 <Switch
                                                     trackOnStyle={styles.trackOn}
                                                     trackOffStyle={styles.trackOff}
@@ -186,18 +265,17 @@ class SetInitialInterest extends Component<Props, UserInformation> {
                                                     onToggle={toggle}
                                                     getValue={this.toggleSwitch(item, res, toggle, on, showSublist)}
                                                 />
-                                            }
+                                            )}
                                         </Toggle>
-
                                     </View>
-                                </View>)
+                                </View>
+                            )
                         })
-                    ) : null}
+                        : null}
                 </View>
             </View>
         )
     }
-
 
     render() {
         return (
@@ -215,7 +293,7 @@ class SetInitialInterest extends Component<Props, UserInformation> {
 
                 <FlatList
                     style={{ flex: 1, marginTop: 10 }}
-                    data={array}
+                    data={this.state.categories}
                     extraData={this.state}
                     renderItem={this.renderItem.bind(this)}
                 />

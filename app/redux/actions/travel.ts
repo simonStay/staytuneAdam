@@ -10,12 +10,11 @@ export const GET_CATEGORIES = "GET_CATEGORIES"
 const STAYTUNELIVEURL = "https://staytune.austinconversionoptimization.com/"
 
 export function travelPreferenceTypes() {
-    // return async dispatch => {
-    //     dispatch({
-    //         type: LOADER,
-    //         payload: true,
-    //     })
     return async dispatch => {
+        dispatch({
+            type: LOADER,
+            payload: true,
+        })
         const res = await fetch(STAYTUNELIVEURL + `/travel-preference-types`, {
             method: "GET",
             headers: {
@@ -28,8 +27,8 @@ export function travelPreferenceTypes() {
             type: TRAVEL_PREFERENCE_TYPES,
             payload: body,
         })
+
     }
-    //}
 }
 
 export function selectedTravelPreferences(preferences) {
@@ -77,7 +76,7 @@ export function userSavedLocations(perferences) {
             type: LOADER,
             payload: true,
         })
-        const res = await fetch(STAYTUNELIVEURL + `/travel-preferences`, {
+        const res = await fetch(STAYTUNELIVEURL + `/travel-preferences` + id, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

@@ -32,17 +32,16 @@ interface UserInformation {
     travelDate: any
 }
 
-
 class SetBudget extends Component<Props, UserInformation> {
     state: UserInformation
     constructor(props: Props) {
         super(props)
         this.state = {
-            personsCount: '',
-            daysCount: '',
-            totalBudget: '',
-            city: '',
-            travelDate: '',
+            personsCount: "",
+            daysCount: "",
+            totalBudget: "",
+            city: "",
+            travelDate: "",
             visible: this.props.travel.loader,
         }
     }
@@ -155,7 +154,6 @@ class SetBudget extends Component<Props, UserInformation> {
             }
 
         }
-
     }
 
     render() {
@@ -300,5 +298,5 @@ export default connect(
         user: state.user,
         travel: state.travel
     }),
-    { setTravelPreferences },
+    { setTravelPreferences }
 )(SetBudget)
