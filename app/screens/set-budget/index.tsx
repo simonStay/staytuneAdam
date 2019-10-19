@@ -13,12 +13,13 @@ import { Icon } from "../../components/icon"
 import { color, dimensions } from "../../theme"
 
 import { connect } from "react-redux"
-import { setTravelPreferences } from "../../redux/actions/travel"
+import { setTravelPreferences, setBudgeInfo } from "../../redux/actions/travel"
 import AnimatedLoader from "react-native-animated-loader"
 import DatePicker from "react-native-datepicker"
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState>
+    setBudgeInfo: any
     setTravelPreferences: any
     user: any
     travel: any
@@ -130,12 +131,13 @@ class SetBudget extends Component<Props, UserInformation> {
                 userId: this.props.user.login.id,
                 locationImage: "",
                 travelDate: this.state.travelDate,
-
+                selectedCategories: []
             }
             try {
+                await this.props.setBudgeInfo(setTravelBudget)
                 await this.props.setTravelPreferences(setTravelBudget)
                 if (this.props.travel.travelPreferenceInfo.status == "Success") {
-                    this.props.navigation.navigate('SetInitialInterest')
+                    this.props.navigation.navigate('MainScreen')
 
                 } else {
                     {
@@ -302,5 +304,5 @@ export default connect(
         user: state.user,
         travel: state.travel
     }),
-    { setTravelPreferences }
+    { setBudgeInfo, setTravelPreferences }
 )(SetBudget)

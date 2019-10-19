@@ -34,6 +34,7 @@ interface UserInformation {
   state: any
   zip: string
   profilePic: string
+  tabId: any
 }
 
 interface extraInfo {
@@ -56,10 +57,19 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
       state: "",
       zip: "",
       profilePic: "",
+      tabId: ""
     }
   }
 
   componentDidMount() {
+    try {
+      this.setState({
+        selectedValue: this.props.navigation.state.params.selectedValue,
+        tabId: this.props.navigation.state.params.tabId
+      })
+    } catch (error) {
+
+    }
     // alert(dimensions.width)
   }
 
@@ -119,12 +129,14 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
         selectedValue: "Saved locations",
         headerTitle: "",
         isOpen: false,
+        tabId: 2
       })
     } else if (params == "Budget") {
       this.setState({
         selectedValue: "Budget",
         headerTitle: "",
         isOpen: false,
+        tabId: 1
       })
     } else if (params == "Signout") {
       await this.props.Signout()
@@ -148,11 +160,11 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
       return <FindLocalFriend navigation={this.props.navigation} />
     } else if (this.state.selectedValue == "Saved locations") {
       return (
-        <UserTravelInfo navigation={this.props.navigation} tabId={2} tabValue={"SAVED LOCATIONS"} />
+        <UserTravelInfo navigation={this.props.navigation} tabId={this.state.tabId} tabValue={"SAVED LOCATIONS"} />
       )
     } else if (this.state.selectedValue == "Budget") {
       return (
-        <UserTravelInfo navigation={this.props.navigation} tabId={1} tabValue={"BUDGET INFO"} />
+        <UserTravelInfo navigation={this.props.navigation} tabId={this.state.tabId} tabValue={"BUDGET INFO"} />
       )
     }
   }
@@ -170,17 +182,17 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
             onLeftPress={this.onLeft.bind(this)}
           />
         ) : (
-          <View>
-            <Header
-              style={styles.header}
-              headerText={this.state.headerTitle}
-              titleStyle={styles.headerTitle}
-              leftIcon={"menu"}
-              onLeftPress={this.onLeft.bind(this)}
-            />
-            <GoldBarView />
-          </View>
-        )}
+            <View>
+              <Header
+                style={styles.header}
+                headerText={this.state.headerTitle}
+                titleStyle={styles.headerTitle}
+                leftIcon={"menu"}
+                onLeftPress={this.onLeft.bind(this)}
+              />
+              <GoldBarView />
+            </View>
+          )}
         <View style={{ flex: 1, overflow: "hidden" }}>
           <Drawer
             openDrawerOffset={0.36}

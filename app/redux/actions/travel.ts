@@ -40,12 +40,18 @@ export function selectedTravelPreferences(preferences) {
     }
 }
 
-export function setTravelPreferences(setTravelBudget) {
+export function setBudgeInfo(setTravelBudget) {
     return async dispatch => {
         dispatch({
             type: SET_TRAVEL_INFO,
             payload: setTravelBudget
         })
+    }
+}
+
+export function setTravelPreferences(setTravelBudget) {
+    console.log('setTravelBudget.selectedCategories_123:', setTravelBudget.selectedCategories)
+    return async dispatch => {
         dispatch({
             type: LOADER,
             payload: true,
@@ -103,6 +109,7 @@ export default {
     selectedTravelPreferences,
     setTravelPreferences,
     userSavedLocations,
+    setBudgeInfo,
     SELECTED_TRAVEL_PREFERENCE,
     TRAVEL_PREFERENCE_TYPES,
     SET_TRAVEL_PREFERENCE,
