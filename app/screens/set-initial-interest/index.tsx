@@ -11,10 +11,8 @@ import { Button } from "../../components/button"
 import { Switch } from "../../components/switch"
 import { Toggle } from "react-powerplug"
 import { Icon } from "../../components/icon"
-import { color, dimensions } from "../../theme"
 
 import { connect } from "react-redux"
-import { setBudgetInfo } from "../../redux/actions/travel"
 import AnimatedLoader from "react-native-animated-loader"
 
 interface Props {
@@ -81,13 +79,14 @@ class SetInitialInterest extends Component<Props, UserInformation> {
             selectedId: '',
             selectedPreference: [],
             visible: this.props.travel.loader,
-            userInitialInterests: [],
+            userInitialInterests: array,
             listOpen: false
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         // alert(dimensions.width)
+        //this.setState({ userInitialInterests: [] })
     }
 
     onLeft() {
@@ -118,34 +117,16 @@ class SetInitialInterest extends Component<Props, UserInformation> {
     }
 
     toggleSwitch(item, res, toggle, on, showSublist) {
-        //console.log("showSublist_123:", showSublist)
-        // let count = 0
-        // let subCategoriesCount = 0
-        // if (on === true) {
-        //     // console.log('toggleSwitch:' + JSON.stringify(item.preferenceType) + ' ' + 'res:', JSON.stringify(res) + ' ' + 'on:' + on)
-        //     if (this.state.userInitialInterests.length == 0) {
-        //         this.state.userInitialInterests.push({
-        //             categoryname: item.preferenceType,
-        //             subCategories: [{ id: res.id, name: res.name, selected: on }]
-        //         })
-        //     } else {
-        //         this.state.userInitialInterests.map((prefObj, i) => {
-        //             prefObj.subCategories.map((value, j) => {
-        //                 if (item.preferenceType == prefObj.categoryname) {
-        //                     if (res.name == value.name) {
-        //                         prefObj.subCategories.splice(1, j)
-        //                         subCategoriesCount++
-        //                     }
-        //                     prefObj.subCategories.push({ id: res.id, name: res.name, selected: on })
-        //                 }
-        //             })
+        let selectedPreferences = []
+        console.log('showSublist', showSublist)
+        console.log('toggleSwitch:' + JSON.stringify(item.preferenceType) + ' ' + 'res:', JSON.stringify(res) + ' ' + 'on:' + on)
+        // this.state.userInitialInterests.map((preference, i) => {})
 
-        //         })
-        //         if (subCategoriesCount == 0) {
-        //             this.state.userInitialInterests.push({ categoryname: item.preferenceType, subCategories: [{ id: res.id, name: res.name, selected: on }] })
-        //         }
-        //     }
-        // }
+        if (selectedPreferences.length == 0) {
+            selectedPreferences.push({ preferenceType: item.preferenceType.preferenceCategories })
+        }
+
+        // console.log("userInitialInterests", JSON.stringify(selectedPreferences))
     }
 
     onToggleChange(on, res) {

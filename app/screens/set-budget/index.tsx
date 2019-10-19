@@ -13,13 +13,14 @@ import { Icon } from "../../components/icon"
 import { color, dimensions } from "../../theme"
 
 import { connect } from "react-redux"
-import { setBudgetInfo } from "../../redux/actions/travel"
+import { setTravelPreferences } from "../../redux/actions/travel"
 import AnimatedLoader from "react-native-animated-loader"
 import DatePicker from "react-native-datepicker"
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState>
-    setBudgetInfo: any
+    setTravelPreferences: any
+    user: any
     travel: any
 }
 interface UserInformation {
@@ -122,14 +123,37 @@ class SetBudget extends Component<Props, UserInformation> {
             )
         } else {
             let setTravelBudget = {
+                selectedTravelPreferences: this.props.travel.selectedTravelPreferences,
+                personsCount: parseInt(this.state.personsCount),
+                daysCount: parseInt(this.state.daysCount),
+                totalBudget: parseInt(this.state.totalBudget),
+                city: this.state.city,
+                userId: this.props.user.login.id,
+                locationImage: "",
                 travelDate: this.state.travelDate,
-                personsCount: this.state.personsCount,
-                daysCount: this.state.daysCount,
-                totalBudget: this.state.totalBudget,
-                city: this.state.city
             }
-            await this.props.setBudgetInfo(setTravelBudget)
-            this.props.navigation.navigate('SetInitialInterest')
+            try {
+                await this.props.setTravelPreferences(setTravelBudget)
+                if (this.props.travel.travelPreferenceInfo.status == "Success") {
+                    this.props.navigation.navigate('SetInitialInterest')
+
+                } else {
+                    {
+                        /*This is Temporary solution */
+                    }
+                    setTimeout(() => {
+                        Alert.alert(
+                            "Stay Tune",
+                            "Something went wrong",
+                            [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+                            { cancelable: false },
+                        )
+                    }, 100)
+                }
+            } catch (error) {
+                console.log(error)
+            }
+
         }
 
     }
@@ -167,7 +191,7 @@ class SetBudget extends Component<Props, UserInformation> {
                             mode="date"
                             placeholder="Select travel date"
                             format="DD-MM-YYYY"
-                            //minDate="2016-05-01"
+                            minDate={new Date()}
                             //maxDate="2016-06-01"
                             confirmBtnText="Confirm"
                             cancelBtnText="Cancel"
@@ -260,7 +284,7 @@ class SetBudget extends Component<Props, UserInformation> {
                     </View>
                 </Button>
                 <AnimatedLoader
-                    visible={this.props.travel.loader}
+                    visible={this.state.visible}
                     overlayColor="rgba(255,255,255,0.75)"
                     source={require("./../loader.json")}
                     animationStyle={styles.lottie}
@@ -276,5 +300,5 @@ export default connect(
         user: state.user,
         travel: state.travel
     }),
-    { setBudgetInfo },
+    { setTravelPreferences },
 )(SetBudget)

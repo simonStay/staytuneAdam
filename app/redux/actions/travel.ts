@@ -2,9 +2,10 @@ import resToBody from "../resToBody/resToBody"
 export const LOADER = "LOADER"
 export const TRAVEL_PREFERENCE_TYPES = "TRAVEL_PREFERENCE_TYPES"
 export const SELECTED_TRAVEL_PREFERENCE = "SELECTED_TRAVEL_PREFERENCE"
-export const SET_BUDGET_INFO = "SET_BUDGET_INFO"
+export const SET_TRAVEL_PREFERENCE = "SET_TRAVEL_PREFERENCE"
 export const USER_TRAVEL_PREFERENCE = "USER_TRAVEL_PREFERENCE"
 export const USER_SAVED_LOCATIONS = "USER_SAVED_LOCATIONS"
+export const GET_CATEGORIES = "GET_CATEGORIES"
 
 const STAYTUNELIVEURL = "https://staytune.austinconversionoptimization.com/"
 
@@ -39,49 +40,32 @@ export function selectedTravelPreferences(preferences) {
         })
     }
 }
-export function setBudgetInfo(setTravelBudget) {
-    // return async dispatch => {
-    //     dispatch({
-    //         type: LOADER,
-    //         payload: false,
-    //     })
-    return async dispatch => {
-        return dispatch({
-            type: SET_BUDGET_INFO,
-            payload: setTravelBudget
-        })
-    }
-    // }
-}
-
-export function userTravelPreferences(perferences) {
+export function setTravelPreferences(setTravelBudget) {
     return async dispatch => {
         dispatch({
             type: LOADER,
             payload: true,
         })
         const res = await fetch(STAYTUNELIVEURL + `/travel-preferences`, {
-            method: "GET",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                selectedTravelPreferences: [
-                    "string"
-                ],
-                userId: "string",
-                personsCount: 0,
-                daysCount: 0,
-                totalBudget: "string",
-                city: "string",
-                locationImage: "string",
-                travelDate: "string"
+                selectedTravelPreferences: setTravelBudget.selectedTravelPreferences,
+                personsCount: setTravelBudget.personsCount,
+                daysCount: setTravelBudget.daysCount,
+                totalBudget: setTravelBudget.totalBudget,
+                city: setTravelBudget.city,
+                userId: setTravelBudget.userId,
+                locationImage: setTravelBudget.locationImage,
+                travelDate: setTravelBudget.travelDate,
             }),
         })
         const body = await resToBody(res)
-        console.log("createUserProfile_actions:", body)
+        // console.log("body_123:", body)
         return dispatch({
-            type: USER_TRAVEL_PREFERENCE,
+            type: SET_TRAVEL_PREFERENCE,
             payload: body,
         })
     }
@@ -111,13 +95,13 @@ export function userSavedLocations(perferences) {
 export default {
     travelPreferenceTypes,
     selectedTravelPreferences,
-    setBudgetInfo,
-    userTravelPreferences,
+    setTravelPreferences,
     userSavedLocations,
     SELECTED_TRAVEL_PREFERENCE,
     TRAVEL_PREFERENCE_TYPES,
-    SET_BUDGET_INFO,
+    SET_TRAVEL_PREFERENCE,
     LOADER,
     USER_TRAVEL_PREFERENCE,
-    USER_SAVED_LOCATIONS
+    USER_SAVED_LOCATIONS,
+    GET_CATEGORIES
 }
