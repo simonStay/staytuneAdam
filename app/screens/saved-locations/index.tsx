@@ -7,7 +7,6 @@ import { travelPreferenceTypes, selectedTravelPreferences } from "../../redux/ac
 import { connect } from "react-redux"
 import AnimatedLoader from "react-native-animated-loader"
 
-
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
   selectedTravelPreferences: any
@@ -27,13 +26,12 @@ class SavedLocations extends Component<Props, savedLocationsInfo> {
     this.state = {
       savedLocations: [],
       visible: this.props.travel.loader,
-
     }
   }
 
   async componentDidMount() {
     this.setState({
-      savedLocations: await this.props.travel.savedLocations
+      savedLocations: await this.props.travel.savedLocations,
     })
   }
 
@@ -66,7 +64,8 @@ class SavedLocations extends Component<Props, savedLocationsInfo> {
             data={this.props.travel.savedLocations}
             extraData={this.state}
             renderItem={this.renderItem.bind(this)}
-          />) : null}
+          />
+        ) : null}
         <AnimatedLoader
           visible={this.props.travel.loader}
           overlayColor="rgba(255,255,255,0.75)"

@@ -58,10 +58,6 @@ class UserTravelInfo extends Component<Props, UserInformation> {
     }
   }
 
-  onSave() {
-    alert("submit")
-  }
-
   async componentDidMount() {
     try {
       let userDetails = await this.props.getUserDetails(
@@ -82,41 +78,28 @@ class UserTravelInfo extends Component<Props, UserInformation> {
       })
       let userId = this.props.user.login.id
       console.log("userId", userId)
-      //  if (this.state.selectedTabId !== 1) {
       let getUserSavedLocations = await this.props.userSavedLocations(userId)
-
-      // alert("zero")
-      setTimeout(() => {
-        if (this.state.selectedTabId !== 1) {
+      console.log("getUserSavedLocations", getUserSavedLocations.payload.length)
+      if (getUserSavedLocations.payload.length === 0) {
+        // alert("zero")
+        setTimeout(() => {
           this.props.handleSelectedValue()
-        }
-      }, 100)
-
-      // }
+        }, 100)
+      }
     } catch (error) {
       console.log("error_profileinfoscreen", error)
     }
-
-    this.setState({
-      selectedTabId: this.props.tabId,
-    })
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      selectedTabId: nextProps.tabId,
-    })
   }
 
   selectedTab(value) {
     this.setState({
+      selectedTabId: this.props.tabId,
+    })
+
+    this.setState({
       selectedTabId: value.id,
     })
     // console.log('onTab_123:', value)
-
-    this.setState({
-      selectedTabId: this.props.tabId,
-    })
   }
 
   renderProfileInfo() {
@@ -160,7 +143,7 @@ class UserTravelInfo extends Component<Props, UserInformation> {
             </View>
             <View style={styles.rightContainer}>
               <Text style={styles.nameText}>{this.state.fullName}</Text>
-              {/* <Text style={styles.editText}>EDIT PROFILE</Text> */}
+              {/* <Text style={styles.editText}>EDIT PROFILE</Text>  */}
             </View>
           </View>
         </LinearGradient>
