@@ -81,19 +81,14 @@ class UserTravelInfo extends Component<Props, UserInformation> {
             })
             let userId = this.props.user.login.id
             console.log("userId", userId)
-            if (this.state.selectedTabId !== 1) {
-                let getUserSavedLocations = await this.props.userSavedLocations(userId)
-
+            let getUserSavedLocations = await this.props.userSavedLocations(userId)
+            console.log("getUserSavedLocations", getUserSavedLocations.payload.length)
+            if (getUserSavedLocations.payload.length === 0) {
                 // alert("zero")
                 setTimeout(() => {
-                    if (this.state.selectedTabId !== 1) {
-                        this.props.handleSelectedValue()
-                    }
+                    this.props.handleSelectedValue()
                 }, 100)
-
             }
-
-
         } catch (error) {
             console.log('error_profileinfoscreen', error)
         }
@@ -111,14 +106,13 @@ class UserTravelInfo extends Component<Props, UserInformation> {
 
     selectedTab(value) {
         this.setState({
+            selectedTabId: this.props.tabId,
+        })
+
+        this.setState({
             selectedTabId: value.id
         })
         // console.log('onTab_123:', value)
-
-
-        this.setState({
-            selectedTabId: this.props.tabId,
-        })
     }
 
     renderProfileInfo() {
