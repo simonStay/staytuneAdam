@@ -15,8 +15,8 @@ export default function user(state = {}, action) {
     case SIGN_UP:
       return {
         ...state,
-        register: action.payload,
         loader: false,
+        register: action.payload,
       }
     case LOGIN:
       return {
@@ -27,26 +27,26 @@ export default function user(state = {}, action) {
     case GET_USER_DETAILS:
       return {
         ...state,
-        userDetails: action.payload,
         loader: false,
+        userDetails: action.payload,
       }
     case CREATE_USER_PROFILE:
       return {
         ...state,
-        userProfileInfo: action.payload,
         loader: false,
+        userProfileInfo: action.payload,
       }
     case GET_AVATAR_IMAGES:
       return {
         ...state,
-        avatarImages: action.payload,
         loader: false,
+        avatarImages: action.payload,
       }
     case FORGOT_PASSWORD:
       return {
         ...state,
-        passwordCode: action.payload,
         loader: false,
+        passwordCode: action.payload,
       }
     case LOADER:
       return {
@@ -55,6 +55,7 @@ export default function user(state = {}, action) {
       }
     case SIGN_OUT:
       return {
+        loader: false,
         user: {},
       }
   }

@@ -63,11 +63,14 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
   }
 
   componentDidMount() {
-    try {
-      console.log("tabId_123", this.props.navigation.state.params.tabId)
-    } catch (error) {
-
-    }
+    // try {
+    //   this.setState({
+    //     selectedValue: this.props.navigation.state.params.selectedValue,
+    //     tabId: this.props.navigation.state.params.tabId
+    //   })
+    // } catch (error) {
+    // }
+    // alert(dimensions.width)
   }
 
   onLeft() {
@@ -141,18 +144,30 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
     }
     this.drawer._root.close()
   }
-  handleSelectedValue() {
-    this.setState({
-      selectedValue: "Start a plan",
-      headerTitle: "TRAVEL PREFERENCE",
-    })
+  handleSelectedValue(value) {
+    if (value === "Travel preference") {
+      this.setState({
+        selectedValue: "Travel preference",
+        headerTitle: "TRAVEL PREFERENCE",
+      })
+    } else {
+      this.setState({
+        selectedValue: "Start a plan",
+        headerTitle: "STAY TUNE",
+      })
+    }
   }
 
   renderContanier() {
     if (this.state.selectedValue == "Edit Profile") {
       return <EditProfile navigation={this.props.navigation} />
     } else if (this.state.selectedValue == "Start a plan") {
-      return <TravelPreference navigation={this.props.navigation} />
+      return (
+        <MapScreen
+          navigation={this.props.navigation}
+          handleSelectedValue={this.handleSelectedValue.bind(this)}
+        />
+      )
     } else if (this.state.selectedValue == "Itinerary suggestions") {
       return <ItinerarySuggestions navigation={this.props.navigation} />
     } else if (this.state.selectedValue == "Travel preference") {

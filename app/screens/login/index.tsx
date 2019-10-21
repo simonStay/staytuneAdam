@@ -114,6 +114,21 @@ class LoginScreen extends Component<Props, userDetails> {
             password: "",
           })
         }, 100)
+      } else if (this.props.user.login.status === "failed") {
+        let self = this
+        setTimeout(() => {
+          Alert.alert(
+            "Stay Tune",
+            this.props.user.login.message,
+            [
+              {
+                text: "OK",
+                onPress: () => {},
+              },
+            ],
+            { cancelable: false },
+          )
+        }, 100)
       } else {
         this.setState({
           userId: this.props.user.login.id,
