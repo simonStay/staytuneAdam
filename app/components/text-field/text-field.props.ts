@@ -31,6 +31,7 @@ export interface TextFieldProps extends TextInputProps {
    */
   inputStyle?: TextStyle | TextStyle[]
 
+  containerStyle?: ViewStyle | ViewStyle[]
   /**
    * Various look & feels.
    */

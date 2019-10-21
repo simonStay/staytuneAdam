@@ -87,7 +87,7 @@ class SetInitialInterest extends Component<Props, UserInformation> {
                         "Created your Travel preference successfully",
                         [{
                             text: "OK", onPress: () => {
-                                this.props.navigation.push("MainScreen")
+                                this.props.navigation.push("MainScreen", { tabId: 2 })
                             }
                         }],
                         { cancelable: false },

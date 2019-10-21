@@ -21,6 +21,7 @@ interface Props {
   navigation: NavigationScreenProp<NavigationState>
   userProfileInfo: any
   Signout: any
+  tabId: any
 }
 interface UserInformation {
   isOpen: boolean
@@ -62,15 +63,11 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
   }
 
   componentDidMount() {
-    // try {
-    //   this.setState({
-    //     selectedValue: this.props.navigation.state.params.selectedValue,
-    //     tabId: this.props.navigation.state.params.tabId
-    //   })
-    // } catch (error) {
+    try {
+      console.log("tabId_123", this.props.navigation.state.params.tabId)
+    } catch (error) {
 
-    // }
-    // alert(dimensions.width)
+    }
   }
 
   onLeft() {

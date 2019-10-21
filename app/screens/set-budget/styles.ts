@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
         fontSize: fontsize.screenTitle,
         textAlign: "center",
         marginHorizontal: spacing[1],
-        marginBottom: spacing[1],
-        marginTop: spacing[6],
+        //marginBottom: spacing[1],
+        marginTop: spacing[7],
         fontFamily: "OpenSans-Semibold",
         textShadowColor: color.textColor,
         textShadowOffset: { width: 1, height: 1 },
@@ -36,6 +36,8 @@ const styles = StyleSheet.create({
         color: color.textColor,
         fontSize: 19,
         fontFamily: "OpenSans",
+        paddingVertical: 0
+        //marginTop: 6
     },
     initialText: {
         color: color.text,

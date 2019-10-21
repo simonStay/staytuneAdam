@@ -10,7 +10,7 @@ import { Text } from "../../components/text"
 import { Button } from "../../components/button"
 import { TextField } from "../../components/text-field"
 import { Icon } from "../../components/icon"
-import { color, dimensions } from "../../theme"
+import { color, dimensions, spacing } from "../../theme"
 
 import { connect } from "react-redux"
 import { setTravelPreferences, setBudgeInfo } from "../../redux/actions/travel"
@@ -23,6 +23,7 @@ interface Props {
     setTravelPreferences: any
     user: any
     travel: any
+    daysRef: any
 }
 interface UserInformation {
     personsCount: any
@@ -33,7 +34,13 @@ interface UserInformation {
     travelDate: any
 }
 
-class SetBudget extends Component<Props, UserInformation> {
+interface extrainfo {
+    noOfDaysInput: any
+    totalBudgetInput: any
+    cityInput: any
+}
+
+class SetBudget extends Component<Props, UserInformation, extrainfo> {
     state: UserInformation
     constructor(props: Props) {
         super(props)
@@ -45,6 +52,9 @@ class SetBudget extends Component<Props, UserInformation> {
             travelDate: "",
             visible: this.props.travel.loader,
         }
+        this.noOfDaysInput = React.createRef();
+        this.totalBudgetInput = React.createRef();
+        this.cityInput = React.createRef();
     }
 
     componentDidMount() {
@@ -172,121 +182,133 @@ class SetBudget extends Component<Props, UserInformation> {
                     onLeftPress={this.onLeft.bind(this)}
                 />
                 <GoldBarView />
-                <KeyboardAwareScrollView resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled={true}>
-                    <View>
-                        <Text style={styles.textStyle}>
-                            Select your travel date ?
-                        </Text>
-                        <DatePicker
-                            style={{
-                                borderWidth: 0,
-                                borderStyle: null,
-                                borderRadius: 10,
-                                marginVertical: 26,
-                                //height: dimensions.height / 15.6,
-                                width: dimensions.width / 1.09,
-                                backgroundColor: 'white',
-                                marginHorizontal: 20,
-                            }}
-                            date={this.state.travelDate}
-                            mode="date"
-                            placeholder="Select travel date"
-                            format="DD-MM-YYYY"
-                            minDate={new Date()}
-                            //maxDate="2016-06-01"
-                            confirmBtnText="Confirm"
-                            cancelBtnText="Cancel"
-                            showIcon={false}
-                            onDateChange={(date) => { this.setState({ travelDate: date }) }}
-                            customStyles={{
-                                dateText: {
-                                    color: color.textColor,
-                                    fontSize: 19,
-                                    fontFamily: "OpenSans"
-                                },
-                                placeholderText: {
-                                    color: color.placeholderText,
-                                    fontSize: 19,
-                                    fontFamily: "OpenSans"
-                                },
-                                dateInput: {
-                                    backgroundColor: color.background,
-                                    top: 0,
-                                    bottom: 0,
-                                    minHeight: 60,
-                                    marginTop: 15,
-                                    borderRadius: 10,
-                                    color: color.textColor,
-                                    fontSize: 19,
-                                    fontFamily: "OpenSans"
-                                }
-                            }}
-                        />
-                    </View>
+                <KeyboardAwareScrollView ref="scrollView" resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled={true}>
 
-                    <View>
-                        <Text style={styles.textStyle}>
-                            How many persons are there in your travel ?
-                        </Text>
-                        <TextField
-                            inputStyle={styles.inputStyle}
-                            placeholder="Number of Persons"
-                            placeholderTextColor={color.placeholderText}
-                            onChangeText={value => this.setState({ personsCount: value })}
-                            value={this.state.personsCount}
-                            keyboardType='numeric'
-                            returnKeyType="done"
-                        />
-                    </View>
-                    <View>
-                        <Text style={styles.textStyle}>
-                            How many days you will travel ?
-                        </Text>
-                        <TextField
-                            inputStyle={styles.inputStyle}
-                            placeholder="Number of Days"
-                            placeholderTextColor={color.placeholderText}
-                            onChangeText={value => this.setState({ daysCount: value })}
-                            value={this.state.daysCount}
-                            keyboardType='numeric'
-                            returnKeyType="done"
-                        />
-                    </View>
-                    <View>
-                        <Text style={styles.textStyle}>
-                            How much is your total budget for this travel ?
-                        </Text>
-                        <TextField
-                            inputStyle={styles.inputStyle}
-                            placeholder="Total Budget"
-                            placeholderTextColor={color.placeholderText}
-                            onChangeText={value => this.setState({ totalBudget: value })}
-                            value={this.state.totalBudget}
-                            keyboardType='numeric'
-                            returnKeyType="done"
-                        />
-                    </View>
-                    <View>
-                        <Text style={styles.textStyle}>
-                            For which city you want to travel ?
-                        </Text>
-                        <TextField
-                            inputStyle={styles.inputStyle}
-                            placeholder="City"
-                            placeholderTextColor={color.placeholderText}
-                            onChangeText={value => this.setState({ city: value })}
-                            value={this.state.city}
-                        />
-                    </View>
+                    <Text style={styles.textStyle}>
+                        Select your travel date ?
+                    </Text>
+                    <DatePicker
+                        style={{
+                            borderWidth: 0,
+                            borderStyle: null,
+                            borderRadius: 10,
+                            marginBottom: spacing[3],
+                            //height: dimensions.height / 15.6,
+                            width: dimensions.width / 1.11,
+                            backgroundColor: 'transparent',
+                            marginLeft: dimensions.width * 0.05,
+                        }}
+                        date={this.state.travelDate}
+                        mode="date"
+                        placeholder="Select travel date"
+                        format="DD-MM-YYYY"
+                        minDate={new Date()}
+                        //maxDate="2016-06-01"
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        showIcon={false}
+                        onDateChange={(date) => { this.setState({ travelDate: date }) }}
+                        customStyles={{
+                            dateText: {
+                                color: color.textColor,
+                                fontSize: 19,
+                                fontFamily: "OpenSans"
+                            },
+                            placeholderText: {
+                                color: color.placeholderText,
+                                fontSize: 19,
+                                fontFamily: "OpenSans"
+                            },
+                            dateInput: {
+                                backgroundColor: color.background,
+                                top: 0,
+                                bottom: 0,
+                                height: dimensions.height / 15.6,
+                                //minHeight: 44,
+                                width: dimensions.width / 1.11,
+                                borderRadius: 10,
+                                color: color.textColor,
+                                fontSize: 19,
+                                marginTop: spacing[5],
+                                fontFamily: "OpenSans"
+                            }
+                        }}
+                    />
+
+                    <Text style={styles.textStyle}>
+                        How many persons are there in your travel ?
+                    </Text>
+                    <TextField
+                        style={{ paddingVertical: 0 }}
+                        inputStyle={styles.inputStyle}
+                        placeholder="Number of Persons"
+                        placeholderTextColor={color.placeholderText}
+                        onChangeText={value => this.setState({ personsCount: value })}
+                        value={this.state.personsCount}
+                        keyboardType='numeric'
+                        returnKeyType="done"
+                        onSubmitEditing={() => this.noOfDaysInput.current.focus()}
+                    />
+
+
+                    <Text style={styles.textStyle}>
+                        How many days you will travel ?
+                    </Text>
+                    <TextField
+                        forwardedRef={this.noOfDaysInput}
+                        style={{ paddingVertical: 0 }}
+                        inputStyle={styles.inputStyle}
+                        placeholder="Number of Days"
+                        //autoFocus={true}
+                        placeholderTextColor={color.placeholderText}
+                        onChangeText={value => this.setState({ daysCount: value })}
+                        value={this.state.daysCount}
+                        keyboardType='numeric'
+                        returnKeyType="done"
+                        onSubmitEditing={() => this.totalBudgetInput.current.focus()}
+                    />
+
+                    <Text style={styles.textStyle}>
+                        How much is your total budget for this travel ?
+                    </Text>
+                    <TextField
+                        forwardedRef={this.totalBudgetInput}
+                        style={{ paddingVertical: 0 }}
+                        inputStyle={styles.inputStyle}
+                        placeholder="Total Budget"
+                        placeholderTextColor={color.placeholderText}
+                        onChangeText={value => this.setState({ totalBudget: value })}
+                        value={this.state.totalBudget}
+                        keyboardType='numeric'
+                        returnKeyType="done"
+                        onSubmitEditing={() => this.cityInput.current.focus()}
+                    />
+
+                    <Text style={styles.textStyle}>
+                        For which city you want to travel ?
+                    </Text>
+                    <TextField
+                        forwardedRef={this.cityInput}
+                        style={{ paddingVertical: 0 }}
+                        inputStyle={styles.inputStyle}
+                        placeholder="City"
+                        returnKeyType="done"
+                        placeholderTextColor={color.placeholderText}
+                        onChangeText={value => this.setState({ city: value })}
+                        value={this.state.city}
+                        onSubmitEditing={this.onNext.bind(this)}
+                    />
+
+                    <Button style={styles.button} onPress={this.onNext.bind(this)}>
+                        <View style={styles.buttonLeft}>
+                            <Text style={styles.buttonText}>Next</Text>
+                        </View>
+                        <View style={styles.buttonRight}>
+                            <Icon icon={"back"} style={styles.icon} />
+                        </View>
+                    </Button>
                 </KeyboardAwareScrollView>
-                <Button style={styles.button} onPress={this.onNext.bind(this)}>
-                    <View style={styles.buttonLeft}>
-                        <Text style={styles.buttonText}>Next</Text>
-                    </View>
-                    <View style={styles.buttonRight}>
-                        <Icon icon={"back"} style={styles.icon} />
-                    </View>
-                </Button>
+
                 <AnimatedLoader
                     visible={this.state.visible}
                     overlayColor="rgba(255,255,255,0.75)"
