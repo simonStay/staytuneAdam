@@ -81,13 +81,31 @@ class MapScreen extends Component<Props, MapScreen, {}> {
               <Image source={require("./button.png")} style={styles.iconImage} />
             </View>
           </TouchableOpacity> */}
-          <TouchableOpacity
-            style={styles.startPlan}
-            onPress={this.props.handleSelectedValue.bind(this, "Travel preference")}
-          >
-            <Image style={styles.image} source={require("./button.png")} />
-          </TouchableOpacity>
         </MapView>
+        <TouchableOpacity
+          style={styles.startPlan}
+          onPress={this.props.handleSelectedValue.bind(this, "Travel preference")}
+        >
+          <View style={{ flex: 1, flexDirection: "row" }}>
+            <View style={styles.left}>
+              <Text style={styles.buttonText}>Start your plan</Text>
+            </View>
+            <View style={styles.right}>
+              <Icon icon={"back"} style={styles.icon} />
+            </View>
+          </View>
+        </TouchableOpacity>
+        {/* <Button
+          style={styles.button}
+          onPress={this.props.handleSelectedValue.bind(this, "Travel preference")}
+        >
+          <View style={styles.buttonLeft}>
+            <Text style={styles.buttonText}>Next</Text>
+          </View>
+          <View style={styles.buttonRight}>
+            <Icon icon={"back"} style={styles.icon} />
+          </View>
+        </Button> */}
       </View>
     )
   }
