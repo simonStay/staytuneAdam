@@ -68,7 +68,6 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
     //     tabId: this.props.navigation.state.params.tabId
     //   })
     // } catch (error) {
-
     // }
     // alert(dimensions.width)
   }
@@ -144,18 +143,30 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
     }
     this.drawer._root.close()
   }
-  handleSelectedValue() {
-    this.setState({
-      selectedValue: "Start a plan",
-      headerTitle: "TRAVEL PREFERENCE",
-    })
+  handleSelectedValue(value) {
+    if (value === "Travel preference") {
+      this.setState({
+        selectedValue: "Travel preference",
+        headerTitle: "TRAVEL PREFERENCE",
+      })
+    } else {
+      this.setState({
+        selectedValue: "Start a plan",
+        headerTitle: "STAY TUNE",
+      })
+    }
   }
 
   renderContanier() {
     if (this.state.selectedValue == "Edit Profile") {
       return <EditProfile navigation={this.props.navigation} />
     } else if (this.state.selectedValue == "Start a plan") {
-      return <TravelPreference navigation={this.props.navigation} />
+      return (
+        <MapScreen
+          navigation={this.props.navigation}
+          handleSelectedValue={this.handleSelectedValue.bind(this)}
+        />
+      )
     } else if (this.state.selectedValue == "Itinerary suggestions") {
       return <ItinerarySuggestions navigation={this.props.navigation} />
     } else if (this.state.selectedValue == "Travel preference") {
@@ -197,17 +208,17 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
             onLeftPress={this.onLeft.bind(this)}
           />
         ) : (
-            <View>
-              <Header
-                style={styles.header}
-                headerText={this.state.headerTitle}
-                titleStyle={styles.headerTitle}
-                leftIcon={"menu"}
-                onLeftPress={this.onLeft.bind(this)}
-              />
-              <GoldBarView />
-            </View>
-          )}
+          <View>
+            <Header
+              style={styles.header}
+              headerText={this.state.headerTitle}
+              titleStyle={styles.headerTitle}
+              leftIcon={"menu"}
+              onLeftPress={this.onLeft.bind(this)}
+            />
+            <GoldBarView />
+          </View>
+        )}
         <View style={{ flex: 1, overflow: "hidden" }}>
           <Drawer
             openDrawerOffset={0.36}

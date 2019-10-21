@@ -125,7 +125,7 @@ class Register extends Component<Props, userDetails> {
             ],
             { cancelable: false },
           )
-        }, 100)
+        }, 200)
       }
       console.log("state_user_123:", this.props.user)
       // this.props.navigation.navigate('Login')

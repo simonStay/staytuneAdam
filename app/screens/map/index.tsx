@@ -1,12 +1,16 @@
 import React, { Component } from "react"
-import { View } from "react-native"
+import { View, Text, TouchableOpacity, Image } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 
 import MapView from "react-native-maps"
 import Geolocation from "@react-native-community/geolocation"
+import { Button } from "../../components/button"
+import { Icon } from "../../components/icon"
+import styles from "./styles"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
+  handleSelectedValue: any
 }
 interface MapScreen {
   state: any
@@ -59,12 +63,31 @@ class MapScreen extends Component<Props, MapScreen, {}> {
     return (
       <View style={{ flex: 1 }}>
         <MapView
-          style={{ flex: 1 }}
+          ref="map"
+          style={styles.map}
           region={this.state.region}
           zoomEnabled={true}
           onRegionChange={this.onRegionChange.bind(this)}
           showsUserLocation={true}
-        />
+        >
+          {/* <TouchableOpacity style={styles.startPlan}>
+            <Text style={styles.Text}>Start your Plan</Text>
+          </TouchableOpacity> */}
+          {/* <TouchableOpacity
+            onPress={this.props.handleSelectedValue.bind(this, "Travel preference")}
+            style={styles.iconButton}
+          >
+            <View style={{ flex: 1 }}>
+              <Image source={require("./button.png")} style={styles.iconImage} />
+            </View>
+          </TouchableOpacity> */}
+          <TouchableOpacity
+            style={styles.startPlan}
+            onPress={this.props.handleSelectedValue.bind(this, "Travel preference")}
+          >
+            <Image style={styles.image} source={require("./button.png")} />
+          </TouchableOpacity>
+        </MapView>
       </View>
     )
   }
