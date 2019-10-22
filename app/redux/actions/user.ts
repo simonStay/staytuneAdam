@@ -143,10 +143,10 @@ export function ForgotPassword(email) {
 
 export function getUserDetails(userId, token) {
   return async dispatch => {
-    dispatch({
-      type: LOADER,
-      payload: true,
-    })
+    // dispatch({
+    //   type: LOADER,
+    //   payload: true,
+    // })
     const res = await fetch(STAYTUNELIVEURL + `users/` + userId, {
       method: "GET",
       headers: {

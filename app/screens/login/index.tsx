@@ -76,11 +76,21 @@ class LoginScreen extends Component<Props, userDetails> {
     } else {
       const { email, password } = this.state
       await this.props.Login(email, password)
-      if (this.props.user.login == undefined || this.props.user.login == "undefined") {
-        {
-          /* Note: this is Temporary solution alert is not diplaying after animation making for that 
-         i used this functionality need to change when we find better solutions for it */
-        }
+      // if (this.props.user.login == undefined || this.props.user.login == "undefined") {
+      //   {
+      //     /* Note: this is Temporary solution alert is not diplaying after animation making for that
+      //    i used this functionality need to change when we find better solutions for it */
+      //   }
+      //   setTimeout(() => {
+      //     Alert.alert(
+      //       "Stay Tune",
+      //       "Invalid email or password.",
+      //       [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+      //       { cancelable: false },
+      //     )
+      //   }, 100)
+      // }
+      if (this.props.user.login.error) {
         setTimeout(() => {
           Alert.alert(
             "Stay Tune",
@@ -147,14 +157,16 @@ class LoginScreen extends Component<Props, userDetails> {
             password: "",
           })
         } else {
-          this.props.navigation.navigate("MainScreen", {
-            userId: this.state.userId,
-            token: this.state.token,
-          })
-          this.setState({
-            email: "",
-            password: "",
-          })
+          if (this.props.user.loader === false) {
+            this.props.navigation.navigate("MainScreen", {
+              userId: this.state.userId,
+              token: this.state.token,
+            })
+            this.setState({
+              email: "",
+              password: "",
+            })
+          }
         }
       }
     }

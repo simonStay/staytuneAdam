@@ -16,277 +16,280 @@ import AnimatedLoader from "react-native-animated-loader"
 import { updateTravelPreferences } from "../../redux/actions/travel"
 
 interface Props {
-    navigation: NavigationScreenProp<NavigationState>
-    updateTravelPreferences: any
-    user: any
-    getValue: any
-    travel: any
+  navigation: NavigationScreenProp<NavigationState>
+  updateTravelPreferences: any
+  user: any
+  getValue: any
+  travel: any
 }
 interface UserInformation {
-    selectedId: any
-    selectedPreference: any
-    visible: boolean
-    userInitialInterests: any
-    listOpen: any
-    categories: any
+  selectedId: any
+  selectedPreference: any
+  visible: boolean
+  userInitialInterests: any
+  listOpen: any
+  categories: any
 }
 
 class SetInitialInterest extends Component<Props, UserInformation> {
-    state: UserInformation
-    constructor(props: Props) {
-        super(props)
-        this.state = {
-            selectedId: "",
-            selectedPreference: [],
-            categories: [],
-            visible: this.props.travel.loader,
-            userInitialInterests: [],
-            listOpen: false,
-        }
+  state: UserInformation
+  constructor(props: Props) {
+    super(props)
+    this.state = {
+      selectedId: "",
+      selectedPreference: [],
+      categories: [],
+      visible: this.props.travel.loader,
+      userInitialInterests: [],
+      listOpen: false,
     }
+  }
 
-    componentDidMount() {
-        // alert(dimensions.width)
-        try {
-            this.setState({ categories: this.props.travel.travelPreferenceInfo.categoriesList })
-        } catch (error) {
-            console.log("categories_catch_error", error)
-        }
+  componentDidMount() {
+    // alert(dimensions.width)
+    try {
+      this.setState({ categories: this.props.travel.travelPreferenceInfo.categoriesList })
+    } catch (error) {
+      console.log("categories_catch_error", error)
     }
+  }
 
-    onLeft() {
-        this.props.navigation.goBack()
-    }
+  onLeft() {
+    this.props.navigation.goBack()
+  }
 
-    async onNext() {
-        // console.log("userInitialInterests_123" + JSON.stringify(this.state.categories))
-        try {
-            let setTravelBudget = {
-                preferenceId: this.props.travel.travelPreferenceInfo.id,
-                selectedTravelPreferences: this.props.travel.travelInfo.selectedTravelPreferences,
-                personsCount: parseInt(this.props.travel.travelInfo.personsCount),
-                daysCount: parseInt(this.props.travel.travelInfo.daysCount),
-                totalBudget: parseInt(this.props.travel.travelInfo.totalBudget),
-                city: this.props.travel.travelInfo.city,
-                userId: this.props.user.login.id,
-                locationImage: this.props.travel.travelInfo.locationImage,
-                travelDate: this.props.travel.travelInfo.travelDate,
-                selectedCategories: this.state.categories,
-            }
+  async onNext() {
+    // console.log("userInitialInterests_123" + JSON.stringify(this.state.categories))
+    try {
+      let setTravelBudget = {
+        preferenceId: this.props.travel.travelPreferenceInfo.id,
+        selectedTravelPreferences: this.props.travel.travelInfo.selectedTravelPreferences,
+        personsCount: parseInt(this.props.travel.travelInfo.personsCount),
+        daysCount: parseInt(this.props.travel.travelInfo.daysCount),
+        totalBudget: parseInt(this.props.travel.travelInfo.totalBudget),
+        city: this.props.travel.travelInfo.city,
+        userId: this.props.user.login.id,
+        locationImage: this.props.travel.travelInfo.locationImage,
+        travelDate: this.props.travel.travelInfo.travelDate,
+        selectedCategories: this.state.categories,
+      }
 
-            await this.props.updateTravelPreferences(setTravelBudget)
-            if (this.props.travel.updatetravelPreferenceInfo.status == "success") {
-                let self = this
-                // alert("success")
-                // setTimeout(() => {
-                //     self.props.navigation.navigate('MainSCreen')
-                // }, 100)
-                setTimeout(() => {
-                    Alert.alert(
-                        "Stay Tune",
-                        "Created your Travel preference successfully",
-                        [{
-                            text: "OK", onPress: () => {
-                                this.props.navigation.push("MainScreen", { tabId: 2 })
-                            }
-                        }],
-                        { cancelable: false },
-                    )
-                }, 100)
-            } else {
-                {
-                    /*This is Temporary solution */
-                }
-                setTimeout(() => {
-                    Alert.alert(
-                        "Stay Tune",
-                        "Something went wrong",
-                        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-                        { cancelable: false },
-                    )
-                }, 100)
-            }
-        } catch (error) {
-            console.log("travel_preference_error_on_next:", error)
-        }
-    }
-
-    async onToggleList(item) {
-        let count = 0
-        if (this.state.selectedPreference.length == 0) {
-            this.state.selectedPreference.push({ id: item.id })
-        } else {
-            this.state.selectedPreference.map((res, i) => {
-                if (res.id === item.id) {
-                    this.state.selectedPreference.splice(i, 1)
-                    count++
-                }
-            })
-            if (count === 0) {
-                this.state.selectedPreference.push({ id: item.id })
-            }
-        }
-        await this.setState({ selectedPreference: this.state.selectedPreference })
-    }
-
-    toggleSwitch(item, res, toggle, on, showSublist) {
-        if (on === true) {
-            let categories = this.state.categories
-            let selected = false
-            categories.map(category => {
-                if (item.id === category.id) {
-                    category.subCategories.map(preferenceCategory => {
-                        if (res.id === preferenceCategory.id) {
-                            preferenceCategory.selected = true
-                            selected = !selected
-                        }
-                    })
-                }
-            })
-        } else {
-            let categories = this.state.categories
-            categories.map(category => {
-                if (item.id === category.id) {
-                    category.subCategories.map(preferenceCategory => {
-                        if (res.id === preferenceCategory.id) {
-                            preferenceCategory.selected = false
-                        }
-                    })
-                }
-            })
-        }
-    }
-
-    onToggleChange(res) {
-        let categories = this.state.categories
-        console.log("hussian_123", res)
-        if (res) {
-            this.setState(
-                {
-                    categories: categories,
+      await this.props.updateTravelPreferences(setTravelBudget)
+      if (this.props.travel.updatetravelPreferenceInfo.status == "success") {
+        let self = this
+        // alert("success")
+        // setTimeout(() => {
+        //     self.props.navigation.navigate('MainSCreen')
+        // }, 100)
+        setTimeout(() => {
+          Alert.alert(
+            "Stay Tune",
+            "Created your Travel preference successfully",
+            [
+              {
+                text: "OK",
+                onPress: () => {
+                  this.props.navigation.push("MainScreen", { tabId: 2 })
                 },
-                () => {
-                    console.log("categories_State", JSON.stringify(this.state.categories))
-                },
-            )
+              },
+            ],
+            { cancelable: false },
+          )
+        }, 100)
+      } else {
+        {
+          /*This is Temporary solution */
         }
+        setTimeout(() => {
+          Alert.alert(
+            "Stay Tune",
+            "Something went wrong",
+            [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+            { cancelable: false },
+          )
+        }, 100)
+      }
+    } catch (error) {
+      console.log("travel_preference_error_on_next:", error)
     }
-    renderItem({ item }) {
-        var count = 0
-        var showSublist
-        var ImageView
-        this.state.selectedPreference.map((res, i) => {
-            if (res.id == item.id) {
-                showSublist = true
-                count = count + 1
-            }
-            if (count === 0) {
-                showSublist = false
-            }
-        })
+  }
 
-        if (showSublist == true) {
-            ImageView = <Icon icon={"verticaldownarrow"} style={styles.toggleBackIcon} />
-        } else {
-            ImageView = <Icon icon={"back"} style={styles.toggleBackIcon} />
+  async onToggleList(item) {
+    let count = 0
+    if (this.state.selectedPreference.length == 0) {
+      this.state.selectedPreference.push({ id: item.id })
+    } else {
+      this.state.selectedPreference.map((res, i) => {
+        if (res.id === item.id) {
+          this.state.selectedPreference.splice(i, 1)
+          count++
         }
+      })
+      if (count === 0) {
+        this.state.selectedPreference.push({ id: item.id })
+      }
+    }
+    await this.setState({ selectedPreference: this.state.selectedPreference })
+  }
 
-        return (
-            <View>
-                <View style={styles.mainListView}>
-                    <TouchableOpacity
-                        style={styles.preferenceRow}
-                        onPress={this.onToggleList.bind(this, item)}
-                    >
-                        <View style={styles.preferenceLeftRow}>
-                            <Text style={styles.preferenceText}>{item.categoryname}</Text>
-                        </View>
-                        <View style={styles.preferenceRightRow}>{ImageView}</View>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.subListView}>
-                    {showSublist == true
-                        ? item.subCategories.map((res, i) => {
-                            return (
-                                <View
-                                    style={[
-                                        styles.subListRow,
-                                        { borderBottomWidth: i === item.subCategories.length - 1 ? 0 : 1 },
-                                    ]}
-                                >
-                                    <View style={styles.subListLeftRow}>
-                                        <Text style={styles.subcategoryText}>{res.categoryname}</Text>
-                                    </View>
-                                    <View style={styles.subListRightRow}>
-                                        <Toggle
-                                            initial={res.selected === true ? true : false}
-                                            onChange={this.onToggleChange.bind(this)}
-                                        >
-                                            {({ on, toggle }) => (
-                                                <Switch
-                                                    trackOnStyle={styles.trackOn}
-                                                    trackOffStyle={styles.trackOff}
-                                                    thumbOnStyle={styles.thumbOn}
-                                                    thumbOffStyle={styles.thumbOff}
-                                                    value={on}
-                                                    onToggle={toggle}
-                                                    getValue={this.toggleSwitch(item, res, toggle, on, showSublist)}
-                                                />
-                                            )}
-                                        </Toggle>
-                                    </View>
-                                </View>
-                            )
-                        })
-                        : null}
-                </View>
-            </View>
-        )
+  toggleSwitch(item, res, toggle, on, showSublist) {
+    if (on === true) {
+      let categories = this.state.categories
+      let selected = false
+      categories.map(category => {
+        if (item.id === category.id) {
+          category.subCategories.map(preferenceCategory => {
+            if (res.id === preferenceCategory.id) {
+              preferenceCategory.selected = true
+              selected = !selected
+            }
+          })
+        }
+      })
+    } else {
+      let categories = this.state.categories
+      categories.map(category => {
+        if (item.id === category.id) {
+          category.subCategories.map(preferenceCategory => {
+            if (res.id === preferenceCategory.id) {
+              preferenceCategory.selected = false
+            }
+          })
+        }
+      })
+    }
+  }
+
+  onToggleChange(res) {
+    let categories = this.state.categories
+    console.log("hussian_123", res)
+    if (res) {
+      this.setState(
+        {
+          categories: categories,
+        },
+        () => {
+          console.log("categories_State", JSON.stringify(this.state.categories))
+        },
+      )
+    }
+  }
+  renderItem({ item }) {
+    var count = 0
+    var showSublist
+    var ImageView
+    this.state.selectedPreference.map((res, i) => {
+      if (res.id == item.id) {
+        showSublist = true
+        count = count + 1
+      }
+      if (count === 0) {
+        showSublist = false
+      }
+    })
+
+    if (showSublist == true) {
+      ImageView = <Icon icon={"verticaldownarrow"} style={styles.toggleBackIcon} />
+    } else {
+      ImageView = <Icon icon={"back"} style={styles.toggleBackIcon} />
     }
 
-    render() {
-        return (
-            <View style={styles.container}>
-                <Wallpaper style={styles.wallpaper} />
-
-                <Header
-                    style={styles.header}
-                    headerText={"SET INITIAL INTEREST"}
-                    titleStyle={styles.headerTitle}
-                    leftIcon={"back"}
-                    onLeftPress={this.onLeft.bind(this)}
-                />
-                <GoldBarView />
-
-                <FlatList
-                    style={{ flex: 1, marginTop: 10 }}
-                    data={this.state.categories}
-                    extraData={this.state}
-                    renderItem={this.renderItem.bind(this)}
-                />
-
-                <View style={{ marginTop: 15 }}>
-                    <Button style={styles.button} onPress={this.onNext.bind(this)}>
-                        <Text style={styles.buttonText}>Submit</Text>
-                    </Button>
-                </View>
-
-                <AnimatedLoader
-                    visible={this.props.travel.loader}
-                    overlayColor="rgba(255,255,255,0.75)"
-                    source={require("./../loader.json")}
-                    animationStyle={styles.lottie}
-                    speed={1}
-                />
+    return (
+      <View>
+        <View style={styles.mainListView}>
+          <TouchableOpacity
+            style={styles.preferenceRow}
+            onPress={this.onToggleList.bind(this, item)}
+          >
+            <View style={styles.preferenceLeftRow}>
+              <Text style={styles.preferenceText}>{item.categoryname}</Text>
             </View>
-        )
-    }
+            <View style={styles.preferenceRightRow}>{ImageView}</View>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.subListView}>
+          {showSublist == true
+            ? item.subCategories.map((res, i) => {
+                return (
+                  <View
+                    style={[
+                      styles.subListRow,
+                      { borderBottomWidth: i === item.subCategories.length - 1 ? 0 : 1 },
+                    ]}
+                  >
+                    <View style={styles.subListLeftRow}>
+                      <Text style={styles.subcategoryText}>{res.categoryname}</Text>
+                    </View>
+                    <View style={styles.subListRightRow}>
+                      <Toggle
+                        initial={res.selected === true ? true : false}
+                        onChange={this.onToggleChange.bind(this)}
+                      >
+                        {({ on, toggle }) => (
+                          <Switch
+                            trackOnStyle={styles.trackOn}
+                            trackOffStyle={styles.trackOff}
+                            thumbOnStyle={styles.thumbOn}
+                            thumbOffStyle={styles.thumbOff}
+                            value={on}
+                            onToggle={toggle}
+                            getValue={this.toggleSwitch(item, res, toggle, on, showSublist)}
+                          />
+                        )}
+                      </Toggle>
+                    </View>
+                  </View>
+                )
+              })
+            : null}
+        </View>
+      </View>
+    )
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Wallpaper style={styles.wallpaper} />
+
+        <Header
+          style={styles.header}
+          headerText={"SET INITIAL INTEREST"}
+          titleStyle={styles.headerTitle}
+          leftIcon={"back"}
+          onLeftPress={this.onLeft.bind(this)}
+        />
+        <GoldBarView />
+
+        <FlatList
+          style={{ flex: 1, marginTop: 10 }}
+          data={this.state.categories}
+          extraData={this.state}
+          renderItem={this.renderItem.bind(this)}
+        />
+
+        <View style={{ marginTop: 15 }}>
+          <Button style={styles.button} onPress={this.onNext.bind(this)}>
+            <Text style={styles.buttonText}>Submit</Text>
+          </Button>
+        </View>
+
+        <AnimatedLoader
+          visible={this.props.travel.loader}
+          overlayColor="rgba(255,255,255,0.75)"
+          source={require("./../loader.json")}
+          animationStyle={styles.lottie}
+          speed={1}
+        />
+      </View>
+    )
+  }
 }
 
 export default connect(
-    state => ({
-        user: state.user,
-        travel: state.travel,
-    }),
-    { updateTravelPreferences },
+  state => ({
+    user: state.user,
+    travel: state.travel,
+  }),
+  { updateTravelPreferences },
 )(SetInitialInterest)

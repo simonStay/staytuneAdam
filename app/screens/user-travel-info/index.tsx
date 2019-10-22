@@ -80,11 +80,13 @@ class UserTravelInfo extends Component<Props, UserInformation> {
       console.log("userId", userId)
       let getUserSavedLocations = await this.props.userSavedLocations(userId)
       console.log("getUserSavedLocations", getUserSavedLocations.payload.length)
-      if (getUserSavedLocations.payload.length === 0) {
+      if (this.props.travel.loader == false && getUserSavedLocations.payload.length === 0) {
         // alert("zero")
-        setTimeout(() => {
-          this.props.handleSelectedValue()
-        }, 100)
+        if (this.state.selectedTabId != 0 && this.state.selectedTabId != 1) {
+          setTimeout(() => {
+            this.props.handleSelectedValue()
+          }, 100)
+        }
       }
     } catch (error) {
       console.log("error_profileinfoscreen", error)
