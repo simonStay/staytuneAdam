@@ -143,7 +143,7 @@ class SetBudget extends Component<Props, UserInformation, extrainfo> {
         await this.props.setBudgeInfo(setTravelBudget)
         await this.props.setTravelPreferences(setTravelBudget)
         if (this.props.travel.travelPreferenceInfo.status == "Success") {
-          this.props.navigation.navigate("SetInitialInterest")
+          this.props.navigation.push("SetInitialInterest")
         } else {
           {
             /*This is Temporary solution */

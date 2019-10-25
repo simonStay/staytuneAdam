@@ -54,7 +54,7 @@ class OTPScreen extends Component<Props, userDetails> {
                 {
                   text: "OK",
                   onPress: async () => {
-                    //self.props.navigation.navigate("Login")
+                    //self.props.navigation.push("Login")
                     if (self.props.navigation.state.params.previousScreen === "Login") {
                       self.props.navigation.push("ProfileInfo", {
                         userId: self.props.user.login.id,

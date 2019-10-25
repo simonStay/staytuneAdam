@@ -64,12 +64,14 @@ class UserTravelInfo extends Component<Props, UserInformation> {
     }
 
     async componentDidMount() {
+        console.log("this.props.user.userProfileInfo", this.props.user.userProfileInfo)
         try {
             let userDetails = await this.props.getUserDetails(
                 this.props.user.userProfileInfo.data.id,
                 this.props.userInfo.token,
             )
             console.log("userDetails_profileinfoscreen", userDetails.payload)
+            console.log("this.props.user.userProfileInfo", this.props.user.userProfileInfo)
 
             this.setState({
                 profilePic: this.props.user.userProfileInfo.data.profilePic,
