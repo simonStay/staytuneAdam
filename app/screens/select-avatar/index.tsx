@@ -70,7 +70,7 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
       await this.props.createUserProfile(userInfoObj)
       try {
         if (this.props.user.userProfileInfo.status == "success") {
-          this.props.navigation.navigate("MainScreen", {
+          this.props.navigation.push("MainScreen", {
             userId: this.props.navigation.state.params.userObj.userId,
           })
         } else {

@@ -42,7 +42,7 @@ class LoginScreen extends Component<Props, userDetails> {
       email: "",
       password: "",
     })
-    this.props.navigation.navigate("Register")
+    this.props.navigation.push("Register")
   }
 
   validateEmail = email => {
@@ -109,7 +109,7 @@ class LoginScreen extends Component<Props, userDetails> {
               {
                 text: "OK",
                 onPress: () => {
-                  self.props.navigation.navigate("OTPScreen", {
+                  self.props.navigation.push("OTPScreen", {
                     intialUser: true,
                     previousScreen: "Login",
                     id: this.props.user.login.id,
@@ -148,7 +148,7 @@ class LoginScreen extends Component<Props, userDetails> {
           this.props.user.login.profilePic == "" ||
           this.props.user.login.profilePic == undefined
         ) {
-          this.props.navigation.navigate("ProfileInfo", {
+          this.props.navigation.push("ProfileInfo", {
             userId: this.state.userId,
             token: this.state.token,
           })
@@ -158,7 +158,7 @@ class LoginScreen extends Component<Props, userDetails> {
           })
         } else {
           if (this.props.user.loader === false) {
-            this.props.navigation.navigate("MainScreen", {
+            this.props.navigation.push("MainScreen", {
               userId: this.state.userId,
               token: this.state.token,
             })
@@ -206,7 +206,7 @@ class LoginScreen extends Component<Props, userDetails> {
                 email: "",
                 password: "",
               })
-              navigation.navigate("ForgotPassword")
+              navigation.push("ForgotPassword")
             }}
           >
             Forgot Password ?

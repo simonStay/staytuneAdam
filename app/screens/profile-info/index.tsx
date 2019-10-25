@@ -107,7 +107,7 @@ class ProfileInfo extends Component<Props, UserInformation> {
         userId: this.state.userId,
         token: this.state.token,
       }
-      navigation.navigate("SelectAvatar", { userObj: userObj })
+      navigation.push("SelectAvatar", { userObj: userObj })
     }
   }
 

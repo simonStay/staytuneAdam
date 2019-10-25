@@ -7,6 +7,8 @@ export const fontsize = {
     text: 16,
     editprofileText: dimensions.width * 0.051,
     screenTitle: dimensions.width * 0.061,
+    percentTitle: dimensions.width * 0.099,
+    smallText: dimensions.width * 0.036
 }
 
 

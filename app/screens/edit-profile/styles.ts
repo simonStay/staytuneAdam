@@ -41,6 +41,8 @@ const styles = StyleSheet.create({
         marginVertical: 20,
         backgroundColor: color.text,
         alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     profilePic: {
         width: dimensions.width / 2 - 60,

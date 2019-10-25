@@ -147,7 +147,7 @@ class SetBudget extends Component<Props, UserInformation, extrainfo> {
                 await this.props.setBudgeInfo(setTravelBudget)
                 await this.props.setTravelPreferences(setTravelBudget)
                 if (this.props.travel.travelPreferenceInfo.status == "Success") {
-                    this.props.navigation.navigate('SetInitialInterest')
+                    this.props.navigation.push('SetInitialInterest')
 
                 } else {
                     {
@@ -184,7 +184,7 @@ class SetBudget extends Component<Props, UserInformation, extrainfo> {
                 <GoldBarView />
                 <KeyboardAwareScrollView ref="scrollView" resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled={true}>
 
-                    <Text style={styles.textStyle}>
+                    <Text style={[styles.textStyle, { marginBottom: dimensions.width * 0.026 }]}>
                         Select your travel date ?
                     </Text>
                     <DatePicker

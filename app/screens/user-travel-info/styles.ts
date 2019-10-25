@@ -49,12 +49,15 @@ const styles = StyleSheet.create({
         borderRadius: (dimensions.width / 2.6 - 60) / 2,
         marginHorizontal: 20,
         //marginTop: 10,
-        backgroundColor: color.text,
+        alignItems: 'center',
+        justifyContent: 'center',
+
     },
     profilePic: {
         width: dimensions.width / 2.6 - 60,
         height: dimensions.width / 2.6 - 60,
         borderRadius: (dimensions.width / 2.6 - 60) / 2,
+        backgroundColor: color.background
     },
     initialText: {
         color: color.text,
@@ -70,6 +73,7 @@ const styles = StyleSheet.create({
         color: color.text,
         fontSize: 25,
         alignSelf: 'center',
+        textAlign: 'center',
         fontFamily: "OpenSans-Semibold",
         textShadowColor: color.textColor,
         textShadowOffset: { width: 1, height: 1 },
@@ -79,13 +83,14 @@ const styles = StyleSheet.create({
         color: "blue",
         fontSize: 19,
         alignSelf: 'center',
+        textAlign: 'center',
         fontFamily: "OpenSans-Semibold",
     },
     line: {
         width: dimensions.width / 2,
         alignSelf: 'center',
         height: 1,
-        backgroundColor: color.ImageBackgroundColor,
+        backgroundColor: color.storybookDarkBg,
         marginTop: 3,
         marginBottom: 10
     },

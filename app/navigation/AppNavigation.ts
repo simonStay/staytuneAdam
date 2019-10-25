@@ -25,6 +25,8 @@ import OTPScreen from "../screens/otp-screen"
 import ChangePassword from "../screens/change-password"
 
 import EditProfile from "../screens/edit-profile"
+import EditBudget from "../screens/edit-budget"
+
 
 const stackNav = createStackNavigator(
   {
@@ -40,6 +42,7 @@ const stackNav = createStackNavigator(
     TravelPreference: { screen: TravelPreference },
     SetInitialInterest: { screen: SetInitialInterest },
     SetBudget: { screen: SetBudget },
+    EditBudget: { screen: EditBudget },
     OTPScreen: { screen: OTPScreen },
     ChangePassword: { screen: ChangePassword },
   },

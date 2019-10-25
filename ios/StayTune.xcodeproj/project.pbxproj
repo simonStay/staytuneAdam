@@ -47,6 +47,7 @@
 		D5571925469745D9942B3AF2 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 69A778F0F417440F97DD7731 /* Octicons.ttf */; };
 		D9DCD6F3811F4618B10F6F51 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7509DF9DEAC24DB68B19FE65 /* AntDesign.ttf */; };
 		DB1623AC2356DE7900BED264 /* libReact-RCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB1623AB2356DE7900BED264 /* libReact-RCTBlob.a */; };
+		DB16E30A2361B3D40089F435 /* libreact-native-image-picker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB16E3092361B3D40089F435 /* libreact-native-image-picker.a */; };
 		DB4D79C92345BAC300406802 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB4D79BF2345BAB800406802 /* OpenSans-BoldItalic.ttf */; };
 		DB4D79CA2345BAC300406802 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB4D79C02345BAC200406802 /* OpenSans-LightItalic.ttf */; };
 		DB4D79CB2345BAC300406802 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB4D79C12345BAC200406802 /* OpenSans-ExtraBold.ttf */; };
@@ -144,6 +145,7 @@
 		D35990A82B6C4B8B855F2A6D /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Medium.ttf"; path = "../app/theme/fonts/Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		D564B4AA68D74156825F6563 /* Montserrat-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-BoldItalic.ttf"; path = "../app/theme/fonts/Montserrat-BoldItalic.ttf"; sourceTree = "<group>"; };
 		DB1623AB2356DE7900BED264 /* libReact-RCTBlob.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-RCTBlob.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB16E3092361B3D40089F435 /* libreact-native-image-picker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-image-picker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB4D79BF2345BAB800406802 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-BoldItalic.ttf"; path = "../app/theme/fonts/OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		DB4D79C02345BAC200406802 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-LightItalic.ttf"; path = "../app/theme/fonts/OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
 		DB4D79C12345BAC200406802 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-ExtraBold.ttf"; path = "../app/theme/fonts/OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB16E30A2361B3D40089F435 /* libreact-native-image-picker.a in Frameworks */,
 				DB1623AC2356DE7900BED264 /* libReact-RCTBlob.a in Frameworks */,
 				DBFE081C23421C0C004492EC /* libreact-native-google-maps.a in Frameworks */,
 				DBFE081A23421C03004492EC /* libreact-native-maps.a in Frameworks */,
@@ -239,6 +242,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DB16E3092361B3D40089F435 /* libreact-native-image-picker.a */,
 				DB1623AB2356DE7900BED264 /* libReact-RCTBlob.a */,
 				DBFE081B23421C0C004492EC /* libreact-native-google-maps.a */,
 				DBFE081923421C03004492EC /* libreact-native-maps.a */,

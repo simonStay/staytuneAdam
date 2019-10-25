@@ -110,7 +110,7 @@ class Register extends Component<Props, userDetails> {
               {
                 text: "OK",
                 onPress: () => {
-                  self.props.navigation.navigate("OTPScreen", {
+                  self.props.navigation.push("OTPScreen", {
                     intialUser: true,
                     previousScreen: "register",
                     id: this.props.user.id,
@@ -128,7 +128,7 @@ class Register extends Component<Props, userDetails> {
         }, 200)
       }
       console.log("state_user_123:", this.props.user)
-      // this.props.navigation.navigate('Login')
+      // this.props.navigation.push('Login')
     }
   }
 
@@ -181,7 +181,7 @@ class Register extends Component<Props, userDetails> {
             Already have an account ?{" "}
             <Text
               onPress={() => {
-                navigation.navigate("Login")
+                navigation.push("Login")
                 this.setState({
                   fullName: "",
                   email: "",

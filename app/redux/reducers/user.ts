@@ -9,6 +9,8 @@ import {
   SIGN_OUT,
 } from "../actions/user"
 
+import travel from './travel'
+
 export default function user(state = {}, action) {
   console.log("action_123:", action)
   switch (action.type) {

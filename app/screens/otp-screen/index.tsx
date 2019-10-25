@@ -33,8 +33,8 @@ class OTPScreen extends Component<Props, userDetails> {
       this.props.navigation.state.params.previousScreen === "register"
         ? await this.props.user.user.register.otp
         : this.props.navigation.state.params.previousScreen === "Login"
-        ? await this.props.user.user.login.otp
-        : await this.props.user.user.passwordCode.otp
+          ? await this.props.user.user.login.otp
+          : await this.props.user.user.passwordCode.otp
     console.log("user_otp", JSON.stringify(OTPValue))
     if (OTPValue == this.state.OTP) {
       if (
@@ -54,7 +54,7 @@ class OTPScreen extends Component<Props, userDetails> {
                 {
                   text: "OK",
                   onPress: () => {
-                    self.props.navigation.navigate("Login")
+                    self.props.navigation.push("Login")
                   },
                 },
               ],
@@ -63,7 +63,7 @@ class OTPScreen extends Component<Props, userDetails> {
           }, 100)
         }
       } else {
-        this.props.navigation.navigate("ChangePassword")
+        this.props.navigation.push("ChangePassword")
       }
     } else {
       console.log("OTPValue", OTPValue, "_OTP", this.state.OTP)

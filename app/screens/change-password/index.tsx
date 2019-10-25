@@ -52,7 +52,7 @@ class ChangePasswordScreen extends Component<Props, userDetails> {
       console.log("userInfo", JSON.stringify(this.props.user))
       try {
         if (this.props.user.user.userProfileInfo.status == "success") {
-          this.props.navigation.navigate("Login")
+          this.props.navigation.push("Login")
         } else {
           {
             /*This is Temporary solution */

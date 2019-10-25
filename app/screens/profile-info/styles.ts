@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native"
-import { color, dimensions, fontsize } from "../../theme"
+import { color, dimensions, fontsize, spacing } from "../../theme"
 
 const styles = StyleSheet.create({
     container: {
@@ -19,13 +19,11 @@ const styles = StyleSheet.create({
         fontFamily: "OpenSans",
     },
     wallpaper: { flex: 1 },
-    header: { backgroundColor: color.primaryColor, height: 88 },
+    header: { backgroundColor: color.primaryColor },
     headerTitle: {
-        fontSize: 24,
         color: color.headerTitle,
-        alignSelf: 'center',
-        marginTop: 15,
-        fontFamily: "OpenSans-Semibold"
+        fontFamily: "OpenSans-Semibold",
+        marginRight: spacing[3]
     },
     scrollContainer: { flex: 1 },
     button: {

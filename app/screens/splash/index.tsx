@@ -20,17 +20,17 @@ class Splash extends Component<Props, {}> {
       if (self.props.user.login !== undefined && self.props.user.login.verified !== undefined) {
         // alert("login")
         if (self.props.user.login.verified && self.props.user.login.profilePic != "") {
-          self.props.navigation.navigate("MainScreen", {
+          self.props.navigation.push("MainScreen", {
             userId: self.props.user.login.id,
             token: self.props.user.login.token,
             tabId: 2,
           })
         } else {
-          self.props.navigation.navigate("Login")
+          self.props.navigation.push("Login")
         }
       } else {
         // alert("else")
-        self.props.navigation.navigate("Login")
+        self.props.navigation.push("Login")
       }
     }, 3000)
   }

@@ -24,15 +24,6 @@ interface categoriesInfo {
   visible: boolean
 }
 
-const TravelCategories = [
-  { id: 0, categoryname: "Business", categoryPic: "https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Falejandrocremades%2Ffiles%2F2018%2F07%2Fdesk-3139127_1920-1200x773.jpg" },
-  { id: 1, categoryname: "Shopping", categoryPic: "https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fspecials-images.forbesimg.com%2Fdam%2Fimageserve%2F1138257321%2F960x0.jpg%3Ffit%3Dscale" },
-  { id: 2, categoryname: "Adventure", categoryPic: "https://images.pexels.com/photos/372098/pexels-photo-372098.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" },
-  { id: 3, categoryname: "Family Friends", categoryPic: "https://thumbs.dreamstime.com/z/family-friends-sitting-dining-table-59872527.jpg" },
-  { id: 4, categoryname: "Museum", categoryPic: "https://www.liveriga.com/userfiles/images/ko-darit/muzeji-un-galerijas/visi-muzeji/latvijas-nacionalais-makslas-muzejs/5.jpg?w=780&mode=3:2|crop" },
-  { id: 5, categoryname: "Entertainment", categoryPic: "http://www.dailyentertainment.us/wp-content/uploads/2018/09/Hollywood-The-Entertainment-Capital-of-the-World.jpg" },
-]
-
 class TravelPreference extends Component<Props, categoriesInfo> {
   constructor(props: Props) {
     super(props)
@@ -61,6 +52,7 @@ class TravelPreference extends Component<Props, categoriesInfo> {
   }
 
   async onSelectedPreference(preference) {
+    console.log('onSelectedPreference', JSON.stringify(preference))
     let count = 0
     if (this.state.selectedPrefenceList.length == 0) {
       this.state.selectedPrefenceList.push(preference.name)
@@ -84,7 +76,7 @@ class TravelPreference extends Component<Props, categoriesInfo> {
   }
 
   onNext() {
-    this.props.navigation.navigate('SetBudget')
+    this.props.navigation.push('SetBudget')
   }
 
   renderItem = ({ item }) => {
@@ -116,13 +108,6 @@ class TravelPreference extends Component<Props, categoriesInfo> {
         >
           <View style={styles.transparentView} />
         </ImageLoad>
-
-
-        {/* <ImageBackground source={{ uri: item.categoryPic }} style={styles.listImage} > */}
-        {/* <View style={styles.transparentView} /> */}
-        {/* </ImageBackground> */}
-
-
         <View style={styles.elevateView}>
           {ImageView}
           <Text style={styles.categoryText}>{item.name}</Text>
@@ -156,7 +141,7 @@ class TravelPreference extends Component<Props, categoriesInfo> {
             </View>
           </Button>) : (null)}
         <AnimatedLoader
-          visible={this.props.travel.loader}
+          visible={this.state.visible}
           overlayColor="rgba(255,255,255,0.75)"
           source={require("./../loader.json")}
           animationStyle={styles.lottie}

@@ -140,7 +140,7 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
       })
     } else if (params == "Signout") {
       await this.props.Signout()
-      this.props.navigation.navigate("Login")
+      this.props.navigation.push("Login")
     }
     this.drawer._root.close()
   }

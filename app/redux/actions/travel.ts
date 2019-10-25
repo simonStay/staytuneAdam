@@ -29,6 +29,7 @@ export function travelPreferenceTypes() {
       payload: body,
     })
   }
+
 }
 
 export function selectedTravelPreferences(preferences) {

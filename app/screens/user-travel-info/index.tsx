@@ -13,171 +13,199 @@ import { userSavedLocations } from "../../redux/actions/travel"
 
 import { connect } from "react-redux"
 import SavedLocations from "../saved-locations"
+import BudgetInfo from "../budget-info"
+
+import ImageLoad from 'react-native-image-placeholder';
 
 interface Props {
-  navigation: NavigationScreenProp<NavigationState>
-  tabId: any
-  userSavedLocations: any
-  getUserDetails: any
-  userInfo: any
-  handleSelectedValue: any
+    navigation: NavigationScreenProp<NavigationState>
+    tabId: any
+    userSavedLocations: any
+    getUserDetails: any
+    userInfo: any
+    handleSelectedValue: any
+    onRef: any
 }
 interface UserInformation {
-  selectedTabId: any
-  fullName: string
-  firstName: string
-  lastName: string
-  email: string
-  city: string
-  state: string
-  zip: string
-  profilePic: string
+    selectedTabId: any
+    fullName: string
+    firstName: string
+    lastName: string
+    email: string
+    city: string
+    state: string
+    zip: string
+    profilePic: string
 }
 
 const profilePic =
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlsjY5BTaQA9ourJ7KW1PDagYVjryOF51notG3PPlaPM3-3am30w"
+    "https://leics-fire.gov.uk/wp-content/uploads/2017/04/person-placeholder-300x300.png"
 const TabsList = [
-  { id: 0, tab: "PROFILE INFO" },
-  { id: 1, tab: "BUDGET INFO" },
-  { id: 2, tab: "SAVED LOCATIONS" },
+    { id: 0, tab: "PROFILE INFO" },
+    { id: 1, tab: "BUDGET INFO" },
+    { id: 2, tab: "SAVED LOCATIONS" },
 ]
 
 class UserTravelInfo extends Component<Props, UserInformation> {
-  constructor(props: Props) {
-    super(props)
-    this.state = {
-      selectedTabId: this.props.tabId == undefined ? 0 : this.props.tabId,
-      profilePic: profilePic,
-      fullName: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      city: "",
-      state: "",
-      zip: "",
-    }
-  }
-
-  async componentDidMount() {
-    try {
-      let userDetails = await this.props.getUserDetails(
-        this.props.userInfo.id,
-        this.props.userInfo.token,
-      )
-      console.log("userDetails_profileinfoscreen", userDetails.payload)
-
-      this.setState({
-        profilePic: userDetails.payload.profilePic,
-        fullName: userDetails.payload.firstname + " " + userDetails.payload.lastname,
-        firstName: userDetails.payload.firstname,
-        lastName: userDetails.payload.lastname,
-        email: userDetails.payload.lastname,
-        city: userDetails.payload.city,
-        state: userDetails.payload.state,
-        zip: userDetails.payload.zip,
-      })
-      let userId = this.props.user.login.id
-      console.log("userId", userId)
-      let getUserSavedLocations = await this.props.userSavedLocations(userId)
-      console.log("getUserSavedLocations", getUserSavedLocations.payload.length)
-      if (this.props.travel.loader == false && getUserSavedLocations.payload.length === 0) {
-        // alert("zero")
-        if (this.state.selectedTabId != 0 && this.state.selectedTabId != 1) {
-          setTimeout(() => {
-            this.props.handleSelectedValue()
-          }, 100)
+    constructor(props: Props) {
+        super(props)
+        this.state = {
+            selectedTabId: this.props.tabId == undefined ? 0 : this.props.tabId,
+            profilePic: profilePic,
+            fullName: "",
+            firstName: "",
+            lastName: "",
+            email: "",
+            city: "",
+            state: "",
+            zip: "",
         }
-      }
-    } catch (error) {
-      console.log("error_profileinfoscreen", error)
     }
-  }
 
-  selectedTab(value) {
-    this.setState({
-      selectedTabId: this.props.tabId,
-    })
+    async componentDidMount() {
+        try {
 
-    this.setState({
-      selectedTabId: value.id,
-    })
-    // console.log('onTab_123:', value)
-  }
+            let userDetails = await this.props.getUserDetails(
+                this.props.userInfo.id,
+                this.props.userInfo.token,
+            )
+            console.log("userDetails_profileinfoscreen", userDetails.payload)
 
-  renderProfileInfo() {
-    let userInfoList = []
-    let userDetails = [
-      { key: "Email", value: this.state.email },
-      { key: "City", value: this.state.city },
-      { key: "State", value: this.state.state },
-      { key: "Zip", value: this.state.zip },
-    ]
+            this.setState({
+                profilePic: userDetails.payload.profilePic,
+                fullName: userDetails.payload.firstname + " " + userDetails.payload.lastname,
+                firstName: userDetails.payload.firstname,
+                lastName: userDetails.payload.lastname,
+                email: userDetails.payload.email,
+                city: userDetails.payload.city,
+                state: userDetails.payload.state,
+                zip: userDetails.payload.zip,
+            })
 
-    userDetails.map((res, i) => {
-      userInfoList.push(
-        <View>
-          <View>
-            <Text style={styles.userInfoUpperText}>{res.value}</Text>
-            <Text style={styles.userInfoBottomText}>{res.key}</Text>
-          </View>
-          {i == userDetails.length - 1 ? null : <View style={styles.line}></View>}
-        </View>,
-      )
-    })
-    return <View style={{ marginTop: dimensions.height / 7.6 }}>{userInfoList}</View>
-  }
+            let userId = this.props.user.login.id
+            console.log("userId", userId)
+            let getUserSavedLocations = await this.props.userSavedLocations(userId)
+            console.log("getUserSavedLocations", getUserSavedLocations.payload.length)
+            if (this.props.travel.loader == false && getUserSavedLocations.payload.length === 0) {
+                // alert("zero")
+                if (this.state.selectedTabId != 0 && this.state.selectedTabId != 1) {
+                    setTimeout(() => {
+                        this.props.handleSelectedValue()
+                    }, 100)
+                }
+            }
+            // this.props.onRef(this)
+        } catch (error) {
+            console.log("error_profileinfoscreen", error)
+        }
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <LinearGradient
-          start={{ x: 0.0, y: 0.0 }}
-          end={{ x: 0.0, y: 1.0 }}
-          locations={[0, 0.5, 1]}
-          colors={[color.primaryColor, color.primaryColor, "#00000010"]}
-          style={{ width: dimensions.width, height: dimensions.width / 3.91 }}
-        >
-          <View style={styles.userContainer}>
-            <View style={styles.leftContainer}>
-              <View style={styles.profilePicView}>
-                <Image source={{ uri: this.state.profilePic }} style={styles.profilePic} />
-              </View>
+    }
+
+    componentWillUnmount() {
+        // this.props.onRef(undefined)
+    }
+
+    selectedTab(value) {
+        this.setState({
+            selectedTabId: this.props.tabId,
+        })
+
+        this.setState({
+            selectedTabId: value.id,
+        })
+        // console.log('onTab_123:', value)
+    }
+
+    onClickRow(item) {
+        this.props.navigation.push("EditBudget", { "budgetInfo": item })
+        // alert(JSON.stringify(item))
+    }
+
+    renderProfileInfo() {
+        let userInfoList = []
+        let userDetails = [
+            { key: "Email", value: this.state.email },
+            { key: "City", value: this.state.city },
+            { key: "State", value: this.state.state },
+            { key: "Zip", value: this.state.zip },
+        ]
+
+        userDetails.map((res, i) => {
+            userInfoList.push(
+                <View style={{ marginHorizontal: dimensions.width * 0.03 }}>
+                    <View>
+                        <Text style={styles.userInfoUpperText}>{res.value}</Text>
+                        <Text style={styles.userInfoBottomText}>{res.key}</Text>
+                    </View>
+                    {i == userDetails.length - 1 ? null : <View style={styles.line}></View>}
+                </View>,
+            )
+        })
+        return <View style={{ marginTop: dimensions.height / 7.6 }}>{userInfoList}</View>
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <LinearGradient
+                    start={{ x: 0.0, y: 0.0 }}
+                    end={{ x: 0.0, y: 1.0 }}
+                    locations={[0, 0.5, 1]}
+                    colors={[color.primaryColor, color.primaryColor, "#00000010"]}
+                    style={{ width: dimensions.width, height: dimensions.width / 3.91 }}
+                >
+                    <View style={styles.userContainer}>
+                        <View style={styles.leftContainer}>
+                            <View style={styles.profilePicView}>
+                                <ImageLoad
+                                    isShowActivity={false}
+                                    style={styles.profilePic}
+                                    borderRadius={styles.profilePic.borderRadius}
+                                    loadingStyle={{ size: 'large', color: 'blue' }}
+                                    source={{ uri: this.state.profilePic }}
+                                    placeholderSource={require('./../../assests/person-placeholder.png')}
+                                    placeholderStyle={styles.profilePic}
+                                />
+                            </View>
+                        </View>
+                        <View style={styles.rightContainer}>
+                            <Text style={styles.nameText}>{this.state.fullName}</Text>
+                            {/* <Text style={styles.editText}>EDIT PROFILE</Text>  */}
+                        </View>
+                    </View>
+                </LinearGradient>
+                <Tabs
+                    TabsList={TabsList}
+                    // tabItemColor={"orange"}
+                    // separatorColor={"black"}
+                    // selectedTabColor={"yellow"}
+                    // selectedTabLineColor={"black"}
+                    onPress={value => this.selectedTab(value)}
+                    selectedTabId={this.state.selectedTabId}
+                />
+                {this.state.selectedTabId == 0 ? (
+                    <ScrollView contentContainerStyle={{}}>{this.renderProfileInfo()}</ScrollView>
+                ) : this.state.selectedTabId == 1 ? (
+                    <ScrollView contentContainerStyle={styles.scrollContainer}>
+                        {/* <Text style={styles.initialText}>COMING SOON....</Text> */}
+                        <BudgetInfo navigation={this.props.navigation} getBudgetInfo={this.onClickRow.bind(this)} />
+                    </ScrollView>
+                ) : (
+                            <SavedLocations navigation={this.props.navigation} />
+                        )}
             </View>
-            <View style={styles.rightContainer}>
-              <Text style={styles.nameText}>{this.state.fullName}</Text>
-              {/* <Text style={styles.editText}>EDIT PROFILE</Text>  */}
-            </View>
-          </View>
-        </LinearGradient>
-        <Tabs
-          TabsList={TabsList}
-          onPress={value => this.selectedTab(value)}
-          selectedTabId={this.state.selectedTabId}
-        />
-        {this.state.selectedTabId == 0 ? (
-          <ScrollView contentContainerStyle={{}}>{this.renderProfileInfo()}</ScrollView>
-        ) : this.state.selectedTabId == 1 ? (
-          <ScrollView contentContainerStyle={styles.scrollContainer}>
-            <Text style={styles.initialText}>COMING SOON....</Text>
-          </ScrollView>
-        ) : (
-          <ScrollView contentContainerStyle={styles.scrollContainer}>
-            <SavedLocations />
-          </ScrollView>
-        )}
-      </View>
-    )
-  }
+        )
+    }
 }
 
 export default connect(
-  state => ({
-    user: state.user,
-    userInfo: state.user.login,
-    travel: state.travel,
-  }),
-  {
-    getUserDetails,
-    userSavedLocations,
-  },
+    state => ({
+        user: state.user,
+        userInfo: state.user.login,
+        travel: state.travel,
+    }),
+    {
+        getUserDetails,
+        userSavedLocations,
+    },
 )(UserTravelInfo)

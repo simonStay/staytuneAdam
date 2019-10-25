@@ -53,7 +53,7 @@ class ForgotPasswordScreen extends Component<Props, userDetails> {
       let value = await this.props.ForgotPassword(email)
       console.log("value_123", JSON.stringify(value))
       if (value.payload.otp !== undefined) {
-        this.props.navigation.navigate("OTPScreen")
+        this.props.navigation.push("OTPScreen")
       } else {
         setTimeout(() => {
           Alert.alert(

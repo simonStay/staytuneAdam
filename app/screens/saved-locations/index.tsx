@@ -3,6 +3,7 @@ import { View, FlatList, TouchableOpacity, Image } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 import styles from "./styles"
 import { Text } from "../../components/text"
+import { CardView } from "../../components/card-view"
 import { travelPreferenceTypes, selectedTravelPreferences } from "../../redux/actions/travel"
 import { connect } from "react-redux"
 import AnimatedLoader from "react-native-animated-loader"
@@ -38,19 +39,21 @@ class SavedLocations extends Component<Props, savedLocationsInfo> {
   renderItem = ({ item }) => {
     return (
       <TouchableOpacity>
-        <View style={styles.elevateView}>
-          <Image source={require("./../../assests/austin.jpg")} style={styles.elevateView} />
-        </View>
-        <View style={styles.footer}>
-          <View style={styles.footerRow}>
-            <View style={styles.LeftFooter}>
-              <Text style={styles.locationText}>City: {item.city}</Text>
-            </View>
-            <View style={styles.LeftFooter}>
-              <Text style={styles.locationText}>Budget: ${item.totalBudget}</Text>
+        <CardView>
+          <View style={styles.elevateView}>
+            <Image source={require("./../../assests/austin.jpg")} style={styles.elevateView} />
+          </View>
+          <View style={styles.footer}>
+            <View style={styles.footerRow}>
+              <View style={styles.LeftFooter}>
+                <Text style={styles.locationText}>City: {item.city}</Text>
+              </View>
+              <View style={styles.LeftFooter}>
+                <Text style={styles.locationText}>Budget: ${item.totalBudget}</Text>
+              </View>
             </View>
           </View>
-        </View>
+        </CardView>
       </TouchableOpacity>
     )
   }
@@ -60,11 +63,13 @@ class SavedLocations extends Component<Props, savedLocationsInfo> {
     return (
       <View style={styles.container}>
         {this.props.travel.savedLocations != undefined ? (
-          <FlatList
-            data={this.props.travel.savedLocations}
-            extraData={this.state}
-            renderItem={this.renderItem.bind(this)}
-          />
+          <View style={{ marginHorizontal: 10 }}>
+            <FlatList
+              data={this.props.travel.savedLocations}
+              extraData={this.state}
+              renderItem={this.renderItem.bind(this)}
+            />
+          </View>
         ) : null}
         <AnimatedLoader
           visible={this.props.travel.loader}

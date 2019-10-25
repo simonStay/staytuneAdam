@@ -11,6 +11,7 @@ import { Switch } from "../../components/switch"
 import { Toggle } from "react-powerplug"
 import { Icon } from "../../components/icon"
 
+import _ from 'lodash';
 import { connect } from "react-redux"
 import AnimatedLoader from "react-native-animated-loader"
 import { updateTravelPreferences } from "../../redux/actions/travel"
@@ -59,58 +60,82 @@ class SetInitialInterest extends Component<Props, UserInformation> {
   }
 
   async onNext() {
-    // console.log("userInitialInterests_123" + JSON.stringify(this.state.categories))
-    try {
-      let setTravelBudget = {
-        preferenceId: this.props.travel.travelPreferenceInfo.id,
-        selectedTravelPreferences: this.props.travel.travelInfo.selectedTravelPreferences,
-        personsCount: parseInt(this.props.travel.travelInfo.personsCount),
-        daysCount: parseInt(this.props.travel.travelInfo.daysCount),
-        totalBudget: parseInt(this.props.travel.travelInfo.totalBudget),
-        city: this.props.travel.travelInfo.city,
-        userId: this.props.user.login.id,
-        locationImage: this.props.travel.travelInfo.locationImage,
-        travelDate: this.props.travel.travelInfo.travelDate,
-        selectedCategories: this.state.categories,
+    //console.log("userInitialInterests_123" + JSON.stringify(this.state.categories))
+    var selectedSubCategorires = []
+    this.state.categories.map((res, i) => {
+      res.subCategories.map((value, j) => {
+        if (value.selected == true) {
+          selectedSubCategorires.push({ name: value.categoryname, selected: value.selected })
+        }
+        console.log("selected_switches:", value.selected)
+      })
+    })
+
+    console.log("selectedSubCategorires_123:", selectedSubCategorires)
+    console.log("selectedSubCategorires_123.length:", selectedSubCategorires.length)
+
+    if (selectedSubCategorires.length == 0) {
+      Alert.alert(
+        "Stay Tune",
+        "Please choose some subcategories",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+        { cancelable: false },
+      )
+    } else {
+
+      try {
+        let setTravelBudget = {
+          preferenceId: this.props.travel.travelPreferenceInfo.id,
+          selectedTravelPreferences: this.props.travel.travelInfo.selectedTravelPreferences,
+          personsCount: parseInt(this.props.travel.travelInfo.personsCount),
+          daysCount: parseInt(this.props.travel.travelInfo.daysCount),
+          totalBudget: parseInt(this.props.travel.travelInfo.totalBudget),
+          city: this.props.travel.travelInfo.city,
+          userId: this.props.user.login.id,
+          locationImage: this.props.travel.travelInfo.locationImage,
+          travelDate: this.props.travel.travelInfo.travelDate,
+          selectedCategories: this.state.categories,
+        }
+
+        await this.props.updateTravelPreferences(setTravelBudget)
+        if (this.props.travel.updatetravelPreferenceInfo.status == "success") {
+          let self = this
+          // alert("success")
+          // setTimeout(() => {
+          //     self.props.navigation.navigate('MainSCreen')
+          // }, 100)
+          setTimeout(() => {
+            Alert.alert(
+              "Stay Tune",
+              "Created your Travel preference successfully",
+              [
+                {
+                  text: "OK",
+                  onPress: () => {
+                    this.props.navigation.push("MainScreen", { tabId: 2 })
+                  },
+                },
+              ],
+              { cancelable: false },
+            )
+          }, 100)
+        } else {
+          {
+            /*This is Temporary solution */
+          }
+          setTimeout(() => {
+            Alert.alert(
+              "Stay Tune",
+              "Something went wrong",
+              [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+              { cancelable: false },
+            )
+          }, 100)
+        }
+      } catch (error) {
+        console.log("travel_preference_error_on_next:", error)
       }
 
-      await this.props.updateTravelPreferences(setTravelBudget)
-      if (this.props.travel.updatetravelPreferenceInfo.status == "success") {
-        let self = this
-        // alert("success")
-        // setTimeout(() => {
-        //     self.props.navigation.navigate('MainSCreen')
-        // }, 100)
-        setTimeout(() => {
-          Alert.alert(
-            "Stay Tune",
-            "Created your Travel preference successfully",
-            [
-              {
-                text: "OK",
-                onPress: () => {
-                  this.props.navigation.push("MainScreen", { tabId: 2 })
-                },
-              },
-            ],
-            { cancelable: false },
-          )
-        }, 100)
-      } else {
-        {
-          /*This is Temporary solution */
-        }
-        setTimeout(() => {
-          Alert.alert(
-            "Stay Tune",
-            "Something went wrong",
-            [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-            { cancelable: false },
-          )
-        }, 100)
-      }
-    } catch (error) {
-      console.log("travel_preference_error_on_next:", error)
     }
   }
 
@@ -173,6 +198,7 @@ class SetInitialInterest extends Component<Props, UserInformation> {
         },
       )
     }
+
   }
   renderItem({ item }) {
     var count = 0
@@ -210,37 +236,37 @@ class SetInitialInterest extends Component<Props, UserInformation> {
         <View style={styles.subListView}>
           {showSublist == true
             ? item.subCategories.map((res, i) => {
-                return (
-                  <View
-                    style={[
-                      styles.subListRow,
-                      { borderBottomWidth: i === item.subCategories.length - 1 ? 0 : 1 },
-                    ]}
-                  >
-                    <View style={styles.subListLeftRow}>
-                      <Text style={styles.subcategoryText}>{res.categoryname}</Text>
-                    </View>
-                    <View style={styles.subListRightRow}>
-                      <Toggle
-                        initial={res.selected === true ? true : false}
-                        onChange={this.onToggleChange.bind(this)}
-                      >
-                        {({ on, toggle }) => (
-                          <Switch
-                            trackOnStyle={styles.trackOn}
-                            trackOffStyle={styles.trackOff}
-                            thumbOnStyle={styles.thumbOn}
-                            thumbOffStyle={styles.thumbOff}
-                            value={on}
-                            onToggle={toggle}
-                            getValue={this.toggleSwitch(item, res, toggle, on, showSublist)}
-                          />
-                        )}
-                      </Toggle>
-                    </View>
+              return (
+                <View
+                  style={[
+                    styles.subListRow,
+                    { borderBottomWidth: i === item.subCategories.length - 1 ? 0 : 1 },
+                  ]}
+                >
+                  <View style={styles.subListLeftRow}>
+                    <Text style={styles.subcategoryText}>{res.categoryname}</Text>
                   </View>
-                )
-              })
+                  <View style={styles.subListRightRow}>
+                    <Toggle
+                      initial={res.selected === true ? true : false}
+                      onChange={this.onToggleChange.bind(this)}
+                    >
+                      {({ on, toggle }) => (
+                        <Switch
+                          trackOnStyle={styles.trackOn}
+                          trackOffStyle={styles.trackOff}
+                          thumbOnStyle={styles.thumbOn}
+                          thumbOffStyle={styles.thumbOff}
+                          value={on}
+                          onToggle={toggle}
+                          getValue={this.toggleSwitch(item, res, toggle, on, showSublist)}
+                        />
+                      )}
+                    </Toggle>
+                  </View>
+                </View>
+              )
+            })
             : null}
         </View>
       </View>

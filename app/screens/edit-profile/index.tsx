@@ -1,9 +1,9 @@
 import React, { Component } from "react"
-import { View, Image, Alert } from "react-native"
+import { View, Image, Alert, TouchableOpacity, ActivityIndicator } from "react-native"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 import styles from "./styles"
-import { color } from "../../theme"
+import { color, dimensions } from "../../theme"
 import { TextField } from "../../components/text-field"
 import { Text } from "../../components/text"
 import { Button } from "../../components/button"
@@ -12,6 +12,8 @@ import ImagePicker from "react-native-image-picker"
 import { connect } from "react-redux"
 import { getUserDetails, createUserProfile } from "../../redux/actions/user"
 import AnimatedLoader from "react-native-animated-loader"
+import moment from 'moment';
+var RNS3 = require('react-native-aws3').RNS3;
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState>
@@ -28,6 +30,7 @@ interface UserInformation {
     city: string
     state: string
     zip: string
+    ImageSpinner: any
 }
 
 const profilePic = "https://pipdigz.co.uk/p3/img/placeholder-square.png"
@@ -41,6 +44,7 @@ class EditProfile extends Component<Props, UserInformation> {
             city: "",
             state: "",
             zip: "",
+            ImageSpinner: false
         }
     }
     validateZip = zip => {
@@ -170,12 +174,15 @@ class EditProfile extends Component<Props, UserInformation> {
 
     onSelectImage() {
         const options = {
-            title: "Select Profile Pic",
+            title: 'Select Profile Pic',
+            takePhotoButtonTitle: 'Take Photo',
+            chooseFromLibraryButtonTitle: 'Choose from Library',
+            quality: 0.5,
             storageOptions: {
-                skipBackup: true,
-                path: "images",
+                skipBackup: true
             },
-        }
+            allowsEditing: false
+        };
 
         ImagePicker.showImagePicker(options, response => {
             try {
@@ -189,11 +196,49 @@ class EditProfile extends Component<Props, UserInformation> {
                     console.log("User tapped custom button: ", response.customButton)
                 } else {
                     const source = { uri: response.uri }
+                    // console.log("sources_123:", source.uri)
 
-                    // You can also display the image using data:
-                    // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-                    console.log("sources_123:", source)
-                    this.setState({ avatarSource: source })
+                    //aws3 starts
+                    this.setState({ ImageSpinner: true })
+
+                    var image = source.uri;
+                    var key = moment().format('DDMMYYYYhhmmss');
+                    var file = {
+                        uri: image,
+                        name: key + '.png',
+                        type: 'image/png'
+                    };
+                    var obj = {
+                        keyPrefix: 'profile-pictures/',
+                        bucket: 'stay-tune-avatars',
+                        region: 'us-west-2',
+                        accessKey: 'AKIAVPIPZG7WBQX7KZGD ',
+                        secretKey: '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',
+                        successActionStatus: 201
+                    };
+                    RNS3.put(file, obj).then(response => {
+                        try {
+
+                            console.log("RNS3_RESPONSE:", response)
+                            if (response.status !== 201)
+                                throw new Error('Failed to upload image to S3');
+
+                            //alert("profile:"+JSON.stringify(response))
+                            var profileSource = 'https://stay-tune-avatars.s3-us-west-2.amazonaws.com/profile-pictures/' + key + '.png';
+
+                            this.setState({
+                                avatarSource: profileSource,
+                            }, () => {
+                                this.setState({ ImageSpinner: false })
+                            });
+                            console.log("AWS_PROFILE_PIC:", profileSource)
+
+                        } catch (error) {
+                            console.log("catch_images3:", error)
+                        }
+                    });
+
+                    //aws3 ends
                 }
             } catch (error) {
                 console.log("error_123:", error)
@@ -206,11 +251,21 @@ class EditProfile extends Component<Props, UserInformation> {
             <View style={styles.container}>
                 <KeyboardAwareScrollView resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled={true}>
                     <View style={styles.profilePicView}>
-                        <Image style={styles.profilePic} source={{ uri: this.state.avatarSource }} />
+                        {this.state.ImageSpinner ? (
+                            <ActivityIndicator
+                                style={{ alignSelf: 'center' }}
+                                size={"large"}
+                                color="blue"
+                            />
+                        )
+                            : this.state.avatarSource === null ? (
+                                <View style={[styles.profilePicView, { borderWidth: 0 }]} />
+                            ) : (<Image style={styles.profilePic} source={{ uri: this.state.avatarSource }} />)}
+
                     </View>
-                    {/* <TouchableOpacity onPress={this.onSelectImage.bind(this)}>
+                    <TouchableOpacity onPress={this.onSelectImage.bind(this)}>
                         <Text style={styles.changeProfileText}>Change Profile</Text>
-                    </TouchableOpacity> */}
+                    </TouchableOpacity>
                     <TextField
                         placeholder="First Name"
                         inputStyle={styles.textField}

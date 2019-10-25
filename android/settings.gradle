@@ -1,4 +1,6 @@
 rootProject.name = 'StayTune'
+include ':react-native-svg'
+project(':react-native-svg').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-svg/android')
 include ':react-native-text-gradient'
 project(':react-native-text-gradient').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-text-gradient/android')
 include ':react-native-linear-gradient'
