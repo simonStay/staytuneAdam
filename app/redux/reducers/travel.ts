@@ -1,5 +1,5 @@
 import {
-  LOADER,
+  LOADER_TRAVEL,
   TRAVEL_PREFERENCE_TYPES,
   SELECTED_TRAVEL_PREFERENCE,
   SET_TRAVEL_PREFERENCE,
@@ -46,7 +46,7 @@ export default function travel(state = {}, action) {
         loader: false,
         savedLocations: action.payload,
       }
-    case LOADER:
+    case LOADER_TRAVEL:
       return {
         ...state,
         loader: action.payload,

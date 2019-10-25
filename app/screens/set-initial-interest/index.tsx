@@ -60,82 +60,70 @@ class SetInitialInterest extends Component<Props, UserInformation> {
   }
 
   async onNext() {
-    //console.log("userInitialInterests_123" + JSON.stringify(this.state.categories))
-    var selectedSubCategorires = []
-    this.state.categories.map((res, i) => {
-      res.subCategories.map((value, j) => {
-        if (value.selected == true) {
-          selectedSubCategorires.push({ name: value.categoryname, selected: value.selected })
-        }
-        console.log("selected_switches:", value.selected)
-      })
-    })
-
-    console.log("selectedSubCategorires_123:", selectedSubCategorires)
-    console.log("selectedSubCategorires_123.length:", selectedSubCategorires.length)
-
-    if (selectedSubCategorires.length == 0) {
-      Alert.alert(
-        "Stay Tune",
-        "Please choose some subcategories",
-        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-        { cancelable: false },
-      )
-    } else {
-
-      try {
-        let setTravelBudget = {
-          preferenceId: this.props.travel.travelPreferenceInfo.id,
-          selectedTravelPreferences: this.props.travel.travelInfo.selectedTravelPreferences,
-          personsCount: parseInt(this.props.travel.travelInfo.personsCount),
-          daysCount: parseInt(this.props.travel.travelInfo.daysCount),
-          totalBudget: parseInt(this.props.travel.travelInfo.totalBudget),
-          city: this.props.travel.travelInfo.city,
-          userId: this.props.user.login.id,
-          locationImage: this.props.travel.travelInfo.locationImage,
-          travelDate: this.props.travel.travelInfo.travelDate,
-          selectedCategories: this.state.categories,
-        }
-
-        await this.props.updateTravelPreferences(setTravelBudget)
-        if (this.props.travel.updatetravelPreferenceInfo.status == "success") {
-          let self = this
-          // alert("success")
-          // setTimeout(() => {
-          //     self.props.navigation.navigate('MainSCreen')
-          // }, 100)
-          setTimeout(() => {
-            Alert.alert(
-              "Stay Tune",
-              "Created your Travel preference successfully",
-              [
-                {
-                  text: "OK",
-                  onPress: () => {
-                    this.props.navigation.push("MainScreen", { tabId: 2 })
-                  },
-                },
-              ],
-              { cancelable: false },
-            )
-          }, 100)
-        } else {
-          {
-            /*This is Temporary solution */
-          }
-          setTimeout(() => {
-            Alert.alert(
-              "Stay Tune",
-              "Something went wrong",
-              [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-              { cancelable: false },
-            )
-          }, 100)
-        }
-      } catch (error) {
-        console.log("travel_preference_error_on_next:", error)
+    // console.log("userInitialInterests_123" + JSON.stringify(this.state.categories))
+    try {
+      let setTravelBudget = {
+        preferenceId: this.props.travel.travelPreferenceInfo.id,
+        selectedTravelPreferences: this.props.travel.travelInfo.selectedTravelPreferences,
+        personsCount: parseInt(this.props.travel.travelInfo.personsCount),
+        daysCount: parseInt(this.props.travel.travelInfo.daysCount),
+        totalBudget: parseInt(this.props.travel.travelInfo.totalBudget),
+        city: this.props.travel.travelInfo.city,
+        userId: this.props.user.userProfileInfo.data.id,
+        locationImage: this.props.travel.travelInfo.locationImage,
+        travelDate: this.props.travel.travelInfo.travelDate,
+        selectedCategories: this.state.categories,
       }
 
+      await this.props.updateTravelPreferences(setTravelBudget)
+      if (this.props.travel.updatetravelPreferenceInfo.status == "success") {
+        let self = this
+        // alert("success")
+        // setTimeout(() => {
+        //     self.props.navigation.navigate('MainSCreen')
+        // }, 100)
+        setTimeout(() => {
+          Alert.alert(
+            "Stay Tune",
+            "Created your Travel preference successfully",
+            [
+              {
+                text: "OK",
+                onPress: () => {
+                  if (
+                    this.props.user.userProfileInfo.data.profilePic != "" &&
+                    this.props.user.userProfileInfo.data.profilePic != null
+                  ) {
+                    //alert("selected")
+                    this.props.navigation.push("MainScreen", {
+                      tabId: 2,
+                      selectedValue: "Saved locations",
+                      headerTitle: "",
+                    })
+                  } else {
+                    this.props.navigation.push("SelectAvatar")
+                  }
+                },
+              }
+            ],
+            { cancelable: false },
+          )
+        }, 100)
+      } else {
+        {
+          /*This is Temporary solution */
+        }
+        setTimeout(() => {
+          Alert.alert(
+            "Stay Tune",
+            "Something went wrong",
+            [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+            { cancelable: false },
+          )
+        }, 100)
+      }
+    } catch (error) {
+      console.log("travel_preference_error_on_next:", error)
     }
   }
 

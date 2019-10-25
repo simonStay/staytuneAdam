@@ -16,13 +16,13 @@ class Splash extends Component<Props, {}> {
   componentDidMount() {
     let self = this
     setTimeout(function() {
-      //console.log("Test")
       if (self.props.user.login !== undefined && self.props.user.login.verified !== undefined) {
-        // alert("login")
         if (self.props.user.login.verified && self.props.user.login.profilePic != "") {
           self.props.navigation.push("MainScreen", {
             userId: self.props.user.login.id,
             token: self.props.user.login.token,
+            selectedValue: "Start a plan",
+            headerTitle: "STAY TUNE",
             tabId: 2,
           })
         } else {

@@ -25,6 +25,7 @@ interface Props {
     userInfo: any
     handleSelectedValue: any
     onRef: any
+    user: any
 }
 interface UserInformation {
     selectedTabId: any
@@ -64,25 +65,26 @@ class UserTravelInfo extends Component<Props, UserInformation> {
 
     async componentDidMount() {
         try {
-
             let userDetails = await this.props.getUserDetails(
-                this.props.userInfo.id,
+                this.props.user.userProfileInfo.data.id,
                 this.props.userInfo.token,
             )
             console.log("userDetails_profileinfoscreen", userDetails.payload)
 
             this.setState({
-                profilePic: userDetails.payload.profilePic,
-                fullName: userDetails.payload.firstname + " " + userDetails.payload.lastname,
-                firstName: userDetails.payload.firstname,
-                lastName: userDetails.payload.lastname,
-                email: userDetails.payload.email,
-                city: userDetails.payload.city,
-                state: userDetails.payload.state,
-                zip: userDetails.payload.zip,
+                profilePic: this.props.user.userProfileInfo.data.profilePic,
+                fullName:
+                    this.props.user.userProfileInfo.data.firstname +
+                    " " +
+                    this.props.user.userProfileInfo.data.lastname,
+                firstName: this.props.user.userProfileInfo.data.firstname,
+                lastName: this.props.user.userProfileInfo.data.lastname,
+                email: this.props.user.userProfileInfo.data.email,
+                city: this.props.user.userProfileInfo.data.city,
+                state: this.props.user.userProfileInfo.data.state,
+                zip: this.props.user.userProfileInfo.data.zip,
             })
-
-            let userId = this.props.user.login.id
+            let userId = this.props.user.userProfileInfo.data.id
             console.log("userId", userId)
             let getUserSavedLocations = await this.props.userSavedLocations(userId)
             console.log("getUserSavedLocations", getUserSavedLocations.payload.length)
@@ -94,11 +96,9 @@ class UserTravelInfo extends Component<Props, UserInformation> {
                     }, 100)
                 }
             }
-            // this.props.onRef(this)
         } catch (error) {
-            console.log("error_profileinfoscreen", error)
-        }
 
+        }
     }
 
     componentWillUnmount() {

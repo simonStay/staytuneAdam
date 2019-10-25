@@ -151,6 +151,7 @@ class LoginScreen extends Component<Props, userDetails> {
           this.props.navigation.push("ProfileInfo", {
             userId: this.state.userId,
             token: this.state.token,
+            userInfo: this.props.user.login,
           })
           this.setState({
             email: "",
@@ -161,6 +162,8 @@ class LoginScreen extends Component<Props, userDetails> {
             this.props.navigation.push("MainScreen", {
               userId: this.state.userId,
               token: this.state.token,
+              selectedValue: "Start a plan",
+              headerTitle: "STAY TUNE",
             })
             this.setState({
               email: "",

@@ -10,7 +10,7 @@ export const GET_AVATAR_IMAGES = "GET_AVATAR_IMAGES"
 
 const STAYTUNELIVEURL = "https://staytune.austinconversionoptimization.com/"
 
-export function signUp(fullName, email, password) {
+export function signUp(firstname, lastname, email, password) {
   return async dispatch => {
     dispatch({
       type: LOADER,
@@ -22,7 +22,8 @@ export function signUp(fullName, email, password) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        fullname: fullName,
+        firstname: firstname,
+        lastname: lastname,
         email: email,
         password: password,
       }),
@@ -174,15 +175,7 @@ export function createUserProfile(userInfoObj) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        verified: true,
-        firstname: userInfoObj.firstname,
-        lastname: userInfoObj.lastname,
-        city: userInfoObj.city,
-        state: userInfoObj.state,
-        zip: userInfoObj.zip,
-        profilePic: userInfoObj.profilePic,
-      }),
+      body: JSON.stringify(userInfoObj),
     })
     const body = await resToBody(res)
     console.log("createUserProfile_actions:", body)

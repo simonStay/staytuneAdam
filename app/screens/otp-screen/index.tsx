@@ -49,12 +49,24 @@ class OTPScreen extends Component<Props, userDetails> {
           setTimeout(() => {
             Alert.alert(
               "Stay Tune",
-              "Your Email is verified successfully please login",
+              "Your Email is verified successfully",
               [
                 {
                   text: "OK",
-                  onPress: () => {
-                    self.props.navigation.push("Login")
+                  onPress: async () => {
+                    //self.props.navigation.navigate("Login")
+                    if (self.props.navigation.state.params.previousScreen === "Login") {
+                      self.props.navigation.push("ProfileInfo", {
+                        userId: self.props.user.login.id,
+                        token: self.props.user.login.token,
+                        userInfo: self.props.user.login,
+                      })
+                    } else {
+                      self.props.navigation.push("ProfileInfo", {
+                        userId: verifyUserResponse.payload.data.id,
+                        userInfo: verifyUserResponse.payload.data,
+                      })
+                    }
                   },
                 },
               ],
