@@ -7,7 +7,9 @@ import { color, dimensions } from "../../theme"
 import { TextField } from "../../components/text-field"
 import { Text } from "../../components/text"
 import { Button } from "../../components/button"
+import { RadioButtonView } from "../../components/radio-button"
 import ImagePicker from "react-native-image-picker"
+import ImageResizer from 'react-native-image-resizer';
 
 import { connect } from "react-redux"
 import { getUserDetails, createUserProfile } from "../../redux/actions/user"
@@ -27,12 +29,17 @@ interface UserInformation {
     avatarSource: any
     firstName: string
     lastName: string
-    city: string
+    age: string
     state: string
     zip: string
     ImageSpinner: any
+    resizeImage: any
+    marialStatus: any
+    martialValue: any
+    martialIndex: number
+    marialStatusSelected: string
 }
-
+let marialStatus = [{ label: "Single", value: 0 }, { label: "Married", value: 1 }]
 const profilePic = "https://pipdigz.co.uk/p3/img/placeholder-square.png"
 class EditProfile extends Component<Props, UserInformation> {
     constructor(props: Props) {
@@ -41,10 +48,15 @@ class EditProfile extends Component<Props, UserInformation> {
             avatarSource: profilePic,
             firstName: "",
             lastName: "",
-            city: "",
+            age: "",
             state: "",
             zip: "",
-            ImageSpinner: false
+            ImageSpinner: false,
+            resizeImage: "",
+            marialStatus: marialStatus,
+            martialValue: -1,
+            martialIndex: -1,
+            marialStatusSelected: ""
         }
     }
     validateZip = zip => {
@@ -55,15 +67,30 @@ class EditProfile extends Component<Props, UserInformation> {
         console.log("user_info__info_123:", this.props.user)
         try {
             let userDetails = await this.props.getUserDetails(
-                this.props.userInfo.id,
-                this.props.userInfo.token,
+                this.props.user.login.id,
+                this.props.user.login.token,
             )
             console.log("getUserDetails______123", JSON.stringify(this.props.userDetails))
+
+            if (this.props.userDetails.maritalStatus == "Single") {
+                await this.setState({
+                    martialValue: this.props.userDetails.maritalStatus,
+                    martialIndex: 0,
+                    marialStatusSelected: this.state.marialStatus[0].label
+                })
+            } else {
+                await this.setState({
+                    martialValue: this.props.userDetails.maritalStatus,
+                    martialIndex: 1,
+                    marialStatusSelected: this.state.marialStatus[1].label
+                })
+            }
+            console.log("marialStatusSelected:", this.state.marialStatusSelected)
             await this.setState({
                 avatarSource: this.props.userDetails.profilePic,
                 firstName: this.props.userDetails.firstname,
                 lastName: this.props.userDetails.lastname,
-                city: this.props.userDetails.city,
+                age: this.props.userDetails.age,
                 state: this.props.userDetails.state,
                 zip: this.props.userDetails.zip,
             })
@@ -80,7 +107,7 @@ class EditProfile extends Component<Props, UserInformation> {
                 avatarSource: this.props.userInfo.profilePic,
                 firstName: nextProps.userProfileInfo.data.firstname,
                 lastName: nextProps.userProfileInfo.data.lastname,
-                city: nextProps.userProfileInfo.data.city,
+                age: nextProps.userProfileInfo.data.age,
                 state: nextProps.userProfileInfo.data.state,
                 zip: nextProps.userProfileInfo.data.zip,
             })
@@ -104,10 +131,17 @@ class EditProfile extends Component<Props, UserInformation> {
                 [{ text: "OK", onPress: () => console.log("OK Pressed") }],
                 { cancelable: false },
             )
-        } else if (this.state.city == "" || this.state.city == null) {
+        } else if (this.state.age == "" || this.state.age == null) {
             Alert.alert(
                 "Stay Tune",
-                "Please enter city",
+                "Please enter age",
+                [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+                { cancelable: false },
+            )
+        } else if (this.state.marialStatusSelected == "" || this.state.marialStatusSelected == null) {
+            Alert.alert(
+                "Stay Tune",
+                "Please select your Marial status",
                 [{ text: "OK", onPress: () => console.log("OK Pressed") }],
                 { cancelable: false },
             )
@@ -136,12 +170,13 @@ class EditProfile extends Component<Props, UserInformation> {
             let userInfoObj = {
                 firstname: this.state.firstName,
                 lastname: this.state.lastName,
-                city: this.state.city,
+                age: parseInt(this.state.age),
                 state: this.state.state,
                 zip: this.state.zip,
                 userId: this.props.userInfo.id,
                 token: this.props.userInfo.token,
                 profilePic: this.state.avatarSource,
+                maritalStatus: this.state.marialStatusSelected,
             }
 
             try {
@@ -172,7 +207,7 @@ class EditProfile extends Component<Props, UserInformation> {
         }
     }
 
-    onSelectImage() {
+    async onSelectImage() {
         const options = {
             title: 'Select Profile Pic',
             takePhotoButtonTitle: 'Take Photo',
@@ -184,7 +219,7 @@ class EditProfile extends Component<Props, UserInformation> {
             allowsEditing: false
         };
 
-        ImagePicker.showImagePicker(options, response => {
+        ImagePicker.showImagePicker(options, async (response) => {
             try {
                 console.log("Response = ", response)
 
@@ -198,10 +233,23 @@ class EditProfile extends Component<Props, UserInformation> {
                     const source = { uri: response.uri }
                     // console.log("sources_123:", source.uri)
 
+                    if (response.width > 1000) {
+                        await ImageResizer.createResizedImage(source.uri, 600, 600, 'PNG', 100)
+                            .then(async (imgResponse) => {
+                                await this.setState({ resizeImage: imgResponse.uri })
+                            })
+                            .catch((err) => {
+                                console.log("ImageResizer_error:", err)
+                            });
+                    } else {
+                        await this.setState({ resizeImage: source.uri })
+                    }
+
                     //aws3 starts
                     this.setState({ ImageSpinner: true })
+                    console.log("this.state.resizeImage_123:", this.state.resizeImage)
 
-                    var image = source.uri;
+                    var image = this.state.resizeImage;
                     var key = moment().format('DDMMYYYYhhmmss');
                     var file = {
                         uri: image,
@@ -246,6 +294,14 @@ class EditProfile extends Component<Props, UserInformation> {
         })
     }
 
+    onPress(value, index) {
+        this.setState({
+            martialValue: value,
+            martialIndex: index,
+            marialStatusSelected: this.state.marialStatus[value].label,
+        })
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -280,12 +336,18 @@ class EditProfile extends Component<Props, UserInformation> {
                         onChangeText={value => this.setState({ lastName: value })}
                         value={this.state.lastName}
                     />
+                    <RadioButtonView
+                        marialStatus={this.state.marialStatus}
+                        selectedValue={this.state.martialValue}
+                        selectedIndex={this.state.martialIndex}
+                        onPress={this.onPress.bind(this)}
+                    />
                     <TextField
-                        placeholder="City"
+                        placeholder="Age"
                         inputStyle={styles.textField}
                         placeholderTextColor={color.placeholderText}
-                        onChangeText={value => this.setState({ city: value })}
-                        value={this.state.city}
+                        onChangeText={value => this.setState({ age: value })}
+                        value={this.state.age.toString()}
                     />
                     <TextField
                         placeholder="State"

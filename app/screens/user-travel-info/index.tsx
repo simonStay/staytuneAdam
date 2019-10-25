@@ -26,6 +26,7 @@ interface Props {
     handleSelectedValue: any
     onRef: any
     user: any
+    travel: any
 }
 interface UserInformation {
     selectedTabId: any
@@ -37,6 +38,8 @@ interface UserInformation {
     state: string
     zip: string
     profilePic: string
+    userId: any,
+    userToken: any
 }
 
 const profilePic =
@@ -60,33 +63,46 @@ class UserTravelInfo extends Component<Props, UserInformation> {
             city: "",
             state: "",
             zip: "",
+            userId: "",
+            userToken: ""
         }
     }
 
     async componentDidMount() {
-        console.log("this.props.user.userProfileInfo", this.props.user.userProfileInfo)
         try {
-            let userDetails = await this.props.getUserDetails(
-                this.props.user.userProfileInfo.data.id,
-                this.props.userInfo.token,
-            )
-            console.log("userDetails_profileinfoscreen", userDetails.payload)
+            let getUserInfo
             console.log("this.props.user.userProfileInfo", this.props.user.userProfileInfo)
+            if (this.props.user.userProfileInfo === undefined || this.props.user.userProfileInfo === "undefined") {
+                getUserInfo = this.props.user.login
+                await this.setState({
+                    userId: this.props.user.login.id,
+                    userToken: this.props.user.login.token
+                })
+            } else {
+                getUserInfo = this.props.user.userProfileInfo.data
+                await this.setState({
+                    userId: this.props.user.userProfileInfo.data.id,
+                    userToken: this.props.user.userProfileInfo.data.token
+                })
+            }
+            console.log("UserId:", this.state.userId + "," + "UserToken:", this.state.userToken)
+            //let userDetails = await this.props.getUserDetails(UserId, UserToken)
 
-            this.setState({
-                profilePic: this.props.user.userProfileInfo.data.profilePic,
-                fullName:
-                    this.props.user.userProfileInfo.data.firstname +
-                    " " +
-                    this.props.user.userProfileInfo.data.lastname,
-                firstName: this.props.user.userProfileInfo.data.firstname,
-                lastName: this.props.user.userProfileInfo.data.lastname,
-                email: this.props.user.userProfileInfo.data.email,
-                city: this.props.user.userProfileInfo.data.city,
-                state: this.props.user.userProfileInfo.data.state,
-                zip: this.props.user.userProfileInfo.data.zip,
+            //await console.log("userDetails_profileinfoscreen", userDetails.payload)
+            // await console.log("this.props.user.userProfileInfo", this.props.user.userProfileInfo)
+
+            await this.setState({
+                profilePic: getUserInfo.profilePic,
+                fullName: getUserInfo.firstname + " " + getUserInfo.lastname,
+                firstName: getUserInfo.firstname,
+                lastName: getUserInfo.lastname,
+                email: getUserInfo.email,
+                city: getUserInfo.city,
+                state: getUserInfo.state,
+                zip: getUserInfo.zip,
             })
-            let userId = this.props.user.userProfileInfo.data.id
+
+            let userId = this.state.userId
             console.log("userId", userId)
             let getUserSavedLocations = await this.props.userSavedLocations(userId)
             console.log("getUserSavedLocations", getUserSavedLocations.payload.length)

@@ -5,11 +5,9 @@ import styles from "./styles"
 import { Icon } from "../../components/icon"
 import { Text } from "../../components/text"
 import { GoldBarView } from "../../components/goldBar"
+import ImageLoad from 'react-native-image-placeholder';
 
 import { connect } from "react-redux"
-
-const profilePic =
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlsjY5BTaQA9ourJ7KW1PDagYVjryOF51notG3PPlaPM3-3am30w"
 
 const MenuItems = [
     { id: 0, type: "Start a plan", icon: "startplan" },
@@ -37,7 +35,7 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
     constructor(props: Props) {
         super(props)
         this.state = {
-            profilePic: profilePic,
+            profilePic: "",
             userName: ''
         }
     }
@@ -66,28 +64,28 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
 
     }
 
-    async componentWillReceiveProps(nextProps) {
-        try {
-            console.log('nextProps_123:', nextProps.userProfileInfo)
-            if (nextProps.userProfileInfo.data.profilePic == undefined || nextProps.userProfileInfo.data.profilePic == "undefined") {
+    // async componentWillReceiveProps(nextProps) {
+    //     try {
+    //         console.log('nextProps_123:', nextProps.userProfileInfo)
+    //         if (nextProps.userProfileInfo.data.profilePic == undefined || nextProps.userProfileInfo.data.profilePic == "undefined") {
 
-            } else {
-                await this.setState({
-                    profilePic: nextProps.userProfileInfo.data.profilePic
-                })
-            }
-            if (nextProps.userProfileInfo.data.firstname == undefined || nextProps.userProfileInfo.data.firstname == "undefined" &&
-                nextProps.userProfileInfo.data.lastname == undefined || nextProps.userProfileInfo.data.lastname == "undefined") {
+    //         } else {
+    //             await this.setState({
+    //                 profilePic: nextProps.userProfileInfo.data.profilePic
+    //             })
+    //         }
+    //         if (nextProps.userProfileInfo.data.firstname == undefined || nextProps.userProfileInfo.data.firstname == "undefined" &&
+    //             nextProps.userProfileInfo.data.lastname == undefined || nextProps.userProfileInfo.data.lastname == "undefined") {
 
-            } else {
-                await this.setState({
-                    userName: nextProps.userProfileInfo.data.firstname + ' ' + nextProps.userProfileInfo.data.lastname
-                })
-            }
-        } catch (error) {
+    //         } else {
+    //             await this.setState({
+    //                 userName: nextProps.userProfileInfo.data.firstname + ' ' + nextProps.userProfileInfo.data.lastname
+    //             })
+    //         }
+    //     } catch (error) {
 
-        }
-    }
+    //     }
+    // }
 
     onEditProfile() {
         this.props.onCloseMenu('Edit Profile');
@@ -133,7 +131,15 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
                 <ScrollView>
                     <View style={styles.profilePicOutterView}>
                         <View style={styles.profilePicView}>
-                            <Image source={{ uri: this.state.profilePic }} style={styles.profilePic} />
+                            <ImageLoad
+                                isShowActivity={false}
+                                style={styles.profilePic}
+                                borderRadius={styles.profilePic.borderRadius}
+                                loadingStyle={{ size: 'large', color: 'blue' }}
+                                source={{ uri: this.state.profilePic }}
+                                placeholderSource={require('./../../assests/person-placeholder.png')}
+                                placeholderStyle={styles.profilePic}
+                            />
                         </View>
                     </View>
 
