@@ -68,7 +68,7 @@ class SetInitialInterest extends Component<Props, UserInformation> {
         daysCount: parseInt(this.props.travel.travelInfo.daysCount),
         totalBudget: parseInt(this.props.travel.travelInfo.totalBudget),
         city: this.props.travel.travelInfo.city,
-        userId: this.props.user.login.id,
+        userId: this.props.user.userProfileInfo.data.id,
         locationImage: this.props.travel.travelInfo.locationImage,
         travelDate: this.props.travel.travelInfo.travelDate,
         selectedCategories: this.state.categories,
@@ -89,7 +89,15 @@ class SetInitialInterest extends Component<Props, UserInformation> {
               {
                 text: "OK",
                 onPress: () => {
-                  this.props.navigation.push("MainScreen", { tabId: 2 })
+                  if (
+                    this.props.user.userProfileInfo.data.profilePic != "" &&
+                    this.props.user.userProfileInfo.data.profilePic != null
+                  ) {
+                    alert("selected")
+                    this.props.navigation.push("MainScreen", { tabId: 2 })
+                  } else {
+                    this.props.navigation.push("SelectAvatar")
+                  }
                 },
               },
             ],

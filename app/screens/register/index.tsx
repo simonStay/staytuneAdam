@@ -22,7 +22,8 @@ interface Props {
   loader: any
 }
 interface userDetails {
-  fullName: string
+  firstName: string
+  lastName: string
   email: string
   password: string
 }
@@ -34,10 +35,14 @@ class Register extends Component<Props, userDetails> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      fullName: "",
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
     }
+    this.lastNameInput = React.createRef()
+    this.emailInput = React.createRef()
+    this.passwordInput = React.createRef()
   }
 
   validateEmail = email => {
@@ -49,10 +54,17 @@ class Register extends Component<Props, userDetails> {
     Keyboard.dismiss()
     console.log("SIGNUP" + JSON.stringify(this.state))
 
-    if (this.state.fullName == "") {
+    if (this.state.firstName == "") {
       Alert.alert(
         "Stay Tune",
-        "Please enter fullName",
+        "Please enter first name",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+        { cancelable: false },
+      )
+    } else if (this.state.lastName == "") {
+      Alert.alert(
+        "Stay Tune",
+        "Please enter last name",
         [{ text: "OK", onPress: () => console.log("OK Pressed") }],
         { cancelable: false },
       )
@@ -85,8 +97,8 @@ class Register extends Component<Props, userDetails> {
         { cancelable: false },
       )
     } else {
-      const { fullName, email, password } = this.state
-      await this.props.signUp(fullName, email, password)
+      const { firstName, lastName, email, password } = this.state
+      await this.props.signUp(firstName, lastName, email, password)
       if (this.props.user.status == "failed") {
         {
           /* Note: this is Temporary solution alert is not diplaying after animation making for that 
@@ -116,7 +128,8 @@ class Register extends Component<Props, userDetails> {
                     id: this.props.user.id,
                   })
                   self.setState({
-                    fullName: "",
+                    firstName: "",
+                    lastName: "",
                     email: "",
                     password: "",
                   })
@@ -143,29 +156,48 @@ class Register extends Component<Props, userDetails> {
             Hello! I'm StayTune, your personal travel assistant, may i have your details?
           </Text>
           <TextField
-            placeholder="Enter your full name"
+            placeholder="Enter your first name"
             inputStyle={styles.textField}
             placeholderTextColor={color.placeholderText}
-            onChangeText={value => this.setState({ fullName: value })}
-            value={this.state.fullName}
+            onChangeText={value => this.setState({ firstName: value })}
+            value={this.state.firstName}
             autoCapitalize="none"
+            returnKeyType="next"
+            onSubmitEditing={() => this.lastNameInput.current.focus()}
+          />
+          <TextField
+            placeholder="Enter your last name"
+            forwardedRef={this.lastNameInput}
+            inputStyle={styles.textField}
+            placeholderTextColor={color.placeholderText}
+            onChangeText={value => this.setState({ lastName: value })}
+            value={this.state.lastName}
+            autoCapitalize="none"
+            returnKeyType="next"
+            onSubmitEditing={() => this.emailInput.current.focus()}
           />
           <TextField
             placeholder="Enter your email"
+            forwardedRef={this.emailInput}
             inputStyle={styles.textField}
             placeholderTextColor={color.placeholderText}
             onChangeText={value => this.setState({ email: value })}
             value={this.state.email}
             autoCapitalize="none"
+            returnKeyType="next"
+            onSubmitEditing={() => this.passwordInput.current.focus()}
           />
           <TextField
             placeholder="Enter your password"
             inputStyle={styles.textField}
+            forwardedRef={this.passwordInput}
             placeholderTextColor={color.placeholderText}
             onChangeText={value => this.setState({ password: value })}
             value={this.state.password}
             secureTextEntry={true}
             autoCapitalize="none"
+            returnKeyType="done"
+            onSubmitEditing={this.onSubmit.bind(this)}
           />
           <Button style={styles.button} onPress={this.onSubmit.bind(this)}>
             <Text style={styles.buttonText}>SUBMIT</Text>
@@ -183,7 +215,8 @@ class Register extends Component<Props, userDetails> {
               onPress={() => {
                 navigation.navigate("Login")
                 this.setState({
-                  fullName: "",
+                  firstName: "",
+                  lastName: "",
                   email: "",
                   password: "",
                 })

@@ -1,5 +1,5 @@
 import resToBody from "../resToBody/resToBody"
-export const LOADER = "LOADER"
+export const LOADER_TRAVEL = "LOADER_TRAVEL"
 export const TRAVEL_PREFERENCE_TYPES = "TRAVEL_PREFERENCE_TYPES"
 export const SELECTED_TRAVEL_PREFERENCE = "SELECTED_TRAVEL_PREFERENCE"
 export const SET_TRAVEL_PREFERENCE = "SET_TRAVEL_PREFERENCE"
@@ -13,7 +13,7 @@ const STAYTUNELIVEURL = "https://staytune.austinconversionoptimization.com/"
 export function travelPreferenceTypes() {
   return async dispatch => {
     dispatch({
-      type: LOADER,
+      type: LOADER_TRAVEL,
       payload: true,
     })
     const res = await fetch(STAYTUNELIVEURL + `/travel-preference-types`, {
@@ -53,7 +53,7 @@ export function setTravelPreferences(setTravelBudget) {
   console.log("setTravelBudget.selectedCategories_123:", setTravelBudget.selectedCategories)
   return async dispatch => {
     dispatch({
-      type: LOADER,
+      type: LOADER_TRAVEL,
       payload: true,
     })
     const res = await fetch(STAYTUNELIVEURL + `/travel-preferences`, {
@@ -86,7 +86,7 @@ export function updateTravelPreferences(setTravelBudget) {
   console.log("setTravelBudget.selectedCategories_123:", setTravelBudget.selectedCategories)
   return async dispatch => {
     dispatch({
-      type: LOADER,
+      type: LOADER_TRAVEL,
       payload: true,
     })
     const res = await fetch(
@@ -121,7 +121,7 @@ export function updateTravelPreferences(setTravelBudget) {
 export function userSavedLocations(userId) {
   return async dispatch => {
     dispatch({
-      type: LOADER,
+      type: LOADER_TRAVEL,
       payload: true,
     })
     const res = await fetch(STAYTUNELIVEURL + `/travel-preferences/userId`, {
@@ -152,7 +152,7 @@ export default {
   SELECTED_TRAVEL_PREFERENCE,
   TRAVEL_PREFERENCE_TYPES,
   SET_TRAVEL_PREFERENCE,
-  LOADER,
+  LOADER_TRAVEL,
   USER_TRAVEL_PREFERENCE,
   USER_SAVED_LOCATIONS,
   SET_TRAVEL_INFO,

@@ -22,6 +22,7 @@ interface Props {
   userProfileInfo: any
   Signout: any
   tabId: any
+  selectedValue: any
 }
 interface UserInformation {
   isOpen: boolean
@@ -47,8 +48,8 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      selectedValue: "Saved locations",
-      headerTitle: "",
+      selectedValue: this.props.navigation.state.params.selectedValue,
+      headerTitle: this.props.navigation.state.params.headerTitle,
       isOpen: false,
       userObj: null,
       avatarSource: "",
@@ -63,14 +64,11 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
   }
 
   componentDidMount() {
-    // try {
-    //   this.setState({
-    //     selectedValue: this.props.navigation.state.params.selectedValue,
-    //     tabId: this.props.navigation.state.params.tabId
-    //   })
-    // } catch (error) {
-    // }
-    // alert(dimensions.width)
+    if (this.props.navigation.state.params.selectedValue !== undefined) {
+      this.setState({
+        selectedValue: this.props.navigation.state.params.selectedValue,
+      })
+    }
   }
 
   onLeft() {

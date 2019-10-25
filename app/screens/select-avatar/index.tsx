@@ -57,21 +57,17 @@ class SelectAvatar extends Component<Props, listOfAvatars, {}> {
       )
     } else {
       let userInfoObj = {
-        firstname: this.props.navigation.state.params.userObj.firstname,
-        lastname: this.props.navigation.state.params.userObj.lastname,
-        city: this.props.navigation.state.params.userObj.city,
-        state: this.props.navigation.state.params.userObj.state,
-        zip: this.props.navigation.state.params.userObj.zip,
         profilePic: this.state.selectedAvatarUrl,
-        userId: this.props.navigation.state.params.userObj.userId,
+        userId: this.props.user.userProfileInfo.data.id,
       }
-
-      console.log("userInfoObj_123:", userInfoObj)
+      console.log("userINfoObj_123", JSON.stringify(userInfoObj))
       await this.props.createUserProfile(userInfoObj)
       try {
         if (this.props.user.userProfileInfo.status == "success") {
-          this.props.navigation.navigate("MainScreen", {
-            userId: this.props.navigation.state.params.userObj.userId,
+          this.props.navigation.push("MainScreen", {
+            userId: this.props.user.userProfileInfo.data.id,
+            selectedValue: "Saved locations",
+            headerTitle: "",
           })
         } else {
           setTimeout(() => {
