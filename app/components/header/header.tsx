@@ -1,5 +1,5 @@
 import * as React from "react"
-import { View, ViewStyle, TextStyle } from "react-native"
+import { View, ViewStyle, TextStyle, TouchableOpacity } from "react-native"
 import { HeaderProps } from "./header.props"
 import { Button } from "../button"
 import { Icon } from "../icon"
@@ -32,7 +32,8 @@ const ROOT: ViewStyle = {
 const TITLE: TextStyle = { textAlign: "center", color: '#E0B34A', fontSize: dimensions.width * 0.056, }
 const TITLE_MIDDLE: ViewStyle = { flex: 1, alignItems: "center" }
 const LEFT: ViewStyle = { width: dimensions.width * 0.06 }
-const RIGHT: ViewStyle = { width: dimensions.width * 0.06 }
+const RIGHT: ViewStyle = { width: dimensions.width * 0.096 }
+const RIGHT_TITLE: TextStyle = { color: '#E0B34A', fontSize: dimensions.width * 0.051, alignSelf: 'center' }
 
 /**
  * Header that appears on many screens. Will hold navigation buttons and screen title.
@@ -46,9 +47,12 @@ export const Header: React.FunctionComponent<HeaderProps> = props => {
     headerText,
     headerTx,
     style,
+    rightText,
+    rightTextStyle,
     titleStyle,
   } = props
-  const header = headerText || (headerTx && translate(headerTx)) || ""
+  const header = headerText || (headerTx && translate(headerTx)) || "";
+  const rightTxt = rightText || ""
 
   return (
     <View style={{ ...ROOT, ...style }}>
@@ -67,7 +71,9 @@ export const Header: React.FunctionComponent<HeaderProps> = props => {
           <Icon icon={rightIcon} />
         </Button>
       ) : (
-          <View style={RIGHT} />
+          <TouchableOpacity style={RIGHT} onPress={onRightPress}>
+            <Text style={{ ...RIGHT_TITLE, ...rightTextStyle }} text={rightTxt} />
+          </TouchableOpacity>
         )}
     </View>
   )

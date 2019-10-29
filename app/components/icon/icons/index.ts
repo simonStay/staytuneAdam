@@ -11,6 +11,7 @@ export const icons = {
   localfriend: require("./local-friend.png"),
   budget: require("./budget.png"),
   travelsuggestions: require("./travel-suggestions.png"),
+  tourguide: require("./tour-guide.png"),
 }
 
 export type IconTypes = keyof typeof icons

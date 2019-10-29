@@ -8,7 +8,7 @@ interface Props {
   navigation: NavigationScreenProp<NavigationState>
 }
 
-class FindLocalFriend extends Component<Props, {}> {
+class SelectTourGuide extends Component<Props, {}> {
   render() {
     return (
       <View style={styles.container}>
@@ -20,4 +20,4 @@ class FindLocalFriend extends Component<Props, {}> {
   }
 }
 
-export default FindLocalFriend
+export default SelectTourGuide

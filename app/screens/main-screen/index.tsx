@@ -12,7 +12,7 @@ import MapScreen from "../map"
 import ItinerarySuggestions from "../itinerary-suggestions"
 import TravelPreference from "../travel-preference"
 import DigitalSouvenir from "../digital-souvenir"
-import FindLocalFriend from "../find-local-friend"
+import SelectTourGuide from "../select-tour-guide"
 import UserTravelInfo from "../user-travel-info"
 import { connect } from "react-redux"
 import { Signout } from "../../redux/actions/user"
@@ -173,7 +173,7 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
     } else if (this.state.selectedValue == "Digital Souvenir") {
       return <DigitalSouvenir navigation={this.props.navigation} />
     } else if (this.state.selectedValue == "Find a Local Friend") {
-      return <FindLocalFriend navigation={this.props.navigation} />
+      return <SelectTourGuide navigation={this.props.navigation} />
     } else if (this.state.selectedValue == "Saved locations") {
       return (
         <UserTravelInfo

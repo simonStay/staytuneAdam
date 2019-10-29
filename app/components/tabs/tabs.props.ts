@@ -12,5 +12,9 @@ export interface ViewProps extends ViewProperties {
   onPress?: (newValue: any) => void
   selectedTabId: any
   length: any
-  map: any
+  map: any,
+  tabItemColor: any,
+  separatorColor: any,
+  selectedTabColor: any,
+  selectedTabLineColor: any,
 }

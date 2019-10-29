@@ -65,6 +65,10 @@ class SetBudget extends Component<Props, UserInformation, extrainfo> {
     this.props.navigation.goBack()
   }
 
+  onRight() {
+    alert('onRight')
+  }
+
   validateNumbers(e) {
     var regex = /^[0-9]*(?:\.\d{1,2})?$/ // allow only numbers [0-9]
     return regex.test(e)
@@ -180,6 +184,9 @@ class SetBudget extends Component<Props, UserInformation, extrainfo> {
           titleStyle={styles.headerTitle}
           leftIcon={"back"}
           onLeftPress={this.onLeft.bind(this)}
+          rightText={"Skip"}
+          rightTextStyle={styles.rightTextStyle}
+          onRightPress={this.onRight.bind(this)}
         />
         <GoldBarView />
         <KeyboardAwareScrollView

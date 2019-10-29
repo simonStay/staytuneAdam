@@ -14,6 +14,11 @@ const styles = StyleSheet.create({
         fontFamily: "OpenSans-Semibold",
         marginRight: spacing[3]
     },
+    rightTextStyle: {
+        fontFamily: "OpenSans-Semibold",
+        marginLeft: - spacing[1],
+        alignSelf: 'center'
+    },
     textStyle: {
         color: color.text,
         fontSize: fontsize.screenTitle,
