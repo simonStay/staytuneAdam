@@ -8,6 +8,7 @@ import {
   UPDATE_TRAVEL_PREFERENCE,
   SELECT_TOUR_GUIDE,
 } from "./../actions/travel"
+import { TRAVEL_SIGN_OUT } from "./../actions/user"
 
 export default function travel(state = {}, action) {
   switch (action.type) {
@@ -50,13 +51,18 @@ export default function travel(state = {}, action) {
     case SELECT_TOUR_GUIDE:
       return {
         ...state,
-        tourGuideInfo: action.payload
+        tourGuideInfo: action.payload,
       }
     case LOADER_TRAVEL:
       return {
         ...state,
         loader: action.payload,
       }
+    case TRAVEL_SIGN_OUT: {
+      return {
+        travel: {},
+      }
+    }
   }
   return state
 }

@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 
 import MapView from "react-native-maps"
+import { connect } from "react-redux"
 import Geolocation from "@react-native-community/geolocation"
 import { Button } from "../../components/button"
 import { Icon } from "../../components/icon"
@@ -11,6 +12,7 @@ import styles from "./styles"
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
   handleSelectedValue: any
+  travel: any
 }
 interface MapScreen {
   state: any
@@ -82,19 +84,22 @@ class MapScreen extends Component<Props, MapScreen, {}> {
             </View>
           </TouchableOpacity> */}
         </MapView>
-        <TouchableOpacity
-          style={styles.startPlan}
-          onPress={this.props.handleSelectedValue.bind(this, "Travel preference")}
-        >
-          <View style={{ flex: 1, flexDirection: "row" }}>
-            <View style={styles.left}>
-              <Text style={styles.buttonText}>Start your plan</Text>
+        {this.props.travel.savedLocations === undefined ||
+        this.props.travel.savedLocations.length === 0 ? (
+          <TouchableOpacity
+            style={styles.startPlan}
+            onPress={this.props.handleSelectedValue.bind(this, "Travel preference")}
+          >
+            <View style={{ flex: 1, flexDirection: "row" }}>
+              <View style={styles.left}>
+                <Text style={styles.buttonText}>Start your plan</Text>
+              </View>
+              <View style={styles.right}>
+                <Icon icon={"back"} style={styles.icon} />
+              </View>
             </View>
-            <View style={styles.right}>
-              <Icon icon={"back"} style={styles.icon} />
-            </View>
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        ) : null}
         {/* <Button
           style={styles.button}
           onPress={this.props.handleSelectedValue.bind(this, "Travel preference")}
@@ -111,4 +116,9 @@ class MapScreen extends Component<Props, MapScreen, {}> {
   }
 }
 
-export default MapScreen
+export default connect(
+  state => ({
+    travel: state.travel,
+  }),
+  {},
+)(MapScreen)

@@ -14,7 +14,7 @@ import { Icon } from "../../components/icon"
 import _ from "lodash"
 import { connect } from "react-redux"
 import AnimatedLoader from "react-native-animated-loader"
-import { updateTravelPreferences } from "../../redux/actions/travel"
+import { updateTravelPreferences, userSavedLocations } from "../../redux/actions/travel"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
@@ -22,6 +22,7 @@ interface Props {
   user: any
   getValue: any
   travel: any
+  userSavedLocations: any
 }
 interface UserInformation {
   selectedId: any
@@ -115,6 +116,7 @@ class SetInitialInterest extends Component<Props, UserInformation> {
                       this.props.user.userProfileInfo === undefined
                         ? this.props.user.login.id
                         : this.props.user.userProfileInfo.id
+                    this.props.userSavedLocations(userId)
                     this.props.navigation.push("MainScreen", {
                       userId: userId,
                       selectedValue: "Start a plan",
@@ -322,5 +324,5 @@ export default connect(
     user: state.user,
     travel: state.travel,
   }),
-  { updateTravelPreferences },
+  { updateTravelPreferences, userSavedLocations },
 )(SetInitialInterest)

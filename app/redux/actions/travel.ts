@@ -133,7 +133,7 @@ export function selectedTourGuide(guideInfo) {
   return async dispatch => {
     dispatch({
       type: SELECT_TOUR_GUIDE,
-      payload: guideInfo
+      payload: guideInfo,
     })
   }
 }
@@ -154,5 +154,5 @@ export default {
   USER_SAVED_LOCATIONS,
   SET_TRAVEL_INFO,
   UPDATE_TRAVEL_PREFERENCE,
-  SELECT_TOUR_GUIDE
+  SELECT_TOUR_GUIDE,
 }

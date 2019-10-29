@@ -9,6 +9,7 @@ import { Text } from "../../components/text"
 import styles from "./styles"
 import { color } from "../../theme"
 import { Login } from "../../redux/actions/user"
+import { userSavedLocations } from "../../redux/actions/travel"
 import { connect } from "react-redux"
 import AnimatedLoader from "react-native-animated-loader"
 
@@ -144,6 +145,7 @@ class LoginScreen extends Component<Props, userDetails> {
           userId: this.props.user.login.id,
           token: this.props.user.login.token,
         })
+        this.props.userSavedLocations(this.state.userId)
         if (this.props.user.loader === false) {
           this.props.navigation.push("MainScreen", {
             userId: this.state.userId,
@@ -223,5 +225,6 @@ export default connect(
   }),
   {
     Login,
+    userSavedLocations,
   },
 )(LoginScreen)
