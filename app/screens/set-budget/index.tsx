@@ -65,8 +65,39 @@ class SetBudget extends Component<Props, UserInformation, extrainfo> {
     this.props.navigation.goBack()
   }
 
-  onRight() {
-    alert('onRight')
+  async onRight() {
+    //alert('onRight')
+    let userId
+    if (this.props.user.userProfileInfo == undefined) {
+      userId = this.props.user.login.id
+    } else {
+      userId = this.props.user.userProfileInfo.data.id
+    }
+    let setTravelBudget = {
+      selectedTravelPreferences: this.props.travel.selectedTravelPreferences,
+      userId: userId,
+    }
+    try {
+      // await this.props.setBudgeInfo(setTravelBudget)
+      await this.props.setTravelPreferences(setTravelBudget)
+      if (this.props.travel.travelPreferenceInfo.status == "Success") {
+        this.props.navigation.push("SetInitialInterest")
+      } else {
+        {
+          /*This is Temporary solution */
+        }
+        setTimeout(() => {
+          Alert.alert(
+            "Stay Tune",
+            "Something went wrong",
+            [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+            { cancelable: false },
+          )
+        }, 100)
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   validateNumbers(e) {
@@ -132,7 +163,7 @@ class SetBudget extends Component<Props, UserInformation, extrainfo> {
         { cancelable: false },
       )
     } else {
-      let userId;
+      let userId
       if (this.props.user.userProfileInfo == undefined) {
         userId = this.props.user.login.id
       } else {
