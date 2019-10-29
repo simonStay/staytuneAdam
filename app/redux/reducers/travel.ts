@@ -6,6 +6,7 @@ import {
   SET_TRAVEL_INFO,
   USER_SAVED_LOCATIONS,
   UPDATE_TRAVEL_PREFERENCE,
+  SELECT_TOUR_GUIDE,
 } from "./../actions/travel"
 
 export default function travel(state = {}, action) {
@@ -45,6 +46,11 @@ export default function travel(state = {}, action) {
         ...state,
         loader: false,
         savedLocations: action.payload,
+      }
+    case SELECT_TOUR_GUIDE:
+      return {
+        ...state,
+        tourGuideInfo: action.payload
       }
     case LOADER_TRAVEL:
       return {

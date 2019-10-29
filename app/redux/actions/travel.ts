@@ -7,6 +7,7 @@ export const USER_TRAVEL_PREFERENCE = "USER_TRAVEL_PREFERENCE"
 export const USER_SAVED_LOCATIONS = "USER_SAVED_LOCATIONS"
 export const SET_TRAVEL_INFO = "SET_TRAVEL_INFO"
 export const UPDATE_TRAVEL_PREFERENCE = "UPDATE_TRAVEL_PREFERENCE"
+export const SELECT_TOUR_GUIDE = "SELECT_TOUR_GUIDE"
 
 const STAYTUNELIVEURL = "https://staytune.austinconversionoptimization.com/"
 
@@ -143,6 +144,15 @@ export function userSavedLocations(userId) {
   }
 }
 
+export function selectedTourGuide(guideInfo) {
+  return async dispatch => {
+    dispatch({
+      type: SELECT_TOUR_GUIDE,
+      payload: guideInfo
+    })
+  }
+}
+
 export default {
   travelPreferenceTypes,
   selectedTravelPreferences,
@@ -150,6 +160,7 @@ export default {
   userSavedLocations,
   setBudgeInfo,
   updateTravelPreferences,
+  selectedTourGuide,
   SELECTED_TRAVEL_PREFERENCE,
   TRAVEL_PREFERENCE_TYPES,
   SET_TRAVEL_PREFERENCE,
@@ -158,4 +169,5 @@ export default {
   USER_SAVED_LOCATIONS,
   SET_TRAVEL_INFO,
   UPDATE_TRAVEL_PREFERENCE,
+  SELECT_TOUR_GUIDE
 }

@@ -79,8 +79,8 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
             this.props.onCloseMenu("Travel preference")
         } else if (value == "Digital Souvenir") {
             this.props.onCloseMenu("Digital Souvenir")
-        } else if (value == "Find a Local Friend") {
-            this.props.onCloseMenu("Find a Local Friend")
+        } else if (value == "Select Tour Guide") {
+            this.props.onCloseMenu("Select Tour Guide")
         } else if (value == "Saved locations") {
             this.props.onCloseMenu("Saved locations")
         } else if (value == "Budget") {
