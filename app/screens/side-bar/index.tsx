@@ -14,7 +14,7 @@ const MenuItems = [
     { id: 1, type: "Itinerary suggestions", icon: "travelsuggestions" },
     { id: 2, type: "Travel preference", icon: "preference" },
     { id: 3, type: "Digital Souvenir", icon: "souvenir" },
-    { id: 4, type: "Find a Local Friend", icon: "localfriend" },
+    { id: 4, type: "Select Tour Guide", icon: "tourguide" },
     { id: 5, type: "Saved locations", icon: "savedlocation" },
     { id: 6, type: "Budget", icon: "budget" },
     { id: 7, type: "Signout", icon: "logout" },
