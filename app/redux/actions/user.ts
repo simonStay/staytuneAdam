@@ -10,7 +10,7 @@ export const GET_AVATAR_IMAGES = "GET_AVATAR_IMAGES"
 
 const STAYTUNELIVEURL = "https://staytune.austinconversionoptimization.com/"
 
-export function signUp(firstname, lastname, email, password) {
+export function signUp(firstname, lastname, email, password, zip) {
   return async dispatch => {
     dispatch({
       type: LOADER,
@@ -26,6 +26,7 @@ export function signUp(firstname, lastname, email, password) {
         lastname: lastname,
         email: email,
         password: password,
+        zip: zip,
       }),
     })
     const body = await resToBody(res)

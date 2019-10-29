@@ -133,7 +133,7 @@ class LoginScreen extends Component<Props, userDetails> {
             [
               {
                 text: "OK",
-                onPress: () => { },
+                onPress: () => {},
               },
             ],
             { cancelable: false },
@@ -144,32 +144,16 @@ class LoginScreen extends Component<Props, userDetails> {
           userId: this.props.user.login.id,
           token: this.props.user.login.token,
         })
-        if (
-          this.props.user.login.profilePic == "" ||
-          this.props.user.login.profilePic == undefined
-        ) {
-          this.props.navigation.push("ProfileInfo", {
+        if (this.props.user.loader === false) {
+          this.props.navigation.push("MainScreen", {
             userId: this.state.userId,
-            token: this.state.token,
-            userInfo: this.props.user.login,
+            selectedValue: "Start a plan",
+            headerTitle: "STAY TUNE",
           })
           this.setState({
             email: "",
             password: "",
           })
-        } else {
-          if (this.props.user.loader === false) {
-            this.props.navigation.push("MainScreen", {
-              userId: this.state.userId,
-              token: this.state.token,
-              selectedValue: "Start a plan",
-              headerTitle: "STAY TUNE",
-            })
-            this.setState({
-              email: "",
-              password: "",
-            })
-          }
         }
       }
     }

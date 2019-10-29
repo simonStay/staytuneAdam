@@ -17,7 +17,7 @@ class Splash extends Component<Props, {}> {
     let self = this
     setTimeout(function() {
       if (self.props.user.login !== undefined && self.props.user.login.verified !== undefined) {
-        if (self.props.user.login.verified && self.props.user.login.profilePic != "") {
+        if (self.props.user.login.verified && self.props.user.login.id != undefined) {
           self.props.navigation.push("MainScreen", {
             userId: self.props.user.login.id,
             token: self.props.user.login.token,
