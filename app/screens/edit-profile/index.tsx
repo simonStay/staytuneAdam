@@ -24,6 +24,7 @@ interface Props {
     userInfo: any
     createUserProfile: any
     userDetails: any
+    getUpdateUserInfo: any
 }
 interface UserInformation {
     avatarSource: any
@@ -63,6 +64,7 @@ class EditProfile extends Component<Props, UserInformation> {
         return /^\d{5}(-\d{4})?$/.test(zip)
     }
 
+
     async componentDidMount() {
         console.log("user_info__info_123:", this.props.user)
         try {
@@ -70,29 +72,31 @@ class EditProfile extends Component<Props, UserInformation> {
                 this.props.user.login.id,
                 this.props.user.login.token,
             )
-            console.log("getUserDetails______123", JSON.stringify(this.props.userDetails))
 
-            if (this.props.userDetails.maritalStatus == "Single") {
+            console.log("getUserDetails______123", JSON.stringify(userDetails))
+            let userInformation = userDetails.payload;
+
+            if (userInformation.maritalStatus == "Single") {
                 await this.setState({
-                    martialValue: this.props.userDetails.maritalStatus,
+                    martialValue: userInformation.maritalStatus,
                     martialIndex: 0,
                     marialStatusSelected: this.state.marialStatus[0].label
                 })
             } else {
                 await this.setState({
-                    martialValue: this.props.userDetails.maritalStatus,
+                    martialValue: userInformation.maritalStatus,
                     martialIndex: 1,
                     marialStatusSelected: this.state.marialStatus[1].label
                 })
             }
             console.log("marialStatusSelected:", this.state.marialStatusSelected)
             await this.setState({
-                avatarSource: this.props.userDetails.profilePic,
-                firstName: this.props.userDetails.firstname,
-                lastName: this.props.userDetails.lastname,
-                age: this.props.userDetails.age,
-                state: this.props.userDetails.state,
-                zip: this.props.userDetails.zip,
+                avatarSource: userInformation.profilePic,
+                firstName: userInformation.firstname,
+                lastName: userInformation.lastname,
+                age: userInformation.age,
+                state: userInformation.state,
+                zip: userInformation.zip,
             })
         } catch (error) {
             console.log("userinfo_123_error:", error)
@@ -182,6 +186,8 @@ class EditProfile extends Component<Props, UserInformation> {
             try {
                 let editProfile = await this.props.createUserProfile(userInfoObj)
                 console.log("createUserProfile_editprofile:", editProfile)
+
+                this.props.getUpdateUserInfo(editProfile.payload.data)
                 if (editProfile.payload.status == "success") {
                     setTimeout(() => {
                         Alert.alert(

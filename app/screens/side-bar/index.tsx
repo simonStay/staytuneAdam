@@ -24,6 +24,7 @@ interface Props {
     navigation: NavigationScreenProp<NavigationState>
     onCloseMenu: any
     userInfo: any
+    userProfileInfo: any
 }
 
 interface sideMenuItems {
@@ -43,8 +44,32 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
     async componentDidMount() {
         //console.log('nextProps_123:', nextProps.user.userDetails)
         try {
-            let userDetails = await this.props.userInfo
-            console.log('nextProps_123_component:', userDetails)
+            let userDetails = await this.props.userProfileInfo
+            console.log('sidebar_componentDidMount:', this.props.userProfileInfo)
+            if (userDetails.profilePic == undefined || userDetails.profilePic == "undefined") {
+            } else {
+                await this.setState({
+                    profilePic: userDetails.profilePic,
+                })
+            }
+            if (userDetails.firstname == undefined || userDetails.firstname == "undefined" &&
+                userDetails.lastname == undefined || userDetails.lastname == "undefined") {
+            } else {
+                await this.setState({
+                    userName: userDetails.firstname + ' ' + userDetails.lastname
+                })
+            }
+        } catch (error) {
+            console.log("error_123:", error)
+        }
+
+    }
+
+    async componentWillReceiveProps(nextProps) {
+        //console.log('nextProps_123:', nextProps.user.userDetails)
+        try {
+            let userDetails = await nextProps.userProfileInfo
+            console.log('nextProps_123_component:', nextProps.userProfileInfo)
             if (userDetails.profilePic == undefined || userDetails.profilePic == "undefined") {
             } else {
                 await this.setState({

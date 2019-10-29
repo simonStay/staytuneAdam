@@ -39,9 +39,9 @@ class SelectTourGuide extends Component<Props, listOfAvatars, {}> {
     }
   }
   async componentDidMount() {
-    await this.props.getAvatarImages()
-    console.log("getAvatarImages_get:", this.props.avatarList)
-    this.setState({ avatarImagesList: this.props.avatarList })
+    let getTourGuides = await this.props.getAvatarImages()
+    await console.log("getAvatarImages_get:", getTourGuides.payload)
+    await this.setState({ avatarImagesList: getTourGuides.payload })
   }
 
   async onSelect(item) {

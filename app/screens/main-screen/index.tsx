@@ -23,6 +23,7 @@ interface Props {
   Signout: any
   tabId: any
   selectedValue: any
+  user: any
 }
 interface UserInformation {
   isOpen: boolean
@@ -63,12 +64,29 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
     }
   }
 
-  componentDidMount() {
-    if (this.props.navigation.state.params.selectedValue !== undefined) {
-      this.setState({
-        selectedValue: this.props.navigation.state.params.selectedValue,
-      })
+  async componentDidMount() {
+    try {
+      let getUserInfo
+      if (this.props.navigation.state.params.selectedValue !== undefined) {
+        this.setState({
+          selectedValue: this.props.navigation.state.params.selectedValue,
+        })
+      }
+      if (this.props.user.userProfileInfo === undefined || this.props.user.userProfileInfo === "undefined") {
+        getUserInfo = this.props.user.login
+        await this.setState({
+          userObj: getUserInfo
+        })
+      } else {
+        getUserInfo = this.props.user.userProfileInfo.data
+        await this.setState({
+          userObj: getUserInfo
+        })
+      }
+    } catch (error) {
+
     }
+
   }
 
   onLeft() {
@@ -156,9 +174,17 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
     }
   }
 
+  updatedUserInfo(user) {
+    try {
+      this.setState({ userObj: user })
+    } catch (error) {
+
+    }
+  }
+
   renderContanier() {
     if (this.state.selectedValue == "Edit Profile") {
-      return <EditProfile navigation={this.props.navigation} />
+      return <EditProfile navigation={this.props.navigation} getUpdateUserInfo={this.updatedUserInfo.bind(this)} />
     } else if (this.state.selectedValue == "Start a plan") {
       return (
         <MapScreen
@@ -229,7 +255,7 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
               <SideBar
                 navigation={this.props.navigation}
                 onCloseMenu={params => this.closeDrawer(params)}
-                userProfileInfo={this.props.userProfileInfo}
+                userProfileInfo={this.state.userObj}
               />
             }
             onClose={() => this.closeDrawer()}
@@ -245,7 +271,6 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
 export default connect(
   state => ({
     user: state.user,
-    userProfileInfo: state.user.userProfileInfo,
   }),
   {
     Signout,
