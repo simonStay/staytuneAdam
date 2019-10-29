@@ -11,10 +11,10 @@ import { Switch } from "../../components/switch"
 import { Toggle } from "react-powerplug"
 import { Icon } from "../../components/icon"
 
-import _ from 'lodash';
+import _ from "lodash"
 import { connect } from "react-redux"
 import AnimatedLoader from "react-native-animated-loader"
-import { updateTravelPreferences } from "../../redux/actions/travel"
+import { updateTravelPreferences, userSavedLocations } from "../../redux/actions/travel"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
@@ -22,6 +22,7 @@ interface Props {
   user: any
   getValue: any
   travel: any
+  userSavedLocations: any
 }
 interface UserInformation {
   selectedId: any
@@ -82,7 +83,7 @@ class SetInitialInterest extends Component<Props, UserInformation> {
         { cancelable: false },
       )
     } else {
-      let userId;
+      let userId
       if (this.props.user.userProfileInfo == undefined) {
         userId = this.props.user.login.id
       } else {
@@ -91,14 +92,7 @@ class SetInitialInterest extends Component<Props, UserInformation> {
       try {
         let setTravelBudget = {
           preferenceId: this.props.travel.travelPreferenceInfo.id,
-          selectedTravelPreferences: this.props.travel.travelInfo.selectedTravelPreferences,
-          personsCount: parseInt(this.props.travel.travelInfo.personsCount),
-          daysCount: parseInt(this.props.travel.travelInfo.daysCount),
-          totalBudget: parseInt(this.props.travel.travelInfo.totalBudget),
-          city: this.props.travel.travelInfo.city,
           userId: userId,
-          locationImage: this.props.travel.travelInfo.locationImage,
-          travelDate: this.props.travel.travelInfo.travelDate,
           selectedCategories: this.state.categories,
         }
 
@@ -117,21 +111,19 @@ class SetInitialInterest extends Component<Props, UserInformation> {
                 {
                   text: "OK",
                   onPress: () => {
-                    if (
-                      this.props.user.userProfileInfo.data.profilePic != "" &&
-                      this.props.user.userProfileInfo.data.profilePic != null
-                    ) {
-                      //alert("selected")
-                      this.props.navigation.push("MainScreen", {
-                        tabId: 2,
-                        selectedValue: "Saved locations",
-                        headerTitle: "",
-                      })
-                    } else {
-                      this.props.navigation.push("SelectAvatar")
-                    }
+                    console.log("userProfileInfo", this.props.user.userProfileInfo)
+                    let userId =
+                      this.props.user.userProfileInfo === undefined
+                        ? this.props.user.login.id
+                        : this.props.user.userProfileInfo.id
+                    this.props.userSavedLocations(userId)
+                    this.props.navigation.push("MainScreen", {
+                      userId: userId,
+                      selectedValue: "Start a plan",
+                      headerTitle: "STAY TUNE",
+                    })
                   },
-                }
+                },
               ],
               { cancelable: false },
             )
@@ -214,7 +206,6 @@ class SetInitialInterest extends Component<Props, UserInformation> {
         },
       )
     }
-
   }
   renderItem({ item }) {
     var count = 0
@@ -252,37 +243,37 @@ class SetInitialInterest extends Component<Props, UserInformation> {
         <View style={styles.subListView}>
           {showSublist == true
             ? item.subCategories.map((res, i) => {
-              return (
-                <View
-                  style={[
-                    styles.subListRow,
-                    { borderBottomWidth: i === item.subCategories.length - 1 ? 0 : 1 },
-                  ]}
-                >
-                  <View style={styles.subListLeftRow}>
-                    <Text style={styles.subcategoryText}>{res.categoryname}</Text>
+                return (
+                  <View
+                    style={[
+                      styles.subListRow,
+                      { borderBottomWidth: i === item.subCategories.length - 1 ? 0 : 1 },
+                    ]}
+                  >
+                    <View style={styles.subListLeftRow}>
+                      <Text style={styles.subcategoryText}>{res.categoryname}</Text>
+                    </View>
+                    <View style={styles.subListRightRow}>
+                      <Toggle
+                        initial={res.selected === true ? true : false}
+                        onChange={this.onToggleChange.bind(this)}
+                      >
+                        {({ on, toggle }) => (
+                          <Switch
+                            trackOnStyle={styles.trackOn}
+                            trackOffStyle={styles.trackOff}
+                            thumbOnStyle={styles.thumbOn}
+                            thumbOffStyle={styles.thumbOff}
+                            value={on}
+                            onToggle={toggle}
+                            getValue={this.toggleSwitch(item, res, toggle, on, showSublist)}
+                          />
+                        )}
+                      </Toggle>
+                    </View>
                   </View>
-                  <View style={styles.subListRightRow}>
-                    <Toggle
-                      initial={res.selected === true ? true : false}
-                      onChange={this.onToggleChange.bind(this)}
-                    >
-                      {({ on, toggle }) => (
-                        <Switch
-                          trackOnStyle={styles.trackOn}
-                          trackOffStyle={styles.trackOff}
-                          thumbOnStyle={styles.thumbOn}
-                          thumbOffStyle={styles.thumbOff}
-                          value={on}
-                          onToggle={toggle}
-                          getValue={this.toggleSwitch(item, res, toggle, on, showSublist)}
-                        />
-                      )}
-                    </Toggle>
-                  </View>
-                </View>
-              )
-            })
+                )
+              })
             : null}
         </View>
       </View>
@@ -333,5 +324,5 @@ export default connect(
     user: state.user,
     travel: state.travel,
   }),
-  { updateTravelPreferences },
+  { updateTravelPreferences, userSavedLocations },
 )(SetInitialInterest)

@@ -30,7 +30,6 @@ export function travelPreferenceTypes() {
       payload: body,
     })
   }
-
 }
 
 export function selectedTravelPreferences(preferences) {
@@ -65,14 +64,7 @@ export function setTravelPreferences(setTravelBudget) {
       },
       body: JSON.stringify({
         selectedTravelPreferences: setTravelBudget.selectedTravelPreferences,
-        personsCount: setTravelBudget.personsCount,
-        daysCount: setTravelBudget.daysCount,
-        totalBudget: setTravelBudget.totalBudget,
-        city: setTravelBudget.city,
         userId: setTravelBudget.userId,
-        locationImage: setTravelBudget.locationImage,
-        travelDate: setTravelBudget.travelDate,
-        selectedCategories: setTravelBudget.selectedCategories,
       }),
     })
     const body = await resToBody(res)
@@ -99,14 +91,7 @@ export function updateTravelPreferences(setTravelBudget) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          selectedTravelPreferences: setTravelBudget.selectedTravelPreferences,
-          personsCount: setTravelBudget.personsCount,
-          daysCount: setTravelBudget.daysCount,
-          totalBudget: setTravelBudget.totalBudget,
-          city: setTravelBudget.city,
           userId: setTravelBudget.userId,
-          locationImage: setTravelBudget.locationImage,
-          travelDate: setTravelBudget.travelDate,
           selectedCategories: setTravelBudget.selectedCategories,
         }),
       },
@@ -148,7 +133,7 @@ export function selectedTourGuide(guideInfo) {
   return async dispatch => {
     dispatch({
       type: SELECT_TOUR_GUIDE,
-      payload: guideInfo
+      payload: guideInfo,
     })
   }
 }
@@ -169,5 +154,5 @@ export default {
   USER_SAVED_LOCATIONS,
   SET_TRAVEL_INFO,
   UPDATE_TRAVEL_PREFERENCE,
-  SELECT_TOUR_GUIDE
+  SELECT_TOUR_GUIDE,
 }

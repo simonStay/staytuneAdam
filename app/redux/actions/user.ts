@@ -7,10 +7,11 @@ export const FORGOT_PASSWORD = "FORGOT_PASSWORD"
 export const GET_USER_DETAILS = "GET_USER_DETAILS"
 export const CREATE_USER_PROFILE = "CREATE_USER_PROFILE"
 export const GET_AVATAR_IMAGES = "GET_AVATAR_IMAGES"
+export const TRAVEL_SIGN_OUT = "TRAVEL_SIGN_OUT"
 
 const STAYTUNELIVEURL = "https://staytune.austinconversionoptimization.com/"
 
-export function signUp(firstname, lastname, email, password) {
+export function signUp(firstname, lastname, email, password, zip) {
   return async dispatch => {
     dispatch({
       type: LOADER,
@@ -26,6 +27,7 @@ export function signUp(firstname, lastname, email, password) {
         lastname: lastname,
         email: email,
         password: password,
+        zip: zip,
       }),
     })
     const body = await resToBody(res)
@@ -64,6 +66,10 @@ export function Login(email, password) {
 
 export function Signout() {
   return async dispatch => {
+    dispatch({
+      type: TRAVEL_SIGN_OUT,
+      payload: {},
+    })
     return dispatch({
       type: SIGN_OUT,
       payload: {},
@@ -216,6 +222,7 @@ export default {
   ForgotPassword,
   SIGN_UP,
   SIGN_OUT,
+  TRAVEL_SIGN_OUT,
   LOGIN,
   GET_USER_DETAILS,
   CREATE_USER_PROFILE,

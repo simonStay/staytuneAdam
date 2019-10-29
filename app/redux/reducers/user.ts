@@ -8,8 +8,7 @@ import {
   LOADER,
   SIGN_OUT,
 } from "../actions/user"
-
-import travel from './travel'
+import Signout from "../actions/travel"
 
 export default function user(state = {}, action) {
   console.log("action_123:", action)

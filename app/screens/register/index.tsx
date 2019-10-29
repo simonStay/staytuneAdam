@@ -26,6 +26,7 @@ interface userDetails {
   lastName: string
   email: string
   password: string
+  zip: string
 }
 
 class Register extends Component<Props, userDetails> {
@@ -37,10 +38,12 @@ class Register extends Component<Props, userDetails> {
     this.state = {
       firstName: "",
       lastName: "",
+      zip: "",
       email: "",
       password: "",
     }
     this.lastNameInput = React.createRef()
+    this.zip = React.createRef()
     this.emailInput = React.createRef()
     this.passwordInput = React.createRef()
   }
@@ -65,6 +68,13 @@ class Register extends Component<Props, userDetails> {
       Alert.alert(
         "Stay Tune",
         "Please enter last name",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+        { cancelable: false },
+      )
+    } else if (this.state.zip == "") {
+      Alert.alert(
+        "Stay Tune",
+        "Please enter Zip code",
         [{ text: "OK", onPress: () => console.log("OK Pressed") }],
         { cancelable: false },
       )
@@ -97,8 +107,8 @@ class Register extends Component<Props, userDetails> {
         { cancelable: false },
       )
     } else {
-      const { firstName, lastName, email, password } = this.state
-      await this.props.signUp(firstName, lastName, email, password)
+      const { firstName, lastName, email, password, zip } = this.state
+      await this.props.signUp(firstName, lastName, email, password, zip)
       if (this.props.user.status == "failed") {
         {
           /* Note: this is Temporary solution alert is not diplaying after animation making for that 
@@ -153,7 +163,7 @@ class Register extends Component<Props, userDetails> {
         <KeyboardAwareScrollView resetScrollToCoords={{ x: 0, y: 0 }} scrollEnabled={true}>
           <Image style={styles.logo} source={require("../splash/logo.png")} />
           <Text style={styles.welcomeText}>
-            Hello! I'm StayTune, your personal travel assistant, may i have your details?
+            Welcome! Create an account for personalized recommendations
           </Text>
           <TextField
             placeholder="Enter your first name"
@@ -172,6 +182,17 @@ class Register extends Component<Props, userDetails> {
             placeholderTextColor={color.placeholderText}
             onChangeText={value => this.setState({ lastName: value })}
             value={this.state.lastName}
+            autoCapitalize="none"
+            returnKeyType="next"
+            onSubmitEditing={() => this.zip.current.focus()}
+          />
+          <TextField
+            placeholder="Enter your zip code"
+            forwardedRef={this.zip}
+            inputStyle={styles.textField}
+            placeholderTextColor={color.placeholderText}
+            onChangeText={value => this.setState({ zip: value })}
+            value={this.state.zip}
             autoCapitalize="none"
             returnKeyType="next"
             onSubmitEditing={() => this.emailInput.current.focus()}
