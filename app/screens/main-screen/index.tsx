@@ -207,17 +207,17 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
             onLeftPress={this.onLeft.bind(this)}
           />
         ) : (
-          <View>
-            <Header
-              style={styles.header}
-              headerText={this.state.headerTitle}
-              titleStyle={styles.headerTitle}
-              leftIcon={"menu"}
-              onLeftPress={this.onLeft.bind(this)}
-            />
-            <GoldBarView />
-          </View>
-        )}
+            <View>
+              <Header
+                style={styles.header}
+                headerText={this.state.headerTitle}
+                titleStyle={styles.headerTitle}
+                leftIcon={"menu"}
+                onLeftPress={this.onLeft.bind(this)}
+              />
+              <GoldBarView />
+            </View>
+          )}
         <View style={{ flex: 1, overflow: "hidden" }}>
           <Drawer
             openDrawerOffset={0.36}

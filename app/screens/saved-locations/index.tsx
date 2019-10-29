@@ -7,6 +7,7 @@ import { CardView } from "../../components/card-view"
 import { travelPreferenceTypes, selectedTravelPreferences } from "../../redux/actions/travel"
 import { connect } from "react-redux"
 import AnimatedLoader from "react-native-animated-loader"
+import _ from 'lodash';
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
@@ -65,7 +66,7 @@ class SavedLocations extends Component<Props, savedLocationsInfo> {
         {this.props.travel.savedLocations != undefined ? (
           <View style={{ marginHorizontal: 10 }}>
             <FlatList
-              data={this.props.travel.savedLocations}
+              data={_.reverse(this.props.travel.savedLocations)}
               extraData={this.state}
               renderItem={this.renderItem.bind(this)}
             />

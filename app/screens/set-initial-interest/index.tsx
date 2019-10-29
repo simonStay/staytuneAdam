@@ -82,6 +82,12 @@ class SetInitialInterest extends Component<Props, UserInformation> {
         { cancelable: false },
       )
     } else {
+      let userId;
+      if (this.props.user.userProfileInfo == undefined) {
+        userId = this.props.user.login.id
+      } else {
+        userId = this.props.user.userProfileInfo.data.id
+      }
       try {
         let setTravelBudget = {
           preferenceId: this.props.travel.travelPreferenceInfo.id,
@@ -90,7 +96,7 @@ class SetInitialInterest extends Component<Props, UserInformation> {
           daysCount: parseInt(this.props.travel.travelInfo.daysCount),
           totalBudget: parseInt(this.props.travel.travelInfo.totalBudget),
           city: this.props.travel.travelInfo.city,
-          userId: this.props.user.userProfileInfo.data.id,
+          userId: userId,
           locationImage: this.props.travel.travelInfo.locationImage,
           travelDate: this.props.travel.travelInfo.travelDate,
           selectedCategories: this.state.categories,

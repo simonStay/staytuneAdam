@@ -200,7 +200,7 @@ class Register extends Component<Props, userDetails> {
             onSubmitEditing={this.onSubmit.bind(this)}
           />
           <Button style={styles.button} onPress={this.onSubmit.bind(this)}>
-            <Text style={styles.buttonText}>SUBMIT</Text>
+            <Text style={styles.buttonText}>SIGN UP</Text>
           </Button>
           <AnimatedLoader
             visible={this.props.loader}

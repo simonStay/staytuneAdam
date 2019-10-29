@@ -128,13 +128,19 @@ class SetBudget extends Component<Props, UserInformation, extrainfo> {
         { cancelable: false },
       )
     } else {
+      let userId;
+      if (this.props.user.userProfileInfo == undefined) {
+        userId = this.props.user.login.id
+      } else {
+        userId = this.props.user.userProfileInfo.data.id
+      }
       let setTravelBudget = {
         selectedTravelPreferences: this.props.travel.selectedTravelPreferences,
         personsCount: parseInt(this.state.personsCount),
         daysCount: parseInt(this.state.daysCount),
         totalBudget: parseInt(this.state.totalBudget),
         city: this.state.city,
-        userId: this.props.user.userProfileInfo.data.id,
+        userId: userId,
         locationImage: "",
         travelDate: this.state.travelDate,
         selectedCategories: [],

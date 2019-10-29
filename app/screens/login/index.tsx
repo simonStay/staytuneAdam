@@ -133,7 +133,7 @@ class LoginScreen extends Component<Props, userDetails> {
             [
               {
                 text: "OK",
-                onPress: () => {},
+                onPress: () => { },
               },
             ],
             { cancelable: false },
@@ -218,7 +218,7 @@ class LoginScreen extends Component<Props, userDetails> {
             <Text style={styles.buttonText}>LOGIN</Text>
           </Button>
           <Button style={styles.button} onPress={this.onSignUp.bind(this)}>
-            <Text style={styles.buttonText}>SIGNUP</Text>
+            <Text style={styles.buttonText}>SIGN UP</Text>
           </Button>
           <AnimatedLoader
             visible={this.props.user.loader}

@@ -64,29 +64,6 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
 
     }
 
-    // async componentWillReceiveProps(nextProps) {
-    //     try {
-    //         console.log('nextProps_123:', nextProps.userProfileInfo)
-    //         if (nextProps.userProfileInfo.data.profilePic == undefined || nextProps.userProfileInfo.data.profilePic == "undefined") {
-
-    //         } else {
-    //             await this.setState({
-    //                 profilePic: nextProps.userProfileInfo.data.profilePic
-    //             })
-    //         }
-    //         if (nextProps.userProfileInfo.data.firstname == undefined || nextProps.userProfileInfo.data.firstname == "undefined" &&
-    //             nextProps.userProfileInfo.data.lastname == undefined || nextProps.userProfileInfo.data.lastname == "undefined") {
-
-    //         } else {
-    //             await this.setState({
-    //                 userName: nextProps.userProfileInfo.data.firstname + ' ' + nextProps.userProfileInfo.data.lastname
-    //             })
-    //         }
-    //     } catch (error) {
-
-    //     }
-    // }
-
     onEditProfile() {
         this.props.onCloseMenu('Edit Profile');
     }

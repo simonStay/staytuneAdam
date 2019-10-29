@@ -27,7 +27,8 @@ export function Tabs(props: ViewProps) {
     tabItemColor,
     separatorColor,
     selectedTabColor,
-    selectedTabLineColor, ...rest } = props
+    selectedTabLineColor,
+    separatorStyle, ...rest } = props
   const content = text || children
   const style = mergeAll(flatten([presets[preset] || presets.default, styleOverride]))
 
@@ -39,7 +40,7 @@ export function Tabs(props: ViewProps) {
   let TabsArray = [];
   props.TabsList.map((res, i) => {
     TabsArray.push(
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
         <View style={{ marginHorizontal: 3 }}>
           <TouchableOpacity activeOpacity={0.9} style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => props.onPress(res)} >
             <Text style={{ color: i === props.selectedTabId ? TAB_COLOR : TAB_ITEM_COLOR, fontSize: 16, fontFamily: 'OpenSans-Semibold' }}>
@@ -53,7 +54,7 @@ export function Tabs(props: ViewProps) {
         </View>
         {i === props.TabsList.length - 1 ?
           null
-          : (<View style={{ height: dimensions.height * 0.03, width: 1.6, backgroundColor: SEPARATOR_COLOR, marginLeft: tabSeparatorMarginLeft }} />)
+          : (<View style={{ height: dimensions.height * 0.03, width: 1.6, backgroundColor: SEPARATOR_COLOR, marginLeft: tabSeparatorMarginLeft, ...props.separatorStyle }} />)
         }
 
       </View>)
@@ -64,7 +65,6 @@ export function Tabs(props: ViewProps) {
     <View style={style}
       {...rest}>
       {TabsArray}
-
     </View>
   )
 }

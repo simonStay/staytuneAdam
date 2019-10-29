@@ -143,7 +143,7 @@ class UserTravelInfo extends Component<Props, UserInformation> {
         let userInfoList = []
         let userDetails = [
             { key: "Email", value: this.state.email },
-            { key: "City", value: this.state.city },
+            // { key: "City", value: this.state.city },
             { key: "State", value: this.state.state },
             { key: "Zip", value: this.state.zip },
         ]
@@ -194,6 +194,7 @@ class UserTravelInfo extends Component<Props, UserInformation> {
                 </LinearGradient>
                 <Tabs
                     TabsList={TabsList}
+                    //separatorStyle={{ height: 100, backgroundColor: 'white' }}
                     // tabItemColor={"orange"}
                     // separatorColor={"black"}
                     // selectedTabColor={"yellow"}
