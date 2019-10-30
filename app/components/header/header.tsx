@@ -67,7 +67,7 @@ export const Header: React.FunctionComponent<HeaderProps> = props => {
         <Text style={{ ...TITLE, ...titleStyle }} text={header} />
       </View>
       {rightIcon ? (
-        <Button preset="link" onPress={onRightPress}>
+        <Button preset="link" style={RIGHT} onPress={onRightPress}>
           <Icon icon={rightIcon} />
         </Button>
       ) : (

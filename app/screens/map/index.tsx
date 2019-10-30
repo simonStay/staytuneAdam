@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, Text, TouchableOpacity, Image } from "react-native"
+import { View, Text, TouchableOpacity, Image, Modal } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 
 import MapView from "react-native-maps"
@@ -17,6 +17,7 @@ interface Props {
 interface MapScreen {
   state: any
   region: any
+  modalVisible: any
 }
 
 class MapScreen extends Component<Props, MapScreen, {}> {
@@ -28,6 +29,7 @@ class MapScreen extends Component<Props, MapScreen, {}> {
         longitude: -122.4324,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
+        modalVisible: false,
       },
     }
   }
@@ -57,6 +59,10 @@ class MapScreen extends Component<Props, MapScreen, {}> {
     })
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({ modalVisible: nextProps.modalVisible })
+  }
+
   onRegionChange(region) {
     this.setState({ region: region })
   }
@@ -72,45 +78,40 @@ class MapScreen extends Component<Props, MapScreen, {}> {
           onRegionChange={this.onRegionChange.bind(this)}
           showsUserLocation={true}
         >
-          {/* <TouchableOpacity style={styles.startPlan}>
-            <Text style={styles.Text}>Start your Plan</Text>
-          </TouchableOpacity> */}
-          {/* <TouchableOpacity
-            onPress={this.props.handleSelectedValue.bind(this, "Travel preference")}
-            style={styles.iconButton}
-          >
-            <View style={{ flex: 1 }}>
-              <Image source={require("./button.png")} style={styles.iconImage} />
-            </View>
-          </TouchableOpacity> */}
         </MapView>
+
         {this.props.travel.savedLocations === undefined ||
-        this.props.travel.savedLocations.length === 0 ? (
-          <TouchableOpacity
-            style={styles.startPlan}
-            onPress={this.props.handleSelectedValue.bind(this, "Travel preference")}
-          >
-            <View style={{ flex: 1, flexDirection: "row" }}>
-              <View style={styles.left}>
-                <Text style={styles.buttonText}>Start your plan</Text>
+          this.props.travel.savedLocations.length === 0 ? (
+            <TouchableOpacity
+              style={styles.startPlan}
+              onPress={this.props.handleSelectedValue.bind(this, "Travel preference")}
+            >
+              <View style={{ flex: 1, flexDirection: "row" }}>
+                <View style={styles.left}>
+                  <Text style={styles.buttonText}>Start your plan</Text>
+                </View>
+                <View style={styles.right}>
+                  <Icon icon={"back"} style={styles.icon} />
+                </View>
               </View>
-              <View style={styles.right}>
-                <Icon icon={"back"} style={styles.icon} />
-              </View>
-            </View>
-          </TouchableOpacity>
-        ) : null}
-        {/* <Button
-          style={styles.button}
-          onPress={this.props.handleSelectedValue.bind(this, "Travel preference")}
-        >
-          <View style={styles.buttonLeft}>
-            <Text style={styles.buttonText}>Next</Text>
+            </TouchableOpacity>
+          ) : null}
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            alert('Modal has been closed.');
+          }}>
+          <View style={{ flex: 1, backgroundColor: 'black', opacity: 0.9 }}>
+
+            <TouchableOpacity onPress={() => { this.setState({ modalVisible: false }) }}>
+              <Icon icon={"cancel"} style={{ position: 'absolute', top: 0, right: 0, marginTop: 31, marginRight: 16 }} />
+            </TouchableOpacity>
+
           </View>
-          <View style={styles.buttonRight}>
-            <Icon icon={"back"} style={styles.icon} />
-          </View>
-        </Button> */}
+        </Modal>
       </View>
     )
   }
