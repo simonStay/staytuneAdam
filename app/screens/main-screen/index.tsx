@@ -128,15 +128,15 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
         headerTitle: "TRAVEL PREFERENCE",
         isOpen: false,
       })
-    } else if (params == "Digital Souvenir") {
+    } else if (params == "Digital souvenir") {
       this.setState({
-        selectedValue: "Digital Souvenir",
+        selectedValue: "Digital souvenir",
         headerTitle: "DIGITAL SOUVENIR",
         isOpen: false,
       })
-    } else if (params == "Select Tour Guide") {
+    } else if (params == "Select tour guide") {
       this.setState({
-        selectedValue: "Select Tour Guide",
+        selectedValue: "Select tour guide",
         headerTitle: "SELECT TOUR GUIDE",
         isOpen: false,
       })
@@ -196,9 +196,9 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
       return <ItinerarySuggestions navigation={this.props.navigation} />
     } else if (this.state.selectedValue == "Travel preference") {
       return <TravelPreference navigation={this.props.navigation} />
-    } else if (this.state.selectedValue == "Digital Souvenir") {
+    } else if (this.state.selectedValue == "Digital souvenir") {
       return <DigitalSouvenir navigation={this.props.navigation} />
-    } else if (this.state.selectedValue == "Select Tour Guide") {
+    } else if (this.state.selectedValue == "Select tour guide") {
       return <SelectTourGuide navigation={this.props.navigation} />
     } else if (this.state.selectedValue == "Saved locations") {
       return (

@@ -103,23 +103,6 @@ class EditProfile extends Component<Props, UserInformation> {
         }
     }
 
-    async componentWillReceiveProps(nextProps) {
-        try {
-            console.log("this.props.user.loader", this.props.user.loader)
-            console.log("componentWillReceivePropsEdit_123", this.props.userInfo)
-            await this.setState({
-                avatarSource: this.props.userInfo.profilePic,
-                firstName: nextProps.userProfileInfo.data.firstname,
-                lastName: nextProps.userProfileInfo.data.lastname,
-                age: nextProps.userProfileInfo.data.age,
-                state: nextProps.userProfileInfo.data.state,
-                zip: nextProps.userProfileInfo.data.zip,
-            })
-        } catch (error) {
-            console.log("userinfo_123:", error)
-        }
-    }
-
     async onSave() {
         if (this.state.firstName == "" || this.state.firstName == null) {
             Alert.alert(

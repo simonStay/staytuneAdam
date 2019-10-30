@@ -17,4 +17,7 @@ export interface ViewProps extends ViewProperties {
   separatorColor: any,
   selectedTabColor: any,
   selectedTabLineColor: any,
+  separatorStyle: any,
+  tabBottomStyle: any,
+  tabTextStyle: any,
 }

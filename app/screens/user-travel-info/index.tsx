@@ -86,10 +86,6 @@ class UserTravelInfo extends Component<Props, UserInformation> {
                 })
             }
             console.log("UserId:", this.state.userId + "," + "UserToken:", this.state.userToken)
-            //let userDetails = await this.props.getUserDetails(UserId, UserToken)
-
-            //await console.log("userDetails_profileinfoscreen", userDetails.payload)
-            // await console.log("this.props.user.userProfileInfo", this.props.user.userProfileInfo)
 
             await this.setState({
                 profilePic: getUserInfo.profilePic,
@@ -195,10 +191,6 @@ class UserTravelInfo extends Component<Props, UserInformation> {
                 <Tabs
                     TabsList={TabsList}
                     //separatorStyle={{ height: 100, backgroundColor: 'white' }}
-                    // tabItemColor={"orange"}
-                    // separatorColor={"black"}
-                    // selectedTabColor={"yellow"}
-                    // selectedTabLineColor={"black"}
                     onPress={value => this.selectedTab(value)}
                     selectedTabId={this.state.selectedTabId}
                 />

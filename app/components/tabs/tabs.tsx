@@ -25,16 +25,14 @@ export function Tabs(props: ViewProps) {
     children,
     style: styleOverride,
     tabItemColor,
-    separatorColor,
     selectedTabColor,
-    selectedTabLineColor,
-    separatorStyle, ...rest } = props
+    separatorStyle,
+    tabBottomStyle,
+    tabTextStyle, ...rest } = props
   const content = text || children
   const style = mergeAll(flatten([presets[preset] || presets.default, styleOverride]))
 
   const TAB_ITEM_COLOR = props.tabItemColor || "white"
-  const SEPARATOR_COLOR = props.separatorColor || "blue"
-  const SELECTED_TAB_LINE = props.selectedTabLineColor || "blue"
   const TAB_COLOR = props.selectedTabColor || "white"
 
   let TabsArray = [];
@@ -43,18 +41,18 @@ export function Tabs(props: ViewProps) {
       <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
         <View style={{ marginHorizontal: 3 }}>
           <TouchableOpacity activeOpacity={0.9} style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => props.onPress(res)} >
-            <Text style={{ color: i === props.selectedTabId ? TAB_COLOR : TAB_ITEM_COLOR, fontSize: 16, fontFamily: 'OpenSans-Semibold' }}>
+            <Text style={{ color: i === props.selectedTabId ? TAB_COLOR : TAB_ITEM_COLOR, fontSize: 16, fontFamily: 'OpenSans-Semibold', ...tabTextStyle }}>
               {res.tab}
             </Text>
 
           </ TouchableOpacity>
           {i === props.selectedTabId ?
-            (<View style={{ height: 1.6, width: '100%', backgroundColor: SELECTED_TAB_LINE, marginTop: 3 }}></View>)
+            (<View style={{ height: 1.6, width: '100%', backgroundColor: "blue", marginTop: 3, ...tabBottomStyle }}></View>)
             : null}
         </View>
         {i === props.TabsList.length - 1 ?
           null
-          : (<View style={{ height: dimensions.height * 0.03, width: 1.6, backgroundColor: SEPARATOR_COLOR, marginLeft: tabSeparatorMarginLeft, ...props.separatorStyle }} />)
+          : (<View style={{ height: dimensions.height * 0.03, width: 1.6, backgroundColor: "blue", marginLeft: tabSeparatorMarginLeft, ...separatorStyle }} />)
         }
 
       </View>)

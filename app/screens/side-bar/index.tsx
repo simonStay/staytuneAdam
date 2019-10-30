@@ -13,8 +13,8 @@ const MenuItems = [
     { id: 0, type: "Start a plan", icon: "startplan" },
     { id: 1, type: "Itinerary suggestions", icon: "travelsuggestions" },
     { id: 2, type: "Travel preference", icon: "preference" },
-    { id: 3, type: "Digital Souvenir", icon: "souvenir" },
-    { id: 4, type: "Select Tour Guide", icon: "tourguide" },
+    { id: 3, type: "Digital souvenir", icon: "souvenir" },
+    { id: 4, type: "Select tour guide", icon: "tourguide" },
     { id: 5, type: "Saved locations", icon: "savedlocation" },
     { id: 6, type: "Budget", icon: "budget" },
     { id: 7, type: "Signout", icon: "logout" },
@@ -102,10 +102,10 @@ class SideBar extends Component<Props, sideMenuItems, {}> {
             this.props.onCloseMenu("Itinerary suggestions")
         } else if (value == "Travel preference") {
             this.props.onCloseMenu("Travel preference")
-        } else if (value == "Digital Souvenir") {
-            this.props.onCloseMenu("Digital Souvenir")
-        } else if (value == "Select Tour Guide") {
-            this.props.onCloseMenu("Select Tour Guide")
+        } else if (value == "Digital souvenir") {
+            this.props.onCloseMenu("Digital souvenir")
+        } else if (value == "Select tour guide") {
+            this.props.onCloseMenu("Select tour guide")
         } else if (value == "Saved locations") {
             this.props.onCloseMenu("Saved locations")
         } else if (value == "Budget") {
