@@ -25,6 +25,7 @@ interface listOfAvatars {
   selectedAvatarId: string
   selectedAvatarUrl: string
   tourGuideInfo: any
+  tourist: any
 }
 
 class SelectTourGuide extends Component<Props, listOfAvatars, {}> {
@@ -34,7 +35,8 @@ class SelectTourGuide extends Component<Props, listOfAvatars, {}> {
       avatarImagesList: [],
       selectedAvatarId: "",
       selectedAvatarUrl: "",
-      tourGuideInfo: null
+      tourGuideInfo: null,
+      tourist: ""
 
     }
   }
@@ -45,8 +47,18 @@ class SelectTourGuide extends Component<Props, listOfAvatars, {}> {
   }
 
   async onSelect(item) {
-    await this.setState({ selectedAvatarId: item.id, selectedAvatarUrl: item.url, tourGuideInfo: item })
-    console.log("selectedAvatarUrl:", this.state.selectedAvatarUrl)
+    let click = 0
+    if (this.state.selectedAvatarId == item.id) {
+      click = click + 1
+    }
+
+    if (click == 0) {
+      await this.setState({ selectedAvatarId: item.id, selectedAvatarUrl: item.url, tourGuideInfo: item, tourist: item.id })
+    } else {
+      await this.setState({ selectedAvatarId: "", selectedAvatarUrl: "", tourGuideInfo: null })
+    }
+
+    await console.log("selectedAvatarId:", this.state.tourist)
   }
 
   async onSubmit() {
@@ -99,9 +111,11 @@ class SelectTourGuide extends Component<Props, listOfAvatars, {}> {
           numColumns={3}
           renderItem={this.renderItem.bind(this)}
         />
-        <Button style={styles.button} onPress={this.onSubmit.bind(this)}>
-          <Text style={styles.buttonText}>SELECT TOUR GUIDE</Text>
-        </Button>
+        {this.state.tourGuideInfo != null ? (
+          <Button style={styles.button} onPress={this.onSubmit.bind(this)}>
+            <Text style={styles.buttonText}>SELECT TOUR GUIDE</Text>
+          </Button>
+        ) : null}
       </View>
     )
   }

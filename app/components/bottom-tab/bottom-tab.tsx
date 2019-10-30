@@ -21,7 +21,7 @@ export function BottomTab(props: ViewProps) {
   const content = text || children
   const style = mergeAll(flatten([presets[preset] || presets.default, styleOverride]))
   const TAB_VIEW: ViewStyle = {
-    backgroundColor: color.ImageBackgroundColor,
+    backgroundColor: color.primaryColor,
     alignItems: 'center',
     justifyContent: 'center',
     width: dimensions.width / tabs.length,

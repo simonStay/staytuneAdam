@@ -20,8 +20,7 @@ const styles = StyleSheet.create({
   button: {
     marginHorizontal: 20,
     height: dimensions.height / 15.6,
-    borderRadius: 10,
-    marginBottom: 30,
+    marginVertical: dimensions.width * 0.016,
     color: color.buttonColor,
   },
   buttonText: {
