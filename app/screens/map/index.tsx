@@ -2,9 +2,10 @@ import React, { Component } from "react"
 import { View, Text, TouchableOpacity, Image } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 
-import MapView from "react-native-maps"
+import MapView, { Marker } from "react-native-maps"
 import { connect } from "react-redux"
 import Geolocation from "@react-native-community/geolocation"
+import { touristLocations } from "../../redux/actions/places"
 import { Button } from "../../components/button"
 import { Icon } from "../../components/icon"
 import styles from "./styles"
@@ -13,10 +14,13 @@ interface Props {
   navigation: NavigationScreenProp<NavigationState>
   handleSelectedValue: any
   travel: any
+  touristLocations: any
+  Marker: any
 }
 interface MapScreen {
   state: any
   region: any
+  touristLocations: any
 }
 
 class MapScreen extends Component<Props, MapScreen, {}> {
@@ -29,20 +33,30 @@ class MapScreen extends Component<Props, MapScreen, {}> {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       },
+      touristLocations: [],
     }
   }
 
   componentDidMount() {
     Geolocation.getCurrentPosition(position => {
-      console.log("position", JSON.stringify(position))
-      this.setState({
-        region: {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
+      //console.log("position", JSON.stringify(position))
+      this.setState(
+        {
+          region: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          },
         },
-      })
+        async () => {
+          let touristLocations = await this.props.touristLocations(this.state.region)
+          // console.log("touristLocations_mount", JSON.stringify(touristLocations))
+          this.setState({
+            touristLocations: touristLocations.payload,
+          })
+        },
+      )
     })
 
     Geolocation.watchPosition(position => {
@@ -71,7 +85,22 @@ class MapScreen extends Component<Props, MapScreen, {}> {
           zoomEnabled={true}
           onRegionChange={this.onRegionChange.bind(this)}
           showsUserLocation={true}
+          initialRegion={this.state.region}
         >
+          {this.state.touristLocations.length > 0
+            ? this.state.touristLocations.map(location => {
+                return (
+                  <MapView.Marker
+                    coordinate={{
+                      latitude: parseFloat(location.geometry.location.lat),
+                      longitude: parseFloat(location.geometry.location.lng),
+                    }}
+                    image={location.icon}
+                    title={location.name}
+                  />
+                )
+              })
+            : null}
           {/* <TouchableOpacity style={styles.startPlan}>
             <Text style={styles.Text}>Start your Plan</Text>
           </TouchableOpacity> */}
@@ -120,5 +149,5 @@ export default connect(
   state => ({
     travel: state.travel,
   }),
-  {},
+  { touristLocations },
 )(MapScreen)
