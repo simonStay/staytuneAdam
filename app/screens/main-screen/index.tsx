@@ -104,6 +104,7 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
       this.drawer._root.close()
       this.setState({
         isOpen: false,
+        modalVisible: false
       })
     } else {
       this.drawer._root.open()
