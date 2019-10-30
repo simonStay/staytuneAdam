@@ -119,6 +119,12 @@ class UserTravelInfo extends Component<Props, UserInformation> {
         // this.props.onRef(undefined)
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            selectedTabId: nextProps.tabId,
+        })
+    }
+
     selectedTab(value) {
         this.setState({
             selectedTabId: this.props.tabId,

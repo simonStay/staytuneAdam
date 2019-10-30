@@ -35,17 +35,17 @@ export function Tabs(props: ViewProps) {
   const TAB_ITEM_COLOR = props.tabItemColor || "white"
   const TAB_COLOR = props.selectedTabColor || "white"
 
-  let TabsArray = [];
+  let Tabs = [];
   props.TabsList.map((res, i) => {
-    TabsArray.push(
-      <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+    Tabs.push(
+      <TouchableOpacity activeOpacity={0.9} style={{ flexDirection: 'row', justifyContent: 'center', height: dimensions.height * 0.06 }} onPress={() => props.onPress(res)}>
         <View style={{ marginHorizontal: 3 }}>
-          <TouchableOpacity activeOpacity={0.9} style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => props.onPress(res)} >
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}  >
             <Text style={{ color: i === props.selectedTabId ? TAB_COLOR : TAB_ITEM_COLOR, fontSize: 16, fontFamily: 'OpenSans-Semibold', ...tabTextStyle }}>
               {res.tab}
             </Text>
 
-          </ TouchableOpacity>
+          </ View>
           {i === props.selectedTabId ?
             (<View style={{ height: 1.6, width: '100%', backgroundColor: "blue", marginTop: 3, ...tabBottomStyle }}></View>)
             : null}
@@ -55,14 +55,14 @@ export function Tabs(props: ViewProps) {
           : (<View style={{ height: dimensions.height * 0.03, width: 1.6, backgroundColor: "blue", marginLeft: tabSeparatorMarginLeft, ...separatorStyle }} />)
         }
 
-      </View>)
+      </TouchableOpacity>)
   })
 
 
   return (
     <View style={style}
       {...rest}>
-      {TabsArray}
+      {Tabs}
     </View>
   )
 }

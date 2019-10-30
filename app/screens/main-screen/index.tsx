@@ -7,6 +7,8 @@ import SideBar from "../side-bar/index"
 import { Wallpaper } from "../../components/wallpaper"
 import { Header } from "../../components/header"
 import { GoldBarView } from "../../components/goldBar"
+import { BottomTab } from "../../components/bottom-tab"
+
 import EditProfile from "../edit-profile"
 import MapScreen from "../map"
 import ItinerarySuggestions from "../itinerary-suggestions"
@@ -14,6 +16,10 @@ import TravelPreference from "../travel-preference"
 import DigitalSouvenir from "../digital-souvenir"
 import SelectTourGuide from "../select-tour-guide"
 import UserTravelInfo from "../user-travel-info"
+
+import Chat from "../chat"
+import Notifications from "../notifications"
+
 import { connect } from "react-redux"
 import { Signout } from "../../redux/actions/user"
 
@@ -43,6 +49,8 @@ interface UserInformation {
 interface extraInfo {
   drawer: any
 }
+
+let bottomTabs = [{ id: 0, tab: "CHAT" }, { id: 1, tab: "NOTIFICATIONS" }]
 
 class MainScreen extends Component<Props, UserInformation, extraInfo> {
   state: UserInformation
@@ -182,6 +190,27 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
     }
   }
 
+  selectedTab(value) {
+    this.setState({
+      selectedValue: value.tab
+    }, () => {
+      if (this.state.selectedValue == 'CHAT') {
+        this.setState({ headerTitle: "CHAT" })
+      } else if (this.state.selectedValue == 'NOTIFICATIONS') {
+        this.setState({ headerTitle: "NOTIFICATIONS" })
+      }
+    })
+  }
+
+  renderBottomTabBar() {
+    if (this.state.selectedValue == "Edit Profile") {
+    } else {
+      return (
+        <BottomTab tabs={bottomTabs} onPress={value => this.selectedTab(value)} />
+      )
+    }
+  }
+
   renderContanier() {
     if (this.state.selectedValue == "Edit Profile") {
       return <EditProfile navigation={this.props.navigation} getUpdateUserInfo={this.updatedUserInfo.bind(this)} />
@@ -217,6 +246,10 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
           tabValue={"BUDGET INFO"}
         />
       )
+    } else if (this.state.selectedValue == 'CHAT') {
+      return <Chat navigation={this.props.navigation} />
+    } else if (this.state.selectedValue == 'NOTIFICATIONS') {
+      return <Notifications navigation={this.props.navigation} />
     }
   }
 
@@ -261,6 +294,7 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
             onClose={() => this.closeDrawer()}
           >
             {this.renderContanier()}
+            {this.renderBottomTabBar()}
           </Drawer>
         </View>
       </View>
