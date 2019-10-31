@@ -12,6 +12,8 @@ export const icons = {
   budget: require("./budget.png"),
   travelsuggestions: require("./travel-suggestions.png"),
   tourguide: require("./tour-guide.png"),
+  filter: require("./filter.png"),
+  cancel: require("./cancel.png"),
 }
 
 export type IconTypes = keyof typeof icons

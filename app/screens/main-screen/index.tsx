@@ -44,6 +44,7 @@ interface UserInformation {
   zip: string
   profilePic: string
   tabId: any
+  modalVisible: any
 }
 
 interface extraInfo {
@@ -69,6 +70,7 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
       zip: "",
       profilePic: "",
       tabId: 2,
+      modalVisible: false
     }
   }
 
@@ -102,6 +104,7 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
       this.drawer._root.close()
       this.setState({
         isOpen: false,
+        modalVisible: false
       })
     } else {
       this.drawer._root.open()
@@ -202,6 +205,14 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
     })
   }
 
+  onRight() {
+    if (this.state.modalVisible == false) {
+      this.setState({ modalVisible: true })
+    } else {
+      this.setState({ modalVisible: false })
+    }
+  }
+
   renderBottomTabBar() {
     if (this.state.selectedValue == "Edit Profile") {
     } else {
@@ -219,6 +230,7 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
         <MapScreen
           navigation={this.props.navigation}
           handleSelectedValue={this.handleSelectedValue.bind(this)}
+          modalVisible={this.state.modalVisible}
         />
       )
     } else if (this.state.selectedValue == "Itinerary suggestions") {
@@ -273,6 +285,8 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
                 titleStyle={styles.headerTitle}
                 leftIcon={"menu"}
                 onLeftPress={this.onLeft.bind(this)}
+                rightIcon={this.state.selectedValue == "Start a plan" ? "filter" : null}
+                onRightPress={this.onRight.bind(this)}
               />
               <GoldBarView />
             </View>
