@@ -2,14 +2,15 @@ import resToBody from "../resToBody/resToBody"
 export const LOADER_LOCATIONS = "LOADER_LOCATIONS"
 export const TOURIST_LOCATIONS = "TOURIST_LOCATIONS"
 
-export function touristLocations() {
+export function touristLocations(region) {
+  console.log("region_123", JSON.stringify(region))
   return async dispatch => {
     dispatch({
       type: LOADER_LOCATIONS,
       payload: true,
     })
     const res = await fetch(
-      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=37.78825,-122.4324&radius=60&type=tourist&&rankby=prominence&key=AIzaSyBI_ae3Hvrib8Bao3_WrhXLEHKuGj1J8pQ`,
+      `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${region.latitude},${region.longitude}&radius=2000&type=tourist_attraction&key=AIzaSyBI_ae3Hvrib8Bao3_WrhXLEHKuGj1J8pQ`,
       {
         method: "GET",
         headers: {
