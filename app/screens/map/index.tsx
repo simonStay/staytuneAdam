@@ -84,14 +84,14 @@ class MapScreen extends Component<Props, MapScreen, {}> {
   }
 
   onFilter(type) {
-
+    alert("type_123:" + type)
   }
 
   renderFilters() {
     let filterList = []
     filters.map((res, i) => {
       filterList.push(
-        <TouchableOpacity onPress={this.onFilter.bind(this)} style={{ justifyContent: 'space-between', margin: 10, backgroundColor: color.lightLine, borderRadius: 6 }}>
+        <TouchableOpacity onPress={this.onFilter.bind(this, res.type)} style={{ justifyContent: 'space-between', margin: 10, backgroundColor: color.lightLine, borderRadius: 6 }}>
           <Text style={{ color: 'black', fontSize: 16, paddingVertical: 10, paddingHorizontal: 16 }}>{res.type}</Text>
         </TouchableOpacity>)
     })
