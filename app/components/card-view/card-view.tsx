@@ -2,7 +2,6 @@ import * as React from "react"
 import { View } from "react-native"
 import { presets } from "./card-view.presets"
 import { ViewProps } from "./card-view.props"
-import { color, dimensions } from "../../theme"
 import { mergeAll, flatten } from "ramda"
 
 export function CardView(props: ViewProps) {

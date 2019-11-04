@@ -1,4 +1,4 @@
-import { LOADER_LOCATIONS, TOURIST_LOCATIONS } from "./../actions/places"
+import { LOADER_LOCATIONS, TOURIST_LOCATIONS, FILTERED_LOCATIONS } from "./../actions/places"
 
 export default function places(state = {}, action) {
   switch (action.type) {
@@ -12,6 +12,11 @@ export default function places(state = {}, action) {
       return {
         ...state,
         loader: action.payload,
+      }
+    case FILTERED_LOCATIONS:
+      return {
+        ...state,
+        filteredLocations: action.payload
       }
   }
   return state
