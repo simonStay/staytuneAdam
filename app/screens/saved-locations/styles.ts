@@ -36,6 +36,13 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 0,
   },
+  cityText: {
+    fontSize: fontsize.percentTitle,
+    color: color.text,
+    fontWeight: '600',
+    fontFamily: "OpenSans-Semibold",
+    alignSelf: 'center'
+  },
   transparentView: {
     width: dimensions.width,
     height: dimensions.width / 2,
@@ -53,9 +60,16 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 0,
   },
-  elevateView: {
+  imageView: {
     width: dimensions.width,
     height: dimensions.width / 2
+  },
+  elevateView: {
+    width: dimensions.width,
+    height: dimensions.width / 2,
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   imgae: {
     width: dimensions.width,
@@ -69,11 +83,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  locationText: {
-    color: color.textColor,
-    fontSize: fontsize.text,
+  budgetText: {
+    fontSize: fontsize.editprofileText,
+    color: color.text,
+    fontWeight: '600',
     fontFamily: "OpenSans-Semibold",
-    marginLeft: 3,
     alignSelf: 'center'
   },
   checkImage: {

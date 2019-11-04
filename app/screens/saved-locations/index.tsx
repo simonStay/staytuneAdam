@@ -60,27 +60,19 @@ class SavedLocations extends Component<Props, savedLocationsInfo> {
     return (
       <CardView>
 
-        <ImageBackground source={require("./../../assests/austin.jpg")} style={styles.elevateView} >
-          <View style={styles.transparentView} >
-
-          </View>
-          <Text style={{ fontSize: 16, color: 'white' }}>{item.city}</Text>
+        <ImageBackground source={require("./../../assests/austin.jpg")} style={styles.imageView} >
+          <View style={styles.transparentView} />
         </ImageBackground>
-
-
+        <View style={styles.elevateView}>
+          <Text style={styles.cityText}>{item.city}</Text>
+          <Text style={styles.budgetText}>{total}</Text>
+        </View>
         <View style={styles.footer}>
-          <View style={{ height: dimensions.width / 7, width: dimensions.width / 4, alignItems: 'center', justifyContent: 'center' }}>
-
-          </View>
-          <View style={{ height: dimensions.width / 7, width: dimensions.width / 4, alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={styles.locationText}>{total}</Text>
-          </View>
-
-          <TouchableOpacity onPress={this.onBudget.bind(this, item)} style={{ height: dimensions.width / 7, width: dimensions.width / 4, alignItems: 'center', justifyContent: 'center' }}>
+          <TouchableOpacity onPress={this.onBudget.bind(this, item)} style={{ height: dimensions.width / 7, width: dimensions.width / 2, alignItems: 'center', justifyContent: 'center' }}>
             <Icon icon={"budgetBlack"} style={styles.icon} />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={this.onLocation.bind(this, item)} style={{ height: dimensions.width / 7, width: dimensions.width / 4, alignItems: 'center', justifyContent: 'center' }}>
+          <TouchableOpacity onPress={this.onLocation.bind(this, item)} style={{ height: dimensions.width / 7, width: dimensions.width / 2, alignItems: 'center', justifyContent: 'center' }}>
             <Icon icon={"edit"} style={styles.icon} />
           </TouchableOpacity>
 
@@ -96,7 +88,7 @@ class SavedLocations extends Component<Props, savedLocationsInfo> {
         {this.props.travel.savedLocations != undefined ? (
           <View style={{ marginHorizontal: 6 }}>
             <FlatList
-              data={_.reverse(this.props.travel.savedLocations)}
+              data={this.props.travel.savedLocations}
               extraData={this.state}
               renderItem={this.renderItem.bind(this)}
             />
