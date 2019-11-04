@@ -59,25 +59,22 @@ const styles = StyleSheet.create({
   },
   imgae: {
     width: dimensions.width,
-    height: dimensions.width / 2 - 40
+    height: dimensions.width / 2 - 30,
   },
   footer: {
-    width: dimensions.width,
-    height: 40,
+    width: dimensions.width - 6,
+    height: dimensions.width / 7,
     backgroundColor: "white",
-  },
-  footerRow: {
-    flex: 1,
     flexDirection: "row",
-  },
-  LeftFooter: {
-    width: dimensions.width / 2,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   locationText: {
     color: color.textColor,
     fontSize: fontsize.text,
-    textAlign: "center",
-    marginTop: 10,
+    fontFamily: "OpenSans-Semibold",
+    marginLeft: 3,
+    alignSelf: 'center'
   },
   checkImage: {
     width: dimensions.width / 6 - 40,
@@ -91,10 +88,8 @@ const styles = StyleSheet.create({
   },
   icon: {
     width: dimensions.width * 0.076,
-    marginRight: 3,
     height: dimensions.width * 0.076,
-    alignSelf: "flex-end",
-    transform: [{ rotateY: "180deg" }],
+    alignSelf: 'center'
   },
   button: {
     marginHorizontal: 20,
