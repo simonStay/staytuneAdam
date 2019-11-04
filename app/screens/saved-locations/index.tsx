@@ -95,7 +95,7 @@ class SavedLocations extends Component<Props, savedLocationsInfo> {
         {this.props.travel.savedLocations != undefined ? (
           <View style={{ marginHorizontal: 6 }}>
             <FlatList
-              data={_.reverse(this.props.travel.savedLocations)}
+              data={this.props.travel.savedLocations}
               extraData={this.state}
               renderItem={this.renderItem.bind(this)}
             />
