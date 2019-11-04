@@ -47,10 +47,18 @@ class SetInitialInterest extends Component<Props, UserInformation> {
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     // alert(dimensions.width)
     try {
-      this.setState({ categories: this.props.travel.travelPreferenceInfo.categoriesList })
+      if (this.props.travel.travelPreferenceInfo == undefined ||
+        this.props.travel.travelPreferenceInfo == "undefined") {
+        //console.log("categories_123_if")
+        await this.setState({ categories: this.props.travel.editTravelPreferences.categoriesList })
+
+      } else {
+        //console.log("categories_123_else")
+        await this.setState({ categories: this.props.travel.travelPreferenceInfo.categoriesList })
+      }
     } catch (error) {
       console.log("categories_catch_error", error)
     }

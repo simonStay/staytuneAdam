@@ -37,12 +37,12 @@ const styles = StyleSheet.create({
     textShadowRadius: 0,
   },
   transparentView: {
-    width: dimensions.width / 2,
+    width: dimensions.width,
     height: dimensions.width / 2,
     backgroundColor: "black",
     alignItems: "center",
     justifyContent: "center",
-    opacity: 0.42,
+    opacity: 0.42, position: 'absolute'
   },
   categoryText: {
     color: color.text,

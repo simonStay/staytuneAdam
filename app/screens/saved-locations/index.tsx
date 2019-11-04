@@ -59,12 +59,17 @@ class SavedLocations extends Component<Props, savedLocationsInfo> {
     }
     return (
       <CardView>
-        <View style={styles.elevateView}>
-          <Image source={require("./../../assests/austin.jpg")} style={styles.elevateView} />
-        </View>
+
+        <ImageBackground source={require("./../../assests/austin.jpg")} style={styles.elevateView} >
+          <View style={styles.transparentView} >
+            <Text style={{ fontSize: 16, color: 'white' }}>{item.city}</Text>
+          </View>
+        </ImageBackground>
+
+
         <View style={styles.footer}>
           <View style={{ height: dimensions.width / 7, width: dimensions.width / 4, alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={styles.locationText}>{item.city}</Text>
+
           </View>
           <View style={{ height: dimensions.width / 7, width: dimensions.width / 4, alignItems: 'center', justifyContent: 'center' }}>
             <Text style={styles.locationText}>{total}</Text>
