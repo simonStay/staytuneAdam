@@ -110,6 +110,7 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
       this.drawer._root.open()
       this.setState({
         isOpen: true,
+        modalVisible: false
       })
     }
   }
@@ -231,6 +232,7 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
           navigation={this.props.navigation}
           handleSelectedValue={this.handleSelectedValue.bind(this)}
           modalVisible={this.state.modalVisible}
+          onRight={this.onRight.bind(this)}
         />
       )
     } else if (this.state.selectedValue == "Itinerary suggestions") {

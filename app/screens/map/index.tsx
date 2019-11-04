@@ -1,29 +1,35 @@
 import React, { Component } from "react"
-import { View, Text, TouchableOpacity, Image, Modal, ScrollView } from "react-native"
+import { View, Text, TouchableOpacity, FlatList, Modal, Image, ScrollView } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 
 import MapView, { Marker } from "react-native-maps"
 import { connect } from "react-redux"
 import Geolocation from "@react-native-community/geolocation"
-import { touristLocations } from "../../redux/actions/places"
+import { touristLocations, getFilterByType } from "../../redux/actions/places"
 import { Button } from "../../components/button"
 import { Icon } from "../../components/icon"
 import styles from "./styles"
 import { filters } from "../filters/filters"
 import { dimensions, color } from "../../theme"
+import { CardView } from "../../components/card-view"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
   handleSelectedValue: any
   travel: any
   touristLocations: any
+  getFilterByType: any
   Marker: any
+  onRight: any
 }
 interface MapScreen {
   state: any
   region: any
   modalVisible: any
   touristLocations: any
+  selectedFilter: any
+  filteredResponse: any
+  selectedType: any
 }
 
 class MapScreen extends Component<Props, MapScreen, {}> {
@@ -38,6 +44,9 @@ class MapScreen extends Component<Props, MapScreen, {}> {
         modalVisible: false,
       },
       touristLocations: [],
+      selectedFilter: false,
+      filteredResponse: [],
+      selectedType: ''
     }
   }
 
@@ -83,8 +92,16 @@ class MapScreen extends Component<Props, MapScreen, {}> {
     this.setState({ region: region })
   }
 
-  onFilter(type) {
-    alert("type_123:" + type)
+  async onFilter(type) {
+    let region = this.state.region
+    let FilteredData = await this.props.getFilterByType(type, region)
+    console.log("FilteredData_123", JSON.stringify(FilteredData))
+    //alert("type_123:" + type)
+    this.setState({
+      selectedFilter: true,
+      selectedType: type,
+      filteredResponse: FilteredData.payload
+    })
   }
 
   renderFilters() {
@@ -96,6 +113,43 @@ class MapScreen extends Component<Props, MapScreen, {}> {
         </TouchableOpacity>)
     })
     return (filterList)
+  }
+
+  filteredType(item) {
+    console.log("item", JSON.stringify(item))
+    return (
+      <CardView style={{ marginHorizontal: 20, height: 150 }}>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <View style={{ flex: 0.4 }} >
+            {item.item.photos !== undefined ? (
+              <Image source={{ uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${item.item.photos[0].photo_reference}&key=AIzaSyBI_ae3Hvrib8Bao3_WrhXLEHKuGj1J8pQ` }} style={{ height: '100%', width: '100%' }} />
+            ) : (
+                <Image source={require("./../../assests/placeholder-image.png")} style={{ height: '100%', width: '100%' }} />
+              )}
+          </View>
+          <View style={{ flex: 0.6 }} >
+            <View style={{ flex: 1 }}>
+
+              <Text style={{
+                color: '#000',
+                fontSize: 24,
+                textAlign: "justify",
+                marginHorizontal: 10,
+                fontFamily: "OpenSans-Semibold"
+              }}>{item.item.name}</Text>
+              <Text style={{
+                color: '#000',
+                fontSize: 15,
+                textAlign: "justify",
+                marginVertical: 20,
+                marginHorizontal: 10,
+                fontFamily: "OpenSans"
+              }}>{item.item.vicinity}</Text>
+            </View>
+          </View>
+        </View>
+      </CardView>
+    )
   }
 
   render() {
@@ -152,14 +206,45 @@ class MapScreen extends Component<Props, MapScreen, {}> {
           }}>
           <View style={{ flex: 1, flexDirection: 'column', backgroundColor: 'black', opacity: 0.9, justifyContent: 'center', aligItems: 'center' }}>
             <View style={{ flex: 0.1 }}>
-              <TouchableOpacity onPress={() => { this.setState({ modalVisible: false }) }}>
+              <TouchableOpacity onPress={() => {
+                this.props.onRight()
+                this.setState({ modalVisible: false, selectedFilter: false, selectedType: '' })
+              }}>
                 <Icon icon={"cancel"} style={{ position: 'absolute', top: 0, right: 0, marginTop: 31, marginRight: 16 }} />
               </TouchableOpacity>
             </View>
             <View style={{ flex: 0.9, flexDirection: 'row', flexWrap: "wrap" }}>
-              <ScrollView contentContainerStyle={{ flex: 0.9, flexDirection: 'row', flexWrap: "wrap" }}>
-                {this.renderFilters()}
-              </ScrollView>
+              <View style={{ flex: 1 }}>
+                {!this.state.selectedFilter ? (
+                  <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexDirection: 'row', flexWrap: "wrap" }}>
+                    {this.renderFilters()}
+                  </ScrollView>
+                ) : (
+                    <View>
+                      <Text style={{
+                        color: '#fff',
+                        fontSize: 20,
+                        textAlign: "center",
+                        marginVertical: 10,
+                        fontFamily: "OpenSans-bold"
+                      }}>{this.state.selectedType.toUpperCase()}</Text>
+                      {this.state.filteredResponse.length !== 0 ? (
+                        <FlatList
+                          data={this.state.filteredResponse}
+                          renderItem={(item) => this.filteredType(item)}
+                        />
+                      ) : (
+                          <Text style={{
+                            color: '#fff',
+                            fontSize: 20,
+                            textAlign: "center",
+                            justifyContent: 'center',
+                            fontFamily: "OpenSans"
+                          }}>No {this.state.selectedType.toUpperCase()} found near to your location</Text>
+                        )}
+                    </View>
+                  )}
+              </View>
             </View>
           </View>
         </Modal>
@@ -172,5 +257,5 @@ export default connect(
   state => ({
     travel: state.travel,
   }),
-  { touristLocations },
+  { touristLocations, getFilterByType },
 )(MapScreen)
