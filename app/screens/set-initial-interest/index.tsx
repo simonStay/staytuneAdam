@@ -47,10 +47,18 @@ class SetInitialInterest extends Component<Props, UserInformation> {
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     // alert(dimensions.width)
     try {
-      this.setState({ categories: this.props.travel.travelPreferenceInfo.categoriesList })
+      if (this.props.travel.travelPreferenceInfo == undefined ||
+        this.props.travel.travelPreferenceInfo == "undefined") {
+        //console.log("categories_123_if")
+        await this.setState({ categories: this.props.travel.editTravelPreferences.categoriesList })
+
+      } else {
+        //console.log("categories_123_else")
+        await this.setState({ categories: this.props.travel.travelPreferenceInfo.categoriesList })
+      }
     } catch (error) {
       console.log("categories_catch_error", error)
     }
@@ -243,37 +251,37 @@ class SetInitialInterest extends Component<Props, UserInformation> {
         <View style={styles.subListView}>
           {showSublist == true
             ? item.subCategories.map((res, i) => {
-                return (
-                  <View
-                    style={[
-                      styles.subListRow,
-                      { borderBottomWidth: i === item.subCategories.length - 1 ? 0 : 1 },
-                    ]}
-                  >
-                    <View style={styles.subListLeftRow}>
-                      <Text style={styles.subcategoryText}>{res.categoryname}</Text>
-                    </View>
-                    <View style={styles.subListRightRow}>
-                      <Toggle
-                        initial={res.selected === true ? true : false}
-                        onChange={this.onToggleChange.bind(this)}
-                      >
-                        {({ on, toggle }) => (
-                          <Switch
-                            trackOnStyle={styles.trackOn}
-                            trackOffStyle={styles.trackOff}
-                            thumbOnStyle={styles.thumbOn}
-                            thumbOffStyle={styles.thumbOff}
-                            value={on}
-                            onToggle={toggle}
-                            getValue={this.toggleSwitch(item, res, toggle, on, showSublist)}
-                          />
-                        )}
-                      </Toggle>
-                    </View>
+              return (
+                <View
+                  style={[
+                    styles.subListRow,
+                    { borderBottomWidth: i === item.subCategories.length - 1 ? 0 : 1 },
+                  ]}
+                >
+                  <View style={styles.subListLeftRow}>
+                    <Text style={styles.subcategoryText}>{res.categoryname}</Text>
                   </View>
-                )
-              })
+                  <View style={styles.subListRightRow}>
+                    <Toggle
+                      initial={res.selected === true ? true : false}
+                      onChange={this.onToggleChange.bind(this)}
+                    >
+                      {({ on, toggle }) => (
+                        <Switch
+                          trackOnStyle={styles.trackOn}
+                          trackOffStyle={styles.trackOff}
+                          thumbOnStyle={styles.thumbOn}
+                          thumbOffStyle={styles.thumbOff}
+                          value={on}
+                          onToggle={toggle}
+                          getValue={this.toggleSwitch(item, res, toggle, on, showSublist)}
+                        />
+                      )}
+                    </Toggle>
+                  </View>
+                </View>
+              )
+            })
             : null}
         </View>
       </View>

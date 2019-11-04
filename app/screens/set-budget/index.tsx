@@ -67,16 +67,16 @@ class SetBudget extends Component<Props, UserInformation, extrainfo> {
     this.cityInput = React.createRef()
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     //alert("klklklklklklkl" + JSON.stringify(this.props.navigation.state.params.travelPreferenceId))
     if (this.props.navigation.state.params.travelPreferenceId == undefined || this.props.navigation.state.params.travelPreferenceId == "undefined" ||
       this.props.navigation.state.params.travelPreferenceId == null || this.props.navigation.state.params.travelPreferenceId == "") {
-      this.setState({
+      await this.setState({
         selectedTravelPreferences: this.props.travel.selectedTravelPreferences,
         editBuget: false
       })
     } else {
-      this.setState({
+      await this.setState({
         editBuget: true,
         preferenceId: this.props.travel.getPreferencesById.id,
         selectedTravelPreferences: this.props.travel.getPreferencesById.selectedTravelPreferences,

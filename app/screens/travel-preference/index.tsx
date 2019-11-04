@@ -63,12 +63,13 @@ class TravelPreference extends Component<Props, categoriesInfo> {
         {
           categoriesList: listPreferenceTypes,
         },
-        () => {
+        async () => {
           this.setState({
             visible: this.props.travel.loader,
           })
         },
       )
+      await this.props.selectedTravelPreferences(this.state.categoriesList)
     } catch (error) {
       console.log("error_TravelPreference:")
     }
@@ -124,7 +125,7 @@ class TravelPreference extends Component<Props, categoriesInfo> {
     await this.props.selectedTravelPreferences(this.state.categoriesList)
   }
 
-  onNext() {
+  async onNext() {
     this.props.navigation.push('SetBudget', { travelPreferenceId: this.props.travelPreferenceId })
   }
 
