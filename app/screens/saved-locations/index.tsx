@@ -62,8 +62,9 @@ class SavedLocations extends Component<Props, savedLocationsInfo> {
 
         <ImageBackground source={require("./../../assests/austin.jpg")} style={styles.elevateView} >
           <View style={styles.transparentView} >
-            <Text style={{ fontSize: 16, color: 'white' }}>{item.city}</Text>
+
           </View>
+          <Text style={{ fontSize: 16, color: 'white' }}>{item.city}</Text>
         </ImageBackground>
 
 
