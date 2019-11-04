@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     height: 60,
     backgroundColor: color.buttonColor,
-    marginTop: dimensions.width == 414 ? dimensions.height - 220 : dimensions.height - 160,
+    marginTop: dimensions.width == 414 ? dimensions.height - 300 : dimensions.height - 240,
     borderRadius: 10,
   },
   buttonText: {

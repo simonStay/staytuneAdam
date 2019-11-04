@@ -21,6 +21,8 @@ interface Props {
   getFilterByType: any
   Marker: any
   onRight: any
+  modalVisible: any
+  startPlan: any
 }
 interface MapScreen {
   state: any
@@ -60,7 +62,7 @@ class MapScreen extends Component<Props, MapScreen, {}> {
             longitude: position.coords.longitude,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
-          },
+          }
         },
         async () => {
           let touristLocations = await this.props.touristLocations(this.state.region)
@@ -84,9 +86,10 @@ class MapScreen extends Component<Props, MapScreen, {}> {
     })
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({ modalVisible: nextProps.modalVisible })
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   alert("Props" + nextProps.modalVisible)
+  //   this.setState({ modalVisible: nextProps.modalVisible })
+  // }
 
   onRegionChange(region) {
     this.setState({ region: region })
@@ -136,7 +139,7 @@ class MapScreen extends Component<Props, MapScreen, {}> {
                 textAlign: "justify",
                 marginHorizontal: 10,
                 fontFamily: "OpenSans-Semibold"
-              }}>{item.item.name}</Text>
+              }} numberOfLines={2}>{item.item.name}</Text>
               <Text style={{
                 color: '#000',
                 fontSize: 15,
@@ -180,8 +183,8 @@ class MapScreen extends Component<Props, MapScreen, {}> {
             : null}
         </MapView>
 
-        {this.props.travel.savedLocations === undefined ||
-          this.props.travel.savedLocations.length === 0 ? (
+        {(this.props.travel.savedLocations === undefined ||
+          this.props.travel.savedLocations.length === 0) || this.props.startPlan ? (
             <TouchableOpacity
               style={styles.startPlan}
               onPress={this.props.handleSelectedValue.bind(this, "Travel preference")}
@@ -200,15 +203,15 @@ class MapScreen extends Component<Props, MapScreen, {}> {
         <Modal
           animationType="slide"
           transparent={true}
-          visible={this.state.modalVisible}
+          visible={this.props.modalVisible}
           onRequestClose={() => {
             alert('Modal has been closed.');
           }}>
           <View style={{ flex: 1, flexDirection: 'column', backgroundColor: 'black', opacity: 0.9, justifyContent: 'center', aligItems: 'center' }}>
             <View style={{ flex: 0.1 }}>
               <TouchableOpacity onPress={() => {
+                this.setState({ selectedFilter: false, selectedType: '' })
                 this.props.onRight()
-                this.setState({ modalVisible: false, selectedFilter: false, selectedType: '' })
               }}>
                 <Icon icon={"cancel"} style={{ position: 'absolute', top: 0, right: 0, marginTop: 31, marginRight: 16 }} />
               </TouchableOpacity>

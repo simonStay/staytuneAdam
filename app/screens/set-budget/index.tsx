@@ -24,7 +24,8 @@ interface Props {
   user: any
   travel: any
   daysRef: any
-  editPreferences; any
+  editPreferences: any
+  travelPreferenceId: any
 }
 interface UserInformation {
   personsCount: any
@@ -67,7 +68,9 @@ class SetBudget extends Component<Props, UserInformation, extrainfo> {
   }
 
   componentDidMount() {
-    if (this.props.travel.getPreferencesById == undefined || this.props.travel.getPreferencesById == "undefined") {
+    // alert("klklklklklklkl" + JSON.stringify(this.props.navigation.state.params.travelPreferenceId))
+    if (this.props.navigation.state.params.travelPreferenceId == undefined || this.props.navigation.state.params.travelPreferenceId == "undefined" ||
+      this.props.navigation.state.params.travelPreferenceId == null || this.props.navigation.state.params.travelPreferenceId == "") {
       this.setState({
         selectedTravelPreferences: this.props.travel.selectedTravelPreferences,
         editBuget: false
@@ -210,24 +213,40 @@ class SetBudget extends Component<Props, UserInformation, extrainfo> {
         await this.props.setBudgeInfo(setTravelBudget)
         if (this.state.preferenceId == "" || this.state.preferenceId == undefined) {
           await this.props.setTravelPreferences(setTravelBudget)
+          if (this.props.travel.travelPreferenceInfo.status == "Success") {
+            this.props.navigation.push("SetInitialInterest")
+          } else {
+            {
+              /*This is Temporary solution */
+            }
+            setTimeout(() => {
+              Alert.alert(
+                "Stay Tune",
+                "Something went wrong",
+                [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+                { cancelable: false },
+              )
+            }, 100)
+          }
         } else {
           await this.props.editPreferences(setTravelBudget)
-        }
-        if (this.props.travel.travelPreferenceInfo.status == "Success") {
-          this.props.navigation.push("SetInitialInterest")
-        } else {
-          {
-            /*This is Temporary solution */
+          if (this.props.travel.editTravelPreferences.status == "Success") {
+            this.props.navigation.push("SetInitialInterest")
+          } else {
+            {
+              /*This is Temporary solution */
+            }
+            setTimeout(() => {
+              Alert.alert(
+                "Stay Tune",
+                "Something went wrong",
+                [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+                { cancelable: false },
+              )
+            }, 100)
           }
-          setTimeout(() => {
-            Alert.alert(
-              "Stay Tune",
-              "Something went wrong",
-              [{ text: "OK", onPress: () => console.log("OK Pressed") }],
-              { cancelable: false },
-            )
-          }, 100)
         }
+
       } catch (error) {
         console.log(error)
       }
@@ -245,9 +264,9 @@ class SetBudget extends Component<Props, UserInformation, extrainfo> {
           titleStyle={styles.headerTitle}
           leftIcon={"back"}
           onLeftPress={this.onLeft.bind(this)}
-          rightText={"Skip"}
+          rightText={this.state.preferenceId == "" || this.state.preferenceId == undefined ? "Skip" : null}
           rightTextStyle={styles.rightTextStyle}
-          onRightPress={this.onRight.bind(this)}
+          onRightPress={this.state.preferenceId == "" || this.state.preferenceId == undefined ? this.onRight.bind(this) : null}
         />
         <GoldBarView />
         <KeyboardAwareScrollView

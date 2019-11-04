@@ -11,7 +11,7 @@ export const GET_PREFERENCES_BY_ID = "GET_PREFERENCES_BY_ID"
 export const SELECT_TOUR_GUIDE = "SELECT_TOUR_GUIDE"
 export const EDIT_TRAVEL_PREFERENCE = "EDIT_TRAVEL_PREFERENCE"
 
-const STAYTUNELIVEURL = "https://staytune.austinconversionoptimization.com/"
+const STAYTUNELIVEURL = "https://staytune.austinconversionoptimization.com"
 
 export function travelPreferenceTypes() {
   return async dispatch => {

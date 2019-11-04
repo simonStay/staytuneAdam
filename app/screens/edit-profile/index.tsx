@@ -224,7 +224,7 @@ class EditProfile extends Component<Props, UserInformation> {
           // console.log("sources_123:", source.uri)
 
           if (response.width > 1000) {
-            await ImageResizer.createResizedImage(source.uri, 600, 600, "PNG", 100)
+            await ImageResizer.createResizedImage(source.uri, 360, 360, "PNG", 100)
               .then(async imgResponse => {
                 await this.setState({ resizeImage: imgResponse.uri })
               })

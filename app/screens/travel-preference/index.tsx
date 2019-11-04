@@ -18,6 +18,7 @@ interface Props {
   travelCategoriesList: any
   travelPreferenceId: any
   getPreferencesById: any
+  preferenceId: any
 }
 interface categoriesInfo {
   selectedPrefenceList: any
@@ -42,6 +43,7 @@ class TravelPreference extends Component<Props, categoriesInfo> {
   }
 
   async componentDidMount() {
+    // alert(this.props.travelPreferenceId)
     try {
       let listPreferenceTypes = []
       if (this.props.travelPreferenceId == null || this.props.travelPreferenceId == "" || this.props.travelPreferenceId == "undefined") {
@@ -100,15 +102,30 @@ class TravelPreference extends Component<Props, categoriesInfo> {
 
     this.setState({ selectedPrefenceList: this.state.selectedPrefenceList })
 
-    if (this.state.selectedPrefenceList.length == 0) {
+
+    var selectedPrefencesTypes = []
+    this.state.categoriesList.map((value, i) => {
+
+      if (value.selected == true) {
+        selectedPrefencesTypes.push({ name: value.categoryname, selected: value.selected })
+      }
+      console.log("selected_switches:", value.selected)
+
+    })
+
+    //alert(selectedPrefencesTypes.length)
+
+    if (selectedPrefencesTypes.length == 0) {
       this.setState({ showButton: false })
+    } else {
+      this.setState({ showButton: true })
     }
 
     await this.props.selectedTravelPreferences(this.state.categoriesList)
   }
 
   onNext() {
-    this.props.navigation.push('SetBudget')
+    this.props.navigation.push('SetBudget', { travelPreferenceId: this.props.travelPreferenceId })
   }
 
   renderItem = ({ item }) => {
@@ -158,7 +175,7 @@ class TravelPreference extends Component<Props, categoriesInfo> {
           renderItem={this.renderItem.bind(this)}
           numColumns={2}
         />
-        {this.state.selectedPrefenceList.length != 0 || this.state.showButton == true ? (
+        {this.state.showButton == true ? (
           <Button style={styles.button} onPress={this.onNext.bind(this)}>
             <View style={styles.buttonLeft}>
               <Text style={styles.buttonText}>Next</Text>
