@@ -147,7 +147,7 @@ class UserTravelInfo extends Component<Props, UserInformation> {
     }
 
     onLocationBudget(item) {
-        alert(JSON.stringify(item))
+        //  alert(JSON.stringify(item))
     }
 
     renderProfileInfo() {

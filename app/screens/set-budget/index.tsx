@@ -80,12 +80,12 @@ class SetBudget extends Component<Props, UserInformation, extrainfo> {
         editBuget: true,
         preferenceId: this.props.travel.getPreferencesById.id,
         selectedTravelPreferences: this.props.travel.getPreferencesById.selectedTravelPreferences,
-        personsCount: this.props.travel.getPreferencesById.personsCount,
-        daysCount: this.props.travel.getPreferencesById.daysCount,
-        totalBudget: this.props.travel.getPreferencesById.totalBudget,
-        city: this.props.travel.getPreferencesById.city,
+        personsCount: this.props.travel.getPreferencesById.personsCount !== null ? this.props.travel.getPreferencesById.personsCount : '',
+        daysCount: this.props.travel.getPreferencesById.daysCount !== null ? this.props.travel.getPreferencesById.daysCount : '',
+        totalBudget: this.props.travel.getPreferencesById.totalBudget !== null ? this.props.travel.getPreferencesById.totalBudget : '',
+        city: this.props.travel.getPreferencesById.city !== null ? this.props.travel.getPreferencesById.city : '',
         locationImage: this.props.travel.getPreferencesById.locationImage,
-        travelDate: this.props.travel.getPreferencesById.travelDate,
+        travelDate: this.props.travel.getPreferencesById.travelDate !== null ? this.props.travel.getPreferencesById.travelDate : '',
       })
     }
   }
