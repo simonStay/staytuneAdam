@@ -6,7 +6,9 @@ import {
   SET_TRAVEL_INFO,
   USER_SAVED_LOCATIONS,
   UPDATE_TRAVEL_PREFERENCE,
+  GET_PREFERENCES_BY_ID,
   SELECT_TOUR_GUIDE,
+  EDIT_TRAVEL_PREFERENCE,
 } from "./../actions/travel"
 import { TRAVEL_SIGN_OUT } from "./../actions/user"
 
@@ -35,6 +37,18 @@ export default function travel(state = {}, action) {
         ...state,
         loader: false,
         updatetravelPreferenceInfo: action.payload,
+      }
+    case GET_PREFERENCES_BY_ID:
+      return {
+        ...state,
+        loader: false,
+        getPreferencesById: action.payload,
+      }
+    case EDIT_TRAVEL_PREFERENCE:
+      return {
+        ...state,
+        loader: false,
+        editTravelPreferences: action.payload
       }
     case SET_TRAVEL_INFO:
       return {

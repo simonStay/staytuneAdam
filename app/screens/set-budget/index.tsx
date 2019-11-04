@@ -13,7 +13,7 @@ import { Icon } from "../../components/icon"
 import { color, dimensions, spacing } from "../../theme"
 
 import { connect } from "react-redux"
-import { setTravelPreferences, setBudgeInfo } from "../../redux/actions/travel"
+import { setTravelPreferences, setBudgeInfo, editPreferences } from "../../redux/actions/travel"
 import AnimatedLoader from "react-native-animated-loader"
 import DatePicker from "react-native-datepicker"
 
@@ -24,6 +24,7 @@ interface Props {
   user: any
   travel: any
   daysRef: any
+  editPreferences; any
 }
 interface UserInformation {
   personsCount: any
@@ -32,6 +33,10 @@ interface UserInformation {
   city: any
   visible: boolean
   travelDate: any
+  locationImage: any
+  selectedTravelPreferences: any
+  editBuget: any
+  preferenceId: any
 }
 
 interface extrainfo {
@@ -50,7 +55,11 @@ class SetBudget extends Component<Props, UserInformation, extrainfo> {
       totalBudget: "",
       city: "",
       travelDate: "",
+      locationImage: "",
       visible: this.props.travel.loader,
+      selectedTravelPreferences: [],
+      editBuget: false,
+      preferenceId: ""
     }
     this.noOfDaysInput = React.createRef()
     this.totalBudgetInput = React.createRef()
@@ -58,7 +67,24 @@ class SetBudget extends Component<Props, UserInformation, extrainfo> {
   }
 
   componentDidMount() {
-    // alert(dimensions.width)
+    if (this.props.travel.getPreferencesById == undefined || this.props.travel.getPreferencesById == "undefined") {
+      this.setState({
+        selectedTravelPreferences: this.props.travel.selectedTravelPreferences,
+        editBuget: false
+      })
+    } else {
+      this.setState({
+        editBuget: true,
+        preferenceId: this.props.travel.getPreferencesById.id,
+        selectedTravelPreferences: this.props.travel.getPreferencesById.selectedTravelPreferences,
+        personsCount: this.props.travel.getPreferencesById.personsCount,
+        daysCount: this.props.travel.getPreferencesById.daysCount,
+        totalBudget: this.props.travel.getPreferencesById.totalBudget,
+        city: this.props.travel.getPreferencesById.city,
+        locationImage: this.props.travel.getPreferencesById.locationImage,
+        travelDate: this.props.travel.getPreferencesById.travelDate,
+      })
+    }
   }
 
   onLeft() {
@@ -170,7 +196,7 @@ class SetBudget extends Component<Props, UserInformation, extrainfo> {
         userId = this.props.user.userProfileInfo.data.id
       }
       let setTravelBudget = {
-        selectedTravelPreferences: this.props.travel.selectedTravelPreferences,
+        selectedTravelPreferences: this.state.selectedTravelPreferences,
         personsCount: parseInt(this.state.personsCount),
         daysCount: parseInt(this.state.daysCount),
         totalBudget: parseInt(this.state.totalBudget),
@@ -178,11 +204,15 @@ class SetBudget extends Component<Props, UserInformation, extrainfo> {
         userId: userId,
         locationImage: "",
         travelDate: this.state.travelDate,
-        selectedCategories: [],
+        preferenceId: this.state.preferenceId
       }
       try {
         await this.props.setBudgeInfo(setTravelBudget)
-        await this.props.setTravelPreferences(setTravelBudget)
+        if (this.state.preferenceId == "" || this.state.preferenceId == undefined) {
+          await this.props.setTravelPreferences(setTravelBudget)
+        } else {
+          await this.props.editPreferences(setTravelBudget)
+        }
         if (this.props.travel.travelPreferenceInfo.status == "Success") {
           this.props.navigation.push("SetInitialInterest")
         } else {
@@ -283,7 +313,7 @@ class SetBudget extends Component<Props, UserInformation, extrainfo> {
             placeholder="Number of Persons"
             placeholderTextColor={color.placeholderText}
             onChangeText={value => this.setState({ personsCount: value })}
-            value={this.state.personsCount}
+            value={this.state.personsCount.toString()}
             keyboardType="numeric"
             returnKeyType="done"
             onSubmitEditing={() => this.noOfDaysInput.current.focus()}
@@ -298,7 +328,7 @@ class SetBudget extends Component<Props, UserInformation, extrainfo> {
             //autoFocus={true}
             placeholderTextColor={color.placeholderText}
             onChangeText={value => this.setState({ daysCount: value })}
-            value={this.state.daysCount}
+            value={this.state.daysCount.toString()}
             keyboardType="numeric"
             returnKeyType="done"
             onSubmitEditing={() => this.totalBudgetInput.current.focus()}
@@ -312,7 +342,7 @@ class SetBudget extends Component<Props, UserInformation, extrainfo> {
             placeholder="Total Budget"
             placeholderTextColor={color.placeholderText}
             onChangeText={value => this.setState({ totalBudget: value })}
-            value={this.state.totalBudget}
+            value={this.state.totalBudget.toString()}
             keyboardType="numeric"
             returnKeyType="done"
             onSubmitEditing={() => this.cityInput.current.focus()}
@@ -358,5 +388,5 @@ export default connect(
     user: state.user,
     travel: state.travel,
   }),
-  { setBudgeInfo, setTravelPreferences },
+  { setBudgeInfo, setTravelPreferences, editPreferences },
 )(SetBudget)

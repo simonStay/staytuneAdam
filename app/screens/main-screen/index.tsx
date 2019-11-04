@@ -45,6 +45,7 @@ interface UserInformation {
   profilePic: string
   tabId: any
   modalVisible: any
+  travelPreferenceId: string
 }
 
 interface extraInfo {
@@ -70,7 +71,8 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
       zip: "",
       profilePic: "",
       tabId: 2,
-      modalVisible: false
+      modalVisible: false,
+      travelPreferenceId: ""
     }
   }
 
@@ -93,6 +95,15 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
           userObj: getUserInfo
         })
       }
+
+      if (this.props.navigation.state.params.navigateTo == "TravelPreferenceScreen") {
+        this.setState({
+          selectedValue: "Travel preference",
+          travelPreferenceId: this.props.navigation.state.params.preferenceId,
+          headerTitle: "TRAVEL PREFERENCE",
+        })
+      }
+
     } catch (error) {
 
     }
@@ -110,6 +121,7 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
       this.drawer._root.open()
       this.setState({
         isOpen: true,
+        modalVisible: false
       })
     }
   }
@@ -236,7 +248,7 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
     } else if (this.state.selectedValue == "Itinerary suggestions") {
       return <ItinerarySuggestions navigation={this.props.navigation} />
     } else if (this.state.selectedValue == "Travel preference") {
-      return <TravelPreference navigation={this.props.navigation} />
+      return <TravelPreference navigation={this.props.navigation} travelPreferenceId={this.state.travelPreferenceId} />
     } else if (this.state.selectedValue == "Digital souvenir") {
       return <DigitalSouvenir navigation={this.props.navigation} />
     } else if (this.state.selectedValue == "Select tour guide") {

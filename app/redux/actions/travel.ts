@@ -7,7 +7,9 @@ export const USER_TRAVEL_PREFERENCE = "USER_TRAVEL_PREFERENCE"
 export const USER_SAVED_LOCATIONS = "USER_SAVED_LOCATIONS"
 export const SET_TRAVEL_INFO = "SET_TRAVEL_INFO"
 export const UPDATE_TRAVEL_PREFERENCE = "UPDATE_TRAVEL_PREFERENCE"
+export const GET_PREFERENCES_BY_ID = "GET_PREFERENCES_BY_ID"
 export const SELECT_TOUR_GUIDE = "SELECT_TOUR_GUIDE"
+export const EDIT_TRAVEL_PREFERENCE = "EDIT_TRAVEL_PREFERENCE"
 
 const STAYTUNELIVEURL = "https://staytune.austinconversionoptimization.com/"
 
@@ -64,7 +66,13 @@ export function setTravelPreferences(setTravelBudget) {
       },
       body: JSON.stringify({
         selectedTravelPreferences: setTravelBudget.selectedTravelPreferences,
-        userId: setTravelBudget.userId,
+        personsCount: setTravelBudget.personsCount,
+        daysCount: setTravelBudget.daysCount,
+        totalBudget: setTravelBudget.totalBudget,
+        city: setTravelBudget.city,
+        locationImage: setTravelBudget.locationImage,
+        travelDate: setTravelBudget.travelDate,
+        userId: setTravelBudget.userId
       }),
     })
     const body = await resToBody(res)
@@ -76,8 +84,40 @@ export function setTravelPreferences(setTravelBudget) {
   }
 }
 
+export function editPreferences(setTravelBudget) {
+  console.log("editPreferences_123:", setTravelBudget)
+  return async dispatch => {
+    dispatch({
+      type: LOADER_TRAVEL,
+      payload: true,
+    })
+    const res = await fetch(STAYTUNELIVEURL + `/travel-preferences/update`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        selectedTravelPreferences: setTravelBudget.selectedTravelPreferences,
+        personsCount: setTravelBudget.personsCount,
+        daysCount: setTravelBudget.daysCount,
+        totalBudget: setTravelBudget.totalBudget,
+        city: setTravelBudget.city,
+        locationImage: setTravelBudget.locationImage,
+        travelDate: setTravelBudget.travelDate,
+        id: setTravelBudget.preferenceId
+      }),
+    })
+    const body = await resToBody(res)
+    console.log("body_123:", body)
+    return dispatch({
+      type: EDIT_TRAVEL_PREFERENCE,
+      payload: body,
+    })
+  }
+}
+
 export function updateTravelPreferences(setTravelBudget) {
-  console.log("setTravelBudget.selectedCategories_123:", setTravelBudget.selectedCategories)
+  console.log("setTravelBudget.selectedCategories_123:", setTravelBudget.userId + 'preferenceId:' + setTravelBudget.preferenceId + ',,,,,,,,,,,,' + setTravelBudget.selectedCategories)
   return async dispatch => {
     dispatch({
       type: LOADER_TRAVEL,
@@ -91,7 +131,6 @@ export function updateTravelPreferences(setTravelBudget) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userId: setTravelBudget.userId,
           selectedCategories: setTravelBudget.selectedCategories,
         }),
       },
@@ -100,6 +139,27 @@ export function updateTravelPreferences(setTravelBudget) {
     // console.log("body_123:", body)
     return dispatch({
       type: UPDATE_TRAVEL_PREFERENCE,
+      payload: body,
+    })
+  }
+}
+
+export function getPreferencesById(preferenceId) {
+  return async dispatch => {
+    dispatch({
+      type: LOADER_TRAVEL,
+      payload: true,
+    })
+    const res = await fetch(STAYTUNELIVEURL + `/travel-preferences/` + preferenceId, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    const body = await resToBody(res)
+    // console.log("body_123:", body)
+    return dispatch({
+      type: GET_PREFERENCES_BY_ID,
       payload: body,
     })
   }
@@ -146,6 +206,8 @@ export default {
   setBudgeInfo,
   updateTravelPreferences,
   selectedTourGuide,
+  getPreferencesById,
+  editPreferences,
   SELECTED_TRAVEL_PREFERENCE,
   TRAVEL_PREFERENCE_TYPES,
   SET_TRAVEL_PREFERENCE,
@@ -154,5 +216,7 @@ export default {
   USER_SAVED_LOCATIONS,
   SET_TRAVEL_INFO,
   UPDATE_TRAVEL_PREFERENCE,
+  GET_PREFERENCES_BY_ID,
   SELECT_TOUR_GUIDE,
+  EDIT_TRAVEL_PREFERENCE
 }

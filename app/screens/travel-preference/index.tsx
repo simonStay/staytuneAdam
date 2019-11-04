@@ -5,7 +5,7 @@ import styles from "./styles"
 import { Text } from "../../components/text"
 import { Button } from "../../components/button"
 import { Icon } from "../../components/icon"
-import { travelPreferenceTypes, selectedTravelPreferences } from "../../redux/actions/travel"
+import { travelPreferenceTypes, selectedTravelPreferences, getPreferencesById } from "../../redux/actions/travel"
 import { connect } from "react-redux"
 import ImageLoad from "react-native-image-placeholder"
 import AnimatedLoader from "react-native-animated-loader"
@@ -16,12 +16,16 @@ interface Props {
   travel: any
   travelPreferenceTypes: any
   travelCategoriesList: any
+  travelPreferenceId: any
+  getPreferencesById: any
 }
 interface categoriesInfo {
   selectedPrefenceList: any
   categoryId: any
   categoriesList: any
   visible: boolean
+  travelPreferenceId: any
+  showButton: any
 }
 
 class TravelPreference extends Component<Props, categoriesInfo> {
@@ -32,16 +36,30 @@ class TravelPreference extends Component<Props, categoriesInfo> {
       categoriesList: [],
       selectedPrefenceList: [],
       visible: this.props.travel.loader,
+      travelPreferenceId: "",
+      showButton: false
     }
   }
 
   async componentDidMount() {
     try {
-      let listOfCategories = await this.props.travelPreferenceTypes()
-      console.log("this.props.travelCategoriesList:", this.props.travel.loader)
+      let listPreferenceTypes = []
+      if (this.props.travelPreferenceId == null || this.props.travelPreferenceId == "" || this.props.travelPreferenceId == "undefined") {
+        await this.props.travelPreferenceTypes()
+        listPreferenceTypes = this.props.travel.travelPreferenceTypes
+      } else {
+        await this.props.getPreferencesById(this.props.travelPreferenceId)
+        listPreferenceTypes = this.props.travel.getPreferencesById.selectedTravelPreferences
+        listPreferenceTypes.map((res, i) => {
+          if (res.selected == true) {
+            this.setState({ showButton: true })
+          }
+        })
+      }
+
       await this.setState(
         {
-          categoriesList: this.props.travel.travelPreferenceTypes,
+          categoriesList: listPreferenceTypes,
         },
         () => {
           this.setState({
@@ -79,24 +97,12 @@ class TravelPreference extends Component<Props, categoriesInfo> {
         categoriesList: travelPreference,
       })
     }
-    // let count = 0
-    // if (this.state.selectedPrefenceList.length == 0) {
-    //   this.state.selectedPrefenceList.push(preference.name)
-    // } else {
-    //   this.state.selectedPrefenceList.map((res, i) => {
-    //     if (res == preference.name) {
-    //       this.state.selectedPrefenceList.splice(i, 1)
-    //       count = count + 1
-    //     }
-    //   })
-    //   if (count == 0) {
-    //     this.state.selectedPrefenceList.push(preference.name)
-    //   }
-    // }
 
     this.setState({ selectedPrefenceList: this.state.selectedPrefenceList })
 
-    console.log("selectedPrefenceList_123:", this.state.selectedPrefenceList)
+    if (this.state.selectedPrefenceList.length == 0) {
+      this.setState({ showButton: false })
+    }
 
     await this.props.selectedTravelPreferences(this.state.categoriesList)
   }
@@ -106,18 +112,7 @@ class TravelPreference extends Component<Props, categoriesInfo> {
   }
 
   renderItem = ({ item }) => {
-    console.log("item_123", JSON.stringify(item))
-    //var count = 0
     var ImageView
-    // this.state.selectedPrefenceList.map((res, i) => {
-    //   if (res.selected == true) {
-    //     ImageView = "true"
-    //     count = count + 1
-    //   }
-    //   if (count === 0) {
-    //     ImageView = ""
-    //   }
-    // })
 
     if (item.selected) {
       ImageView = (
@@ -163,7 +158,7 @@ class TravelPreference extends Component<Props, categoriesInfo> {
           renderItem={this.renderItem.bind(this)}
           numColumns={2}
         />
-        {this.state.selectedPrefenceList.length != 0 ? (
+        {this.state.selectedPrefenceList.length != 0 || this.state.showButton == true ? (
           <Button style={styles.button} onPress={this.onNext.bind(this)}>
             <View style={styles.buttonLeft}>
               <Text style={styles.buttonText}>Next</Text>
@@ -193,5 +188,6 @@ export default connect(
   {
     travelPreferenceTypes,
     selectedTravelPreferences,
+    getPreferencesById,
   },
 )(TravelPreference)

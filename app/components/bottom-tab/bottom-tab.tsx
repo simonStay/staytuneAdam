@@ -30,7 +30,7 @@ export function BottomTab(props: ViewProps) {
   let Tabs = []
   tabs.map((res, i) => {
     Tabs.push(
-      <TouchableOpacity style={{ ...TAB_VIEW, ...tabStyle, borderLeftWidth: i == 0 ? 0 : 1, borderLeftColor: 'white' }} onPress={() => props.onPress(res)}>
+      <TouchableOpacity style={{ ...TAB_VIEW, ...tabStyle, borderLeftWidth: i == 0 ? 0 : 0.6, borderLeftColor: 'white' }} onPress={() => props.onPress(res)}>
         {/* <Badge primary style={{ alignSelf: 'center', minWidth: dimensions.width * 0.066, minHeight: dimensions.width * 0.066 }}>
           <Text style={{ alignSelf: 'center', fontSize: fontsize.smallText }}>6</Text>
         </Badge> */}

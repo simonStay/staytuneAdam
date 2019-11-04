@@ -16,6 +16,7 @@ interface Props {
   travelPreferenceTypes: any
   travelCategoriesList: any
   savedLocations: any
+  getLocationInfo: any
 }
 interface savedLocationsInfo {
   visible: boolean
@@ -37,9 +38,13 @@ class SavedLocations extends Component<Props, savedLocationsInfo> {
     })
   }
 
+  onLocation(item) {
+    this.props.getLocationInfo(item)
+  }
+
   renderItem = ({ item }) => {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={this.onLocation.bind(this, item)}>
         <CardView>
           <View style={styles.elevateView}>
             <Image source={require("./../../assests/austin.jpg")} style={styles.elevateView} />

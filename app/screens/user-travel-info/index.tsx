@@ -141,6 +141,11 @@ class UserTravelInfo extends Component<Props, UserInformation> {
         // alert(JSON.stringify(item))
     }
 
+    locationInfo(item) {
+        //alert(JSON.stringify(item.id))
+        this.props.navigation.push("MainScreen", { navigateTo: "TravelPreferenceScreen", preferenceId: item.id })
+    }
+
     renderProfileInfo() {
         let userInfoList = []
         let userDetails = [
@@ -208,7 +213,7 @@ class UserTravelInfo extends Component<Props, UserInformation> {
                         <BudgetInfo navigation={this.props.navigation} getBudgetInfo={this.onClickRow.bind(this)} />
                     </ScrollView>
                 ) : (
-                            <SavedLocations navigation={this.props.navigation} />
+                            <SavedLocations navigation={this.props.navigation} getLocationInfo={this.locationInfo.bind(this)} />
                         )}
             </View>
         )
