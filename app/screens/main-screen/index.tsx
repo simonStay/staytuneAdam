@@ -45,6 +45,7 @@ interface UserInformation {
   profilePic: string
   tabId: any
   modalVisible: any
+  startPlan: any
 }
 
 interface extraInfo {
@@ -70,7 +71,8 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
       zip: "",
       profilePic: "",
       tabId: 2,
-      modalVisible: false
+      modalVisible: false,
+      startPlan: false
     }
   }
 
@@ -104,7 +106,7 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
       this.drawer._root.close()
       this.setState({
         isOpen: false,
-        modalVisible: false
+        modalVisible: false,
       })
     } else {
       this.drawer._root.open()
@@ -127,6 +129,9 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
         selectedValue: "Start a plan",
         headerTitle: "STAY TUNE",
         isOpen: false,
+        modalVisible: false,
+        startPlan: true
+
       })
     } else if (params == "Itinerary suggestions") {
       this.setState({
@@ -139,6 +144,7 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
         selectedValue: "Travel preference",
         headerTitle: "TRAVEL PREFERENCE",
         isOpen: false,
+        startPlan: false
       })
     } else if (params == "Digital souvenir") {
       this.setState({
@@ -233,6 +239,7 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
           handleSelectedValue={this.handleSelectedValue.bind(this)}
           modalVisible={this.state.modalVisible}
           onRight={this.onRight.bind(this)}
+          startPlan={this.state.startPlan}
         />
       )
     } else if (this.state.selectedValue == "Itinerary suggestions") {
