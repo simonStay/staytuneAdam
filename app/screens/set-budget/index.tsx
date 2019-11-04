@@ -68,7 +68,7 @@ class SetBudget extends Component<Props, UserInformation, extrainfo> {
   }
 
   componentDidMount() {
-    // alert("klklklklklklkl" + JSON.stringify(this.props.navigation.state.params.travelPreferenceId))
+    //alert("klklklklklklkl" + JSON.stringify(this.props.navigation.state.params.travelPreferenceId))
     if (this.props.navigation.state.params.travelPreferenceId == undefined || this.props.navigation.state.params.travelPreferenceId == "undefined" ||
       this.props.navigation.state.params.travelPreferenceId == null || this.props.navigation.state.params.travelPreferenceId == "") {
       this.setState({

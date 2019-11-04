@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, FlatList, TouchableOpacity, Image } from "react-native"
+import { View, FlatList, TouchableOpacity, Image, ImageBackground } from "react-native"
 import { NavigationScreenProp, NavigationState } from "react-navigation"
 import styles from "./styles"
 import { Text } from "../../components/text"
@@ -8,6 +8,8 @@ import { travelPreferenceTypes, selectedTravelPreferences } from "../../redux/ac
 import { connect } from "react-redux"
 import AnimatedLoader from "react-native-animated-loader"
 import _ from 'lodash';
+import { Icon } from "../../components/icon"
+import { color, dimensions } from "../../theme"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
@@ -17,6 +19,8 @@ interface Props {
   travelCategoriesList: any
   savedLocations: any
   getLocationInfo: any
+  getBudgetInfo: any
+  locationBudgetInfo: any
 }
 interface savedLocationsInfo {
   visible: boolean
@@ -42,25 +46,40 @@ class SavedLocations extends Component<Props, savedLocationsInfo> {
     this.props.getLocationInfo(item)
   }
 
+  onBudget(item) {
+    this.props.locationBudgetInfo(item)
+  }
+
   renderItem = ({ item }) => {
+    let total
+    if (item.totalBudget == '' || item.totalBudget == null) {
+      total = ''
+    } else {
+      total = `$` + item.totalBudget
+    }
     return (
-      <TouchableOpacity onPress={this.onLocation.bind(this, item)}>
-        <CardView>
-          <View style={styles.elevateView}>
-            <Image source={require("./../../assests/austin.jpg")} style={styles.elevateView} />
+      <CardView>
+        <View style={styles.elevateView}>
+          <Image source={require("./../../assests/austin.jpg")} style={styles.elevateView} />
+        </View>
+        <View style={styles.footer}>
+          <View style={{ height: dimensions.width / 7, width: dimensions.width / 4, alignItems: 'center', justifyContent: 'center' }}>
+            <Text style={styles.locationText}>{item.city}</Text>
           </View>
-          <View style={styles.footer}>
-            <View style={styles.footerRow}>
-              <View style={styles.LeftFooter}>
-                <Text style={styles.locationText}>City: {item.city}</Text>
-              </View>
-              <View style={styles.LeftFooter}>
-                <Text style={styles.locationText}>Budget: ${item.totalBudget}</Text>
-              </View>
-            </View>
+          <View style={{ height: dimensions.width / 7, width: dimensions.width / 4, alignItems: 'center', justifyContent: 'center' }}>
+            <Text style={styles.locationText}>{total}</Text>
           </View>
-        </CardView>
-      </TouchableOpacity>
+
+          <TouchableOpacity onPress={this.onBudget.bind(this, item)} style={{ height: dimensions.width / 7, width: dimensions.width / 4, alignItems: 'center', justifyContent: 'center' }}>
+            <Icon icon={"budgetBlack"} style={styles.icon} />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={this.onLocation.bind(this, item)} style={{ height: dimensions.width / 7, width: dimensions.width / 4, alignItems: 'center', justifyContent: 'center' }}>
+            <Icon icon={"edit"} style={styles.icon} />
+          </TouchableOpacity>
+
+        </View>
+      </CardView>
     )
   }
 
@@ -69,7 +88,7 @@ class SavedLocations extends Component<Props, savedLocationsInfo> {
     return (
       <View style={styles.container}>
         {this.props.travel.savedLocations != undefined ? (
-          <View style={{ marginHorizontal: 10 }}>
+          <View style={{ marginHorizontal: 6 }}>
             <FlatList
               data={_.reverse(this.props.travel.savedLocations)}
               extraData={this.state}
