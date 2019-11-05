@@ -59,7 +59,6 @@ class SavedLocations extends Component<Props, savedLocationsInfo> {
     }
     return (
       <CardView>
-
         <ImageBackground source={require("./../../assests/austin.jpg")} style={styles.imageView} >
           <View style={styles.transparentView} />
         </ImageBackground>
@@ -71,11 +70,9 @@ class SavedLocations extends Component<Props, savedLocationsInfo> {
           <TouchableOpacity onPress={this.onBudget.bind(this, item)} style={{ height: dimensions.width / 7, width: dimensions.width / 2, alignItems: 'center', justifyContent: 'center' }}>
             <Icon icon={"budgetBlack"} style={styles.icon} />
           </TouchableOpacity>
-
           <TouchableOpacity onPress={this.onLocation.bind(this, item)} style={{ height: dimensions.width / 7, width: dimensions.width / 2, alignItems: 'center', justifyContent: 'center' }}>
             <Icon icon={"edit"} style={styles.icon} />
           </TouchableOpacity>
-
         </View>
       </CardView>
     )

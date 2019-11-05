@@ -63,7 +63,7 @@ class EditBudget extends Component<Props, userBudgetInfo> {
         <Wallpaper style={styles.wallpaper} />
         <Header
           style={styles.header}
-          headerText={this.state.day.toUpperCase()}
+          headerText={'DAY ' + this.state.day}
           titleStyle={styles.headerTitle}
           leftIcon={"back"}
           onLeftPress={this.onLeft.bind(this)}

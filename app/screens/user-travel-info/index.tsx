@@ -1,6 +1,5 @@
 import React, { Component } from "react"
-import { View, Image } from "react-native"
-
+import { View, Image, Alert } from "react-native"
 import { NavigationScreenProp, NavigationState, ScrollView } from "react-navigation"
 import styles from "./styles"
 import { color, dimensions } from "../../theme"
@@ -10,6 +9,7 @@ import LinearGradient from "react-native-linear-gradient"
 import { Tabs } from "../../components/tabs"
 import { getUserDetails } from "../../redux/actions/user"
 import { userSavedLocations } from "../../redux/actions/travel"
+import { getBudgetByTravelId } from "../../redux/actions/budget"
 
 import { connect } from "react-redux"
 import SavedLocations from "../saved-locations"
@@ -27,6 +27,8 @@ interface Props {
     onRef: any
     user: any
     travel: any
+    getBudgetByTravelId: any
+    budget: any
 }
 interface UserInformation {
     selectedTabId: any
@@ -38,8 +40,9 @@ interface UserInformation {
     state: string
     zip: string
     profilePic: string
-    userId: any,
+    userId: any
     userToken: any
+    travelPreferenceId: any
 }
 
 const profilePic =
@@ -64,7 +67,8 @@ class UserTravelInfo extends Component<Props, UserInformation> {
             state: "",
             zip: "",
             userId: "",
-            userToken: ""
+            userToken: "",
+            travelPreferenceId: null,
         }
     }
 
@@ -101,9 +105,10 @@ class UserTravelInfo extends Component<Props, UserInformation> {
             let userId = this.state.userId
             console.log("userId", userId)
             let getUserSavedLocations = await this.props.userSavedLocations(userId)
-            console.log("getUserSavedLocations", getUserSavedLocations.payload.length)
+
+            await this.props.getBudgetByTravelId(getUserSavedLocations.payload[0].id)
+
             if (this.props.travel.loader == false && getUserSavedLocations.payload.length === 0) {
-                // alert("zero")
                 if (this.state.selectedTabId != 0 && this.state.selectedTabId != 1) {
                     setTimeout(() => {
                         this.props.handleSelectedValue()
@@ -138,16 +143,25 @@ class UserTravelInfo extends Component<Props, UserInformation> {
 
     onClickRow(item) {
         this.props.navigation.push("EditBudget", { "budgetInfo": item })
-        // alert(JSON.stringify(item))
     }
 
     locationInfo(item) {
-        //alert(JSON.stringify(item.id))
         this.props.navigation.push("MainScreen", { navigateTo: "TravelPreferenceScreen", preferenceId: item.id })
     }
 
-    onLocationBudget(item) {
-        //  alert(JSON.stringify(item))
+    async onLocationBudget(item) {
+        if (item.totalBudget == null) {
+            Alert.alert(
+                "Stay Tune",
+                "please edit your budget",
+                [{ text: "OK", onPress: () => console.log("OK Pressed") }],
+                { cancelable: false },
+            )
+        } else {
+            await this.props.getBudgetByTravelId(item.id)
+            await this.setState({ selectedTabId: 1 })
+
+        }
     }
 
     renderProfileInfo() {
@@ -213,8 +227,8 @@ class UserTravelInfo extends Component<Props, UserInformation> {
                     <ScrollView contentContainerStyle={{}}>{this.renderProfileInfo()}</ScrollView>
                 ) : this.state.selectedTabId == 1 ? (
                     <ScrollView contentContainerStyle={styles.scrollContainer}>
-                        {/* <Text style={styles.initialText}>COMING SOON....</Text> */}
-                        <BudgetInfo navigation={this.props.navigation} getBudgetInfo={this.onClickRow.bind(this)} />
+                        <BudgetInfo navigation={this.props.navigation}
+                            getBudgetInfo={this.onClickRow.bind(this)} />
                     </ScrollView>
                 ) : (
                             <SavedLocations navigation={this.props.navigation}
@@ -231,9 +245,11 @@ export default connect(
         user: state.user,
         userInfo: state.user.login,
         travel: state.travel,
+        budget: state.budget
     }),
     {
         getUserDetails,
         userSavedLocations,
+        getBudgetByTravelId
     },
 )(UserTravelInfo)

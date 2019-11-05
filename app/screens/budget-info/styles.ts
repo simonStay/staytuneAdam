@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     fontSize: 31,
     fontWeight: "600",
     alignSelf: 'center',
+    textAlign: 'center',
     fontFamily: "OpenSans-Semibold",
     textShadowColor: color.textColor,
     textShadowOffset: { width: 1, height: 1 },
@@ -95,14 +96,24 @@ const styles = StyleSheet.create({
   },
   cardHeader: {
     height: dimensions.width * 0.13,
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     backgroundColor: color.primary,
+    flexDirection: 'row'
   },
   headerText: {
     color: color.textColor,
     fontSize: fontsize.editprofileText,
     fontFamily: "OpenSans-bold",
-    marginLeft: spacing[3]
+    marginLeft: spacing[3],
+    alignSelf: 'center'
+  },
+  dateText: {
+    color: color.textColor,
+    fontSize: fontsize.smallText,
+    fontWeight: '600',
+    fontFamily: "OpenSans",
+    alignSelf: 'center',
+    marginRight: spacing[3]
   },
   cardBody: {
     flex: 1,
