@@ -31,6 +31,7 @@ interface UserInformation {
   userInitialInterests: any
   listOpen: any
   categories: any
+  update: any
 }
 
 class SetInitialInterest extends Component<Props, UserInformation> {
@@ -44,6 +45,7 @@ class SetInitialInterest extends Component<Props, UserInformation> {
       visible: this.props.travel.loader,
       userInitialInterests: [],
       listOpen: false,
+      update: false
     }
   }
 
@@ -53,11 +55,11 @@ class SetInitialInterest extends Component<Props, UserInformation> {
       if (this.props.travel.travelPreferenceInfo == undefined ||
         this.props.travel.travelPreferenceInfo == "undefined") {
         //console.log("categories_123_if")
-        await this.setState({ categories: this.props.travel.editTravelPreferences.categoriesList })
+        await this.setState({ categories: this.props.travel.editTravelPreferences.categoriesList, update: true })
 
       } else {
         //console.log("categories_123_else")
-        await this.setState({ categories: this.props.travel.travelPreferenceInfo.categoriesList })
+        await this.setState({ categories: this.props.travel.travelPreferenceInfo.categoriesList, update: true })
       }
     } catch (error) {
       console.log("categories_catch_error", error)
@@ -111,31 +113,60 @@ class SetInitialInterest extends Component<Props, UserInformation> {
           // setTimeout(() => {
           //     self.props.navigation.push('MainSCreen')
           // }, 100)
-          setTimeout(() => {
-            Alert.alert(
-              "Stay Tune",
-              "Created your Travel preference successfully",
-              [
-                {
-                  text: "OK",
-                  onPress: () => {
-                    console.log("userProfileInfo", this.props.user.userProfileInfo)
-                    let userId =
-                      this.props.user.userProfileInfo === undefined
-                        ? this.props.user.login.id
-                        : this.props.user.userProfileInfo.id
-                    this.props.userSavedLocations(userId)
-                    this.props.navigation.push("MainScreen", {
-                      userId: userId,
-                      selectedValue: "Start a plan",
-                      headerTitle: "STAY TUNE",
-                    })
+          if (this.state.update === true) {
+            setTimeout(() => {
+              Alert.alert(
+                "Stay Tune",
+                "Updated your Travel preference successfully",
+                [
+                  {
+                    text: "OK",
+                    onPress: () => {
+                      console.log("userProfileInfo", this.props.user.userProfileInfo)
+                      let userId =
+                        this.props.user.userProfileInfo === undefined
+                          ? this.props.user.login.id
+                          : this.props.user.userProfileInfo.id
+                      this.props.userSavedLocations(userId)
+                      this.props.navigation.push("MainScreen", {
+                        userId: userId,
+                        selectedValue: "Start a plan",
+                        headerTitle: "STAY TUNE",
+                      })
+                    },
                   },
-                },
-              ],
-              { cancelable: false },
-            )
-          }, 100)
+                ],
+                { cancelable: false },
+              )
+            }, 100)
+          } else {
+            setTimeout(() => {
+              Alert.alert(
+                "Stay Tune",
+                "Created your Travel preference successfully",
+                [
+                  {
+                    text: "OK",
+                    onPress: () => {
+                      console.log("userProfileInfo", this.props.user.userProfileInfo)
+                      let userId =
+                        this.props.user.userProfileInfo === undefined
+                          ? this.props.user.login.id
+                          : this.props.user.userProfileInfo.id
+                      this.props.userSavedLocations(userId)
+                      this.props.navigation.push("MainScreen", {
+                        userId: userId,
+                        selectedValue: "Start a plan",
+                        headerTitle: "STAY TUNE",
+                      })
+                    },
+                  },
+                ],
+                { cancelable: false },
+              )
+            }, 100)
+          }
+
         } else {
           {
             /*This is Temporary solution */
@@ -203,7 +234,6 @@ class SetInitialInterest extends Component<Props, UserInformation> {
 
   onToggleChange(res) {
     let categories = this.state.categories
-    console.log("hussian_123", res)
     if (res) {
       this.setState(
         {

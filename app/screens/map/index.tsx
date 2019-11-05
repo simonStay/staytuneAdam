@@ -39,10 +39,10 @@ class MapScreen extends Component<Props, MapScreen, {}> {
     super(props)
     this.state = {
       region: {
-        latitude: 37.78825,
-        longitude: -122.4324,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
+        latitude: null,
+        longitude: null,
+        latitudeDelta: null,
+        longitudeDelta: null,
         modalVisible: false,
       },
       touristLocations: [],
@@ -75,6 +75,7 @@ class MapScreen extends Component<Props, MapScreen, {}> {
     })
 
     Geolocation.watchPosition(position => {
+      console.log("position_123", JSON.stringify(position))
       this.setState({
         region: {
           latitude: position.coords.latitude,
@@ -158,31 +159,32 @@ class MapScreen extends Component<Props, MapScreen, {}> {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <MapView
-          ref="map"
-          style={styles.map}
-          region={this.state.region}
-          zoomEnabled={true}
-          onRegionChange={this.onRegionChange.bind(this)}
-          showsUserLocation={true}
-          initialRegion={this.state.region}
-        >
-          {this.state.touristLocations.length > 0
-            ? this.state.touristLocations.map(location => {
-              return (
-                <MapView.Marker
-                  coordinate={{
-                    latitude: parseFloat(location.geometry.location.lat),
-                    longitude: parseFloat(location.geometry.location.lng),
-                  }}
-                  image={location.icon}
-                  title={location.name}
-                />
-              )
-            })
-            : null}
-        </MapView>
-
+        {this.state.region.latitude !== null ? (
+          <MapView
+            ref="map"
+            style={styles.map}
+            region={this.state.region}
+            zoomEnabled={true}
+            onRegionChange={this.onRegionChange.bind(this)}
+            showsUserLocation={true}
+            initialRegion={this.state.region}
+          >
+            {this.state.touristLocations.length > 0
+              ? this.state.touristLocations.map(location => {
+                return (
+                  <MapView.Marker
+                    coordinate={{
+                      latitude: parseFloat(location.geometry.location.lat),
+                      longitude: parseFloat(location.geometry.location.lng),
+                    }}
+                    image={location.icon}
+                    title={location.name}
+                  />
+                )
+              })
+              : null}
+          </MapView>
+        ) : null}
         {(this.props.travel.savedLocations === undefined ||
           this.props.travel.savedLocations.length === 0) || this.props.startPlan ? (
             <TouchableOpacity
