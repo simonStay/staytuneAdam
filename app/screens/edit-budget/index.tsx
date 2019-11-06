@@ -14,10 +14,12 @@ import { Button } from "../../components/button";
 import { GoldBarView } from "../../components/goldBar"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import { EditBudgetInfo } from "../../redux/actions/budget"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
-  budgetInfo
+  budgetInfo: any
+  EditBudgetInfo: any
 }
 interface userBudgetInfo {
   day: any
@@ -38,6 +40,9 @@ class EditBudget extends Component<Props, userBudgetInfo> {
   }
 
   async componentDidMount() {
+    console.log("budgetInfo_didMount", JSON.stringify(this.props.navigation.state.params.budgetInfo))
+    console.log("travelPreferenceId", this.props.navigation.state.params.travelPreferenceId)
+    console.log("userId", this.props.navigation.state.params.userId)
     this.setState({
       day: this.props.navigation.state.params.budgetInfo.day,
       meals: this.props.navigation.state.params.budgetInfo.meals,
@@ -52,8 +57,19 @@ class EditBudget extends Component<Props, userBudgetInfo> {
     this.props.navigation.goBack()
   }
 
-  handleSubmit() {
-    alert(this.state.day + ',' + this.state.dayBudget + ',' + this.state.meals + ',' + this.state.entertainment)
+  async handleSubmit() {
+    let DetailedBudget = {
+      "day": this.state.day,
+      "mealsExpenditure": parseFloat(this.state.meals),
+      "entExpenditure": parseFloat(this.state.entertainment),
+      "userId": this.props.navigation.state.params.userId,
+      "travelId": this.props.navigation.state.params.travelPreferenceId
+    }
+
+    console.log("DetailedBudget_123", JSON.stringify(DetailedBudget))
+    await this.props.EditBudgetInfo(DetailedBudget)
+    this.props.navigation.pop()
+    //alert(this.state.day + ',' + this.state.dayBudget + ',' + this.state.meals + ',' + this.state.entertainment)
   }
 
   render() {
@@ -128,5 +144,7 @@ export default connect(
     user: state.user,
     travel: state.travel,
   }),
-  {},
+  {
+    EditBudgetInfo
+  },
 )(EditBudget)
