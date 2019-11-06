@@ -94,7 +94,7 @@ class BudgetInfo extends Component<Props, budgetInfo> {
       <ScrollView>
         {this.props.budget.budgetByTravelId == undefined ?
           (<View style={[styles.container, { marginBottom: dimensions.width * 0.06, justifyContent: 'center', alignItems: 'center' }]}>
-            <Text style={styles.initialText}>EDIT BUDGET</Text>
+            <Text style={styles.initialText}>PLEASE EDIT YOUR INITIAL BUDGET</Text>
           </View>)
           : (
             <View style={[styles.container, { marginBottom: dimensions.width * 0.06 }]}>
