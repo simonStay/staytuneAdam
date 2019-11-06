@@ -148,7 +148,18 @@ class UserTravelInfo extends Component<Props, UserInformation> {
 
     onClickRow(item) {
         console.log("Item_budget", JSON.stringify(item))
-        this.props.navigation.push("EditBudget", { "budgetInfo": item, "travelPreferenceId": this.state.travelPreferenceId, "userId": this.state.userId })
+        this.props.navigation.push("EditBudget", {
+            "budgetInfo": item,
+            "travelPreferenceId": this.state.travelPreferenceId,
+            "userId": this.state.userId,
+            onSelect: this.onSelect.bind(this)
+        })
+    }
+
+    async onSelect(value) {
+        // alert(value.editBudget)
+        await this.props.getBudgetByTravelId(this.state.travelPreferenceId)
+        await this.setState({ selectedTabId: 1 })
     }
 
     locationInfo(item) {

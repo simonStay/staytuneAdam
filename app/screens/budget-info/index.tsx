@@ -41,7 +41,7 @@ class BudgetInfo extends Component<Props, budgetInfo> {
       await console.log("getBudget_123:", this.props.budget.budgetByTravelId)
       await this.setState({
         spent: this.props.budget.budgetByTravelId.expBudget,
-        totalBudget: `$` + this.props.budget.budgetByTravelId.totalBudget,
+        totalBudget: this.props.budget.budgetByTravelId.totalBudget,
         userBugetInfo: this.props.budget.budgetByTravelId.budget,
         spentPercent: this.props.budget.budgetByTravelId.expBudget * 100 / this.props.budget.budgetByTravelId.totalBudget
       })
@@ -56,7 +56,7 @@ class BudgetInfo extends Component<Props, budgetInfo> {
     try {
       await this.setState({
         spent: nextProps.budget.budgetByTravelId.expBudget,
-        totalBudget: `$` + nextProps.budget.budgetByTravelId.totalBudget,
+        totalBudget: nextProps.budget.budgetByTravelId.totalBudget,
         userBugetInfo: nextProps.budget.budgetByTravelId.budget,
         spentPercent: nextProps.budget.budgetByTravelId.expBudget * 100 / nextProps.budget.budgetByTravelId.totalBudget
       })
@@ -85,8 +85,8 @@ class BudgetInfo extends Component<Props, budgetInfo> {
             </View>
             <View style={{ flexDirection: 'column', justifyContent: 'space-evenly' }}>
 
-              <Text style={styles.bodyText}>: ${item.meals.toFixed(2)}</Text>
-              <Text style={styles.bodyText}>: ${item.entertainment.toFixed(2)}</Text>
+              <Text style={styles.bodyText}>: ${Math.round(item.meals)}</Text>
+              <Text style={styles.bodyText}>: ${Math.round(item.entertainment)}</Text>
             </View>
           </View>
         </CardView>
@@ -94,6 +94,7 @@ class BudgetInfo extends Component<Props, budgetInfo> {
   }
 
   render() {
+    console.log("spentPercent_123:", this.state.totalBudget + ",,,,,,," + this.state.spent)
     return (
       <ScrollView>
         {this.props.budget.budgetByTravelId == undefined ?
@@ -107,7 +108,7 @@ class BudgetInfo extends Component<Props, budgetInfo> {
                   <AnimatedCircularProgress
                     size={dimensions.width / 2.1}
                     width={6}
-                    fill={this.state.spent}
+                    fill={this.state.spentPercent}
                     tintColor={color.primary}
                     backgroundColor={color.primaryColor}
                     rotation={0}>
@@ -128,12 +129,17 @@ class BudgetInfo extends Component<Props, budgetInfo> {
                   <View >
                     <Text style={styles.totalBudgetText}>
                       Total Budget
+                    </Text>
+                    <Text style={styles.amountText}>{`$` + this.state.totalBudget}</Text>
+                    <View style={styles.line}></View>
+                    <Text style={styles.totalBudgetText}>
+                      ExpBudget
                 </Text>
-                    <Text style={styles.amountText}>{this.state.totalBudget}</Text>
+                    <Text style={styles.amountText}>{`$` + this.state.spent}</Text>
                   </View>
                 </View>
               </View>
-
+              {this.state.totalBudget < this.state.spent ? (<Text style={styles.warnText}>You crossed the budget limit</Text>) : null}
               <View style={{ marginHorizontal: 10 }}>
                 <FlatList
                   scrollEnabled={false}
