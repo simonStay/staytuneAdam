@@ -1,5 +1,7 @@
 import { LOADER_LOCATIONS, TOURIST_LOCATIONS, FILTERED_LOCATIONS } from "./../actions/places"
 
+import { PLACES_SIGN_OUT } from "./../actions/user"
+
 export default function places(state = {}, action) {
   switch (action.type) {
     case TOURIST_LOCATIONS:
@@ -17,6 +19,11 @@ export default function places(state = {}, action) {
       return {
         ...state,
         filteredLocations: action.payload
+      }
+    case PLACES_SIGN_OUT:
+      return {
+        loader: false,
+        places: {},
       }
   }
   return state

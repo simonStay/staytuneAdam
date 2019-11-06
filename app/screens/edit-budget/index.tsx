@@ -68,7 +68,7 @@ class EditBudget extends Component<Props, userBudgetInfo> {
 
     console.log("DetailedBudget_123", JSON.stringify(DetailedBudget))
     await this.props.EditBudgetInfo(DetailedBudget)
-    this.props.navigation.pop()
+    this.props.navigation.goBack()
     //alert(this.state.day + ',' + this.state.dayBudget + ',' + this.state.meals + ',' + this.state.entertainment)
   }
 

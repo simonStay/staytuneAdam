@@ -7,7 +7,8 @@ import { connect } from "react-redux"
 import { color, dimensions } from "../../theme";
 import { CardView } from "../../components/card-view";
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
-import { getBudgetByTravelId } from "../../redux/actions/budget"
+import { getBudgetByTravelId } from "../../redux/actions/budget";
+import AnimatedLoader from "react-native-animated-loader"
 
 interface Props {
   navigation: NavigationScreenProp<NavigationState>
@@ -96,11 +97,11 @@ class BudgetInfo extends Component<Props, budgetInfo> {
   render() {
     return (
       <ScrollView>
-        {this.props.budget.budgetByTravelId == undefined ?
+        {this.props.budget.budgetLoader === false && this.props.budget.budgetByTravelId == undefined ?
           (<View style={[styles.container, { marginBottom: dimensions.width * 0.06, justifyContent: 'center', alignItems: 'center' }]}>
             <Text style={styles.initialText}>EDIT BUDGET</Text>
           </View>)
-          : (
+          : this.props.travel.savedLocations.length !== 0 ? (
             <View style={[styles.container, { marginBottom: dimensions.width * 0.06 }]}>
               <View style={styles.progressCircleView}>
                 <View style={styles.leftContainer}>
@@ -133,7 +134,13 @@ class BudgetInfo extends Component<Props, budgetInfo> {
                   </View>
                 </View>
               </View>
-
+              <AnimatedLoader
+                visible={this.props.budget.budgetLoader}
+                overlayColor="rgba(255,255,255,0.75)"
+                source={require("./../loader.json")}
+                animationStyle={styles.lottie}
+                speed={1}
+              />
               <View style={{ marginHorizontal: 10 }}>
                 <FlatList
                   scrollEnabled={false}
@@ -143,7 +150,7 @@ class BudgetInfo extends Component<Props, budgetInfo> {
                 />
               </View>
             </View>
-          )}
+          ) : null}
       </ScrollView>
     )
   }

@@ -1,10 +1,15 @@
 import resToBody from "../resToBody/resToBody"
 export const GET_BUDGET_BY_TRAVEL_ID = "GET_BUDGET_BY_TRAVEL_ID"
+export const BUDGET_LOADER = "BUDGET_LOADER"
 
 const STAYTUNELIVEURL = "https://staytune.austinconversionoptimization.com"
 
 export function getBudgetByTravelId(id) {
     return async dispatch => {
+        dispatch({
+            type: BUDGET_LOADER,
+            payload: true,
+        })
         const res = await fetch(STAYTUNELIVEURL + `/budget-info`, {
             method: "POST",
             headers: {
@@ -26,7 +31,7 @@ export function getBudgetByTravelId(id) {
 export function EditBudgetInfo(budget) {
     return async dispatch => {
         const res = await fetch(STAYTUNELIVEURL + `/budget-infos`, {
-            method: "POST",
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -45,5 +50,6 @@ export function EditBudgetInfo(budget) {
 
 export default {
     getBudgetByTravelId,
+    BUDGET_LOADER,
     GET_BUDGET_BY_TRAVEL_ID
 }
