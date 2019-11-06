@@ -22,6 +22,7 @@ interface budgetInfo {
   spent: any
   userBugetInfo: any
   totalBudget: any
+  spentPercent: any
 }
 
 class BudgetInfo extends Component<Props, budgetInfo> {
@@ -31,6 +32,7 @@ class BudgetInfo extends Component<Props, budgetInfo> {
       spent: 0,
       userBugetInfo: null,
       totalBudget: '',
+      spentPercent: 0
     }
   }
 
@@ -41,6 +43,7 @@ class BudgetInfo extends Component<Props, budgetInfo> {
         spent: this.props.budget.budgetByTravelId.expBudget,
         totalBudget: `$` + this.props.budget.budgetByTravelId.totalBudget,
         userBugetInfo: this.props.budget.budgetByTravelId.budget,
+        spentPercent: this.props.budget.budgetByTravelId.expBudget * 100 / this.props.budget.budgetByTravelId.totalBudget
       })
     } catch (error) {
       console.log("BudgetInfo_error_123:", error)
@@ -55,6 +58,7 @@ class BudgetInfo extends Component<Props, budgetInfo> {
         spent: nextProps.budget.budgetByTravelId.expBudget,
         totalBudget: `$` + nextProps.budget.budgetByTravelId.totalBudget,
         userBugetInfo: nextProps.budget.budgetByTravelId.budget,
+        spentPercent: nextProps.budget.budgetByTravelId.expBudget * 100 / nextProps.budget.budgetByTravelId.totalBudget
       })
     } catch (error) {
       console.log("error_componentWillReceiveProps_123:", nextProps)
@@ -111,7 +115,7 @@ class BudgetInfo extends Component<Props, budgetInfo> {
                       (spent) => (
                         <View style={styles.innerCircle}>
                           <Text style={styles.percentText}>
-                            {this.state.spent}%
+                            {Math.round(this.state.spentPercent)}%
                 </Text>
                           <Text style={styles.spentText}>SPENT</Text>
                         </View>

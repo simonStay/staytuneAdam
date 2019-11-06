@@ -107,6 +107,7 @@ class UserTravelInfo extends Component<Props, UserInformation> {
             let getUserSavedLocations = await this.props.userSavedLocations(userId)
 
             await this.props.getBudgetByTravelId(getUserSavedLocations.payload[0].id)
+            this.setState({ travelPreferenceId: getUserSavedLocations.payload[0].id })
 
             if (this.props.travel.loader == false && getUserSavedLocations.payload.length === 0) {
                 if (this.state.selectedTabId != 0 && this.state.selectedTabId != 1) {
@@ -146,7 +147,8 @@ class UserTravelInfo extends Component<Props, UserInformation> {
     }
 
     onClickRow(item) {
-        this.props.navigation.push("EditBudget", { "budgetInfo": item })
+        console.log("Item_budget", JSON.stringify(item))
+        this.props.navigation.push("EditBudget", { "budgetInfo": item, "travelPreferenceId": this.state.travelPreferenceId, "userId": this.state.userId })
     }
 
     locationInfo(item) {
@@ -162,6 +164,7 @@ class UserTravelInfo extends Component<Props, UserInformation> {
                 { cancelable: false },
             )
         } else {
+            this.setState({ travelPreferenceId: item.id })
             await this.props.getBudgetByTravelId(item.id)
             await this.setState({ selectedTabId: 1 })
 

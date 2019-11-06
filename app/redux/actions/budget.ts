@@ -23,6 +23,26 @@ export function getBudgetByTravelId(id) {
     }
 }
 
+export function EditBudgetInfo(budget) {
+    return async dispatch => {
+        const res = await fetch(STAYTUNELIVEURL + `/budget-infos`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(budget),
+        })
+        const body = await resToBody(res)
+        await getBudgetByTravelId(budget.travelId)
+        console.log("body_123_budget:", body)
+        // return dispatch({
+        //     type: GET_BUDGET_BY_TRAVEL_ID,
+        //     payload: body,
+        // })
+    }
+}
+
+
 export default {
     getBudgetByTravelId,
     GET_BUDGET_BY_TRAVEL_ID
