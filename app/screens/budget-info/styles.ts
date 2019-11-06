@@ -40,18 +40,18 @@ const styles = StyleSheet.create({
     textShadowRadius: 0,
   },
   totalBudgetText: {
-    color: color.text,
-    fontSize: fontsize.buttonText,
+    color: color.textColor,
+    fontSize: fontsize.screenTitle,
     textAlign: "center",
     fontFamily: "OpenSans-bold",
     fontWeight: "600",
-    textShadowColor: color.textColor,
+    textShadowColor: color.primary,
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 0,
   },
   amountText: {
     color: color.text,
-    fontSize: fontsize.buttonText,
+    fontSize: fontsize.screenTitle,
     textAlign: "center",
     fontFamily: "OpenSans-bold",
     fontWeight: "600",
@@ -59,17 +59,29 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 0,
   },
+  warnText: {
+    color: "#e32616",
+    fontSize: fontsize.editprofileText,
+    textAlign: "center",
+    fontFamily: "OpenSans-bold",
+    fontWeight: "600",
+    textShadowColor: color.textColor,
+    textShadowOffset: { width: 0.6, height: 1 },
+    textShadowRadius: 0,
+    marginBottom: spacing[6]
+  },
+  line: { height: 0.6, width: dimensions.width / 3, backgroundColor: color.primaryColor, alignSelf: 'center', marginVertical: 10 },
   leftContainer: {
     flex: 0.54,
     alignItems: 'center',
-    //backgroundColor: 'grey',
+    // backgroundColor: 'grey',
     padding: 10
   },
   rightContainer: {
     flex: 0.46,
     alignItems: 'center',
     justifyContent: 'center',
-    //backgroundColor: 'pink', 
+    // backgroundColor: 'pink',
     padding: 10
   },
   button: {

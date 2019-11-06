@@ -188,6 +188,8 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
       this.props.navigation.push("Login")
     }
     this.drawer._root.close()
+
+    console.log("sidemenu_123:", this.state.selectedValue + '' + this.state.tabId)
   }
   handleSelectedValue(value) {
     if (value === "Travel preference") {

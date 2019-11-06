@@ -31,7 +31,7 @@ export function getBudgetByTravelId(id) {
 export function EditBudgetInfo(budget) {
     return async dispatch => {
         const res = await fetch(STAYTUNELIVEURL + `/budget-infos`, {
-            method: "PATCH",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },

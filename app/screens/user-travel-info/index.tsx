@@ -131,6 +131,10 @@ class UserTravelInfo extends Component<Props, UserInformation> {
         })
     }
 
+    componentWillUpdate(nextProps, nextState) {
+        console.log("componentWillUpdate_123", nextProps)
+    }
+
     selectedTab(value) {
         this.setState({
             selectedTabId: this.props.tabId,
@@ -139,12 +143,23 @@ class UserTravelInfo extends Component<Props, UserInformation> {
         this.setState({
             selectedTabId: value.id,
         })
-        // console.log('onTab_123:', value)
+        console.log('onTab_123:', value)
     }
 
     onClickRow(item) {
         console.log("Item_budget", JSON.stringify(item))
-        this.props.navigation.push("EditBudget", { "budgetInfo": item, "travelPreferenceId": this.state.travelPreferenceId, "userId": this.state.userId })
+        this.props.navigation.push("EditBudget", {
+            "budgetInfo": item,
+            "travelPreferenceId": this.state.travelPreferenceId,
+            "userId": this.state.userId,
+            onSelect: this.onSelect.bind(this)
+        })
+    }
+
+    async onSelect(value) {
+        // alert(value.editBudget)
+        await this.props.getBudgetByTravelId(this.state.travelPreferenceId)
+        await this.setState({ selectedTabId: 1 })
     }
 
     locationInfo(item) {
@@ -191,6 +206,7 @@ class UserTravelInfo extends Component<Props, UserInformation> {
     }
 
     render() {
+        console.log("User_Travel_Info_123:", this.props.tabId)
         return (
             <View style={styles.container}>
                 <LinearGradient

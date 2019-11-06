@@ -40,16 +40,12 @@ class EditBudget extends Component<Props, userBudgetInfo> {
   }
 
   async componentDidMount() {
-    console.log("budgetInfo_didMount", JSON.stringify(this.props.navigation.state.params.budgetInfo))
-    console.log("travelPreferenceId", this.props.navigation.state.params.travelPreferenceId)
-    console.log("userId", this.props.navigation.state.params.userId)
     this.setState({
       day: this.props.navigation.state.params.budgetInfo.day,
-      meals: this.props.navigation.state.params.budgetInfo.meals,
-      entertainment: this.props.navigation.state.params.budgetInfo.entertainment,
+      meals: Math.round(this.props.navigation.state.params.budgetInfo.meals),
+      entertainment: Math.round(this.props.navigation.state.params.budgetInfo.entertainment),
       dayBudget: this.props.navigation.state.params.budgetInfo.dayBudget
     })
-
     // alert(this.state.meals)
   }
 
@@ -68,7 +64,8 @@ class EditBudget extends Component<Props, userBudgetInfo> {
 
     console.log("DetailedBudget_123", JSON.stringify(DetailedBudget))
     await this.props.EditBudgetInfo(DetailedBudget)
-    this.props.navigation.goBack()
+    this.props.navigation.pop()
+    this.props.navigation.state.params.onSelect({ editBudget: true });
     //alert(this.state.day + ',' + this.state.dayBudget + ',' + this.state.meals + ',' + this.state.entertainment)
   }
 
