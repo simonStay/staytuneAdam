@@ -1,6 +1,6 @@
 import * as React from "react"
 import { View, ViewStyle, Text, TextStyle } from "react-native"
-import { spacing, fontsize, dimensions } from "../../theme"
+import { spacing, fontsize, dimensions, color } from "../../theme"
 
 import RadioForm, {
   RadioButton,
@@ -16,15 +16,17 @@ const RADIO_CONTAINER: ViewStyle = {
   width: dimensions.width - 40,
   backgroundColor: "#fff",
   borderRadius: 10,
+  minHeight: 44,
+  justifyContent: 'center',
+  alignItems: 'center'
 }
 const RADIO_ALIGN: ViewStyle = { flex: 1, flexDirection: "row" }
 const RADIO_TEXT: TextStyle = {
-  fontSize: fontsize.text,
-  marginLeft: 15,
-  color: "#000",
+  fontSize: fontsize.editprofileText,
+  marginLeft: dimensions.width * 0.014,
+  color: color.textColor,
   textAlign: "center",
-  marginTop: dimensions.height <= 890 ? dimensions.height / 15.6 / 4 : dimensions.height / 15.6 / 3,
-  fontFamily: "OpenSans-Semibold",
+  alignSelf: "center"
 }
 
 export interface RadioButtonProps {
@@ -38,8 +40,8 @@ export const RadioButtonView: React.FunctionComponent<RadioButtonProps> = props 
   return (
     <View style={RADIO_CONTAINER}>
       <View style={RADIO_ALIGN}>
-        <Text style={RADIO_TEXT}>Marial Status:</Text>
-        <RadioForm formHorizontal={true} animation={true} style={{ alignSelf: "center" }}>
+        <Text style={RADIO_TEXT}>Martial Status:</Text>
+        <RadioForm formHorizontal={true} animation={true} style={{ justifyContent: 'center', alignItems: 'center', marginTop: dimensions.width * 0.014 }}>
           {props.marialStatus.map((obj, i) => {
             return (
               <RadioButton labelHorizontal={true} key={i}>
@@ -51,9 +53,9 @@ export const RadioButtonView: React.FunctionComponent<RadioButtonProps> = props 
                   onPress={props.onPress}
                   buttonInnerColor={"orange"}
                   buttonOuterColor={"#000"}
-                  buttonSize={15}
+                  buttonSize={dimensions.width * 0.046}
                   buttonStyle={{}}
-                  buttonWrapStyle={{ marginTop: dimensions.height / 15.6 / 6, marginLeft: 10 }}
+                  buttonWrapStyle={{ alignSelf: "center", marginLeft: dimensions.width * 0.014 }}
                 />
                 <RadioButtonLabel
                   obj={obj}
@@ -62,9 +64,9 @@ export const RadioButtonView: React.FunctionComponent<RadioButtonProps> = props 
                   labelStyle={{
                     fontWeight: "400",
                     fontFamily: "OpenSans-Semibold",
-                    fontSize: 15,
-                    marginTop: dimensions.height / 15.6 / 6,
-                    marginLeft: 5,
+                    fontSize: fontsize.notificationText,
+                    alignSelf: "center",
+                    marginLeft: dimensions.width * 0.014,
                     color: "#000",
                   }}
                   labelWrapStyle={{}}

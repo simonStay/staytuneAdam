@@ -133,7 +133,7 @@ class BudgetInfo extends Component<Props, budgetInfo> {
                     <Text style={styles.amountText}>{`$` + this.state.totalBudget}</Text>
                     <View style={styles.line}></View>
                     <Text style={styles.totalBudgetText}>
-                      ExpBudget
+                      Spent Amount
                 </Text>
                     <Text style={styles.amountText}>{`$` + this.state.spent}</Text>
                   </View>
