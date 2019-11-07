@@ -29,6 +29,7 @@ interface Props {
     travel: any
     getBudgetByTravelId: any
     budget: any
+    selectedTab: any
 }
 interface UserInformation {
     selectedTabId: any
@@ -126,6 +127,7 @@ class UserTravelInfo extends Component<Props, UserInformation> {
     }
 
     componentWillReceiveProps(nextProps) {
+        // alert("will")
         this.setState({
             selectedTabId: nextProps.tabId,
         })
@@ -136,12 +138,13 @@ class UserTravelInfo extends Component<Props, UserInformation> {
     }
 
     selectedTab(value) {
-        this.setState({
-            selectedTabId: this.props.tabId,
-        })
-
+        // this.setState({
+        //     selectedTabId: this.props.tabId,
+        // })
         this.setState({
             selectedTabId: value.id,
+        }, () => {
+            this.props.selectedTab(value.id)
         })
         console.log('onTab_123:', value)
     }

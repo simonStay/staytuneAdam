@@ -32,7 +32,7 @@ class BudgetInfo extends Component<Props, budgetInfo> {
     this.state = {
       spent: 0,
       userBugetInfo: null,
-      totalBudget: '',
+      totalBudget: 0,
       spentPercent: 0
     }
   }
@@ -100,11 +100,12 @@ class BudgetInfo extends Component<Props, budgetInfo> {
       <ScrollView>
         {this.props.budget.budgetLoader == false && this.props.budget.budgetByTravelId == undefined ?
           (<View style={[styles.container, { marginBottom: dimensions.width * 0.06, justifyContent: 'center', alignItems: 'center' }]}>
-            <Text style={styles.initialText}>PLEASE EDIT YOUR INITIAL BUDGET</Text>
-          </View>)
-          : this.props.travel.savedLocations ? (
+            <Text style={styles.initialText}>PLEASE EDIT YOUR CURRENT BUDGET</Text>
+          </View>) :
+          this.props.travel.savedLocations ? (
             <View style={[styles.container, { marginBottom: dimensions.width * 0.06 }]}>
-              <View style={styles.progressCircleView}>
+
+              {this.state.totalBudget !== 0 && this.state.totalBudget !== null ? (<View style={styles.progressCircleView}>
                 <View style={styles.leftContainer}>
                   <AnimatedCircularProgress
                     size={dimensions.width / 2.1}
@@ -118,10 +119,9 @@ class BudgetInfo extends Component<Props, budgetInfo> {
                         <View style={styles.innerCircle}>
                           <Text style={styles.percentText}>
                             {Math.round(this.state.spentPercent)}%
-                </Text>
+                          </Text>
                           <Text style={styles.spentText}>SPENT</Text>
                         </View>
-
                       )
                     }
                   </AnimatedCircularProgress>
@@ -143,11 +143,14 @@ class BudgetInfo extends Component<Props, budgetInfo> {
                     <View style={styles.line}></View>
                     <Text style={styles.totalBudgetText}>
                       Spent Amount
-                </Text>
+                    </Text>
                     <Text style={styles.amountText}>{`$` + this.state.spent}</Text>
                   </View>
                 </View>
-              </View>
+              </View>) : <View style={[styles.container, { marginBottom: dimensions.width * 0.06, justifyContent: 'center', alignItems: 'center' }]}>
+                  <Text style={styles.initialText}>PLEASE EDIT YOUR CURRENT BUDGET</Text>
+                </View>}
+
               {this.state.totalBudget < this.state.spent ? (<Text style={styles.warnText}>You crossed the budget limit</Text>) : null}
               <View style={{ marginHorizontal: 10 }}>
                 <FlatList
