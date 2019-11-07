@@ -117,7 +117,7 @@ class SetInitialInterest extends Component<Props, UserInformation> {
             setTimeout(() => {
               Alert.alert(
                 "Stay Tune",
-                "Updated your Travel preference successfully",
+                "Travel preference is successfully created",
                 [
                   {
                     text: "OK",

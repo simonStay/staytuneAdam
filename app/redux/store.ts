@@ -40,7 +40,7 @@ const composeEnhancer =
 const persistConfig = {
   key: "async",
   storage: AsyncStorage,
-  whitelist: ["user", "travel"],
+  whitelist: ["user", "travel", "places", "budget"],
 }
 const initialState = {}
 const persistedReducer = persistReducer(persistConfig, rootReducer)

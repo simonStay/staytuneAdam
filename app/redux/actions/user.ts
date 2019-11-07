@@ -8,6 +8,9 @@ export const GET_USER_DETAILS = "GET_USER_DETAILS"
 export const CREATE_USER_PROFILE = "CREATE_USER_PROFILE"
 export const GET_AVATAR_IMAGES = "GET_AVATAR_IMAGES"
 export const TRAVEL_SIGN_OUT = "TRAVEL_SIGN_OUT"
+export const BUDGET_SIGN_OUT = "BUDGET_SIGN_OUT"
+export const PLACES_SIGN_OUT = "PLACES_SIGN_OUT"
+
 
 const STAYTUNELIVEURL = "https://staytune.austinconversionoptimization.com/"
 
@@ -68,6 +71,14 @@ export function Signout() {
   return async dispatch => {
     dispatch({
       type: TRAVEL_SIGN_OUT,
+      payload: {},
+    })
+    dispatch({
+      type: BUDGET_SIGN_OUT,
+      payload: {},
+    })
+    dispatch({
+      type: PLACES_SIGN_OUT,
       payload: {},
     })
     return dispatch({
@@ -223,6 +234,8 @@ export default {
   SIGN_UP,
   SIGN_OUT,
   TRAVEL_SIGN_OUT,
+  PLACES_SIGN_OUT,
+  BUDGET_SIGN_OUT,
   LOGIN,
   GET_USER_DETAILS,
   CREATE_USER_PROFILE,

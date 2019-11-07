@@ -336,7 +336,7 @@ class EditProfile extends Component<Props, UserInformation> {
             inputStyle={styles.textField}
             placeholderTextColor={color.placeholderText}
             onChangeText={value => this.setState({ age: value })}
-            value={this.state.age.toString()}
+            value={this.state.age != null ? this.state.age.toString() : ''}
           />
           <TextField
             placeholder="State"

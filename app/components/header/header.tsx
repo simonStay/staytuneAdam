@@ -31,7 +31,7 @@ const ROOT: ViewStyle = {
 }
 const TITLE: TextStyle = { textAlign: "center", color: '#E0B34A', fontSize: dimensions.width * 0.056, }
 const TITLE_MIDDLE: ViewStyle = { flex: 1, alignItems: "center" }
-const LEFT: ViewStyle = { width: dimensions.width * 0.06 }
+const LEFT: ViewStyle = { width: dimensions.width * 0.2 }
 const RIGHT: ViewStyle = { width: dimensions.width * 0.096 }
 const RIGHT_TITLE: TextStyle = { color: '#E0B34A', fontSize: dimensions.width * 0.051, alignSelf: 'center' }
 
@@ -57,7 +57,7 @@ export const Header: React.FunctionComponent<HeaderProps> = props => {
   return (
     <View style={{ ...ROOT, ...style }}>
       {leftIcon ? (
-        <Button preset="link" onPress={onLeftPress}>
+        <Button preset="link" style={LEFT} onPress={onLeftPress}>
           <Icon icon={leftIcon} />
         </Button>
       ) : (

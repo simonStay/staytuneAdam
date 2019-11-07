@@ -214,8 +214,8 @@ class MapScreen extends Component<Props, MapScreen, {}> {
               <TouchableOpacity onPress={() => {
                 this.setState({ selectedFilter: false, selectedType: '' })
                 this.props.onRight()
-              }}>
-                <Icon icon={"cancel"} style={{ position: 'absolute', top: 0, right: 0, marginTop: 31, marginRight: 16 }} />
+              }} style={{ width: 100, position: 'absolute', top: 0, right: 0, marginTop: 35 }}>
+                <Icon icon={"cancel"} style={{ marginLeft: 30 }} />
               </TouchableOpacity>
             </View>
             <View style={{ flex: 0.9, flexDirection: 'row', flexWrap: "wrap" }}>
