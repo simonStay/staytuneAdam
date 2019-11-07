@@ -52,9 +52,10 @@ const styles = StyleSheet.create({
     },
     changeProfileText: {
         color: "blue",
-        fontSize: 23,
+        fontSize: fontsize.screenTitle,
         fontFamily: "OpenSans-Semibold",
-        alignSelf: 'center'
+        alignSelf: 'center',
+        textDecorationLine: 'underline'
     },
     lottie: {
         width: 100,

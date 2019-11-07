@@ -4,6 +4,7 @@ import { Text } from "../text"
 import { viewPresets, textPresets } from "./button.presets"
 import { ButtonProps } from "./button.props"
 import { mergeAll, flatten } from "ramda"
+import { dimensions } from '../../theme';
 
 /**
  * For your text displaying needs.
@@ -30,7 +31,7 @@ export function Button(props: ButtonProps) {
   const content = children || <Text tx={tx} text={text} style={textStyle} />
 
   return (
-    <TouchableOpacity style={viewStyle} {...rest}>
+    <TouchableOpacity style={{ ...viewStyle, minHeight: dimensions.width * 0.146 }} {...rest}>
       {content}
     </TouchableOpacity>
   )
