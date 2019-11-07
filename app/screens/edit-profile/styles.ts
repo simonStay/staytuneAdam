@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         borderWidth: 0,
         textAlign: "center",
         color: color.textColor,
-        fontSize: 19,
+        fontSize: fontsize.editprofileText,
         fontFamily: "OpenSans",
     },
     wallpaper: { flex: 1 },
