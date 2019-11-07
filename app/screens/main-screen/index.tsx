@@ -242,6 +242,12 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
     }
   }
 
+  selectedTabButton(value) {
+    //alert("value_123" + value)
+    this.setState({
+      tabId: value
+    })
+  }
   renderContanier() {
     if (this.state.selectedValue == "Edit Profile") {
       return <EditProfile navigation={this.props.navigation} getUpdateUserInfo={this.updatedUserInfo.bind(this)} />
@@ -277,6 +283,7 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
         <UserTravelInfo
           navigation={this.props.navigation}
           tabId={this.state.tabId}
+          selectedTab={this.selectedTabButton.bind(this)}
           tabValue={"BUDGET INFO"}
         />
       )
