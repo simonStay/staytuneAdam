@@ -1,6 +1,8 @@
 import React from 'react';
 import inspirationalQuotes from 'inspirational-quotes';
 import { GiftedChat } from 'react-native-gifted-chat';
+import { View, ScrollView, Text } from 'react-native';
+import styles from './styles';
 
 let id1 = 1;
 let id2 = id1 + 1;
@@ -57,14 +59,21 @@ export default class Chat extends React.Component {
   }
 
   render() {
+    // return (
+    //   <GiftedChat
+    //     messages={this.state.messages}
+    //     onSend={messages => this.onSend(messages)}
+    //     user={{
+    //       _id: 1
+    //     }}
+    //   />
+    // );
     return (
-      <GiftedChat
-        messages={this.state.messages}
-        onSend={messages => this.onSend(messages)}
-        user={{
-          _id: 1
-        }}
-      />
-    );
+      <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <Text style={styles.initialText}>CHAT COMING SOON....</Text>
+        </ScrollView>
+      </View>
+    )
   }
 }

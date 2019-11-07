@@ -906,7 +906,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nueve.staytune;
 				PRODUCT_NAME = StayTune;
-				PROVISIONING_PROFILE_SPECIFIER = staytune_provisionalprofile_Nov5th2019;
+				PROVISIONING_PROFILE_SPECIFIER = staytune_provisionalprofile_Nov6th2019;
 				SWIFT_OBJC_BRIDGING_HEADER = "StayTune-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -934,7 +934,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nueve.staytune;
 				PRODUCT_NAME = StayTune;
-				PROVISIONING_PROFILE_SPECIFIER = staytune_provisionalprofile_Nov5th2019;
+				PROVISIONING_PROFILE_SPECIFIER = staytune_provisionalprofile_Nov6th2019;
 				SWIFT_OBJC_BRIDGING_HEADER = "StayTune-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
