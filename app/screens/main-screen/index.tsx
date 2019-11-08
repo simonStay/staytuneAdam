@@ -274,6 +274,7 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
         <UserTravelInfo
           navigation={this.props.navigation}
           tabId={this.state.tabId}
+          selectedTab={this.selectedTabButton.bind(this)}
           tabValue={"SAVED LOCATIONS"}
           handleSelectedValue={this.handleSelectedValue.bind(this)}
         />
