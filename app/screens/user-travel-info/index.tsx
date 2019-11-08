@@ -215,7 +215,7 @@ class UserTravelInfo extends Component<Props, UserInformation> {
                 <LinearGradient
                     start={{ x: 0.0, y: 0.0 }}
                     end={{ x: 0.0, y: 1.0 }}
-                    locations={[0, 0.5, 1]}
+                    locations={[0, 0.1, 1]}
                     colors={[color.primaryColor, color.primaryColor, "#00000010"]}
                     style={{ width: dimensions.width, height: dimensions.width / 3.91 }}
                 >
