@@ -188,6 +188,10 @@ android {
 }
 
 dependencies {
+    implementation project(':rn-fetch-blob')
+    implementation project(':react-native-device-info')
+    implementation project(':@mauron85_react-native-background-geolocation')
+    implementation project(':react-native-onesignal')
     implementation project(':react-native-svg')
     implementation project(':react-native-text-gradient')
     implementation project(':react-native-linear-gradient')

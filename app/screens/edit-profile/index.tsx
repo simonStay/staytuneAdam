@@ -185,7 +185,7 @@ class EditProfile extends Component<Props, UserInformation> {
           setTimeout(() => {
             Alert.alert(
               "Stay Tune",
-              "Something went wrong",
+              "Server not responding, please try after sometime.",
               [{ text: "OK", onPress: () => console.log("OK Pressed") }],
               { cancelable: false },
             )
