@@ -9,7 +9,7 @@ import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
-import com.marianhello.bgloc.react.BackgroundGeolocationPackage;
+
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.horcrux.svg.SvgPackage;
 import iyegoroff.RNTextGradient.RNTextGradientPackage;
@@ -18,6 +18,9 @@ import com.airbnb.android.react.maps.MapsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
+import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.auth.RNFirebaseAuthPackage;
+import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
 
 import java.util.List;
 
@@ -33,8 +36,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       @SuppressWarnings("UnnecessaryLocalVariable")
       List<ReactPackage> packages = new PackageList(this).getPackages();
-      // Packages that cannot be autolinked yet can be added manually here, for example:
-      // packages.add(new MyReactNativePackage());
+      packages.add(new RNFirebaseAuthPackage());
+      packages.add(new RNFirebaseAnalyticsPackage());
       return packages;
     }
 
