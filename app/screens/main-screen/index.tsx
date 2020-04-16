@@ -18,6 +18,7 @@ import SelectTourGuide from "../select-tour-guide"
 import UserTravelInfo from "../user-travel-info"
 
 import Chat from "../chat"
+import ChatElvis from "../chat-elvis"
 import Notifications from "../notifications"
 
 import { connect } from "react-redux"
@@ -216,8 +217,13 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
           headerTitle: "CHAT",
           isOpen: false,
         })
-      }
-      else if (this.props.navigation.state.params.navigateTo == "NOTIFICATIONS") {
+      } else if (this.props.navigation.state.params.navigateTo == "CHATELVIS") {
+        this.setState({
+          selectedValue: "CHATELVIS",
+          headerTitle: "CHAT",
+          isOpen: false,
+        })  
+      } else if (this.props.navigation.state.params.navigateTo == "NOTIFICATIONS") {
         this.setState({
           selectedValue: "NOTIFICATIONS",
           headerTitle: "NOTIFICATIONS",
@@ -440,6 +446,8 @@ class MainScreen extends Component<Props, UserInformation, extraInfo> {
       )
     } else if (this.state.selectedValue == 'CHAT') {
       return <Chat navigation={this.props.navigation} />
+    } else if (this.state.selectedValue == 'CHATELVIS') {
+      return <ChatElvis navigation={this.props.navigation} />
     } else if (this.state.selectedValue == 'NOTIFICATIONS') {
       return <Notifications
         navigation={this.props.navigation}
