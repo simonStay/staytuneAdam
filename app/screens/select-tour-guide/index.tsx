@@ -55,6 +55,7 @@ class SelectTourGuide extends Component<Props, listOfAvatars, {}> {
       score: 1
     })
     let getTourGuides = await this.props.getAvatarImages()
+    getTourGuides.payload.push({"id":"5dfa071e020ff30032c023aa","name":"ELVIS PRESLEY","url":"https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Elvis_Presley_1970.jpg/389px-Elvis_Presley_1970.jpg","interests":[""],"places":[""]})
     await console.log("getAvatarImages_get:", getTourGuides.payload)
     await this.setState({ avatarImagesList: getTourGuides.payload })
     let id =
@@ -102,15 +103,26 @@ class SelectTourGuide extends Component<Props, listOfAvatars, {}> {
         await this.props.selectedTourGuide(userInfo)
         console.log("this.props.from:", this.props.from)
         if (this.props.from === 'interest') {
-          await this.props.navigation.push("MainScreen", {
-            navigateTo: "CHAT"
-          })
+          if (this.state.selectedAvatarId == '5dfa071e020ff30032c023ae'){
+            await this.props.navigation.push("MainScreen", {
+              navigateTo: "CHAT"
+            })
+          } else if (this.state.selectedAvatarId == '5dfa071e020ff30032c023aa'){
+            await this.props.navigation.push("MainScreen", {
+              navigateTo: "CHATELVIS"
+            })  
+          }
           this.props.getNotification(this.props.preferenceId)
-
         } else {
-          await this.props.navigation.push("MainScreen", {
-            navigateTo: "CHAT"
-          })
+          if (this.state.selectedAvatarId == '5dfa071e020ff30032c023ae'){
+            await this.props.navigation.push("MainScreen", {
+              navigateTo: "CHAT"
+            })
+          } else if (this.state.selectedAvatarId == '5dfa071e020ff30032c023aa'){
+            await this.props.navigation.push("MainScreen", {
+              navigateTo: "CHATELVIS"
+            })  
+          }
         }
         // if (this.props.from === 'interest') {
         //   this.props.navigation.push("MainScreen", {
@@ -145,7 +157,7 @@ class SelectTourGuide extends Component<Props, listOfAvatars, {}> {
       }}>
         <View style={styles.avatarView}>
           {ViewType}
-          <Avatar style={styles.avatarImage} onPress={item.id == '5dfa071e020ff30032c023ae' ? this.onSelect.bind(this, item) : null}>
+          <Avatar style={styles.avatarImage} onPress={(item.id == '5dfa071e020ff30032c023ae' || item.id == '5dfa071e020ff30032c023aa') ? this.onSelect.bind(this, item) : null}>
             <Image
               source={{
                 uri: item.url,
