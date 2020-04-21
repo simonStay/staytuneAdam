@@ -93,13 +93,13 @@ export default customSteps = {
     "ShopsType": {
         "title": "Here is some famous Shops!!!",
         "Shops": [{
-            "label": "Allen's Boots"
+            "label": "Lansky's"
         },
         {
-            "label": "ByGeorge"
+            "label": "Goner Records"
         },
         {
-            "label": "Cove Boutique"
+            "label": "Flashback"
         }
         ]
     },
