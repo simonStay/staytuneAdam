@@ -54,13 +54,19 @@ export default customSteps = {
     "ActivitiesType": {
         "title": "Here is some famous Activities!!!",
         "Activities": [{
-            "label": "Barton Creek Greenbelt"
+            "label": "Lauderdale Courts"
         },
         {
-            "label": "Chapel Dulcinea"
+            "label": "Sun Studio"
         },
         {
-            "label": "Icosa Collective"
+            "label": "Graceland"
+        }
+        {
+            "label": "The Peabody Memphis"
+        }
+        {
+            "label": "Blues Hall of Fame"
         }
         ]
     },
