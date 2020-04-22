@@ -41,14 +41,23 @@ export default customSteps = {
     "RestaurantsType": {
         "title": "Here is some famous Restaurants!!!",
         "Restaurants": [{
-            "label": "Ah Sing Den"
+            "label": "The Arcade"
         },
         {
-            "label": "Barley Swine"
+            "label": "Coletta's"
         },
         {
-            "label": "Cafe No Se"
-        }
+            "label": "Catherine & Mary's"
+        },
+        {
+             "label" : "Johnnie's"
+         },
+         {
+             "label":"Galdy's Diner"
+         },
+         {
+             "label":"Nernon's Smokehouse"
+         }
         ]
     },
     "ActivitiesType": {
