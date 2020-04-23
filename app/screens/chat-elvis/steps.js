@@ -23,7 +23,7 @@ export default customSteps = {
             {
                 "label": "Specialty"
             }
-https://github.com/tyroneparker2        ]
+      ]
     },
     "HotelsType": {
         "title": "Here is some famous Hotels!!!",
