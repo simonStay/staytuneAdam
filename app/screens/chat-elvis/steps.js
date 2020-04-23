@@ -23,7 +23,7 @@ export default customSteps = {
             {
                 "label": "Specialty"
             }
-        ]
+      ]
     },
     "HotelsType": {
         "title": "Here is some famous Hotels!!!",
@@ -82,13 +82,13 @@ export default customSteps = {
     "Bar_LivemusicType": {
         "title": "Here is some famous Bar & Live music!!!",
         "Bar_Livemusic": [{
-            "label": "Antone's"
+            "label": "Beale Street"
         },
         {
-            "label": "Blue Owl Brewing"
+            "label": "Levit Shell"
         },
         {
-            "label": "Container Bar"
+            "label": "Circuit Playhouse"
         }
         ]
     },
