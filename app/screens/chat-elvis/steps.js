@@ -70,10 +70,10 @@ export default customSteps = {
         },
         {
             "label": "Graceland"
-        }
+        },
         {
             "label": "The Peabody Memphis"
-        }
+        },
         {
             "label": "Blues Hall of Fame"
         }
