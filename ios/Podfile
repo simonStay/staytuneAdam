@@ -46,7 +46,7 @@ pod 'Firebase/Analytics'
 
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
-
+  pod 'lottie-ios'
 
   pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
   
