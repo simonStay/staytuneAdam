@@ -277,7 +277,7 @@ class Chat extends Component<Props, chatState> {
 
       let guideInfo = await this.props.getTourGuideById(this.state.travelGuideId)
       //console.log("getGuideById__123:", guideInfo.payload.url)
-      await this.setState({ tourGuidePic: guideInfo.payload.url === undefined ? 'https://image.flaticon.com/icons/png/512/149/149071.png' : guideInfo.payload.url })
+      await this.setState({ tourGuidePic: guideInfo.payload.url === undefined ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Elvis_Presley_1970.jpg/389px-Elvis_Presley_1970.jpg' : guideInfo.payload.url })
       // console.log("user_123", JSON.stringify(this.props.user))
       await this.setState({
         steps: [
