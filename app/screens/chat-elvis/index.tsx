@@ -283,7 +283,7 @@ class Chat extends Component<Props, chatState> {
         steps: [
           {
             id: 'Greet',
-            message: "Hi" + ' ' + userName.charAt(0).toUpperCase() + userName.slice(1) + ", It’s Gwenyth.  Thanks for choosing me as your virtual tour guide. I’ll make sure you get to experience this town in the most unique way.",
+            message: "Hi" + ' ' + userName.charAt(0).toUpperCase() + userName.slice(1) + ", It’s Elvis.  Thanks for choosing me as your virtual tour guide. I’ll make sure you get to experience this town in the most unique way.",
             //Thanks for choosing me as your virtual tour guide. I’ll make sure you get to experience this town in the most unique way.
             trigger: 'Help',
           },
