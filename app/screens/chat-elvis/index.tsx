@@ -5,6 +5,7 @@ import{
   StyleSheet
 } from 'react-native';
 import Chatbox from 'react-native-chatbot';
+import customSteps from "./steps.js"
 
 const style = StyleSheet.create({
   container: {
