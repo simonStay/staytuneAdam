@@ -14,6 +14,15 @@ Currently includes:
 - TypeScript
 - And more!
 
+# How to setup app on Windows
+- clone the repo
+- cd into the folder
+- run npm intall command
+  - Windows: npm install
+- start up your phone emulator
+- run the app with the command
+    - Windows: react-native run-android
+
 ## Quick Start
 
 The Ignite Bowser boilerplate project's structure will look similar to this:
